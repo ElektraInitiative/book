@@ -1,0 +1,35 @@
+               evaluate no sub  0.107455 sec     Sum: 1.173686 sec      Avg: 0.106698 sec       Min: 0.105287 sec       Max: 0.108874 sec       Median: 0.105537 sec
+                   sync layers  0.078840 sec     Sum: 0.881119 sec      Avg: 0.080101 sec       Min: 0.078801 sec       Max: 0.084189 sec       Median: 0.079778 sec
+                    layer with  6.352678 sec     Sum: 70.376333 sec     Avg: 6.397848 sec       Min: 6.235935 sec       Max: 6.730333 sec       Median: 6.347946 sec
+                   layer withx  6.334355 sec     Sum: 70.084701 sec     Avg: 6.371336 sec       Min: 6.138354 sec       Max: 6.742029 sec       Median: 6.330994 sec
+                   layer with0  0.091101 sec     Sum: 1.002761 sec      Avg: 0.091160 sec       Min: 0.088019 sec       Max: 0.093583 sec       Median: 0.091009 sec
+                   layer with1  1.441136 sec     Sum: 15.808729 sec     Avg: 1.437157 sec       Min: 1.368571 sec       Max: 1.481993 sec       Median: 1.441136 sec
+                   layer with2  2.661671 sec     Sum: 28.933817 sec     Avg: 2.630347 sec       Min: 2.544831 sec       Max: 2.706545 sec       Median: 2.631588 sec
+                   layer with3  3.829863 sec     Sum: 42.089748 sec     Avg: 3.826340 sec       Min: 3.728152 sec       Max: 3.932358 sec       Median: 3.826386 sec
+                   layer with4  4.882736 sec     Sum: 54.816675 sec     Avg: 4.983334 sec       Min: 4.882736 sec       Max: 5.135292 sec       Median: 4.917692 sec
+                   layer with5  5.905803 sec     Sum: 67.790764 sec     Avg: 6.162796 sec       Min: 5.905803 sec       Max: 6.383083 sec       Median: 6.181972 sec
+                   layer with6  7.379778 sec     Sum: 80.932537 sec     Avg: 7.357503 sec       Min: 7.075548 sec       Max: 7.626783 sec       Median: 7.379778 sec
+                   layer with7  8.402019 sec     Sum: 95.315886 sec     Avg: 8.665080 sec       Min: 8.402019 sec       Max: 8.868297 sec       Median: 8.691020 sec
+                   layer with8  9.884087 sec     Sum: 108.815877 sec    Avg: 9.892352 sec       Min: 9.786695 sec       Max: 10.097469 sec      Median: 9.877147 sec
+                   layer with9  11.110160 sec    Sum: 122.099699 sec    Avg: 11.099972 sec      Min: 10.817801 sec      Max: 11.336525 sec      Median: 11.086967 sec
+                  layer switch  6.740351 sec     Sum: 74.562252 sec     Avg: 6.778386 sec       Min: 6.601073 sec       Max: 6.921598 sec       Median: 6.740351 sec
+                 layer switch0  0.283015 sec     Sum: 3.132550 sec      Avg: 0.284777 sec       Min: 0.276133 sec       Max: 0.291543 sec       Median: 0.283015 sec
+                 layer switch1  1.758841 sec     Sum: 19.409877 sec     Avg: 1.764534 sec       Min: 1.740039 sec       Max: 1.789641 sec       Median: 1.758841 sec
+                 layer switch2  2.925341 sec     Sum: 32.564368 sec     Avg: 2.960397 sec       Min: 2.922639 sec       Max: 3.011134 sec       Median: 2.938011 sec
+                 layer switch3  4.087302 sec     Sum: 45.377086 sec     Avg: 4.125189 sec       Min: 3.960425 sec       Max: 4.215067 sec       Median: 4.107194 sec
+                 layer switch4  5.242843 sec     Sum: 58.394458 sec     Avg: 5.308587 sec       Min: 5.172066 sec       Max: 5.477792 sec       Median: 5.269804 sec
+                 layer switch5  6.416172 sec     Sum: 71.413215 sec     Avg: 6.492110 sec       Min: 6.265912 sec       Max: 6.750847 sec       Median: 6.441647 sec
+                 layer switch6  7.583236 sec     Sum: 84.518733 sec     Avg: 7.683521 sec       Min: 7.562666 sec       Max: 7.837044 sec       Median: 7.633651 sec
+                 layer switch7  9.057198 sec     Sum: 98.991179 sec     Avg: 8.999198 sec       Min: 8.726021 sec       Max: 9.222090 sec       Median: 9.029645 sec
+                 layer switch8  10.379024 sec    Sum: 113.046275 sec    Avg: 10.276934 sec      Min: 10.114632 sec      Max: 10.571014 sec      Median: 10.247476 sec
+                 layer switch9  11.434628 sec    Sum: 126.923464 sec    Avg: 11.538496 sec      Min: 11.410350 sec      Max: 11.857450 sec      Median: 11.445077 sec
+                      evaluate  0.106470 sec     Sum: 1.220695 sec      Avg: 0.110972 sec       Min: 0.106470 sec       Max: 0.114693 sec       Median: 0.111599 sec
+                     evaluate0  0.101833 sec     Sum: 1.153879 sec      Avg: 0.104898 sec       Min: 0.101833 sec       Max: 0.107059 sec       Median: 0.105162 sec
+                     evaluate1  0.111820 sec     Sum: 1.273840 sec      Avg: 0.115803 sec       Min: 0.111820 sec       Max: 0.118368 sec       Median: 0.116120 sec
+                     evaluate2  0.124328 sec     Sum: 1.418821 sec      Avg: 0.128983 sec       Min: 0.124328 sec       Max: 0.131781 sec       Median: 0.129213 sec
+                     evaluate3  0.135556 sec     Sum: 1.544515 sec      Avg: 0.140410 sec       Min: 0.135556 sec       Max: 0.143402 sec       Median: 0.140606 sec
+                     evaluate4  0.146689 sec     Sum: 1.670554 sec      Avg: 0.151868 sec       Min: 0.146689 sec       Max: 0.155117 sec       Median: 0.151973 sec
+                     evaluate5  0.160437 sec     Sum: 1.830876 sec      Avg: 0.166443 sec       Min: 0.160437 sec       Max: 0.169937 sec       Median: 0.166655 sec
+                      kslookup  0.029336 sec     Sum: 0.333087 sec      Avg: 0.030280 sec       Min: 0.029336 sec       Max: 0.031070 sec       Median: 0.030230 sec
+                       hashmap  0.015721 sec     Sum: 0.178743 sec      Avg: 0.016249 sec       Min: 0.015721 sec       Max: 0.016551 sec       Median: 0.016248 sec
+                  hashmap find  0.015830 sec     Sum: 0.179980 sec      Avg: 0.016361 sec       Min: 0.015830 sec       Max: 0.016779 sec       Median: 0.016328 sec

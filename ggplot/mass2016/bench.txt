@@ -1,0 +1,139 @@
+hostname markusbyte
+gcc: 4
+sizeof(int) 4
+sizeof(long) 8
+sizeof(long long) 8
+iterations 100000
+
+0
+                       nothing  0.000030 sec     Sum: 0.000030 sec      Avg: 0.000030 sec       Min: 0.000030 sec       Max: 0.000030 sec       Median: 0.000030 sec
+                      backend0  0.679608 sec     Sum: 0.679608 sec      Avg: 0.679608 sec       Min: 0.679608 sec       Max: 0.679608 sec       Median: 0.679608 sec
+                      backend1  0.709664 sec     Sum: 0.709664 sec      Avg: 0.709664 sec       Min: 0.709664 sec       Max: 0.709664 sec       Median: 0.709664 sec
+                      backend2  0.743053 sec     Sum: 0.743053 sec      Avg: 0.743053 sec       Min: 0.743053 sec       Max: 0.743053 sec       Median: 0.743053 sec
+                      backend3  0.773355 sec     Sum: 0.773355 sec      Avg: 0.773355 sec       Min: 0.773355 sec       Max: 0.773355 sec       Median: 0.773355 sec
+                      backend4  0.805582 sec     Sum: 0.805582 sec      Avg: 0.805582 sec       Min: 0.805582 sec       Max: 0.805582 sec       Median: 0.805582 sec
+                      backend5  0.839992 sec     Sum: 0.839992 sec      Avg: 0.839992 sec       Min: 0.839992 sec       Max: 0.839992 sec       Median: 0.839992 sec
+                      backend6  0.858151 sec     Sum: 0.858151 sec      Avg: 0.858151 sec       Min: 0.858151 sec       Max: 0.858151 sec       Median: 0.858151 sec
+                      backend7  0.889066 sec     Sum: 0.889066 sec      Avg: 0.889066 sec       Min: 0.889066 sec       Max: 0.889066 sec       Median: 0.889066 sec
+                      backend8  0.920228 sec     Sum: 0.920228 sec      Avg: 0.920228 sec       Min: 0.920228 sec       Max: 0.920228 sec       Median: 0.920228 sec
+                      backend9  0.953519 sec     Sum: 0.953519 sec      Avg: 0.953519 sec       Min: 0.953519 sec       Max: 0.953519 sec       Median: 0.953519 sec
+1
+                       nothing  0.000032 sec     Sum: 0.000062 sec      Avg: 0.000031 sec       Min: 0.000030 sec       Max: 0.000032 sec       Median: 0.000032 sec
+                      backend0  0.675966 sec     Sum: 1.355574 sec      Avg: 0.677787 sec       Min: 0.675966 sec       Max: 0.679608 sec       Median: 0.679608 sec
+                      backend1  0.710015 sec     Sum: 1.419679 sec      Avg: 0.709839 sec       Min: 0.709664 sec       Max: 0.710015 sec       Median: 0.710015 sec
+                      backend2  0.743515 sec     Sum: 1.486568 sec      Avg: 0.743284 sec       Min: 0.743053 sec       Max: 0.743515 sec       Median: 0.743515 sec
+                      backend3  0.774923 sec     Sum: 1.548278 sec      Avg: 0.774139 sec       Min: 0.773355 sec       Max: 0.774923 sec       Median: 0.774923 sec
+                      backend4  0.809160 sec     Sum: 1.614742 sec      Avg: 0.807371 sec       Min: 0.805582 sec       Max: 0.809160 sec       Median: 0.809160 sec
+                      backend5  0.830787 sec     Sum: 1.670779 sec      Avg: 0.835389 sec       Min: 0.830787 sec       Max: 0.839992 sec       Median: 0.839992 sec
+                      backend6  0.858366 sec     Sum: 1.716517 sec      Avg: 0.858258 sec       Min: 0.858151 sec       Max: 0.858366 sec       Median: 0.858366 sec
+                      backend7  0.888303 sec     Sum: 1.777369 sec      Avg: 0.888684 sec       Min: 0.888303 sec       Max: 0.889066 sec       Median: 0.889066 sec
+                      backend8  0.919833 sec     Sum: 1.840061 sec      Avg: 0.920030 sec       Min: 0.919833 sec       Max: 0.920228 sec       Median: 0.920228 sec
+                      backend9  0.947571 sec     Sum: 1.901090 sec      Avg: 0.950545 sec       Min: 0.947571 sec       Max: 0.953519 sec       Median: 0.953519 sec
+2
+                       nothing  0.000030 sec     Sum: 0.000092 sec      Avg: 0.000030 sec       Min: 0.000030 sec       Max: 0.000032 sec       Median: 0.000030 sec
+                      backend0  0.677291 sec     Sum: 2.032865 sec      Avg: 0.677621 sec       Min: 0.675966 sec       Max: 0.679608 sec       Median: 0.677291 sec
+                      backend1  0.707859 sec     Sum: 2.127538 sec      Avg: 0.709179 sec       Min: 0.707859 sec       Max: 0.710015 sec       Median: 0.709664 sec
+                      backend2  0.740466 sec     Sum: 2.227034 sec      Avg: 0.742344 sec       Min: 0.740466 sec       Max: 0.743515 sec       Median: 0.743053 sec
+                      backend3  0.772200 sec     Sum: 2.320478 sec      Avg: 0.773492 sec       Min: 0.772200 sec       Max: 0.774923 sec       Median: 0.773355 sec
+                      backend4  0.806265 sec     Sum: 2.421007 sec      Avg: 0.807002 sec       Min: 0.805582 sec       Max: 0.809160 sec       Median: 0.806265 sec
+                      backend5  0.829567 sec     Sum: 2.500346 sec      Avg: 0.833448 sec       Min: 0.829567 sec       Max: 0.839992 sec       Median: 0.830787 sec
+                      backend6  0.856825 sec     Sum: 2.573342 sec      Avg: 0.857780 sec       Min: 0.856825 sec       Max: 0.858366 sec       Median: 0.858151 sec
+                      backend7  0.889059 sec     Sum: 2.666428 sec      Avg: 0.888809 sec       Min: 0.888303 sec       Max: 0.889066 sec       Median: 0.889059 sec
+                      backend8  0.917998 sec     Sum: 2.758059 sec      Avg: 0.919353 sec       Min: 0.917998 sec       Max: 0.920228 sec       Median: 0.919833 sec
+                      backend9  0.945595 sec     Sum: 2.846685 sec      Avg: 0.948895 sec       Min: 0.945595 sec       Max: 0.953519 sec       Median: 0.947571 sec
+3
+                       nothing  0.000029 sec     Sum: 0.000121 sec      Avg: 0.000030 sec       Min: 0.000029 sec       Max: 0.000032 sec       Median: 0.000030 sec
+                      backend0  0.678467 sec     Sum: 2.711332 sec      Avg: 0.677833 sec       Min: 0.675966 sec       Max: 0.679608 sec       Median: 0.678467 sec
+                      backend1  0.710586 sec     Sum: 2.838124 sec      Avg: 0.709531 sec       Min: 0.707859 sec       Max: 0.710586 sec       Median: 0.710015 sec
+                      backend2  0.741372 sec     Sum: 2.968406 sec      Avg: 0.742101 sec       Min: 0.740466 sec       Max: 0.743515 sec       Median: 0.743053 sec
+                      backend3  0.769964 sec     Sum: 3.090442 sec      Avg: 0.772610 sec       Min: 0.769964 sec       Max: 0.774923 sec       Median: 0.773355 sec
+                      backend4  0.797637 sec     Sum: 3.218644 sec      Avg: 0.804661 sec       Min: 0.797637 sec       Max: 0.809160 sec       Median: 0.806265 sec
+                      backend5  0.831293 sec     Sum: 3.331639 sec      Avg: 0.832909 sec       Min: 0.829567 sec       Max: 0.839992 sec       Median: 0.831293 sec
+                      backend6  0.858294 sec     Sum: 3.431636 sec      Avg: 0.857909 sec       Min: 0.856825 sec       Max: 0.858366 sec       Median: 0.858294 sec
+                      backend7  0.885974 sec     Sum: 3.552402 sec      Avg: 0.888100 sec       Min: 0.885974 sec       Max: 0.889066 sec       Median: 0.889059 sec
+                      backend8  0.919628 sec     Sum: 3.677687 sec      Avg: 0.919421 sec       Min: 0.917998 sec       Max: 0.920228 sec       Median: 0.919833 sec
+                      backend9  0.947319 sec     Sum: 3.794004 sec      Avg: 0.948501 sec       Min: 0.945595 sec       Max: 0.953519 sec       Median: 0.947571 sec
+4
+                       nothing  0.000037 sec     Sum: 0.000158 sec      Avg: 0.000031 sec       Min: 0.000029 sec       Max: 0.000037 sec       Median: 0.000030 sec
+                      backend0  0.677145 sec     Sum: 3.388477 sec      Avg: 0.677695 sec       Min: 0.675966 sec       Max: 0.679608 sec       Median: 0.677291 sec
+                      backend1  0.711530 sec     Sum: 3.549654 sec      Avg: 0.709930 sec       Min: 0.707859 sec       Max: 0.711530 sec       Median: 0.710015 sec
+                      backend2  0.743193 sec     Sum: 3.711599 sec      Avg: 0.742319 sec       Min: 0.740466 sec       Max: 0.743515 sec       Median: 0.743053 sec
+                      backend3  0.783311 sec     Sum: 3.873753 sec      Avg: 0.774750 sec       Min: 0.769964 sec       Max: 0.783311 sec       Median: 0.773355 sec
+                      backend4  0.807743 sec     Sum: 4.026387 sec      Avg: 0.805277 sec       Min: 0.797637 sec       Max: 0.809160 sec       Median: 0.806265 sec
+                      backend5  0.850642 sec     Sum: 4.182281 sec      Avg: 0.836456 sec       Min: 0.829567 sec       Max: 0.850642 sec       Median: 0.831293 sec
+                      backend6  0.873632 sec     Sum: 4.305268 sec      Avg: 0.861053 sec       Min: 0.856825 sec       Max: 0.873632 sec       Median: 0.858294 sec
+                      backend7  0.895157 sec     Sum: 4.447559 sec      Avg: 0.889511 sec       Min: 0.885974 sec       Max: 0.895157 sec       Median: 0.889059 sec
+                      backend8  0.924225 sec     Sum: 4.601912 sec      Avg: 0.920382 sec       Min: 0.917998 sec       Max: 0.924225 sec       Median: 0.919833 sec
+                      backend9  0.952388 sec     Sum: 4.746392 sec      Avg: 0.949278 sec       Min: 0.945595 sec       Max: 0.953519 sec       Median: 0.947571 sec
+5
+                       nothing  0.000035 sec     Sum: 0.000193 sec      Avg: 0.000032 sec       Min: 0.000029 sec       Max: 0.000037 sec       Median: 0.000032 sec
+                      backend0  0.678788 sec     Sum: 4.067265 sec      Avg: 0.677877 sec       Min: 0.675966 sec       Max: 0.679608 sec       Median: 0.678467 sec
+                      backend1  0.712615 sec     Sum: 4.262269 sec      Avg: 0.710378 sec       Min: 0.707859 sec       Max: 0.712615 sec       Median: 0.710586 sec
+                      backend2  0.741649 sec     Sum: 4.453248 sec      Avg: 0.742208 sec       Min: 0.740466 sec       Max: 0.743515 sec       Median: 0.743053 sec
+                      backend3  0.771217 sec     Sum: 4.644970 sec      Avg: 0.774161 sec       Min: 0.769964 sec       Max: 0.783311 sec       Median: 0.773355 sec
+                      backend4  0.801382 sec     Sum: 4.827769 sec      Avg: 0.804628 sec       Min: 0.797637 sec       Max: 0.809160 sec       Median: 0.806265 sec
+                      backend5  0.827514 sec     Sum: 5.009795 sec      Avg: 0.834965 sec       Min: 0.827514 sec       Max: 0.850642 sec       Median: 0.831293 sec
+                      backend6  0.860900 sec     Sum: 5.166168 sec      Avg: 0.861028 sec       Min: 0.856825 sec       Max: 0.873632 sec       Median: 0.858366 sec
+                      backend7  0.888935 sec     Sum: 5.336494 sec      Avg: 0.889415 sec       Min: 0.885974 sec       Max: 0.895157 sec       Median: 0.889059 sec
+                      backend8  0.919435 sec     Sum: 5.521347 sec      Avg: 0.920224 sec       Min: 0.917998 sec       Max: 0.924225 sec       Median: 0.919833 sec
+                      backend9  0.947296 sec     Sum: 5.693688 sec      Avg: 0.948948 sec       Min: 0.945595 sec       Max: 0.953519 sec       Median: 0.947571 sec
+6
+                       nothing  0.000026 sec     Sum: 0.000219 sec      Avg: 0.000031 sec       Min: 0.000026 sec       Max: 0.000037 sec       Median: 0.000030 sec
+                      backend0  0.678658 sec     Sum: 4.745923 sec      Avg: 0.677989 sec       Min: 0.675966 sec       Max: 0.679608 sec       Median: 0.678467 sec
+                      backend1  0.712535 sec     Sum: 4.974804 sec      Avg: 0.710686 sec       Min: 0.707859 sec       Max: 0.712615 sec       Median: 0.710586 sec
+                      backend2  0.744634 sec     Sum: 5.197882 sec      Avg: 0.742554 sec       Min: 0.740466 sec       Max: 0.744634 sec       Median: 0.743053 sec
+                      backend3  0.773859 sec     Sum: 5.418829 sec      Avg: 0.774118 sec       Min: 0.769964 sec       Max: 0.783311 sec       Median: 0.773355 sec
+                      backend4  0.803912 sec     Sum: 5.631681 sec      Avg: 0.804525 sec       Min: 0.797637 sec       Max: 0.809160 sec       Median: 0.805582 sec
+                      backend5  0.834925 sec     Sum: 5.844720 sec      Avg: 0.834960 sec       Min: 0.827514 sec       Max: 0.850642 sec       Median: 0.831293 sec
+                      backend6  0.859006 sec     Sum: 6.025174 sec      Avg: 0.860739 sec       Min: 0.856825 sec       Max: 0.873632 sec       Median: 0.858366 sec
+                      backend7  0.889190 sec     Sum: 6.225684 sec      Avg: 0.889383 sec       Min: 0.885974 sec       Max: 0.895157 sec       Median: 0.889059 sec
+                      backend8  0.917643 sec     Sum: 6.438990 sec      Avg: 0.919855 sec       Min: 0.917643 sec       Max: 0.924225 sec       Median: 0.919628 sec
+                      backend9  0.947234 sec     Sum: 6.640922 sec      Avg: 0.948703 sec       Min: 0.945595 sec       Max: 0.953519 sec       Median: 0.947319 sec
+7
+                       nothing  0.000030 sec     Sum: 0.000249 sec      Avg: 0.000031 sec       Min: 0.000026 sec       Max: 0.000037 sec       Median: 0.000030 sec
+                      backend0  0.677359 sec     Sum: 5.423282 sec      Avg: 0.677910 sec       Min: 0.675966 sec       Max: 0.679608 sec       Median: 0.678467 sec
+                      backend1  0.710845 sec     Sum: 5.685649 sec      Avg: 0.710706 sec       Min: 0.707859 sec       Max: 0.712615 sec       Median: 0.710845 sec
+                      backend2  0.742376 sec     Sum: 5.940258 sec      Avg: 0.742532 sec       Min: 0.740466 sec       Max: 0.744634 sec       Median: 0.743053 sec
+                      backend3  0.776090 sec     Sum: 6.194919 sec      Avg: 0.774364 sec       Min: 0.769964 sec       Max: 0.783311 sec       Median: 0.773859 sec
+                      backend4  0.802376 sec     Sum: 6.434057 sec      Avg: 0.804257 sec       Min: 0.797637 sec       Max: 0.809160 sec       Median: 0.805582 sec
+                      backend5  0.836241 sec     Sum: 6.680961 sec      Avg: 0.835120 sec       Min: 0.827514 sec       Max: 0.850642 sec       Median: 0.834925 sec
+                      backend6  0.865808 sec     Sum: 6.890982 sec      Avg: 0.861372 sec       Min: 0.856825 sec       Max: 0.873632 sec       Median: 0.859006 sec
+                      backend7  0.886346 sec     Sum: 7.112030 sec      Avg: 0.889003 sec       Min: 0.885974 sec       Max: 0.895157 sec       Median: 0.889059 sec
+                      backend8  0.921592 sec     Sum: 7.360582 sec      Avg: 0.920072 sec       Min: 0.917643 sec       Max: 0.924225 sec       Median: 0.919833 sec
+                      backend9  0.958390 sec     Sum: 7.599312 sec      Avg: 0.949914 sec       Min: 0.945595 sec       Max: 0.958390 sec       Median: 0.947571 sec
+8
+                       nothing  0.000026 sec     Sum: 0.000275 sec      Avg: 0.000030 sec       Min: 0.000026 sec       Max: 0.000037 sec       Median: 0.000030 sec
+                      backend0  0.676512 sec     Sum: 6.099794 sec      Avg: 0.677754 sec       Min: 0.675966 sec       Max: 0.679608 sec       Median: 0.677359 sec
+                      backend1  0.711919 sec     Sum: 6.397568 sec      Avg: 0.710840 sec       Min: 0.707859 sec       Max: 0.712615 sec       Median: 0.710845 sec
+                      backend2  0.741050 sec     Sum: 6.681308 sec      Avg: 0.742367 sec       Min: 0.740466 sec       Max: 0.744634 sec       Median: 0.742376 sec
+                      backend3  0.778726 sec     Sum: 6.973645 sec      Avg: 0.774849 sec       Min: 0.769964 sec       Max: 0.783311 sec       Median: 0.773859 sec
+                      backend4  0.800760 sec     Sum: 7.234817 sec      Avg: 0.803868 sec       Min: 0.797637 sec       Max: 0.809160 sec       Median: 0.803912 sec
+                      backend5  0.831531 sec     Sum: 7.512492 sec      Avg: 0.834721 sec       Min: 0.827514 sec       Max: 0.850642 sec       Median: 0.831531 sec
+                      backend6  0.865171 sec     Sum: 7.756153 sec      Avg: 0.861794 sec       Min: 0.856825 sec       Max: 0.873632 sec       Median: 0.859006 sec
+                      backend7  0.891406 sec     Sum: 8.003436 sec      Avg: 0.889270 sec       Min: 0.885974 sec       Max: 0.895157 sec       Median: 0.889059 sec
+                      backend8  0.918221 sec     Sum: 8.278803 sec      Avg: 0.919867 sec       Min: 0.917643 sec       Max: 0.924225 sec       Median: 0.919628 sec
+                      backend9  0.953255 sec     Sum: 8.552567 sec      Avg: 0.950285 sec       Min: 0.945595 sec       Max: 0.958390 sec       Median: 0.947571 sec
+9
+                       nothing  0.000048 sec     Sum: 0.000323 sec      Avg: 0.000032 sec       Min: 0.000026 sec       Max: 0.000048 sec       Median: 0.000030 sec
+                      backend0  0.677139 sec     Sum: 6.776933 sec      Avg: 0.677693 sec       Min: 0.675966 sec       Max: 0.679608 sec       Median: 0.677359 sec
+                      backend1  0.713725 sec     Sum: 7.111293 sec      Avg: 0.711129 sec       Min: 0.707859 sec       Max: 0.713725 sec       Median: 0.711530 sec
+                      backend2  0.742832 sec     Sum: 7.424140 sec      Avg: 0.742414 sec       Min: 0.740466 sec       Max: 0.744634 sec       Median: 0.742832 sec
+                      backend3  0.777484 sec     Sum: 7.751129 sec      Avg: 0.775112 sec       Min: 0.769964 sec       Max: 0.783311 sec       Median: 0.774923 sec
+                      backend4  0.798584 sec     Sum: 8.033401 sec      Avg: 0.803340 sec       Min: 0.797637 sec       Max: 0.809160 sec       Median: 0.803912 sec
+                      backend5  0.830416 sec     Sum: 8.342908 sec      Avg: 0.834290 sec       Min: 0.827514 sec       Max: 0.850642 sec       Median: 0.831531 sec
+                      backend6  0.864122 sec     Sum: 8.620275 sec      Avg: 0.862027 sec       Min: 0.856825 sec       Max: 0.873632 sec       Median: 0.860900 sec
+                      backend7  0.887437 sec     Sum: 8.890873 sec      Avg: 0.889087 sec       Min: 0.885974 sec       Max: 0.895157 sec       Median: 0.889059 sec
+                      backend8  0.918779 sec     Sum: 9.197582 sec      Avg: 0.919758 sec       Min: 0.917643 sec       Max: 0.924225 sec       Median: 0.919628 sec
+                      backend9  0.947600 sec     Sum: 9.500167 sec      Avg: 0.950016 sec       Min: 0.945595 sec       Max: 0.958390 sec       Median: 0.947600 sec
+10
+                       nothing  0.000032 sec     Sum: 0.000355 sec      Avg: 0.000032 sec       Min: 0.000026 sec       Max: 0.000048 sec       Median: 0.000030 sec
+                      backend0  0.677519 sec     Sum: 7.454452 sec      Avg: 0.677677 sec       Min: 0.675966 sec       Max: 0.679608 sec       Median: 0.677359 sec
+                      backend1  0.711705 sec     Sum: 7.822998 sec      Avg: 0.711181 sec       Min: 0.707859 sec       Max: 0.713725 sec       Median: 0.711530 sec
+                      backend2  0.741341 sec     Sum: 8.165481 sec      Avg: 0.742316 sec       Min: 0.740466 sec       Max: 0.744634 sec       Median: 0.742376 sec
+                      backend3  0.774680 sec     Sum: 8.525809 sec      Avg: 0.775073 sec       Min: 0.769964 sec       Max: 0.783311 sec       Median: 0.774680 sec
+                      backend4  0.802456 sec     Sum: 8.835857 sec      Avg: 0.803259 sec       Min: 0.797637 sec       Max: 0.809160 sec       Median: 0.802456 sec
+                      backend5  0.834603 sec     Sum: 9.177511 sec      Avg: 0.834319 sec       Min: 0.827514 sec       Max: 0.850642 sec       Median: 0.831531 sec
+                      backend6  0.858274 sec     Sum: 9.478549 sec      Avg: 0.861686 sec       Min: 0.856825 sec       Max: 0.873632 sec       Median: 0.859006 sec
+                      backend7  0.892431 sec     Sum: 9.783304 sec      Avg: 0.889391 sec       Min: 0.885974 sec       Max: 0.895157 sec       Median: 0.889059 sec
+                      backend8  0.919016 sec     Sum: 10.116598 sec     Avg: 0.919690 sec       Min: 0.917643 sec       Max: 0.924225 sec       Median: 0.919435 sec
+                      backend9  0.945516 sec     Sum: 10.445683 sec     Avg: 0.949607 sec       Min: 0.945516 sec       Max: 0.958390 sec       Median: 0.947571 sec

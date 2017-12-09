@@ -1,0 +1,232 @@
+value,benchmark
+with 9 layer,27.149875
+with 9 layer,27.132520
+with 9 layer,27.130013
+with 9 layer,27.130208
+with 9 layer,27.132763
+with 9 layer,27.133154
+with 9 layer,27.130381
+with 9 layer,27.132206
+with 9 layer,27.133549
+with 9 layer,27.133921
+with 9 layer,27.131586
+with 8 layer,27.132609
+with 8 layer,27.130938
+with 8 layer,27.131270
+with 8 layer,27.129761
+with 8 layer,27.129831
+with 8 layer,27.132997
+with 8 layer,27.134136
+with 8 layer,27.133047
+with 8 layer,27.130885
+with 8 layer,27.130816
+with 8 layer,27.137360
+with 7 layer,27.133970
+with 7 layer,27.129583
+with 7 layer,27.131332
+with 7 layer,27.136261
+with 7 layer,27.133429
+with 7 layer,27.132281
+with 7 layer,27.133091
+with 7 layer,27.131447
+with 7 layer,27.143062
+with 7 layer,27.132791
+with 7 layer,27.132612
+with 6 layer,27.138203
+with 6 layer,27.138542
+with 6 layer,27.130300
+with 6 layer,27.129323
+with 6 layer,27.129888
+with 6 layer,27.134295
+with 6 layer,27.133237
+with 6 layer,27.129313
+with 6 layer,27.131664
+with 6 layer,27.131288
+with 6 layer,27.135904
+with 5 layer,27.136398
+with 5 layer,27.130038
+with 5 layer,27.131366
+with 5 layer,27.182408
+with 5 layer,27.159049
+with 5 layer,27.182095
+with 5 layer,27.161518
+with 5 layer,27.155059
+with 5 layer,27.156826
+with 5 layer,27.161826
+with 5 layer,27.131798
+with 4 layer,27.131745
+with 4 layer,27.133015
+with 4 layer,27.130984
+with 4 layer,27.130977
+with 4 layer,27.130133
+with 4 layer,27.133489
+with 4 layer,27.133414
+with 4 layer,27.130181
+with 4 layer,27.132640
+with 4 layer,27.134059
+with 4 layer,27.134518
+with 3 layer,6.787996
+with 3 layer,6.784629
+with 3 layer,6.786067
+with 3 layer,6.786979
+with 3 layer,6.786184
+with 3 layer,6.786206
+with 3 layer,6.788273
+with 3 layer,6.786097
+with 3 layer,6.787648
+with 3 layer,6.786222
+with 3 layer,6.785445
+with 2 layer,6.786137
+with 2 layer,6.784296
+with 2 layer,6.787645
+with 2 layer,6.788796
+with 2 layer,6.787112
+with 2 layer,6.786602
+with 2 layer,6.786565
+with 2 layer,6.789808
+with 2 layer,6.786527
+with 2 layer,6.786559
+with 2 layer,6.784981
+with 1 layer,27.133860
+with 1 layer,27.131351
+with 1 layer,27.127691
+with 1 layer,27.132125
+with 1 layer,27.138461
+with 1 layer,27.132709
+with 1 layer,27.131732
+with 1 layer,27.129970
+with 1 layer,27.132771
+with 1 layer,27.133873
+with 1 layer,27.131771
+with 0 layer,27.130336
+with 0 layer,27.135293
+with 0 layer,27.129642
+with 0 layer,27.130726
+with 0 layer,27.128904
+with 0 layer,27.130889
+with 0 layer,27.133088
+with 0 layer,27.129558
+with 0 layer,27.130027
+with 0 layer,27.132600
+with 0 layer,27.135928
+contextual noif sum,0.000001
+contextual noif sum,0.000000
+contextual noif sum,0.000000
+contextual noif sum,0.000000
+contextual noif sum,0.000000
+contextual noif sum,0.000000
+contextual noif sum,0.000000
+contextual noif sum,0.000000
+contextual noif sum,0.000000
+contextual noif sum,0.000000
+contextual noif sum,0.000001
+contextual noif,27.134709
+contextual noif,27.137772
+contextual noif,27.128493
+contextual noif,27.132492
+contextual noif,27.132048
+contextual noif,27.131943
+contextual noif,27.130655
+contextual noif,27.132666
+contextual noif,27.133118
+contextual noif,27.130127
+contextual noif,27.133299
+noif array sum,0.000000
+noif array sum,0.000000
+noif array sum,0.000000
+noif array sum,0.000000
+noif array sum,0.000000
+noif array sum,0.000000
+noif array sum,0.000001
+noif array sum,0.000000
+noif array sum,0.000000
+noif array sum,0.000001
+noif array sum,0.000000
+noif array,27.131209
+noif array,27.133406
+noif array,27.130359
+noif array,27.127760
+noif array,27.133162
+noif array,27.132110
+noif array,27.132346
+noif array,27.129738
+noif array,27.130418
+noif array,27.134534
+noif array,27.134429
+contextual noif virtual,298.445999
+contextual noif virtual,298.442493
+contextual noif virtual,298.371019
+contextual noif virtual,298.371913
+contextual noif virtual,298.408657
+contextual noif virtual,298.396030
+contextual noif virtual,298.399619
+contextual noif virtual,298.395591
+contextual noif virtual,298.397228
+contextual noif virtual,298.393813
+contextual noif virtual,298.467415
+contextual if withop,54.264741
+contextual if withop,54.265466
+contextual if withop,54.275926
+contextual if withop,54.279101
+contextual if withop,54.285847
+contextual if withop,54.283354
+contextual if withop,54.284054
+contextual if withop,54.283378
+contextual if withop,54.284358
+contextual if withop,54.287014
+contextual if withop,54.266857
+contextual if withop atomic,515.467997
+contextual if withop atomic,515.498849
+contextual if withop atomic,515.397260
+contextual if withop atomic,515.391242
+contextual if withop atomic,515.435102
+contextual if withop atomic,515.426547
+contextual if withop atomic,515.431284
+contextual if withop atomic,515.442622
+contextual if withop atomic,515.463766
+contextual if withop atomic,515.434986
+contextual if withop atomic,515.468454
+contextual if noop,54.267350
+contextual if noop,54.264626
+contextual if noop,54.304249
+contextual if noop,54.280036
+contextual if noop,54.279763
+contextual if noop,54.285778
+contextual if noop,54.283434
+contextual if noop,54.283349
+contextual if noop,54.286767
+contextual if noop,54.282241
+contextual if noop,54.283507
+noif native,0.000000
+noif native,0.000000
+noif native,0.000000
+noif native,0.000000
+noif native,0.000000
+noif native,0.000000
+noif native,0.000000
+noif native,0.000000
+noif native,0.000000
+noif native,0.000000
+noif native,0.000000
+noif native,6.800979
+noif native,6.785653
+noif native,6.783949
+noif native,6.785483
+noif native,6.789566
+noif native,6.785877
+noif native,6.786409
+noif native,6.785861
+noif native,6.785581
+noif native,6.786099
+noif native,6.785593
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000

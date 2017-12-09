@@ -1,0 +1,27 @@
+\chapter{Kurzfassung}
+
+Software ist mit Hilfe von Konfigurationseinstellungen, welche üblicherweise in Konfigurationsdateien gespeichert werden, hochgradig adaptiv.
+Moderne Systeme beinhalten bereits detaillierte Informationen, in welchem Kontext sich das System gerade befindet.
+Wir definieren Kontext als jede Information relevant für Konfigurationseinstellungen, zum Beispiel der aktuelle Ort, vorhandene Hardware, Netzwerkkonfigurationen, Konfigurationen anderer Programme, etc.
+
+Heutzutage sind Konfigurationseinstellungen und Kontext nicht verbunden.
+Adaptionen von Konfigurationseinstellungen, wie besseres Anpassen an den Kontext, werden manuell durchgeführt -- oftmals in komplizierten Schnittstellen und ohne hilfreiche Rückmeldungen bei Fehlern.
+Mit einer in der Arbeit durchgeführten Umfrage und Quelltextanalyse erkannten wir Ursachen dafür, warum Programme derzeit selten Kontext berücksichtigen:
+Entwickler haben Informationen über den Kontext nicht bequem verfügbar und vermeiden Abhängigkeiten zu Software, welche die Informationen bereitstellen könnte.
+
+Wir zielen darauf ab, diese Probleme durch eine systemnahe Konfigurationsspezifikationssprache, welche die Beziehungen zwischen Konfigurationseinstellungen und Kontext beschreibt, zu lösen.
+Der Hintergedanke ist, dass die Berücksichtigung von Kontext in den Konfigurationseinstellungen die Benutzerfreundlichkeit erhöht und fehlerhafte Konfigurationseinstellungen reduziert.
+Unsere Konfigurationsspezifikationssprache orchestriert dabei Frontends und Backends, um den Zugriff auf Konfigurationseinstellungen zu vereinheitlichen.
+Wir führen ein Frontend (eine Programmierschnittstelle für Entwickler) ein, welches mittels Quelltextgenerierung die Konfigurationsspezifikationssprache in kontextsensitive Variablen abbildet und dabei Kontextsensitivität in dynamischen Sichtbarkeitsbereichen ermöglicht.
+Die Konfigurationsspezifikationssprache modularisiert Quelltexte in Form von Plugins, mit deren Hilfe die Backends aufgebaut werden.
+Dadurch werden die zuvor genannten Probleme von fehlenden Kontextinformationen in Applikationen und unerwünschten Abhängigkeiten gemindert.
+Um unseren Ansatz zu validieren, haben wir mehrere Sprachkonstrukte einer modularen Konfigurationsspezifikationssprache implementiert.%
+{\parfillskip=0pt plus .8\textwidth \emergencystretch=.5\textwidth \par}
+
+Wir haben die Implikationen unserer neuartigen modularen Abstraktionen der Konfigurationsspezifikationssprache ausführlich evaluiert.
+Dabei diskutieren wir Funktionalität zur Introspektion, neu entwickelte Werkzeuge, Analysen zur Fehlerbehebung und Entwicklungszeit.
+Ebenfalls messen wir den durch Backends verursachten Mehraufwand und vergleichen Lösungen, implementiert als Frontends und Backends, mit dem Ergebnis, dass Mehraufwände in modularen Backends gering sind.
+Trotz Kontextsensitivität ermöglicht das Frontend lesende Zugriffe auf Konfigurationseinstellungen mit der Laufzeit-Effizienz von native Variablen.
+Da es unrealistisch ist alle existierenden Applikationen auf solche typsicheren Frontends umzuschreiben, demonstrieren wir verschiedene Möglichkeiten, wie bestehende Applikationen ebenfalls an unsere Backends angebunden werden können.
+Mit 16 bekannten Standardapplikationen, wie etwa Firefox, zeigen wir, dass die Kontextsensitivität der Konfigurationseinstellungen auch ohne Quelltextänderungen verbessert werden kann.
+\selectlanguage{english}

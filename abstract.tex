@@ -1,0 +1,26 @@
+\chapter{Abstract}
+
+With the help of configuration settings---usually stored in configuration files---applications are highly adaptable.
+Modern systems give us detailed information about the context the system is situated in.
+We define context as every information relevant for configuration settings, for example, the location, available hardware, the network settings, settings of other applications, etc.
+
+Today, configuration settings and the context are not connected.
+Adaptations of configuration settings to better fit the context happen manually---often in complicated interfaces and without proper feedback on errors.
+Using a questionnaire survey and a source code analysis, we reveal obstacles why applications rarely account for context:
+Developers do not have context information readily available and dislike dependences to software that would give them the information.
+
+We aim to overcome these problems by introducing a novel system-level configuration specification language, which specifies the relation between context and configuration settings.
+Including more context into configuration settings improves usability and decreases misconfiguration.
+Our configuration specification language orchestrates frontends and backends for unified, context-aware access to configuration settings.
+We introduce a frontend (an API) that maps via code generation the configuration specification language to context-aware variables.
+We use it to enable context adaptations in dynamic scopes as suggested by context-oriented programming.
+The configuration specification language modularizes the system into plugins that build up backends.
+The modularization mitigates the previously mentioned applications' problems of missing context information and unwanted dependences.
+We implemented different language constructs for the modular configuration specification language to validate our approach.
+
+We evaluate the implications of the novel modular abstractions in the configuration specification language in-depth.
+We discuss emerging tools, debugging support, introspection, and development time.
+Furthermore, we measure the overhead caused by the backends and compare solutions, implemented in the frontend and backend, with the result that the overhead in modular backends is small.
+Despite the context awareness, the frontend enables read access to configuration settings with the run-time efficiency of native variables.
+Because it is unrealistic that every application gets rewritten to use such type-safe frontends, we demonstrate different ways to connect legacy applications with our backends.
+With 16 well-known standard applications, such as Firefox, we show the feasibility and practicality of increasing context awareness of configuration settings without modifying any source code.

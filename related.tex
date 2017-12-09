@@ -1,0 +1,570 @@
+\chapter{Related Work}
+\label{chapter:related}
+
+\chapterprecishere{begin virus \\
+I am a book virus! Copy me into your book to help me spread! \\
+end.}
+\chapterhung
+
+In this chapter we compare our work with others.
+In~\secref{related-configuration} we look into other systems providing configuration access.
+In this book, we introduced context awareness and related new programming techniques, related work of which we discuss in~\secref{related-awareness} and \secref{related-programming}.
+In~\secref{related-methodology} we focus on methodology in other work.
+We aim to answer the question:
+\rqRelated*
+
+
+
+\section{Configuration}
+\label{sec:related-configuration}
+
+Systems that provide access to configuration are naturally related to \elektra{}.
+We found, however, that only in rare exceptions the abstractions are similar to the abstractions in \elektra{}.
+Thus most systems providing configuration access are not as similar to \elektra{} as one might think.
+In this section we discuss different approaches to various systems and describe the differences in their abstractions.
+
+\subsection{Configuration Libraries}
+
+In general, other configuration libraries differ from \elektra{} by having no or little external specifications.
+They require applications to hard code their configuration access, which prevents introspection, external validation, adapted tooling, and other wanted properties.%
+{\parfillskip=0pt plus .7\textwidth \emergencystretch=.5\textwidth \par}
+
+Apache Commons Configuration~\cite{nosal2012supporting,online2016apache} abstracts over different configuration sources using the factory pattern~\cite{gamma1994design,denisov2013overview}.
+Different from \elektra{}, developers need to hard code which sources and validations they want to use.
+Thus it does not enable introspection.
+Furthermore, it is tightly integrated in Java technology.
+In the Version~2.1 (released on \formatdate{20}{8}{2016}), Apache Commons Configuration
+\begin{itemize}
+\item
+requires applications to completely specify which configuration files in which syntax shall be used, causing the configuration integration problem,
+\item
+does not support any form of external specifications except for those that are tied to specific configuration file formats such as XML,
+\item
+does not provide any context awareness, and
+\item
+introduces a complex multi-threading model.
+\end{itemize}
+
+\citet{nosal2012supporting,nosal2014xml}~extended the ideas of Apache Commons Configuration.
+Their work enables users to integrate source code annotations into a coherent system abstracting configuration sources.
+Their meta-configuration is similar to bootstrapping in \elektra{}.
+Different from \elektra{}, the solution is tightly coupled to Java technology and neither has support for validation nor for context awareness.
+
+
+\citet{roll2003towards} introduced a way to generate CORBA initialization code from XML specifications.
+Her idea was to avoid hard-coded initialization code.
+She had goals similar to our high-level API but she focused on CORBA and did not support context awareness.
+
+\citet{denisov2015functional} summarized different requirements for configuration libraries.
+Unfortunately, the outlined configuration library was not fully implemented.
+No empirical evidence was given for these requirements.
+Nevertheless, our empirical results confirm most of these requirements.
+From our data, however, we cannot find argumentation for two of his requirements:
+\begin{itemize}
+\item \enquote{support for complex data structures}:
+We did not find any case of complex data structures in the configuration settings of the software we analyzed.
+Complex data structures that refer to other elements can easily be avoided by improved lookup that resolve links in data structures.
+We argue that objects shall not be directly serialized into configuration files, but instead configuration settings shall be designed from a system administrator's perspective.
+We agree that collections shall be supported but we would not say that they are ``complex data structures''.
+\item We did not see why \enquote{support of cloud services} requires more than \enquote{support for different configuration sources/persistent backing stores} for a configuration library.
+Non-file-based storage is needed for many systems and its need is not limited to cloud services.
+\elektra{} works with network file systems, and can directly request configuration files from URLs via Curl resolvers.
+From the survey we cannot confirm that there are additional requirements for cloud-based systems:
+Only a single person of the survey mentioned ``cloud-init based configuration'' (without giving new requirements) although several OpenStack developers participated in the questionnaire.
+We agree that cloud-based setups can be different in aspects related to configuration management.
+\end{itemize}
+
+\subsection{Configuration File Parsing}
+
+One of the main difficulties in \elektra{} is the support of the many configuration file formats.
+A significant portion of the development time went into the many parsers and serializers.
+We considered different ways of how to implement configuration file parsers efficiently.
+Here we mention some techniques of parsing configuration files, which got attention from the research community.
+
+Lenses promise to solve the problem of having separate implementations of parsers and serializers~\cite{foster2008boomerang,lutterkort2008augeas,ko2016bigul}:
+A single specification, i.\,e., a lens, is used to parse and serialize configuration files, leading to trouble-free \empha{round-tripping} properties.
+We found that most of the development time is invested in better abstracting the configuration settings from the concrete syntax; and not in having separate source code for parsers and serializers.
+Augeas~\cite{lutterkort2008augeas} is an implementation of these ideas focusing on configuration file manipulation.
+We already discussed its properties in \secref{augeas}.
+We found Augeas useful because of its preservation of all white spaces and comments.
+It is well suited to access legacy formats such as ^sshd^ or ^ntp^ that do not provide parsing libraries.
+Thus we integrated Augeas in \elektra{}.
+
+The PADS language~\cite{fisher2005pads,fisher2010next,fisher2011pads} tackles the more general problem of processing ad hoc data sources.
+From a type specification of ad hoc data, parsers and serializers are generated.
+Different from \elektra{}, PADS has fewer assumptions on how the data looks like.
+The data might even contain errors, and PADS can still work with them.
+We find the (error) model of PADS elegant, but a potential adaptation to \elektra{} is future work.
+
+
+\subsection{Validation}
+
+Validation languages are a wide topic we cannot fully cover here.
+\citet{hartmann2016validation} evaluated requirements of different stakeholders for data applications and published 81 types of constraints.
+We interpret the many types of constraints as confirmation that \elektra{} needs to be extensible to capture any types of constraints.
+
+\citet{murata2005taxonomy} created a taxonomy of XML schema languages using formal language theory.
+XML schemas excel most of \elektra{}'s validation strategies in terms of expressibility.
+\elektra{}, however, allows users to combine many strategies, which is difficult using XML schemas.
+It would require to solve the problem of fully-automatic schema matching, which is impossible in general~\cite{batini1986comparative,do2003comparison,rahm2001survey}.
+For example, if we need to check integrity constraints, we use Schematron, and miss the features of XDuce~\cite{hosoya2003xduce}.
+Changing from one schema to the other often means rewriting the whole schema.\footnote{Only for the most popular XML schemas conversion tools exist, for example, Trang or the Multi-Schema Validator.}
+One of the rare exceptions within XML is RELAX~NG~\cite{clark2002relax}, which allows users at least to combine different data types.
+In \elektra{} we easily combine validation strategies.
+If a feature is missing, we extend the configuration specification language with new plugins.
+
+XML technology is not known to be ideally suitable for describing key-value pairs nor configuration settings~\cite{bray1997xml}.
+Furthermore, it is easily too verbose to be written by hand~\cite{brabrand2008dual}.
+Thus often syntactic alternatives are proposed, which are less verbose and can be transformed with a single specification~\cite{brabrand2008dual}.
+As another example, RELAX~NG supports an XML syntax and a compact syntax~\cite{clark2002relax}.
+
+
+\subsection{Links}
+
+XML technologies have a variety of ways to express links.
+They are not specified to be used outside of XML technologies.
+Configuration files, however, are often not in XML syntax.
+XPointer~\cite{grosso2003xpointer} permits identifying XML fragments.
+XInclude~\cite{marsh2006xml} provides an element ``fallback'' similar to the property \property{default} as described in this book.
+For the other link properties we described no similar concepts are provided~\cite{raab2015kps}.
+
+
+Configuration links were proposed and formally developed by~\citet{reiser2009core,reiser2009managing}.
+They differ from our fallback and override links because they~\cite{raab2015kps}
+\begin{itemize}
+\item exclusively refer within specifications, while \elektra{}'s links refer to configuration settings and specifications,
+\item are interpreted when serializing configuration settings, while \elektra{}'s links are evaluated at run-time,
+\item adopt propositional logic to identify selections, and
+\item seem to lack support for transformation rules.
+\end{itemize}
+
+
+\subsection {Misconfiguration}
+
+There is a large body of research for fixing misconfigurations that already became manifest~\cite{yin2011empirical,zhang2013automated,zhang2014configuration,xiong2012range,attariyan2010automating}.
+On contrary, \elektra{} wants to avoid that misconfigurations occur in the first place.
+Taking more context into account avoids some kinds of misconfigurations.%
+{\parfillskip=0pt plus .7\textwidth \emergencystretch=.5\textwidth \par}
+
+\citet{nagaraja2004understanding} tried to avoid having a completely duplicated production environment and wanted to nevertheless catch misconfigurations degrading performance.
+In an extensive user study with system administrators they observed 42 misconfigurations.
+They distinguished between local and global misconfigurations.
+Both kinds of misconfigurations involve context at different levels.
+While some misconfigurations would be caught by trivial \elektra{Spec} validations, other operation errors are out of scope for \elektra{} (for example restarting services).
+We are positive, however, that the combination of modern configuration management tools together with \elektra{} catches all errors described in the paper~\cite{nagaraja2004understanding}.\footnote{
+Assuming that the workflows are adapted to a more modern style coherent with how the configuration management tools work.
+For example, you would not manually migrate database servers in modern, redundant, infrastructure-as-a-code systems.}
+
+ConfErr~\cite{keller2008conferr} is able to localize misconfiguration by trying to inject possibly invalid configuration settings.
+ConfErr does not use a configuration specification nor does it analyze the source code, which puts severe limitations on its effectiveness.
+ConfErr could benefit from guidance of \elektra{Spec} to explore border cases in a more targeted way.
+
+AutoBash~\cite{su2007autobash} and ConfAid~\cite{attariyan2010automating} have similar goals as \elektra{}.
+Unlike \elektra{}, predicates that test the application must be available on the productive system.
+In \elektra{}, problems are ruled out by the specification, so that they cannot occur in the productive system.
+
+Spex~\cite{xu2013blame} infers parts of the configuration specification by analyzing the source code of applications.
+Spex's approach is complementing \elektra{} in the sense that it can be used for initial construction of the specification for large existing applications.
+Spex is not suitable to be used for development and generation of end-user documentation.
+
+\citet{xu2015hey} questioned which of the many configuration settings are used in practice.
+They argue that users are confused by too many settings.
+We fully agree and are positive that \elektra{Spec} helps by automatically deducing many settings from context.
+These augmented settings can be removed from user guides.
+Advanced users still have the possibility to override such configuration settings, addressing our findings in the survey~\cite{raab2017introducing}.%
+{\parfillskip=0pt plus .7\textwidth \emergencystretch=.5\textwidth \par}
+
+\citet{jin2014configurations} portrayed obstacles in configuring real-world systems.
+The authors calculated that Firefox has 1,957 settings and guessed that they overlooked only a small part of settings.
+In our study we show, however, that the configuration access API ^getenv^ drastically increases the total amount of available configuration settings~\cite{raab2017introducing}.
+
+\citet{nadi2014mining,rabkin2011static} extracted program configuration specifications from source code.
+They confirm that, even though many specifications are extracted, we need additional external knowledge.
+We show in our work how context awareness contributes as external knowledge~\cite{raab2016unanticipated}.
+
+PCheck~\cite{xu2016early} aims at validating configuration settings early.
+The tool searches for validation checks within the source code and moves them into start-up code.
+Different from \elektra{}, it requires validation code to be present in the application.
+But as unveiled in our study, the present validation specifications are often incomplete because of missing context information.
+
+Another idea is to detect inadequate error messages for misconfiguration~\cite{zhang2015proactive}.
+\elektra{} systematically avoids some problems in error messages by automatically adding important information, such as the affected configuration file, the mountpoint, etc.
+
+Other related work assumes that only a single programming language is applied.
+\citet{rabkin2011static} describe how configuration settings are extracted statically.
+\citet{zhang2013automated} present a tool that finds wrongly configured settings in a fully automated way.
+\citet{rabkin2011precomputing} precompute possible misconfigurations diagnosis.
+In contrast, \elektra{} has no assumption on the choice of programming languages.
+
+\citet{xu2015systems} surveyed different ways of how to improve on misconfiguration.
+At that time, the idea of context-aware configuration was in an early stage~\cite{raab2014program}.
+Thus context-aware configuration was not part of this survey.
+
+
+\subsection{Configuration Management}
+\label{sec:related-management}
+
+Configuration management is related to the topic of the book, but configuration management is situated one level higher.
+While configuration management is concerned about the content of configuration settings, \elektra{} is concerned about how applications access these configuration settings.
+In \elektra{} both configuration settings and specifications are well suited to be managed via configuration management tools.
+This gives an important advantage because configuration management tools struggle to work with the many ways to access configuration settings~\cite{burgess1995cfengine}.
+
+Configuration management includes managing configuration settings for all nodes in a network~\cite{delaet2010short}.
+In this context, directly changing configuration files is regarded as anti-pattern.
+For smart phones and other customizable devices users often desire to directly reconfigure their personal devices.
+\elektra{Spec} allows personal customization, while still enforcing the configuration specification managed by system administrators~\cite{raab2016improving}.
+Configuration management tools do not support to locally validate configuration.
+Misconfiguration easily reaches the systems, in particular if the consistency problems are related to context.
+\elektra{} mitigates these problems by local, context-aware validation.
+
+\citet{zdun2006tailorable} argues that the concern \enquote{behavioral composition and configuration} shall be treated as a first-class entity.
+This approach goes a different direction than \elektra{}.
+It values composition, reusability and modularity of source code more than the resulting system administrators' interfaces~\cite{raab2015kps}.
+
+\citet{gruber1995ontologies} used ontologies for sharing data.
+He aimed at minimal ontological commitment, i.\,e., to tolerate different forms of representation.
+For example, different date formats such as ``1993'' or ``March 1993'' shall be accepted.
+In \elektra{} plugins make sure that different formats are canonicalized so that frontends receive expected values.
+\citet{gruber1995ontologies} facilitated references similar to \elektra{}'s key names~\cite{raab2015kps}.
+
+
+\citet{syrjanen2000including}~formalized the dependences of the Debian Package management system using the stable model semantics.
+The goal was to get better diagnostic information for error messages.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Context Awareness}
+\label{sec:related-awareness}
+
+In this section we discuss related work on context awareness.
+
+
+\subsection{Context-oriented Programming}
+
+Context-oriented programming plays a role within software engineering~\cite{baldauf2007survey,hong2009context,salvaneschi2012context}.
+It aims at comprehensible programs being more context aware.
+As extension, \elektra{} adds context awareness without source code modification~\cite{raab2016unanticipated}.
+
+\citet{plaice2010contextcartesian} applied a Cartesian approach to context.
+One of the differences is the use of an $n$-dimensional table with lazy computation instead of our one-dimensional key set with eagerly computed values.
+While the Cartesian approach is theoretically more powerful, it has the disadvantage that its contents cannot easily be serialized.
+However, efficient serialization is a requirement for working with execution environments~\cite{raab2014program}.%
+{\parfillskip=0pt \emergencystretch=.5\textwidth \par}
+
+\citet{watanabe2014reflective} introduced an actor-based model for cross-context messages.
+They improved the receiving of messages in the correct context.
+Different from them \elektra{} works with threads and processes instead of actors~\cite{raab2015global}.
+
+
+\citet{costanza2006efficientlayeractivation} provided ContextL as an extension to Common Lisp Object System (CLOS) and relied on its features: dynamic class generation, multiple inheritance, dynamically scoped variables, and multiple dispatch.
+In most programming languages these features are not available.
+For example, C++ only supports multiple inheritance from this set of features~\cite{raab2014program}.
+
+Dynamic aspect weaving, for example, in the Steamloom virtual machine~\cite{bockisch2004steamloom}, provides language constructs for the activation of partial program definitions.
+Different from \elektra{}, it requires virtual machines~\cite{raab2014program}.
+
+\citet{kamina2015generalized} proposed a generalized activation mechanism using contexts and subscribers.
+\elektra{} only provides a subset of these generalized activation mechanism.
+Their implicit activation, however, can have serious impact on the performance, conflicting with our performance requirements~\cite{raab2016persistent}.
+
+\citet{pape2016optimizing}~used a meta-tracing just-in-time compiler to better cope with non-standard lookups.
+This line of research promises to get implicit activation with acceptable costs.
+Their work needs just-in-time compilation to work, not available in some of \elektra{}'s supported languages.
+
+\citet{bainomugisha2012interruptible} suggested that even currently running code shall be interrupted and restarted to better fit the viewpoint time of context awareness.
+This idea nicely fits into our concept of synchronization points:
+\elektra{}'s frontends can be extended to jump back to the last synchronization point on context changes.
+\citet{cardozo2014validation,taing2016unanticipated} instead focused on consistency of unanticipated adaptation of context.
+
+\citet{chiba2012we} demonstrated that modularity does not necessarily need syntactic extensions.
+Instead they introduced a database and browser for cross-cutting concerns.
+The database contains the information which code snippets shall be kept synchronous.
+The ideas of the approach can be applied to \elektra{Spec}.
+
+\subsection{Contextual Values}
+
+\citet{montangero1975magma,asirelli1979flexible} pioneered contextual values already in 1975.
+Similar to the key set in \elektra{}, they use context-value pairs where all values in all contexts are stored.
+
+Löwis et al.~\cite{lowis2007contextbeyond} proposed an updated form of contextual values\footnote{Named context variables in their work.} extending on context-oriented programming.
+Their layer activation\footnote{They call it binding of contextual values.} forces the developer to explicitly declare layers.
+Thus their approach would benefit from having contextual values as layers~\cite{lowis2007contextbeyond}.
+Their proposal for implicit layer activations avoids explicit synchronization points at a high price:
+They check context on every use of every contextual value~\cite{lowis2007contextbeyond}.
+
+
+\citet{tanter2008contextvalues} analyzed the semantics of contextual values in-depth.
+Different from \elektra{}, these contextual values need modifications in the Scheme interpreter.
+
+
+\subsection{Context-aware Applications}
+
+\index{context-aware application|boldindex}
+
+\citet{schilit1994context} proposed context-aware computing.
+They already envisioned automatic contextual reconfiguration.
+Since the work of \citet{dey2000towards}, the research topic received more attention.
+
+Most approaches---to make applications more context aware---require modifications in the source code.
+To mitigate efforts, context-oriented middleware~\cite{geihs2009comprehensive,henricksen2005middleware,gu2004middleware,anthony2009context} and frameworks~\cite{williams2014contextion,raento2005contextphone} were introduced.
+\elektra{} can be seen a light-weight context-aware middleware or framework for local configuration settings~\cite{raab2016unanticipated}.
+
+\citet{riva2006unearthing} extracted design patterns from context-aware applications.
+They found that a hybrid mediator-observer is used in almost all of their surveyed context-oriented programming systems.
+\elektra{} is no exception and uses the observer pattern for thread synchronization~\cite{raab2015global}.
+
+
+
+\citet{baldauf2007survey,hong2009context,alegre2016engineering} surveyed the field of context-aware applications in depth.
+\citet{mens2016taxonomy} introduced a taxonomy of approaches to context-aware applications.
+As in our work, they found the execution environment as source for context information.
+Based on their taxonomy, \elektra{} shall be classified as follows:%
+{\parfillskip=0pt plus .7\textwidth \emergencystretch=.5\textwidth \par}
+\begin{itemize}
+\item \elektra{} does not support behavior missing in the source code.
+It enables, however, to switch between existing behavior at run-time as needed by the context.
+\item \elektra{} supports both contextual and context features:
+The decision is up to the application.
+\item \elektra{} uses a one-branch context tree:
+Without context placeholders contextual values are non-context-aware configuration settings.
+\item \elektra{} supports programmer-declared dependences~\cite{raab2016persistent}.
+\end{itemize}
+
+
+\citet{alexandrov1998ufo} uses intercepting of library calls to promote user experience but with a different goal than \elektra{}.
+
+\citet{lee2014deployment} proposes a context-aware, deployment-oriented development process similar to our context-oriented software engineering process.
+Different from \elektra{}, context needs to be known at design time.
+
+
+\citet{parra2007introducing} argued that context-aware specifications need integration into context-aware applications using compiler technologies.
+While this might be a good idea for some specifications, in general we propose the opposite:
+Even if many context specifications are interpreted at run-time, the overhead is little.
+Additionally, only if context specifications are evaluated at run-time flexible adaptations for new viewpoints of contexts are possible.
+
+
+\citet{kamina2014context} defined layers as binary information:
+They are either activated or deactivated.
+For location information, for example, we could use ^inAustria^ and ^inArgentinia^ as layers.
+With a high number of locations, however, the number of layers gets unmanageable.
+To avoid such high numbers of layers we prefer key-value pairs for layer information~\cite{keays2003context}.
+Then even contextual specifications with few layer names describe a large set of possible values.
+
+
+\subsection{Context-aware Web Services}
+
+\citet{niu2016wif4inl} reported on a framework, called WIF4InL, for indoor localization.
+Similar to \elektra{}, it provides an application-neutral API.
+\citet{niu2016wif4inl} used layering of Web-based APIs:
+Their composite API \enquote{allows high-level queries by internally combing some fundamental API.}~\cite{niu2016wif4inl}.
+Different from \elektra{}, only queries regarding locations are provided.
+\elektra{}'s design is different:
+We would expect the application to not care about localization details and directly query the configuration settings.
+For example, suppose a screen shall automatically change its brightness according to the indoor location.
+In WIF4InL, the developer would directly query the API and encode the rules about the brightness as part of the program.
+In \elektra{}, the developer would ask for the current brightness.
+Internally, \elektra{} could use WIF4InL as context sensor to calculate the correct brightness.
+While \elektra{} provides more portability for its applications, using WIF4InL directly opens more possibilities for behavior where several real-world objects interact.
+Furthermore, WIF4InL provides topological and navigational features, for which \elektra{} is not the appropriate tool.
+
+\citet{kapitsaki2008architecture} argued that context awareness is an \enquote{essential aspect---almost a requirement---of mobile services}.
+They propose a context-oriented Web service architecture using the SOAP protocol and build upon work of~\citet{keidl2004towards}.
+They share with \elektra{} that their architecture is plugin based and that it supports manipulation of responses the user gets.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Programming Techniques}
+\label{sec:related-programming}
+
+
+In this section we elaborate on programming techniques similar to programming techniques used in \elektra{}.
+
+\subsection{Product Lines}
+
+Software product lines~\cite{pohl2005software,schaefer2011formal,berger2015feature,midtgaard2014systematic} investigate configuration settings at design time using feature models~\cite{lee2002concepts}.
+They aim at manufacturing software products by combining features.
+While they share some goals with \elektra{}, other goals are completely different.
+Whereas product lines focus on creating customized products, \elektra{} targets on customizing software at run-time and on-demand.
+\elektra{}'s specifications can be seen as variability model, but \elektra{} has its focus on run-time configuration access for FLOSS applications.
+Thus \elektra{}'s goals are more in line with goals of FLOSS software, where distributions avoid variants of the same software packages.
+
+Linux, by using the Kconfig language, can be considered as highly-configurable product~\cite{passos2015feature}.
+Compilation variants of plugins in \elektra{} work similarly.
+\citet{berger2010variability} compare two variability modeling languages: Kconfig and CDL.
+
+\citet{leite2016computing}~suggested to facilitate ideas from software product line for configuration management.
+They also propose to replace imperative scripts with descriptions of desired features.
+
+
+Recent advances in software product lines switched from compile-time to load-time variability~\cite{rhein2016variability}.
+\citet{mauro2016context} built on these dynamic software product lines and extended them with context awareness.
+Similar to \elektra{}, they proposed a single specification that includes context information.
+\citet{mauro2016context} relied on constraint solving, an approach that could also be applied as validation plugin within \elektra{}.%
+{\parfillskip=0pt \emergencystretch=.5\textwidth \par}
+
+
+\subsection{Database Management Systems}
+
+Stored procedures~\cite{eisenberg1996standard} are used to validate or transform data but cannot tamper with some semantics of the database.
+For example, there are limitations in which way a stored procedure can reconfigure the database.
+Furthermore, automatic program modifications of the stored procedures are challenging.
+
+\citet{elmongui2009chameleon} introduced context-aware data management systems.
+Such query languages can be on top of \elektra{}~\cite{raab2016persistent}.
+
+\citet{grier09how} argued that security of plugins can be enforced if direct access to the system is restricted.
+Plugin architectures were also proposed on operating system level~\cite{decasper2000router}.
+
+
+\subsection{Meta-level Programming}
+
+\citet{umuhoza2015automatic} studied different code generation techniques for mobile development.
+\citet{loques2000integration} discussed the correspondence between concepts of configuration and meta-level programming.
+\citet{aktemur2009comparative} compared different techniques to implement customizable libraries.
+They did not consider context~\cite{raab2016persistent}.
+
+
+\citet{jung2005embedded} facilitated code generation.
+They target embedded systems with focus on resource utilization as discussed in~\secref{resource-utilization}.
+Using partial evaluation they removed Libxml2 dependences to make the resulting binaries fit on their target platform.
+Different from \elektra{}, they assume configuration settings to be static, i.\,e., neither context aware nor customizable.
+
+\citet{osterlund2014concurrent}---using the ideas of \citet{ericsson2008composition}---presented a way of how programs, that use conservative locking, can be accelerated.
+They used run-time knowledge in order to choose the optimal locking scheme~\cite{osterlund2017adaptive}.
+The frontends of \elektra{} can profit from this technique.
+
+
+
+\section{Methodology}
+\label{sec:related-methodology}
+
+Here we describe work that used similar methods or elaborated on methodology we used.
+
+\subsection{Type systems}
+\label{sec:related-type-systems}
+
+Type systems~\cite{pierce2002types,guttag1977abstract,puntigam1995type,schwartzbach1994object,liskov1994behavioral,wegner1990concepts,cardelli1985understanding,puntigam1997coordination,puntigam2007see,puntigam2007black} allow developers to specify constraints on data.
+Configuration values are data, thus configuration specifications can be supported by type systems.
+
+\citet{gannon1977experimental} conducted the first user research on type systems.
+The first experiment was quantitative, with nearly no qualitative aspect.
+Their work has a subjective tone, for example, the paper states that these \enquote{results come as no surprise}.
+The next paper conducting a user study was written ten years later~\cite{prechelt1998controlled}.
+Again it follows a quantitative approach, but it puts as goal to not take personal anecdotes as granted.
+It was still not mentioned that results might not be universally valid.
+The work of \citet{daly2009work} is one of the early qualitative papers.
+Their results focused on the usefulness of error messages.
+
+\citet{hanenberg2010experiment} finally established user research for type systems at a greater scale.
+The major contribution was that he doubted some previously well-established opinions about the positive impact of static type systems.
+The effort of his study was huge:
+He developed two computer languages that were identical with the only exception that one had static types and the other had not.
+Even with 49 subjects, of whom each worked over 27 hours, he could not demonstrate a statistical significant difference.
+In his experimental setup, he combined a small application with a larger one.
+While in the smaller application the static-typed language yielded disadvantages, this was not the case for the larger~application.%
+{\parfillskip=0pt \emergencystretch=.5\textwidth \par}
+
+
+The main methodology for type systems is to prove soundness and completeness~\cite{pierce2002types}.
+\elektra{Spec} currently does not have sound and complete checking of the configuration specification nor settings.
+Candidate type systems for \elektra{} are:
+
+\begin{enumerate}
+\item More powerful data types, for example, supporting units of measurement~\cite{pierce2002types,dhungana2013generation}.
+\item Ways to define subtyping between configuration settings and subtrees thereof~\cite{pierce2002types}.
+\item Sum types are both self-describing and their tag is one of the simplest form of metadata.
+Sum types are the opposite of the subtypes:
+They allow us to loosen the strictness of a type.
+For example, to allow a string to be empty or to contain a number, we use sum types.
+\item Constraint programming~\cite{fruhwirth2003essentials}, for example with Gecode, COIN-OR LP, and Z3.
+\item Data schemas, for example, Relax~NG schema \cite{clark2002relax}, and XSD \cite{wadler2003xml}.
+\item Check relations and infer types from relations (type reconstruction)~\cite{pierce2002types,harkes2016icedust}.
+\item Any combination of the techniques above.
+\end{enumerate}
+
+
+\subsection{Surveys}
+
+\citet{berger2013survey} and \citet{villela2014survey} conducted a questionnaire asking about variability modeling.
+Their survey targets a different group.
+
+Several studies focused on FLOSS developers.
+\citet{michlmayr2005quality} explored quality problems using interviews.
+We affirm that documentation often is missing.
+\citet{barcomb2015developers} explored how developers acquire FLOSS skills.
+\citet{crowston2012free} surveyed other FLOSS development studies.
+
+
+\subsection{Human Computer Interaction}
+
+Human computer interaction has a broad spectrum of user research methodology, including ``research through design'' \cite{gaver2012expect}.
+Its goal is to produce knowledge by studying the process of designing and the interaction of design with users \cite{storni2015personal}.
+So design is merely the means to extend the ability to investigate and acquire new knowledge.
+Nevertheless, the main interest of this research is how things can be improved and not how things are.
+We agree with \citet{tichy1997should}, who argued that computer scientists should experiment more.
+
+The similarly called ``design science'' is a rigorous method used to design and evaluate information systems in case studies~\cite{wieringa2009design}.
+For software engineering ``theory of cases'' was developed~\cite{eisenhardt2007theory,easterbrook2008selecting}.%
+{\parfillskip=0pt plus .7\textwidth \emergencystretch=.5\textwidth \par}
+
+
+
+
+\subsection{Application Integration}
+
+Integration via middleware is a well-established research topic.
+For example, \citet{paul1997integration}~introduced the tool interconnection language.
+It improves the integration of components by specifying operational and event interfaces.
+The tool interconnection language compiler generates adapter code, which influences the run-time environment.
+In the case study, they used CORBA.
+
+Integration of software engineering tooling is well-researched, too.
+For example, DesignSpace~\cite{demuth2015designspace} integrates development artifacts and their relations.
+Monto~\cite{keidel2016ide} allows users to integrate different programming language environments into integrated development environments.
+
+Enterprise application integration~\cite{conrad2005enterprise} has a completely different focus:
+It tries to better integrate support of business processes.
+
+Application integration via configuration settings is a novelty of this book.
+We could not find literature that tried to integrate software configuration settings and specifications by context-aware configuration.

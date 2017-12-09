@@ -1,0 +1,265 @@
+value,benchmark
+with 9 layer,27.205175
+with 9 layer,27.168843
+with 9 layer,27.161222
+with 9 layer,27.162248
+with 9 layer,27.163468
+with 9 layer,27.157817
+with 9 layer,27.157258
+with 9 layer,27.158614
+with 9 layer,27.158137
+with 9 layer,27.157083
+with 9 layer,27.157691
+with 8 layer,27.160304
+with 8 layer,27.161883
+with 8 layer,27.156321
+with 8 layer,27.161662
+with 8 layer,27.161070
+with 8 layer,27.172305
+with 8 layer,27.160879
+with 8 layer,27.169550
+with 8 layer,27.161271
+with 8 layer,27.161016
+with 8 layer,27.160247
+with 7 layer,27.153254
+with 7 layer,27.173180
+with 7 layer,27.164374
+with 7 layer,27.165670
+with 7 layer,27.162831
+with 7 layer,27.160007
+with 7 layer,27.157776
+with 7 layer,27.167452
+with 7 layer,27.156011
+with 7 layer,27.158225
+with 7 layer,27.157303
+with 6 layer,27.212896
+with 6 layer,27.165808
+with 6 layer,27.157434
+with 6 layer,27.164452
+with 6 layer,27.162209
+with 6 layer,27.157490
+with 6 layer,27.158154
+with 6 layer,27.170460
+with 6 layer,27.161084
+with 6 layer,27.159952
+with 6 layer,27.161249
+with 5 layer,27.162042
+with 5 layer,27.188737
+with 5 layer,27.160899
+with 5 layer,27.162552
+with 5 layer,27.162482
+with 5 layer,27.164524
+with 5 layer,27.159128
+with 5 layer,27.166849
+with 5 layer,27.156351
+with 5 layer,27.155990
+with 5 layer,27.156991
+with 4 layer,27.191271
+with 4 layer,27.157676
+with 4 layer,27.162420
+with 4 layer,27.164760
+with 4 layer,27.164103
+with 4 layer,27.158301
+with 4 layer,27.158643
+with 4 layer,27.157897
+with 4 layer,27.159415
+with 4 layer,27.160629
+with 4 layer,27.160899
+with 3 layer,27.159020
+with 3 layer,27.167647
+with 3 layer,27.167090
+with 3 layer,27.162260
+with 3 layer,27.162678
+with 3 layer,27.163818
+with 3 layer,27.163610
+with 3 layer,27.169063
+with 3 layer,27.159476
+with 3 layer,27.156892
+with 3 layer,27.156177
+with 2 layer,27.205076
+with 2 layer,27.167189
+with 2 layer,27.162405
+with 2 layer,27.163535
+with 2 layer,27.163243
+with 2 layer,27.177731
+with 2 layer,27.158371
+with 2 layer,27.157725
+with 2 layer,27.157495
+with 2 layer,27.158642
+with 2 layer,27.156706
+with 1 layer,27.191811
+with 1 layer,27.172222
+with 1 layer,27.170199
+with 1 layer,27.164530
+with 1 layer,27.163515
+with 1 layer,27.161562
+with 1 layer,27.161639
+with 1 layer,27.179816
+with 1 layer,27.160493
+with 1 layer,27.162190
+with 1 layer,27.159574
+with 0 layer,27.214501
+with 0 layer,27.165388
+with 0 layer,27.159249
+with 0 layer,27.160550
+with 0 layer,27.158751
+with 0 layer,27.160570
+with 0 layer,27.160471
+with 0 layer,27.157525
+with 0 layer,27.156940
+with 0 layer,27.157717
+with 0 layer,27.155296
+context sum asm,27.220902
+context sum asm,27.165570
+context sum asm,27.157272
+context sum asm,27.165856
+context sum asm,27.165155
+context sum asm,27.161532
+context sum asm,27.160830
+context sum asm,27.175614
+context sum asm,27.160405
+context sum asm,27.162134
+context sum asm,27.159653
+context noif sum,0.000000
+context noif sum,0.000000
+context noif sum,0.000000
+context noif sum,0.000000
+context noif sum,0.000000
+context noif sum,0.000000
+context noif sum,0.000000
+context noif sum,0.000000
+context noif sum,0.000001
+context noif sum,0.000000
+context noif sum,0.000000
+context cmp noif,27.154211
+context cmp noif,27.167454
+context cmp noif,27.166490
+context cmp noif,27.160787
+context cmp noif,27.160226
+context cmp noif,27.164496
+context cmp noif,27.158118
+context cmp noif,27.156730
+context cmp noif,27.157647
+context cmp noif,27.157222
+context cmp noif,27.156074
+context noif array sum,0.000000
+context noif array sum,0.000000
+context noif array sum,0.000000
+context noif array sum,0.000000
+context noif array sum,0.000000
+context noif array sum,0.000000
+context noif array sum,0.000000
+context noif array sum,0.000000
+context noif array sum,0.000000
+context noif array sum,0.000000
+context noif array sum,0.000000
+context noif cmp array,27.234070
+context noif cmp array,27.158733
+context noif cmp array,27.160974
+context noif cmp array,27.163654
+context noif cmp array,27.163724
+context noif cmp array,27.162655
+context noif cmp array,27.172034
+context noif cmp array,27.178884
+context noif cmp array,27.162502
+context noif cmp array,27.160404
+context noif cmp array,27.160374
+context noif virtual,299.016460
+context noif virtual,298.788089
+context noif virtual,298.830853
+context noif virtual,298.790484
+context noif virtual,298.775106
+context noif virtual,298.762961
+context noif virtual,298.785963
+context noif virtual,298.801363
+context noif virtual,298.756242
+context noif virtual,298.748303
+context noif virtual,298.744163
+context if opt,190.248436
+context if opt,190.230174
+context if opt,190.150691
+context if opt,190.130920
+context if opt,190.126022
+context if opt,190.110308
+context if opt,190.109140
+context if opt,190.127310
+context if opt,190.123961
+context if opt,190.107579
+context if opt,190.146899
+context volatile,217.443897
+context volatile,217.396405
+context volatile,217.265368
+context volatile,217.277713
+context volatile,217.295717
+context volatile,217.303364
+context volatile,217.278319
+context volatile,217.265233
+context volatile,217.317112
+context volatile,217.278291
+context volatile,217.276799
+context if opt atomic,652.262644
+context if opt atomic,652.005355
+context if opt atomic,651.922102
+context if opt atomic,651.942993
+context if opt atomic,651.929014
+context if opt atomic,651.918257
+context if opt atomic,651.828260
+context if opt atomic,651.807758
+context if opt atomic,651.843435
+context if opt atomic,651.821377
+context if opt atomic,651.878055
+context if,271.759744
+context if,271.687676
+context if,271.608759
+context if,271.578446
+context if,271.624374
+context if,271.632937
+context if,271.663478
+context if,271.582967
+context if,271.782266
+context if,271.583525
+context if,271.586677
+native sum asm,27.194197
+native sum asm,27.210827
+native sum asm,27.160747
+native sum asm,27.154242
+native sum asm,27.159488
+native sum asm,27.208881
+native sum asm,27.156789
+native sum asm,27.159169
+native sum asm,27.158465
+native sum asm,27.157132
+native sum asm,27.156927
+native noif sum,0.000000
+native noif sum,0.000000
+native noif sum,0.000000
+native noif sum,0.000000
+native noif sum,0.000000
+native noif sum,0.000000
+native noif sum,0.000000
+native noif sum,0.000000
+native noif sum,0.000000
+native noif sum,0.000000
+native noif sum,0.000000
+native cmp noif,27.183589
+native cmp noif,27.150552
+native cmp noif,27.160719
+native cmp noif,27.156171
+native cmp noif,27.162698
+native cmp noif,27.164699
+native cmp noif,27.165461
+native cmp noif,27.161056
+native cmp noif,27.180074
+native cmp noif,27.159893
+native cmp noif,27.159717
+nothing,0.000001
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000
+nothing,0.000000

@@ -1,0 +1,64 @@
+\input{setup}
+\input{commandsetup}
+\input{memoirsetup}
+
+\pretitle{\begin{center}\Huge\bfseries}
+\title{\booktitle}
+\author{\authorname}
+\predate{\vfill\begin{center}\large}
+
+
+\begin{document}
+
+\frontmatter % Switches to roman numbering.
+
+\begin{titlingpage}
+\maketitle
+\doclicenseThis
+\end{titlingpage}
+
+\include{acknowledgement}
+\include{abstract}
+\include{zusammenfassung}
+
+\microtypesetup{protrusion=false}
+\tableofcontents
+\microtypesetup{protrusion=true}
+
+\mainmatter
+\setcounter{secnumdepth}{2}
+\renewcommand{\enquote}[1]{\emph{``#1''}} % Cannot be done earlier
+
+\include{introduction}
+\include{background}
+\include{motivation}
+\include{approach}
+\include{frontend}
+\include{backend}
+\include{implications}
+\include{evaluation}
+\include{related}
+\include{conclusion}
+
+
+\include{backmatter}
+
+\ifdebug
+\chapter{Debugging}
+\typeout{restatable: \the\listofrestatable}
+List of restatable theorems: \the\listofrestatable
+
+\vspace{1pc}
+
+\typeout{restatated: \the\listofrestatable}
+\noindent
+List of restatated theorems: \the\listofrestatated
+
+\checknotrestated
+
+
+\listoftodos
+\todototoc
+\fi
+
+\end{document}

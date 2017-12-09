@@ -1,0 +1,141 @@
+
+
+hostname elitebyte
+gcc: 4
+sizeof(int) 4
+sizeof(long) 8
+sizeof(long long) 8
+iterations 100000
+
+0
+                       nothing	0.000299 sec	 Sum: 0.000299 sec	Avg: 0.000299 sec	Min: 0.000299 sec	Max: 0.000299 sec	Median: 0.000299 sec
+               0 mountpoint(s)	0.881119 sec	 Sum: 0.881119 sec	Avg: 0.881119 sec	Min: 0.881119 sec	Max: 0.881119 sec	Median: 0.881119 sec
+               1 mountpoint(s)	0.838893 sec	 Sum: 0.838893 sec	Avg: 0.838893 sec	Min: 0.838893 sec	Max: 0.838893 sec	Median: 0.838893 sec
+               2 mountpoint(s)	0.880179 sec	 Sum: 0.880179 sec	Avg: 0.880179 sec	Min: 0.880179 sec	Max: 0.880179 sec	Median: 0.880179 sec
+               3 mountpoint(s)	0.900184 sec	 Sum: 0.900184 sec	Avg: 0.900184 sec	Min: 0.900184 sec	Max: 0.900184 sec	Median: 0.900184 sec
+               4 mountpoint(s)	0.930963 sec	 Sum: 0.930963 sec	Avg: 0.930963 sec	Min: 0.930963 sec	Max: 0.930963 sec	Median: 0.930963 sec
+               5 mountpoint(s)	0.969250 sec	 Sum: 0.969250 sec	Avg: 0.969250 sec	Min: 0.969250 sec	Max: 0.969250 sec	Median: 0.969250 sec
+               6 mountpoint(s)	1.000657 sec	 Sum: 1.000657 sec	Avg: 1.000657 sec	Min: 1.000657 sec	Max: 1.000657 sec	Median: 1.000657 sec
+               7 mountpoint(s)	1.038101 sec	 Sum: 1.038101 sec	Avg: 1.038101 sec	Min: 1.038101 sec	Max: 1.038101 sec	Median: 1.038101 sec
+               8 mountpoint(s)	1.063236 sec	 Sum: 1.063236 sec	Avg: 1.063236 sec	Min: 1.063236 sec	Max: 1.063236 sec	Median: 1.063236 sec
+               9 mountpoint(s)	1.098485 sec	 Sum: 1.098485 sec	Avg: 1.098485 sec	Min: 1.098485 sec	Max: 1.098485 sec	Median: 1.098485 sec
+1
+                       nothing	0.000027 sec	 Sum: 0.000326 sec	Avg: 0.000163 sec	Min: 0.000027 sec	Max: 0.000299 sec	Median: 0.000299 sec
+               0 mountpoint(s)	0.909350 sec	 Sum: 1.790469 sec	Avg: 0.895234 sec	Min: 0.881119 sec	Max: 0.909350 sec	Median: 0.909350 sec
+               1 mountpoint(s)	0.839003 sec	 Sum: 1.677896 sec	Avg: 0.838948 sec	Min: 0.838893 sec	Max: 0.839003 sec	Median: 0.839003 sec
+               2 mountpoint(s)	0.869627 sec	 Sum: 1.749806 sec	Avg: 0.874903 sec	Min: 0.869627 sec	Max: 0.880179 sec	Median: 0.880179 sec
+               3 mountpoint(s)	0.901336 sec	 Sum: 1.801520 sec	Avg: 0.900760 sec	Min: 0.900184 sec	Max: 0.901336 sec	Median: 0.901336 sec
+               4 mountpoint(s)	0.946284 sec	 Sum: 1.877247 sec	Avg: 0.938623 sec	Min: 0.930963 sec	Max: 0.946284 sec	Median: 0.946284 sec
+               5 mountpoint(s)	0.971434 sec	 Sum: 1.940684 sec	Avg: 0.970342 sec	Min: 0.969250 sec	Max: 0.971434 sec	Median: 0.971434 sec
+               6 mountpoint(s)	1.003861 sec	 Sum: 2.004518 sec	Avg: 1.002259 sec	Min: 1.000657 sec	Max: 1.003861 sec	Median: 1.003861 sec
+               7 mountpoint(s)	1.035185 sec	 Sum: 2.073286 sec	Avg: 1.036643 sec	Min: 1.035185 sec	Max: 1.038101 sec	Median: 1.038101 sec
+               8 mountpoint(s)	1.073390 sec	 Sum: 2.136626 sec	Avg: 1.068313 sec	Min: 1.063236 sec	Max: 1.073390 sec	Median: 1.073390 sec
+               9 mountpoint(s)	1.106781 sec	 Sum: 2.205266 sec	Avg: 1.102633 sec	Min: 1.098485 sec	Max: 1.106781 sec	Median: 1.106781 sec
+2
+                       nothing	0.000037 sec	 Sum: 0.000363 sec	Avg: 0.000121 sec	Min: 0.000027 sec	Max: 0.000299 sec	Median: 0.000037 sec
+               0 mountpoint(s)	0.798008 sec	 Sum: 2.588477 sec	Avg: 0.862825 sec	Min: 0.798008 sec	Max: 0.909350 sec	Median: 0.881119 sec
+               1 mountpoint(s)	0.868009 sec	 Sum: 2.545905 sec	Avg: 0.848635 sec	Min: 0.838893 sec	Max: 0.868009 sec	Median: 0.839003 sec
+               2 mountpoint(s)	0.885925 sec	 Sum: 2.635731 sec	Avg: 0.878577 sec	Min: 0.869627 sec	Max: 0.885925 sec	Median: 0.880179 sec
+               3 mountpoint(s)	0.912919 sec	 Sum: 2.714439 sec	Avg: 0.904813 sec	Min: 0.900184 sec	Max: 0.912919 sec	Median: 0.901336 sec
+               4 mountpoint(s)	0.959093 sec	 Sum: 2.836340 sec	Avg: 0.945446 sec	Min: 0.930963 sec	Max: 0.959093 sec	Median: 0.946284 sec
+               5 mountpoint(s)	0.981760 sec	 Sum: 2.922444 sec	Avg: 0.974148 sec	Min: 0.969250 sec	Max: 0.981760 sec	Median: 0.971434 sec
+               6 mountpoint(s)	1.012309 sec	 Sum: 3.016827 sec	Avg: 1.005609 sec	Min: 1.000657 sec	Max: 1.012309 sec	Median: 1.003861 sec
+               7 mountpoint(s)	1.054742 sec	 Sum: 3.128028 sec	Avg: 1.042676 sec	Min: 1.035185 sec	Max: 1.054742 sec	Median: 1.038101 sec
+               8 mountpoint(s)	1.073711 sec	 Sum: 3.210337 sec	Avg: 1.070112 sec	Min: 1.063236 sec	Max: 1.073711 sec	Median: 1.073390 sec
+               9 mountpoint(s)	1.103104 sec	 Sum: 3.308370 sec	Avg: 1.102790 sec	Min: 1.098485 sec	Max: 1.106781 sec	Median: 1.103104 sec
+3
+                       nothing	0.000029 sec	 Sum: 0.000392 sec	Avg: 0.000098 sec	Min: 0.000027 sec	Max: 0.000299 sec	Median: 0.000037 sec
+               0 mountpoint(s)	0.801720 sec	 Sum: 3.390197 sec	Avg: 0.847549 sec	Min: 0.798008 sec	Max: 0.909350 sec	Median: 0.881119 sec
+               1 mountpoint(s)	0.838144 sec	 Sum: 3.384049 sec	Avg: 0.846012 sec	Min: 0.838144 sec	Max: 0.868009 sec	Median: 0.839003 sec
+               2 mountpoint(s)	0.880967 sec	 Sum: 3.516698 sec	Avg: 0.879174 sec	Min: 0.869627 sec	Max: 0.885925 sec	Median: 0.880967 sec
+               3 mountpoint(s)	0.903551 sec	 Sum: 3.617990 sec	Avg: 0.904497 sec	Min: 0.900184 sec	Max: 0.912919 sec	Median: 0.903551 sec
+               4 mountpoint(s)	0.964852 sec	 Sum: 3.801192 sec	Avg: 0.950298 sec	Min: 0.930963 sec	Max: 0.964852 sec	Median: 0.959093 sec
+               5 mountpoint(s)	0.989433 sec	 Sum: 3.911877 sec	Avg: 0.977969 sec	Min: 0.969250 sec	Max: 0.989433 sec	Median: 0.981760 sec
+               6 mountpoint(s)	1.025960 sec	 Sum: 4.042787 sec	Avg: 1.010696 sec	Min: 1.000657 sec	Max: 1.025960 sec	Median: 1.012309 sec
+               7 mountpoint(s)	1.055315 sec	 Sum: 4.183343 sec	Avg: 1.045835 sec	Min: 1.035185 sec	Max: 1.055315 sec	Median: 1.054742 sec
+               8 mountpoint(s)	1.106777 sec	 Sum: 4.317114 sec	Avg: 1.079278 sec	Min: 1.063236 sec	Max: 1.106777 sec	Median: 1.073711 sec
+               9 mountpoint(s)	1.115100 sec	 Sum: 4.423470 sec	Avg: 1.105867 sec	Min: 1.098485 sec	Max: 1.115100 sec	Median: 1.106781 sec
+4
+                       nothing	0.000030 sec	 Sum: 0.000422 sec	Avg: 0.000084 sec	Min: 0.000027 sec	Max: 0.000299 sec	Median: 0.000030 sec
+               0 mountpoint(s)	0.798319 sec	 Sum: 4.188516 sec	Avg: 0.837703 sec	Min: 0.798008 sec	Max: 0.909350 sec	Median: 0.801720 sec
+               1 mountpoint(s)	0.839138 sec	 Sum: 4.223187 sec	Avg: 0.844637 sec	Min: 0.838144 sec	Max: 0.868009 sec	Median: 0.839003 sec
+               2 mountpoint(s)	0.874162 sec	 Sum: 4.390860 sec	Avg: 0.878172 sec	Min: 0.869627 sec	Max: 0.885925 sec	Median: 0.880179 sec
+               3 mountpoint(s)	0.913385 sec	 Sum: 4.531375 sec	Avg: 0.906275 sec	Min: 0.900184 sec	Max: 0.913385 sec	Median: 0.903551 sec
+               4 mountpoint(s)	0.945057 sec	 Sum: 4.746249 sec	Avg: 0.949249 sec	Min: 0.930963 sec	Max: 0.964852 sec	Median: 0.946284 sec
+               5 mountpoint(s)	0.980580 sec	 Sum: 4.892457 sec	Avg: 0.978491 sec	Min: 0.969250 sec	Max: 0.989433 sec	Median: 0.980580 sec
+               6 mountpoint(s)	1.001286 sec	 Sum: 5.044073 sec	Avg: 1.008814 sec	Min: 1.000657 sec	Max: 1.025960 sec	Median: 1.003861 sec
+               7 mountpoint(s)	1.035962 sec	 Sum: 5.219305 sec	Avg: 1.043861 sec	Min: 1.035185 sec	Max: 1.055315 sec	Median: 1.038101 sec
+               8 mountpoint(s)	1.070628 sec	 Sum: 5.387742 sec	Avg: 1.077548 sec	Min: 1.063236 sec	Max: 1.106777 sec	Median: 1.073390 sec
+               9 mountpoint(s)	1.101582 sec	 Sum: 5.525052 sec	Avg: 1.105010 sec	Min: 1.098485 sec	Max: 1.115100 sec	Median: 1.103104 sec
+5
+                       nothing	0.000036 sec	 Sum: 0.000458 sec	Avg: 0.000076 sec	Min: 0.000027 sec	Max: 0.000299 sec	Median: 0.000036 sec
+               0 mountpoint(s)	0.811468 sec	 Sum: 4.999984 sec	Avg: 0.833330 sec	Min: 0.798008 sec	Max: 0.909350 sec	Median: 0.811468 sec
+               1 mountpoint(s)	0.836245 sec	 Sum: 5.059432 sec	Avg: 0.843238 sec	Min: 0.836245 sec	Max: 0.868009 sec	Median: 0.839003 sec
+               2 mountpoint(s)	0.873247 sec	 Sum: 5.264107 sec	Avg: 0.877351 sec	Min: 0.869627 sec	Max: 0.885925 sec	Median: 0.880179 sec
+               3 mountpoint(s)	0.904780 sec	 Sum: 5.436155 sec	Avg: 0.906025 sec	Min: 0.900184 sec	Max: 0.913385 sec	Median: 0.904780 sec
+               4 mountpoint(s)	0.933533 sec	 Sum: 5.679782 sec	Avg: 0.946630 sec	Min: 0.930963 sec	Max: 0.964852 sec	Median: 0.946284 sec
+               5 mountpoint(s)	0.969658 sec	 Sum: 5.862115 sec	Avg: 0.977019 sec	Min: 0.969250 sec	Max: 0.989433 sec	Median: 0.980580 sec
+               6 mountpoint(s)	1.001687 sec	 Sum: 6.045760 sec	Avg: 1.007626 sec	Min: 1.000657 sec	Max: 1.025960 sec	Median: 1.003861 sec
+               7 mountpoint(s)	1.034026 sec	 Sum: 6.253331 sec	Avg: 1.042221 sec	Min: 1.034026 sec	Max: 1.055315 sec	Median: 1.038101 sec
+               8 mountpoint(s)	1.092106 sec	 Sum: 6.479848 sec	Avg: 1.079974 sec	Min: 1.063236 sec	Max: 1.106777 sec	Median: 1.073711 sec
+               9 mountpoint(s)	1.103145 sec	 Sum: 6.628197 sec	Avg: 1.104699 sec	Min: 1.098485 sec	Max: 1.115100 sec	Median: 1.103145 sec
+6
+                       nothing	0.000032 sec	 Sum: 0.000490 sec	Avg: 0.000070 sec	Min: 0.000027 sec	Max: 0.000299 sec	Median: 0.000032 sec
+               0 mountpoint(s)	0.810273 sec	 Sum: 5.810257 sec	Avg: 0.830036 sec	Min: 0.798008 sec	Max: 0.909350 sec	Median: 0.810273 sec
+               1 mountpoint(s)	0.839271 sec	 Sum: 5.898703 sec	Avg: 0.842671 sec	Min: 0.836245 sec	Max: 0.868009 sec	Median: 0.839003 sec
+               2 mountpoint(s)	0.876362 sec	 Sum: 6.140469 sec	Avg: 0.877209 sec	Min: 0.869627 sec	Max: 0.885925 sec	Median: 0.876362 sec
+               3 mountpoint(s)	0.903315 sec	 Sum: 6.339470 sec	Avg: 0.905638 sec	Min: 0.900184 sec	Max: 0.913385 sec	Median: 0.903551 sec
+               4 mountpoint(s)	0.941019 sec	 Sum: 6.620801 sec	Avg: 0.945828 sec	Min: 0.930963 sec	Max: 0.964852 sec	Median: 0.945057 sec
+               5 mountpoint(s)	0.968287 sec	 Sum: 6.830402 sec	Avg: 0.975771 sec	Min: 0.968287 sec	Max: 0.989433 sec	Median: 0.971434 sec
+               6 mountpoint(s)	1.000921 sec	 Sum: 7.046681 sec	Avg: 1.006668 sec	Min: 1.000657 sec	Max: 1.025960 sec	Median: 1.001687 sec
+               7 mountpoint(s)	1.051238 sec	 Sum: 7.304569 sec	Avg: 1.043509 sec	Min: 1.034026 sec	Max: 1.055315 sec	Median: 1.038101 sec
+               8 mountpoint(s)	1.104169 sec	 Sum: 7.584017 sec	Avg: 1.083431 sec	Min: 1.063236 sec	Max: 1.106777 sec	Median: 1.073711 sec
+               9 mountpoint(s)	1.128793 sec	 Sum: 7.756990 sec	Avg: 1.108141 sec	Min: 1.098485 sec	Max: 1.128793 sec	Median: 1.103145 sec
+7
+                       nothing	0.000043 sec	 Sum: 0.000533 sec	Avg: 0.000066 sec	Min: 0.000027 sec	Max: 0.000299 sec	Median: 0.000036 sec
+               0 mountpoint(s)	0.826235 sec	 Sum: 6.636492 sec	Avg: 0.829561 sec	Min: 0.798008 sec	Max: 0.909350 sec	Median: 0.811468 sec
+               1 mountpoint(s)	0.836021 sec	 Sum: 6.734724 sec	Avg: 0.841840 sec	Min: 0.836021 sec	Max: 0.868009 sec	Median: 0.839003 sec
+               2 mountpoint(s)	0.870830 sec	 Sum: 7.011299 sec	Avg: 0.876412 sec	Min: 0.869627 sec	Max: 0.885925 sec	Median: 0.876362 sec
+               3 mountpoint(s)	0.901885 sec	 Sum: 7.241355 sec	Avg: 0.905169 sec	Min: 0.900184 sec	Max: 0.913385 sec	Median: 0.903551 sec
+               4 mountpoint(s)	0.933616 sec	 Sum: 7.554417 sec	Avg: 0.944302 sec	Min: 0.930963 sec	Max: 0.964852 sec	Median: 0.945057 sec
+               5 mountpoint(s)	0.984837 sec	 Sum: 7.815239 sec	Avg: 0.976904 sec	Min: 0.968287 sec	Max: 0.989433 sec	Median: 0.980580 sec
+               6 mountpoint(s)	1.012023 sec	 Sum: 8.058704 sec	Avg: 1.007338 sec	Min: 1.000657 sec	Max: 1.025960 sec	Median: 1.003861 sec
+               7 mountpoint(s)	1.043263 sec	 Sum: 8.347832 sec	Avg: 1.043479 sec	Min: 1.034026 sec	Max: 1.055315 sec	Median: 1.043263 sec
+               8 mountpoint(s)	1.072785 sec	 Sum: 8.656802 sec	Avg: 1.082100 sec	Min: 1.063236 sec	Max: 1.106777 sec	Median: 1.073711 sec
+               9 mountpoint(s)	1.107465 sec	 Sum: 8.864455 sec	Avg: 1.108056 sec	Min: 1.098485 sec	Max: 1.128793 sec	Median: 1.106781 sec
+8
+                       nothing	0.000037 sec	 Sum: 0.000570 sec	Avg: 0.000063 sec	Min: 0.000027 sec	Max: 0.000299 sec	Median: 0.000036 sec
+               0 mountpoint(s)	0.800968 sec	 Sum: 7.437460 sec	Avg: 0.826384 sec	Min: 0.798008 sec	Max: 0.909350 sec	Median: 0.810273 sec
+               1 mountpoint(s)	0.837528 sec	 Sum: 7.572252 sec	Avg: 0.841361 sec	Min: 0.836021 sec	Max: 0.868009 sec	Median: 0.838893 sec
+               2 mountpoint(s)	0.877225 sec	 Sum: 7.888524 sec	Avg: 0.876502 sec	Min: 0.869627 sec	Max: 0.885925 sec	Median: 0.876362 sec
+               3 mountpoint(s)	0.907363 sec	 Sum: 8.148718 sec	Avg: 0.905413 sec	Min: 0.900184 sec	Max: 0.913385 sec	Median: 0.903551 sec
+               4 mountpoint(s)	0.936119 sec	 Sum: 8.490536 sec	Avg: 0.943392 sec	Min: 0.930963 sec	Max: 0.964852 sec	Median: 0.941019 sec
+               5 mountpoint(s)	0.974660 sec	 Sum: 8.789899 sec	Avg: 0.976655 sec	Min: 0.968287 sec	Max: 0.989433 sec	Median: 0.974660 sec
+               6 mountpoint(s)	1.001054 sec	 Sum: 9.059758 sec	Avg: 1.006639 sec	Min: 1.000657 sec	Max: 1.025960 sec	Median: 1.001687 sec
+               7 mountpoint(s)	1.042937 sec	 Sum: 9.390769 sec	Avg: 1.043418 sec	Min: 1.034026 sec	Max: 1.055315 sec	Median: 1.042937 sec
+               8 mountpoint(s)	1.077806 sec	 Sum: 9.734608 sec	Avg: 1.081623 sec	Min: 1.063236 sec	Max: 1.106777 sec	Median: 1.073711 sec
+               9 mountpoint(s)	1.117742 sec	 Sum: 9.982197 sec	Avg: 1.109133 sec	Min: 1.098485 sec	Max: 1.128793 sec	Median: 1.106781 sec
+9
+                       nothing	0.000035 sec	 Sum: 0.000605 sec	Avg: 0.000060 sec	Min: 0.000027 sec	Max: 0.000299 sec	Median: 0.000036 sec
+               0 mountpoint(s)	0.800866 sec	 Sum: 8.238326 sec	Avg: 0.823832 sec	Min: 0.798008 sec	Max: 0.909350 sec	Median: 0.810273 sec
+               1 mountpoint(s)	0.837399 sec	 Sum: 8.409651 sec	Avg: 0.840965 sec	Min: 0.836021 sec	Max: 0.868009 sec	Median: 0.838893 sec
+               2 mountpoint(s)	0.871961 sec	 Sum: 8.760485 sec	Avg: 0.876048 sec	Min: 0.869627 sec	Max: 0.885925 sec	Median: 0.876362 sec
+               3 mountpoint(s)	0.909910 sec	 Sum: 9.058628 sec	Avg: 0.905862 sec	Min: 0.900184 sec	Max: 0.913385 sec	Median: 0.904780 sec
+               4 mountpoint(s)	0.932704 sec	 Sum: 9.423240 sec	Avg: 0.942324 sec	Min: 0.930963 sec	Max: 0.964852 sec	Median: 0.941019 sec
+               5 mountpoint(s)	0.965960 sec	 Sum: 9.755859 sec	Avg: 0.975585 sec	Min: 0.965960 sec	Max: 0.989433 sec	Median: 0.974660 sec
+               6 mountpoint(s)	1.006068 sec	 Sum: 10.065826 sec	Avg: 1.006582 sec	Min: 1.000657 sec	Max: 1.025960 sec	Median: 1.003861 sec
+               7 mountpoint(s)	1.039312 sec	 Sum: 10.430081 sec	Avg: 1.043008 sec	Min: 1.034026 sec	Max: 1.055315 sec	Median: 1.042937 sec
+               8 mountpoint(s)	1.069561 sec	 Sum: 10.804169 sec	Avg: 1.080416 sec	Min: 1.063236 sec	Max: 1.106777 sec	Median: 1.073711 sec
+               9 mountpoint(s)	1.100136 sec	 Sum: 11.082333 sec	Avg: 1.108233 sec	Min: 1.098485 sec	Max: 1.128793 sec	Median: 1.106781 sec
+10
+                       nothing	0.000030 sec	 Sum: 0.000635 sec	Avg: 0.000057 sec	Min: 0.000027 sec	Max: 0.000299 sec	Median: 0.000035 sec
+               0 mountpoint(s)	0.798948 sec	 Sum: 9.037274 sec	Avg: 0.821570 sec	Min: 0.798008 sec	Max: 0.909350 sec	Median: 0.801720 sec
+               1 mountpoint(s)	0.837340 sec	 Sum: 9.246991 sec	Avg: 0.840635 sec	Min: 0.836021 sec	Max: 0.868009 sec	Median: 0.838144 sec
+               2 mountpoint(s)	0.872633 sec	 Sum: 9.633118 sec	Avg: 0.875738 sec	Min: 0.869627 sec	Max: 0.885925 sec	Median: 0.874162 sec
+               3 mountpoint(s)	0.905751 sec	 Sum: 9.964379 sec	Avg: 0.905852 sec	Min: 0.900184 sec	Max: 0.913385 sec	Median: 0.904780 sec
+               4 mountpoint(s)	0.935648 sec	 Sum: 10.358888 sec	Avg: 0.941717 sec	Min: 0.930963 sec	Max: 0.964852 sec	Median: 0.936119 sec
+               5 mountpoint(s)	0.975446 sec	 Sum: 10.731305 sec	Avg: 0.975573 sec	Min: 0.965960 sec	Max: 0.989433 sec	Median: 0.974660 sec
+               6 mountpoint(s)	1.010064 sec	 Sum: 11.075890 sec	Avg: 1.006899 sec	Min: 1.000657 sec	Max: 1.025960 sec	Median: 1.003861 sec
+               7 mountpoint(s)	1.035730 sec	 Sum: 11.465811 sec	Avg: 1.042346 sec	Min: 1.034026 sec	Max: 1.055315 sec	Median: 1.039312 sec
+               8 mountpoint(s)	1.079679 sec	 Sum: 11.883848 sec	Avg: 1.080349 sec	Min: 1.063236 sec	Max: 1.106777 sec	Median: 1.073711 sec
+               9 mountpoint(s)	1.104620 sec	 Sum: 12.186953 sec	Avg: 1.107904 sec	Min: 1.098485 sec	Max: 1.128793 sec	Median: 1.104620 sec

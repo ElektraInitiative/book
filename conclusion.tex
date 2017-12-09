@@ -1,0 +1,301 @@
+\chapter{Conclusion and Future Work}
+\label{chapter:conclusion}
+
+\chapterprecishere{We are what we think. All that we are arises with our thoughts. With our thoughts we make the world.\par\raggedleft--- \textup{Siddhartha Gautama, rendering of Thomas Byrom}}
+\chapterhung
+
+Humans are involved in an endless struggle to express themselves.
+In this book we described some contributions that help users, system administrators, and developers to reveal their thoughts related to context-aware configuration.
+In particular, the framework \elektra{} and the modular specification language \elektra{Spec} are a promising way to specify configuration access for FLOSS systems.
+We are ready to answer our main research question for the different \empha[stakeholder]{stakeholders}:
+\rqMain*
+
+
+\begin{description}
+\item[Developers] had obstacles that they were missing decent frontends with a high level of abstraction.
+Thus they hard-coded inflexible and mostly context-unaware configuration accesses.
+\elektra{} improves on the problem by the concept of contextual values as configuration settings.
+These better frontends enable developers to directly work with variables that contain context-aware configuration.
+
+\item[System administrators] were not empowered to connect configuration settings and context information.
+\elektra{} improves on the configuration integration problem by globally sharing configuration settings and context information in a key database.
+To not lose any modularity, we mount backends and put needed functionality in plugins.
+\elektra{Spec} empowers system administrators to improve on configuration validation and context awareness with requirements and context information encoded as configuration settings.
+
+\item[End users] rarely had context awareness in their applications.
+Instead, they had to manually change settings of every application.
+With \elektra{}, they benefit from increased context awareness of the configuration settings.
+We showed that this even works for applications in which no source code is modified.
+Furthermore, \elektra{} provides user interfaces so that end users can avoid any contact with configuration~files.
+\end{description}
+
+
+
+We conclude the answer of \rqref{main} by walking through the four initial goals.
+We revisit contributions to each goal and describe future work.
+As structure, we use the steps needed to create and evaluate the modular, system-level, context-oriented configuration specification language \elektra{Spec}:
+\begin{itemize}
+ \item Before we created \elektra{Spec}, we had to understand the requirements and challenges.
+ We conclude on our challenges in \secref{conclusion-challenges}.
+ \item \elektra{Spec} alone would be an incomplete solution if applications misinterpret configuration settings internally.
+ In \secref{conclusion-programming}, we conclude our efforts to provide better and safer frontends that avoid missing considerations of context.
+ \item In \secref{conclusion-language} we give final remarks about the modularity and efficiency of \elektra{Spec}.
+ \item In \secref{conclusion-awareness} we summarize how we achieve context-aware configuration for both elektrified applications and applications without source code modifications.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Challenges}
+\label{sec:conclusion-challenges}
+
+In the beginning of our work we found that state-of-the-art literature only reported the phenomenon misconfiguration but hardly elaborated on its causes.
+Thus we had to unveil these causes ourselves.
+From the causes, we derived requirements aiming at \goalref{requirements}:
+\goalRequirements*
+
+To accomplish the goal, we addressed the following research question:
+\rqMotivation*
+
+The answer is that validations and context information is encoded in the applications in a way so that they are~\cite{raab2017challenges}
+\begin{itemize}
+\item not reusable, requiring error-prone duplication, %finding of RQ 2.1; Contribution 5
+\item not introspectable by external tools, and
+\item incapable of using knowledge of the system and its context.
+\end{itemize}
+We supported our claims by an experience report, a questionnaire, and a large-scale source code analysis~\cite{raab2017challenges}.
+We framed the disclosed challenges as \empha{configuration integration problem}:
+Applications are currently unable to access configuration settings and specifications present in the system.
+
+In this book, we collected the first empirically-founded requirements for configuration access.
+Some requirements fundamentally differ from all current implementations.
+In particular, \elektra{Lib} is the first implementation with external configuration specifications and consistent introspection.
+These properties are, however, essential to mitigate the configuration integration problem that was found important by \p{96} of $173$ survey participants.
+
+Furthermore, we learned that current frontends are already used as if they were context aware, although they are not.
+Based on that, we split our efforts into two paths for possible improvements on context-aware configuration:
+\begin{itemize}
+\item By providing novel frontends, we mitigate problems for newly-written software.
+\item By reimplementing current frontends, we mitigate problems for legacy software.
+\end{itemize}
+
+\paragraph{Future Work:}
+We plan to conduct studies on misconfiguration with systems that use \elektra{}.
+In particular, similar studies as discussed in \chapref{motivation} and \secref{implication-misconfiguration} should be repeated.
+This way, new ways of misconfiguration can be unveiled and the effectiveness of \elektra{} can be improved.
+
+
+
+
+
+
+
+
+
+
+\section{Context-oriented Programming}
+\label{sec:conclusion-programming}
+
+We would not achieve much if developers continue to access configuration settings in error-prone, non-unifiable ways.
+Thus we first looked at \goalref{frontends}:
+\goalFrontends*
+
+We demonstrated the possibility of supporting contextual values without overhead on reading them---unconcerned of the number of active layers.
+A declarative specification of contextual values diminishes the burden of implementing type-safe contextual classes implementing contextual values and layers.
+Additionally, we avoid superfluous cache updates on context changes by specifying dependences between values and contexts~\cite{raab2014program}.
+
+
+Specifications in combination with active layers yield unique names for all contextual values in each context.
+These names allow introspection and improve debugging support of contextual values~\cite{raab2014program}.
+
+
+\paragraph{Ubiquitous Computing:}
+
+In this book, we improved context awareness and customizations without compromise on efficiency in multi-threaded applications.
+Developers can choose whether context changes are across all threads or target specific thread(s)~\cite{raab2015global}.
+
+We demonstrated that our approach improves on multi-core-processor support for context-aware ubiquitous computing.
+\elektra{} facilitates algorithms to read contextual values concurrently with full control with respect to performance~\cite{raab2015global}.
+
+In benchmarks we demonstrated that even frequent context changes do not slow down the page replies of a Web server application.
+Only on a single-core processor we noticed decay if using a high number of context changes.
+On a multi-core processor we needed an unrealistic-long global lock to reduce the number of replies per seconds~\cite{raab2015global}.
+
+Our contributions for ubiquitous computing are summarized as follows~\cite{raab2015global}:
+\begin{itemize}
+\item \elektra{} enables developers to facilitate contextual values in embedded, multi-threaded applications.
+\item In a case study, we reported on our experience on developing a Web server running on embedded hardware.
+\item We analyzed the performance in single-core and multi-core setups.
+\end{itemize}
+
+
+These contributions are significant because in other implementations, context awareness had a much larger performance impact unsuitable for embedded systems~\cite{raab2015global}.
+
+
+Another important aspect of our tool is the build-in persistence of the execution environment.
+In our approach, command-line options and configuration files initialize all contextual values for every known context.
+\elektra{} enables serializing users' customizations to configuration files.
+
+
+\paragraph{Mobile Computing:}
+
+
+In this book we demonstrated how contextual values are used for layer activation.
+We considered several limitations and benefits~\cite{raab2016persistent}:
+\begin{itemize}
+\item Layer activations automatically consider context.
+\item Applications are enabled to synchronize layers activations.
+\item Applications share context information across programming languages.
+\end{itemize}
+
+
+The approach is practical and relevant to mobile development.
+It simplifies accounting for the current context.
+Furthermore, it supports individual customization and sharing context between applications.
+Even end users can redefine configuration settings in a specific context~\cite{raab2016persistent}.
+
+In benchmarks, we demonstrated that activating contextual values does not add much cost to layer activations.
+\elektra{} also supports synchronization with the key database to enable sharing of contextual values between applications.
+A real-world Web server benchmark illustrates that only high synchronization rates with the key database, such as every few milliseconds, influence the number of served requests on a multi-core computer~\cite{raab2016persistent}.%
+{\parfillskip=0pt plus .7\textwidth \emergencystretch=.5\textwidth \par}
+
+Our contributions in mobile computing are summarized as follows~\cite{raab2016persistent}:
+\begin{itemize}
+\item With \elektra{}, we introduced a tool with a unique combination of performance, context awareness, and customization.
+\item \elektra{} empowers developers to facilitate contextual values in multi-threaded and multi-process applications.
+\item Contextual values are shareable across applications.
+\item \elektra{} currently supports development, also for embedded systems, in \supportedbindings.
+\item In a case study we reported our experience in embedded development.
+	We analyzed the performance in microbenchmarks and using a Web server.
+\end{itemize}
+
+\paragraph{Future Work:} Many further optimization techniques are open to be explored.
+For example, layer switching can be accelerated by using an array per contextual value.
+It might require compression techniques to keep the size of arrays acceptable.
+
+
+
+
+
+
+
+
+
+
+
+\section{Modular Specification Language \textsc{SpecElektra}}
+\label{sec:conclusion-language}
+
+We conclude on \goalref{abstraction}:
+\goalAbstraction*
+
+\elektra{Spec} is in a sweet spot of configuration specification languages that enables modularity:
+In \elektra{Spec}, modularity supports developers to reach system-oriented and context-oriented requirements.
+The modularization in the specification language supports applications to include their specific validation strategies.
+This way we reach an improvement of the validation precision without introducing a complex configuration specification language.
+\elektra{Spec} enables us to externalize many cross-cutting concerns related to configuration access~\cite{raab2016improving}.
+
+
+We implemented most parts of \elektra{Spec} in backends so that specifications are automatically enforced for all applications.
+Bugs are easily fixed for all applications at a single place.
+We took care to keep the backends extensible by implementing all features as plugins.
+We presented an algorithm that automatically assembles plugins using the configuration specifications and the plugins' contracts.
+
+In benchmarks we showed that overhead introduced by modular abstraction is negligible.
+All current features, except of the cache for contextual values, can be implemented within plugins in the backends.
+Even better, the impact of a higher number of plugins is irrelevant compared to overall costs~\cite{raab2016improving}.
+
+The benefits of \elektra{Spec} are thus that it~\cite{raab2016improving}
+\begin{itemize}
+\item opens up a unified way to access configuration settings,
+\item enables documentation, validation, and even calculations of configuration settings,
+\item avoids restrictions for plugins,
+\item introduces plugins with run-time and compile-time variability, and
+\item enables us to introduce high-level configuration settings from which \elektra{} derives suitable context-aware configurations.
+\end{itemize}
+
+\paragraph{Future Work:} There is some doubt that POSIX abstractions cover the needs of applications~\cite{atlidakis2016posix}.
+We agree and think that configuration access is an important need of applications.
+In further work, \elektra{}'s API, KDB, and its abstractions should be reimplemented in different programming languages.
+For implementations of \elektra{}'s API, compliance levels should be defined.
+
+
+Further research is needed to decide which type systems fit best for such a configuration specification language.
+Several type systems, as described in \secref{related-type-systems}, can be implemented and compared.
+We also leave type-safe upgrading of configuration specifications as further work.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Context awareness}
+\label{sec:conclusion-awareness}
+
+We contributed to \goalref{context}:
+\goalContext*
+
+In this book, we claimed that applications can be enriched to be more context aware without any source code modifications.
+We showed that such a run-time system exists and, furthermore, is practical.
+We evaluated \elektra{} on 16 large, real-world FLOSS applications and presented more detailed case studies on some of the applications.
+Only by changing configuration settings and writing simple specifications, we improved context awareness in several case studies, often even flawlessly.
+We applied a context-oriented software engineering process that supports systematic applicability~\cite{raab2017introducing}.
+
+We facilitated a context-aware key database using configuration files.
+Calls to frontends, such as ^getenv^ and ^open^, are forwarded to \elektra{}'s implementation of context-aware configuration access.
+Furthermore, the same context information, configuration settings, and specifications are reused between applications to improve on the configuration integration problem.
+A unique property of our approach is that it enables context awareness without any modifications in source code~\cite{raab2016unanticipated}.
+
+
+Our results related to unanticipated context awareness are~\cite{raab2016unanticipated}:
+\begin{itemize}
+\item With our approach applications are more aware of their context.
+This context awareness leverages application integration.
+\item Our work demonstrates that deducing configuration settings from context is realistic.
+\item We provide experimental validation in a case study of significant complexity.
+\item The evaluation offers some clues on the potential of context awareness.
+\end{itemize}
+
+Avoiding manual considerations of context and validation in configuration access addresses a source of misconfiguration~\cite{raab2017introducing}.
+
+
+Our approach demonstrates that it is not required to foresee every possible context during development.
+Instead we introduce layers and configuration settings during deployment.
+\elektra{} is modular due to the separation of context sensors and applications.
+The source code and run-time analysis shows that dependence injection, i.\,e., `hijacking' existing ^getenv^ and ^open^ invocations, enables more context awareness~\cite{raab2017introducing}.
+
+We showed how we systematically integrated all 1,957 configuration settings of Firefox to provide seamless adaptation to workplaces.
+We never needed to modify Firefox's source code~\cite{raab2017introducing}.%
+{\parfillskip=0pt plus .7\textwidth \emergencystretch=.5\textwidth \par}
+
+\paragraph{Future Work:} We plan to integrate more context awareness and to conduct larger case studies~\cite{raab2016improving}.
+Ideally, whole desktop environments are elektrified with a single implementation of an API.
+The ^open^ interception can be reimplemented as file system in user space (FUSE), which is a less intruding solution.
+We take advantage of the fact that \elektra{} is by no means limited to intercepting ^getenv^ and ^open^.
+For example, we started implementing the API GSettings used within the desktop environment GNOME.
+It has the potential to make all GNOME settings context aware.
+Extensions to make even more forms of configuration context aware (configuration for plugins, modules, mobile APIs etc.) remain as future work~\cite{raab2017introducing}.

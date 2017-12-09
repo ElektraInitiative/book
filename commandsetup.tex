@@ -1,0 +1,407 @@
+%% For Elektra names
+\newcommand{\elektra}[2][]
+{%
+	\ifthenelse{\isempty{#2}}%
+		{\textsc{Elektra}}% if #2 is empty
+		{%
+		\ifthenelse{\isempty{#1}}%
+			{\textsc{#2\-Elektra}}% if #1 is empty, do not index it!
+			{\index{#1Elektra|boldindex}\textsc{#2\-Elektra}}% if #1 is not empty, index it
+		}%
+}
+
+%% Highlight an important word + index it
+\newcommand{\empha}[2][]
+{%
+	\ifthenelse{\isempty{#1}}%
+		{\index{#2}\emph{#2}}% if #1 is empty
+		{\index{#1}\emph{#2}}% if #1 is not empty
+}
+
+
+%% https://tex.stackexchange.com/questions/391448/list-all-theorems-that-were-not-restated/391484#391484
+\makeatletter
+\long\def\g@addto@toks#1#2{\global#1\expandafter{\the#1#2}}
+\newtoks\@toks@restatable
+\newtoks\listofrestatable
+\newtoks\listofrestatated
+\let\tre@restatable\restatable
+\let\tre@endrestatable\endrestatable
+\renewenvironment{restatable}[3][]{%
+  \g@addto@toks\@toks@restatable{#3,}%
+  \g@addto@toks\listofrestatable{\process@comma#3 (#2)}%
+  \global\@namedef{add@restated@#3}{%
+    \g@addto@toks\listofrestatated{#3; }%
+    \global\cslet{add@restated@#3}{\relax}%
+  }
+  \tre@restatable[#1]{#2}{#3}%
+  \csgpreto{#3}{\@nameuse{add@restated@#3}}%
+}{\tre@endrestatable}
+\def\process@comma{\def\process@comma{,\space}}
+\def\notrestated{}
+\def\checknotrestated{%
+  \@for\@rthm:=\the\@toks@restatable\do{%
+    \ifx\@rthm\@empty\else
+      \expandafter\ifx\csname add@restated@\@rthm\endcsname\relax\else
+        \xdef\notrestated{\notrestated\@rthm; }\fi
+    \fi
+  }
+  \ifx\notrestated\empty\else
+    \par\vspace{1pc}\par\noindent
+    Warning! -- There were theorems that have not been restated: \notrestated
+    \@latex@warning{There were theorems that have not been restated: \notrestated}%
+\fi
+}
+\makeatletter
+
+
+
+% https://en.wikibooks.org/wiki/LaTeX/Fonts
+\DeclareTextFontCommand\textintro{\normalfont\bfseries\itshape} % nice!
+%\DeclareTextFontCommand\textintro{\normalfont\slshape\scshape} % also nice! needs slantsc
+%\DeclareTextFontCommand{\question}{\em}
+
+%amsmath stuff
+\DeclareMathSymbol{\mlq}{\mathord}{operators}{``}  % math left quote
+\DeclareMathSymbol{\mrq}{\mathord}{operators}{`'}  % math right quote
+
+%% Introduces a new word in the book + index it
+\newcommand{\intro}[2][]
+{%
+	\ifthenelse{\isempty{#1}}%
+		{\index{#2|boldindex}\textintro{#2}}% if #1 is empty
+		{\index{#1|boldindex}\textintro{#2}}% if #1 is not empty
+}
+
+% https://tex.stackexchange.com/questions/390144/why-does-lstlisting-removes-a-space-after-morestring/390156#390156
+\makeatletter
+%\def\lst@visiblespace{\lst@ttfamily{\ }{\ }}
+\def\lst@visiblespace{\lst@ttfamily{\phantom{\char32}}{\phantom{\textvisiblespace}}}
+\makeatother
+
+%https://stackoverflow.com/questions/2767389/referencing-a-theorem-like-environment-by-its-name
+\makeatletter
+\def\namedlabel#1#2{\begingroup
+   \def\@currentlabel{#2}%
+   \label{#1}\endgroup
+}
+\makeatother
+
+
+% From here:
+% https://tex.stackexchange.com/questions/24101/theorem-decorations-that-stay-with-theorem-environment
+\newcommand{\theoremhang}{% top theorem decoration
+  \begingroup%
+    \setlength{\unitlength}{.005\linewidth}% \linewidth/200
+    \begin{picture}(0,0)(1.5,0)%
+      \linethickness{0.45pt} \color{Black}%
+      \put(-3,2){\line(1,0){206}}% Top line
+      \multido{\iA=2+-1,\iB=50+-10}{5}{% Top hangs
+        \color{black!\iB}%
+        \put(-3,\iA){\line(0,-1){1}}% Top left hang
+        \put(203,\iA){\line(0,-1){1}}% Top right hang
+      }%
+    \end{picture}%
+  \endgroup%
+}%
+
+\newcommand{\theoremhung}{% bottom theorem decoration
+  \nobreak%
+  \vspace*{-1.8ex}%
+  \begingroup%
+    \setlength{\unitlength}{.005\linewidth}% \linewidth/200
+    \begin{picture}(0,0)(1.5,0)%
+      \linethickness{0.45pt} \color{Black}%
+      \put(-3,0){\line(1,0){206}}% Bottom line
+      \multido{\iA=0+1,\iB=50+-10}{5}{% Bottom hangs
+        \color{black!\iB}%
+        \put(-3,\iA){\line(0,1){1}}% Bottom left hang
+        \put(203,\iA){\line(0,1){1}}% Bottom right hang
+      }%
+    \end{picture}%
+  \endgroup%
+}%
+
+\newcommand{\theoremspace}{\needspace{2\baselineskip}}
+\newcommand{\theoremspuce}{\nopagebreak\noindent}
+
+\newcommand{\chapterhung}{\vspace{-1.4em}\theoremhung\vspace{2em}}
+
+\newcounter{defexample}
+\numberwithin{defexample}{chapter}
+
+
+\theoremstyle{plain}
+\newtheorem{definition}[defexample]{Definition}
+
+\theoremstyle{definition}
+\theoremsymbol{\ensuremath{\blacktriangle}}%
+\newtheorem{example}[defexample]{Example}
+
+\theoremstyle{definition}
+\theoremsymbol{}%
+\theoremprework{\theoremspace\theoremhang\vspace*{-1.3ex}}%
+\theorempostwork{\vspace{-1em}\theoremspuce\theoremhung\vspace{1em}}%
+\theoremheaderfont{\upshape\bfseries}
+\theoremseparator{.}
+\theorembodyfont{\upshape}
+\newtheorem{lemma}{Lemma}
+
+\theoremstyle{plain}
+\newtheorem{contribution}{Contribution}
+
+\theoremstyle{plain}
+\newcounter{reqcounter}
+\newtheorem{requirement}[reqcounter]{Requirement}
+
+\theoremstyle{nonumberplain}
+\newtheorem{goal}{Goal}
+
+\theoremstyle{definition}
+\newtheorem{RQ}{RQ}
+
+\theoremstyle{definition}
+\newtheorem{RQsub}{RQ}[RQ]
+
+\theoremstyle{definition}
+\newtheorem{RQsubsub}{RQ}[RQsub]
+
+
+\theoremstyle{nonumberplain}
+\theoremheaderfont{\sffamily\bfseries\upshape}%
+\theorembodyfont{\itshape}%
+\theoremsymbol{}%
+\theoremseparator{\ }%
+\theoremprework{\theoremspace\theoremhang\vspace*{-1.3ex}}%
+\theorempostwork{\vspace{-1em}\theoremspuce\theoremhung\vspace{1em}}%
+\setlength{\theorempreskipamount}{-1ex}
+\setlength{\theorempostskipamount}{-1ex}
+\newtheorem{hypothesis}{Hypothesis}
+
+\theoremstyle{nonumberplain}
+\theoremheaderfont{\sffamily\bfseries\upshape}%
+\theorembodyfont{\itshape}%
+\theoremsymbol{}%
+\theoremseparator{\ }%
+\theoremprework{\theoremspace\theoremhang\vspace*{-1.3ex}}%
+\theorempostwork{\vspace{-1em}\theoremspuce\theoremhung\vspace{1em}}%
+\setlength{\theorempreskipamount}{-1ex}
+\setlength{\theorempostskipamount}{-1ex}
+\newtheorem{finding}{Finding}
+
+\theoremstyle{nonumberplain}
+\newtheorem{implication}{Implication}
+
+
+% https://tex.stackexchange.com/questions/229383/alignment-of-modified-veelo-chapter-style-memoir
+\makeatletter
+\newlength{\numberheight}
+\setlength{\numberheight}{\beforechapskip}
+
+\makechapterstyle{meelo}{
+	\setlength{\afterchapskip}{40pt}
+	\renewcommand*{\chapterheadstart}{\vspace*{40pt}}
+	\renewcommand*{\afterchapternum}{\par\nobreak\vskip 25pt}
+	\renewcommand*{\chapnamefont}{\normalfont\LARGE\flushright}
+	\renewcommand*{\chapnumfont}{\normalfont\HUGE}
+	\renewcommand*{\chaptitlefont}{\normalfont\HUGE\bfseries\flushright}
+	\renewcommand*{\printchaptername}{%
+		\chapnamefont\MakeUppercase{\@chapapp}}
+	\renewcommand*{\chapternamenum}{}
+	\setlength{\beforechapskip}{18mm}
+	\setlength{\midchapskip}{\paperwidth}
+	\addtolength{\midchapskip}{-\textwidth}
+	\addtolength{\midchapskip}{-\spinemargin}
+	\addtolength{\midchapskip}{-11.5em}
+	\renewcommand*{\printchapternum}{%
+		\enspace\resizebox{!}{\numberheight}{\chapnumfont\thechapter}%
+			\rlap{\hspace{2cm}\rule{\midchapskip}{\beforechapskip}}%
+	}%
+	\makeoddfoot{plain}{}{}{\thepage}%
+}
+
+\chapterstyle{meelo}
+\makeatother
+
+
+%% Make grammar(s) pretty:
+%\setlength{\grammarparsep}{20pt plus 1pt minus 1pt} % increase separation between rules
+\setlength{\grammarindent}{12em} % increase separation between LHS/RHS
+
+%% to be used to mark the main page of an index
+\newcommand{\boldindex}[1]{\textbf{\hyperpage{#1}}}
+
+%\newunicodechar{⏎}{$\hookleftarrow$} % \hookleftarrow ≅ ↩︎
+
+
+%% Refer to a Goal
+\newcommand{\goalref}[1]
+{Goal~\ref{goal:#1}}
+
+%% Refer to a Section
+\newcommand{\secref}[1]
+{Section~\ref{sec:#1}}
+%{Section~\ref{sec:#1} on page~\pageref{sec:#1}}
+
+%% Refer to a Table
+\newcommand{\tabref}[1]
+{Table~\ref{tab:#1}}
+
+%% Refer to a Figure
+\newcommand{\figref}[1]
+{Figure~\ref{fig:#1}}
+
+%% Refer to a Example
+\newcommand{\exref}[1]
+{Example~\ref{ex:#1}}
+
+%% Refer to a Lemma
+\newcommand{\lemmaref}[1]
+{Lemma~\ref{lemma:#1}}
+
+%% Refer to a Definition
+\newcommand{\defref}[1]
+{Definition~\ref{def:#1} on page~\pageref{def:#1}}
+
+\let\oldeqref\eqref
+%% Refer to an equation
+\renewcommand{\eqref}[1]
+{Equation~\oldeqref{eq:#1}}
+
+%% Refer to RQ for sections
+\newcommand{\rqsubsection}[2]{\subsection{RQ \ref*{rq:#1}: #2}}
+
+
+\newcommand{\fixtheorem}[0]{\leavevmode\vspace{-1em}}
+
+%% Refer to a chapter
+\newcommand{\chapref}[1]
+{Chapter~\ref{chapter:#1}}
+%{Chapter~\ref{chapter:#1} on page~\pageref{chapter:#1}}
+
+\newcommand{\question}[1]
+{\emph{O: ``#1''}}
+
+\newcommand{\methodQuestion}{\emph{Q:}}
+
+\newcommand{\methodSource}{\emph{S:}}
+
+
+
+%define namespace
+%textsc also used in backend.tex:344
+\makeatletter
+\newcommand{\namespace}[1]{\@namespace{#1}}
+\newcommand{\@@namespace}[1]{\textsc{\let\@namespace\@@@namespace#1}}
+\newcommand{\@@@namespace}[1]{\textnormal{\let\@namespace\@@namespace#1}}
+\let\@namespace\@@namespace
+\makeatother
+
+
+\makeatletter
+\newcommand{\notsupported}[1]{\@notsupported{Not supported#1}}
+\newcommand{\@@notsupported}[1]{\textsc{\let\@notsupported\@@@notsupported#1}}
+\newcommand{\@@@notsupported}[1]{\textnormal{\let\@notsupported\@@notsupported#1}}
+\let\@notsupported\@@notsupported
+\makeatother
+
+% code environment (avoids listings to have page breaks within them)
+% \begin{code}[caption={a},language=Cpp]
+% \end{code}
+\lstnewenvironment{code}[1][]%
+{%
+\microtypesetup{activate=false}%
+\noindent%
+\minipage{\linewidth}%
+%\vspace{0.5\baselineskip}\medskip%
+\theoremspace%
+\theoremhang%
+\lstset{#1}}%
+{\theoremhung\endminipage%
+\microtypesetup{activate=true}%
+}
+%{}
+
+\newcommand{\StashGrammar}{\let\syntleft\relax \let\syntright\relax}
+
+%two lines within a cell
+\newcommand{\blap}[1]{{\begin{tabular}[t]{@{}c@{}}#1\end{tabular}}}
+
+%operators
+\DeclareMathOperator*{\concat}{\mathnormal{+\!\!+}}
+\DeclareMathOperator*{\concatkey}{\mathnormal{\colon\!\!\!/}}
+
+%symbols
+%make Linebreak work without math
+\newcommand{\NullValue}{\epsilon}
+\newcommand{\CleanString}{\overrightarrow{C'}}
+\newcommand{\RelativeKeyNames}{\mathbb{R}}
+\newcommand{\KeyNames}{\mathbb{N}}
+\newcommand{\MetaKeyValues}{\bigcup\limits_{g \in G} X_g}
+\newcommand{\EmptyNameSpace}{\epsilon}
+\newcommand{\Keys}{\mathbb{K}}
+\newcommand{\KeySets}{\mathcal{K}}
+\newcommand{\NullKey}{\varnothing}
+\newcommand{\EmptyKeySet}{\kappa}
+\newcommand{\NameSpaces}{\mathnormal{N}}
+\newcommand{\LineBreak}{\ensuremath{\hookleftarrow}}
+\newcommand{\WhiteSpace}{\textvisiblespace}
+\newcommand{\SetOfValues}{\ensuremath{\mathbb{C}_\NullValue}}
+\newcommand{\Strings}{\ensuremath{\mathbb{C}}}
+\newcommand{\NonEmptyStrings}{\ensuremath{\mathbb{C}_{\geq1}}}
+\newcommand{\CleanStrings}{\ensuremath{\mathbb{C}'}}
+\newcommand{\NonEmptyCleanStrings}{\ensuremath{\mathbb{C}_{\geq1}'}}
+
+%% Define a key
+\newcommand{\key}[1]{\lstinline[language=,literate={/}{}{0\discretionary{/}{}{/}},postbreak=,breaklines=false]{#1}}
+
+% write a string
+\newcommand{\str}[1]
+{\syntax{\lq\texttt{#1}'}}
+
+% write a plugin (hardly used)
+\newcommand{\plugin}[1]
+{\texttt{#1}}
+
+%% Define a property (also used for clauses)
+\newcommand{\property}[1]{\lstinline[language=,literate={/}{}{0\discretionary{/}{}{/}},postbreak=,breaklines=false]{#1}}
+
+
+%: WARNING: needs to be kept in sync with background.tex:1169
+\lstMakeShortInline[postbreak=,keywordstyle={}]^
+%\lstMakeShortInline[breaklines=true]^
+
+
+
+%define strong
+\makeatletter
+\newcommand{\strong}[1]{\@strong{#1}}
+\newcommand{\@@strong}[1]{\noindent \textbf{\let\@strong\@@@strong#1}}
+\newcommand{\@@@strong}[1]{\textnormal{\let\@strong\@@strong#1}}
+\let\@strong\@@strong
+\makeatother
+
+%define rqref
+\makeatletter
+\newcommand{\rqref}[1]{\@rqref{RQ~\ref{rq:#1}}}
+\newcommand{\@@rqref}[1]{\noindent \textbf{\let\@rqref\@@@rqref#1}}
+\newcommand{\@@@rqref}[1]{\textnormal{\let\@rqref\@@rqref#1}}
+\let\@rqref\@@rqref
+\makeatother
+
+
+%define reqref
+\makeatletter
+\newcommand{\reqref}[1]{\@reqref{\ref{req:#1}}}
+\newcommand{\@@reqref}[1]{\noindent \textbf{\let\@reqref\@@@reqref#1}}
+\newcommand{\@@@reqref}[1]{\textnormal{\let\@reqref\@@reqref#1}}
+\let\@reqref\@@reqref
+\makeatother
+
+%define p
+\makeatletter
+\newcommand{\p}[1]{\SI{#1}{\percent}}
+\let\@p\@@p
+\makeatother
+
+\hyphenation{plug-in plug-ins meta-data meta-key meta-value inte-grated back-end front-end aware-ness con-text-ual gn-ome libre-office meta-data list-en-er eval-uate prop-er-ty prop-er-ties con-tex-tual name-space name-spaces ap-pli-ca-tions}

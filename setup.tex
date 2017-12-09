@@ -1,0 +1,292 @@
+\documentclass[final,a4paper,11pt]{memoir} % Remove option 'final' to obtain debug information.
+
+\newif\ifdebug
+\debugfalse
+
+\usepackage[type={CC},modifier={by-sa},version={4.0}]{doclicense}
+
+\chapterstyle{veelo}%
+\usepackage[scaled]{helvet}%
+\usepackage{lmodern}%
+\usepackage{courier}%
+\usepackage[T1]{fontenc}%
+\usepackage[english,naustrian]{babel}%
+\usepackage[nodayofweek]{datetime}%
+\usepackage{geometry}%
+\usepackage{calc}%
+\usepackage{etoolbox}%
+\usepackage{graphicx}%
+
+% Load packages to allow in- and output of non-ASCII characters.
+\usepackage{lmodern}        % Use an extension of the original Computer Modern font to minimize the use of bitmapped letters.
+\usepackage[T1]{fontenc}    % Determines font encoding of the output. Font packages have to be included before this line.
+\usepackage[utf8]{inputenc} % Determines encoding of the input. All input files have to use UTF-8 encoding.
+\usepackage{amsmath}    % Extended typesetting of mathematical expression.
+\usepackage{amssymb}    % Provides a multitude of mathematical symbols.
+\usepackage{mathtools}  % Further extensions of mathematical typesetting.
+
+% Make font spacing more pretty (must be after font)
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\SetTracking{encoding={*}, shape=sc}{0}  % http://www.khirevich.com/latex/microtype/
+
+\usepackage[inline]{enumitem} % User control over the layout of lists (itemize, enumerate, description).
+\usepackage{syntax}  % if I want a listings of listings http://tex.stackexchange.com/questions/96765/treat-grammar-as-listing
+\usepackage{multicol} % For columns next to each other (e.g. for concurrency)
+\usepackage{bibentry} % For adding bibentry within text
+\usepackage{graphicx} % needed for scale box
+\usepackage{mathtools}
+\usepackage{currvita}
+\usepackage{multido}
+
+
+
+
+\usepackage{letltxmacro}
+\usepackage{xfrac}
+\usepackage{multirow}   % Allows table elements to span several rows.
+\usepackage{booktabs}   % Improves the typesettings of tables.
+\usepackage[usenames,dvipsnames,table]{xcolor} % Allows the definition and use of colors. This package has to be included before tikz.
+\usepackage{tabularx}   % for tables (needs xcolor)
+\usepackage{nag}       % Issues warnings when best practices in writing LaTeX documents are violated.
+
+\ifdebug
+\overfullrule=5mm
+\usepackage[backgroundcolor=white]{todonotes}  % Provides tooltip-like todo notes.
+\usepackage{etoolbox} % for debugging of ntheorems
+\else
+\usepackage[disable]{todonotes}  % Provides tooltip-like todo notes. [DISABLED]
+\fi
+
+\usepackage{pdfpages} % must be after xcolor (option clash)
+
+\usepackage[sort&compress,numbers]{natbib}  % to be compatible with \citet, \citeauthor, \citeyear
+\nobibliography*  % see http://tex.stackexchange.com/questions/49048/how-to-cite-one-bibentry-in-full-length-in-the-body-text
+
+\usepackage[
+	bookmarks=true, % PDF bookmarks allowed. NB! The level depth of bookmarks is the same as in the TOC.
+	unicode=true, % PDF bookmarks in Unicode.
+	bookmarksnumbered=true, % Section numbers in PDF bookmarks.
+	bookmarksopenlevel=1, % The open level in PDF bookmarks.
+	hyperindex=true, % Hyperlinked index.
+	%linkcolor = blue, % The colour for in-document links (e.g. in the table of contents).
+	%citecolor = cyan, % The colour for bibliographic citations.
+	%urlcolor = red% The colour for hyperlinks to the Net.
+]
+{hyperref} % pdf features like links
+\usepackage[all]{hypcap}
+
+\usepackage[thmmarks,amsmath,amsthm]{ntheorem}
+\usepackage{thm-restate}
+
+\usepackage{wrapfig} % KPS figures
+\usepackage{xifthen}
+\usepackage{siunitx}
+\usepackage{listings}
+\usepackage[nodayofweek]{datetime} % for nicely formatted dates
+
+\usepackage[acronym,toc]{glossaries} % Enables the generation of glossaries and lists fo acronyms. This package has to be included last.
+
+
+\setcounter{topnumber}{5}
+\setcounter{bottomnumber}{5}
+\setcounter{totalnumber}{5}
+
+\setparaheadstyle{\itshape}
+\setsubparaheadstyle{\itshape}
+
+
+\graphicspath{{pic/}{figures/}{graphics/}{ipe/}{ggplot/}}
+
+\OnehalfSpacing
+
+\newcommand*{\SavedLstInline}{}
+\LetLtxMacro\SavedLstInline\lstinline
+\DeclareRobustCommand*{\lstinline}{%
+  \ifmmode
+    \let\SavedBGroup\bgroup
+    \def\bgroup{%
+      \let\bgroup\SavedBGroup
+      \hbox\bgroup
+    }%
+  \fi
+  \SavedLstInline
+}
+
+\newcommand{\authorname}{Markus Raab} % The author name without titles.
+\newcommand{\booktitle}{Context-aware Configuration} % The title of the book.
+
+
+\hypersetup
+{
+	pdfpagelayout = TwoPageRight,           % How the document is shown in PDF viewers (optional).
+	pdftitle={Elektra}, %% title of the work
+	pdfauthor={\authorname}, %% my name
+	pdfsubject={\booktitle}, %% the title of the book
+	pdfcreator={LaTeX2e and pdfLaTeX with hyperref-package.},
+	pdfproducer={LaTeX2e, pdfLaTeX, hyperref-package, vim on GNU/Linux}, %%
+	pdfkeywords={elektra, backends, modules, components,
+		configuration, settings, preferences,
+		plugin, plugins, type, checker, database,
+		Komponenten, Datenbank, Kontrakte, Konfiguration}
+	% colorlinks=true
+}
+
+\lstdefinelanguage{dump}
+{
+	morekeywords={kdbOpen,ksNew,keyNew,keyMeta,keyCopyMeta,keyEnd,ksEnd,kdbClose},
+	sensitive=false,
+	morecomment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	morestring=[b]",
+}
+
+
+\lstdefinelanguage{SpecElektra}{
+	%
+	comment=[l]{;},
+	commentstyle=\color{purple}\ttfamily,
+	%
+	morestring=[b]',
+	morestring=[b]`,
+	morestring=[b]",
+	stringstyle=\color{purple}\ttfamily,
+	%
+	sensitive=f,% keywords are not case sensitive
+	%
+	% Colors see https://en.wikibooks.org/wiki/LaTeX/Colors
+	%
+	keywordstyle=\color{BlueViolet}\bfseries,
+	keywordstyle=[2]\color{Green},
+	keywordstyle=[3]\color{Aquamarine}\bfseries\textit,
+	keywordstyle=[4]\color{NavyBlue}\bfseries,
+	keywordstyle=[5]\color{Mahogany},
+	%
+	keywords={layer, require, validation, check, range, description, rationale, requirement, accessibility, enable, condition, message, default, opt, readonly, type, context, property1, property2, description, file, content, mountpoint, metadata, infos, plugins},
+	keywords=[2]{},
+	keywords=[3]{order, interface, network, emphasized},
+	%keywords=[4]{[, ]},  %Not needed
+	keywords=[4]{},
+	keywords=[5]{},
+	%
+	literate={:=}{{{\color{red}\textbf:=}}}2
+		 {\%}{{{\color{NavyBlue}\textbf\%}}}1
+		 {[}{{{\color{Sepia}\textbf[}}}1
+		 {]}{{{\color{Sepia}\textbf]}}}1,
+}
+
+\lstdefinelanguage{Cpp}{%
+	language     = C++,
+	literate=
+}
+
+
+\lstdefinelanguage{CfgElektra}{
+	comment=[l]{;},
+	commentstyle=\color{purple}\ttfamily,
+	%
+	morestring=[b]',
+	morestring=[b]`,
+	morestring=[b]",
+	stringstyle=\color{purple}\ttfamily,
+	%
+	%
+	sensitive=f,% keywords are not case sensitive
+	%
+	% Colors see https://en.wikibooks.org/wiki/LaTeX/Colors
+	%
+	keywordstyle=\color{Bittersweet}\bfseries,
+	keywordstyle=[2]\color{DarkOrchid}\bfseries,
+	keywordstyle=[3]\color{ForestGreen}\bfseries\textit,
+	keywordstyle=[4]\color{Goldenrod}\bfseries,
+	keywordstyle=[5]\color{CarnationPink},
+	%
+	keywords={},
+	keywords=[2]{},
+	keywords=[3]{},
+	keywords=[4]{},
+	keywords=[5]{},
+	%
+	literate={=}{{{\color{ForestGreen}\textbf=}}}1
+		 %{<-}{{{\color{ForestGreen}\textbf<-}}}2
+		 %{*}{{{\color{Bittersweet}\textbf*}}}1
+		 {\%}{{{\color{NavyBlue}\textbf\%}}}1,
+}
+
+
+
+
+\lstset{language=SpecElektra, % Use SpecElektra as default programming language
+	%boxpos=t, % make boxes a bit more unbreakable
+	%frame=lines, % top+bottom line
+	basicstyle=\ttfamily, % Use normal-size true type font
+	showspaces,%
+	showstringspaces=false, % Don't put marks in string spaces
+	showlines=true, % make sure empty lines at end are shown (needed for concurrency
+	tabsize=4, % spaces per tab
+	xleftmargin=\parindent, % should be 18pt or 1.5em as defined by memoir
+	%Does not really work well (needs to be deactivated for shortlistings):
+	breaklines=false,
+	%postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+	%breakautoindent=true,
+	%prebreak={\mbox{\ensuremath{\curvearrowright}}} % Zeichen am Zeilenende (Umbruch)
+	%breaklines=true,
+	%breakautoindent=true,
+	%prebreak=\small\symbol{'134}, % backslash
+	%prebreak={\mbox{\ensuremath{\curvearrowright}}} % lange kure
+	%prebreak={\mbox{\ensuremath{\hookleftarrow}}} % lange kure
+	%xleftmargin=3.0ex, %for some formats
+	%xrightmargin=1.0ex, %for some formats
+	%
+	% Files do not work in utf8 see also:
+	% http://stackoverflow.com/questions/1116266/listings-in-latex-with-utf-8-or-at-least-german-umlauts
+	% http://tex.stackexchange.com/questions/24528/having-problems-with-listings-and-utf-8-can-it-be-fixed
+	% Should work but doesn't? (Maybe add to literate broken?)
+	%add to literate={ö}{{\"o}}1
+	%	{ä}{{\"a}}1
+	%	{ü}{{\"u}}1
+	%	{Ö}{{\"O}}1
+	%	{Ä}{{\"A}}1
+	%	{Ü}{{\"U}}1
+	%	{ß}{{\ss}}1,
+	%
+	% listingsutf8 did not work, made umlauts in comments very strange
+	%extendedchars=true,
+	%inputencoding=utf8,
+	%
+	%morecomment=[l][\color{blue}]{...}, % Line continuation (...) e.g. blue comment
+	morekeywords={for_each},
+	numbers=left, % Line numbers on left
+	firstnumber=1, % Line numbers start with line 1
+	numberstyle=\small\color{blue}, % Line numbers are blue and small
+	numbersep=5pt,
+	%stepnumber=5 % Line numbers go in steps of 5
+}
+
+\nonzeroparskip             % Create space between paragraphs
+\setlength{\parindent}{0pt} % Remove paragraph indentation
+
+\setlength\columnsep{1cm}   % for multicol
+
+\setpnumwidth{2.5em}        % Avoid overfull hboxes in the table of contents (see memoir manual).
+\setrmarg{4em}
+\setlength{\cftpartnumwidth}{3em}
+
+\setsecnumdepth{subsection} % Enumerate subsections.
+\maxtocdepth{subsection}
+
+\makeindex      % Use an optional index.
+
+\csappto{theindex}{\label{index}} %to index the index
+
+\rowcolors{1}{white}{lightgray}
+
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
+
+\renewcommand{\floatpagefraction}{.8}%
+
+\clubpenalty = 10000
+\widowpenalty = 10000
+\displaywidowpenalty = 10000
+
+
+

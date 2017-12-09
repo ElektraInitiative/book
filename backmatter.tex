@@ -1,0 +1,24 @@
+\backmatter
+
+\microtypesetup{protrusion=false}
+\listoffigures % Starred version, i.\,e., \listoffigures*, removes the toc entry.
+
+\cleardoublepage % Start list of tables on the next empty right hand page.
+\listoftables % Starred version, i.\,e., \listoftables*, removes the toc entry.
+\microtypesetup{protrusion=true}
+
+
+\addtocontents{toc}{\protect\newpage}
+\printindex
+
+
+\bibliographystyle{plainnat}
+
+\begingroup
+\sloppy
+\makeatletter
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\makeatother
+\bibliography{elektra}
+\endgroup
+
