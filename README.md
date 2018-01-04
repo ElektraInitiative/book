@@ -1,7 +1,7 @@
 This repository contains a book describing the
 status and vision of Elektra.
 
-[Read the book](book/book.pdf)
+[Read the book](book/context-aware-configuration-book.pdf)
 
 
 ## License
