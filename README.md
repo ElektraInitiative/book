@@ -1,7 +1,7 @@
 This repository contains a book describing the
 status and vision of Elektra.
 
-[Read the book](book/context-aware-configuration-book.pdf)
+[Read the book](https://www.libelektra.org/ftp/publications/raab2017context.pdf)
 
 
 ## License
