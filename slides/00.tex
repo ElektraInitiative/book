@@ -62,6 +62,7 @@
 \end{frame}
 }
 \begin{assignment}
+	\frametitle{First Assignment}
 	\begin{itemize}
 		\item Have you already experienced misconfiguration?
 		\item Did you read about misconfiguration in the news?
@@ -71,15 +72,10 @@
 	\end{task}
 \end{assignment}
 
-\begin{frame}
-	\tableofcontents
-\end{frame}
-
-\section{Content}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Content Overview}
 
 \subsection{Terminology}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \begin{frame}
 	\frametitle{Terminology}
 \begin{definition}
@@ -101,24 +97,287 @@ It can be \empha[produce]{produced} by the maintainer, user, or system administr
 \end{definition}
 \end{frame}
 
-\subsection{Requirements}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\subsection{Requirements}
 \begin{frame}
-	\frametitle{Requirements}
+\begin{restatable}{requirement}{reqLegacy}
+A configuration library must be able to integrate (legacy) systems and must fully support (legacy) configuration files.%
+\label{req:legacy}
+\end{restatable}
+
 \begin{restatable}{requirement}{reqIntegration}
 A configuration library must mitigate the configuration integration problem.%
 \label{req:integration}
 \end{restatable}
+
+\begin{restatable}{requirement}{reqValidate}
+Validation of configuration settings must happen systematically before the application is even started.
+\end{restatable}
+\end{frame}
+
+\begin{assignment}
+	\frametitle{Requirements}
+	\begin{task}
+	Discuss about requirements a configuration framework should fulfil.
+	\end{task}
+\end{assignment}
+
+\subsection{Topics}
+\begin{frame}
+	Topic: \textit{reduction of misconfiguration and configuration duplicates} \\
+	Misconfiguration obviously needs configuration.
+	We will discuss the ideas of:
+	\begin{itemize}
+		\item when configuration is needed (decisions, user interface)
+		\item how duplication can be avoided (generation of artifacts)
+		\item configuration-less systems (auto-detection)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Topic: \textit{sources of configuration}
+	\begin{itemize}
+		\item semi-structured data
+		\item configuration file formats
+		\item command-line arguments
+		\item environment variables
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Topic: \textit{desirable properties of configuration}
+	\begin{itemize}
+		\item self-description
+		\item changeability
+		\item idempotence
+		\item round-tripping
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Topic: \textit{configuration as user interface}
+	\begin{itemize}
+		\item How system administrators work.
+		\item Which user interfaces exist.
+		\item Which structures exist.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Topic: \textit{design of configuration and configuration access}
+	\begin{itemize}
+		\item architecture
+		\item introspection
+		\item code generation
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	Topic: \textit{influence of variability on software architecture}
+	\begin{itemize}
+		\item variability
+		\item architectural decisions
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Topic: \textit{complexity reduction and testability of configurable applications}
+	Are all configuration settings:
+	\begin{itemize}
+		\item used?
+		\item tested?
+		\item ...?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Topic: \textit{early detection of misconfiguration}
+	\begin{itemize}
+		\item points in time for configuration access and validation
+		\item validation techniques
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Topic: \textit{configuration management tools}
+	\begin{itemize}
+		\item Puppet
+		\item CfEngine
+		\item Nix
+		\item others...
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Further topics:
+	\begin{itemize}
+		\item \textit{context-awareness, avoidance of dependences}
+		\item \textit{cascading configuration}
+		\item \textit{strategies for validation and modularization}
+		\item \textit{documentation of configuration}
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\frametitle{In which topics are you interested?}
+	\begin{task}[1]
+	Choose a partner for this task.
+	\end{task}
+
+	\begin{task}[2]
+	Go to stations and discuss topic with your partner.
+	\end{task}
+
+	\begin{task}[3]
+	Write down the most interesting topics.
+	(Can be topics of stations or new topics.)
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	\frametitle{Elektra}
+	\hfill \includegraphics[width=2cm]{../figures/logo}
+	\vspace{-1cm}
+	%Elektra is an implementation of the next generation of configuration systems:
+	\begin{itemize}
+		\item Elektra improves configuration management.
+		\item Configuration management tools can use Elektra.
+		\item Elektra implements what we discuss in this lecture.
+		\item Elektra allows applications to fulfil the requirements we will discuss.
+		\item Obviously you will also be able to apply the knowledge from this LVA without Elektra.
+	\end{itemize}
 \end{frame}
 
 
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Organisation}
+
+\begin{frame}
+	Communication:
+	\begin{itemize}
+		\item TISS (forum and news) \url{https://tiss.tuwien.ac.at/course/courseDetails.xhtml?courseNr=194030&semester=2018S}
+		\item GitHub (private and public repo) \url{https://git.libelektra.org}
+		\item EMail \url{markus.raab@complang.tuwien.ac.at}
+		\item before/after/during lectures
+	\end{itemize}
+\end{frame}
+
 \begin{assignment}
-	\frametitle{First Assignment}
-	Discuss about requirements a configuration framework should fulfil.
+	\begin{task}
+	Send me your GitHub name per email to get access to private repo.
+	\end{task}
 \end{assignment}
+
+\subsection{Previous Knowledge}
+\begin{frame}
+	\begin{itemize}
+		\item Obviously \textit{no} prior knowledge about Configuration or Configuration Management necessary.
+		\item If you already have experience, you can use it in your talk and assignments.
+		\item Knowledge about software engineering and software requirements is beneficially.
+		\item You should have an understanding of large-scale software construction.
+		\item Programming skills is a must.
+	\end{itemize}
+\end{frame}
+
+\subsection{Grades}
+\begin{frame}
+	You will get a grade only if:
+	\begin{itemize}
+		\item You submitted your homework. (PR is not enough.)
+		\item You participated in the team exercise.
+		\item You gave your talk.
+	\end{itemize}
+\end{frame}
+
+\subsection{Grades}
+\begin{frame}
+	To get a positive grade:
+	\begin{itemize}
+		\item All parts must be done.
+		\item All parts must be positive.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Grade is calculated from:
+	\begin{description}
+	\item[30\,\%:] homework
+	\item[30\,\%:] team exercise
+	\item[10\,\%:] talk
+	\item[30\,\%:] test
+	\item[+:] extrapoints
+	\end{description}
+\end{frame}
+
+\subsection{Assignments}
+\begin{frame}
+	\frametitle{Talk}
+	You can give a talk about anything related to configuration management.
+	\begin{itemize}
+		\item 20 minutes.
+		\item It must be about your experience.
+		\item I.e., not only about study of literature.
+		\item It is okay if the experience happened during this LVA.
+		\item If you extensively use some tool, please share your knowledge.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Home Work}
+	You can select your own task related to \emph{use} configuration management.
+	For example:
+	\begin{itemize}
+		\item Use Elektra in a small application.
+		\item Write a tutorial about how you did it.
+		\item Fix usage bugs in Elektra, make it easier. (Extrapoints)
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Think about a talk and task till next week.
+	Write it down in the private repo (first come, first served).
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	\frametitle{Team Exercise}
+	You can select your team (2-3 people) and your task related to \emph{improve} configuration management.
+	For example, you can improve Elektra:
+	\begin{itemize}
+		\item Write a validation plugin.
+		\item Write support for a configuration file format.
+		\item Make a configuration management tool use Elektra.
+		\item Fix bugs. (Extrapoints)
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Talk with someone who is not your neighbor about a potential collaboration in the team exercise.
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\frametitle{Questions?}
+	\begin{task}
+	Please read TISS and register for the course.
+	\end{task}
+
+	\begin{task}
+	Any questions?
+	\end{task}
+\end{assignment}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
