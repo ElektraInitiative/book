@@ -1,0 +1,114 @@
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
+%\documentclass[notes]{beamer}
+%\documentclass[notes=only]{beamer}
+
+\input{setup}
+
+\title[Configuration Management \hspace{25mm} \insertframenumber/\inserttotalframenumber]{Configuration Management}
+
+%\subtitle{}
+\institute{Institute of Information Systems Engineering, TU Wien}
+
+\date{2.3.2018}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INTRODUCTION
+\begin{frame}
+	\titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}
+	\frametitle{Language}
+	\begin{itemize}
+		\item Slides are in English
+		\item Papers are in English
+		\item Book is in English
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{assignment}
+	\frametitle{Language of the Talk?}
+	Unanimous preference of German required, otherwise English.
+\end{assignment}
+
+\section{Motivation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{pics/clouds.jpg}}%
+\begin{frame}
+	\frametitle{Misconfiguration}
+	\begin{itemize}
+		\item Configuration is a user interface for system administrators
+		\item Currently error-prone and under-specified
+	\end{itemize}
+\end{frame}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}
+	\tableofcontents
+\end{frame}
+
+\section{Content}
+
+\subsection{Terminology}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}
+	\frametitle{Terminology}
+\begin{definition}
+\label{def:configuration-setting}
+A \intro[configuration setting]{configuration setting},
+or \intro[setting|see{configuration setting}]{setting} in short,
+fulfills these properties:
+\begin{enumerate}
+\item
+It is provided by the execution environment.
+\item
+It is \empha[consume]{consumed} by an application.
+\item
+It consists of a key, a configuration value, and potentially \empha{metadata}.
+The \intro{configuration value}, or \intro[value|see{configuration value}]{value} in short, influences the application's behavior.
+\item
+It can be \empha[produce]{produced} by the maintainer, user, or system administrator of the software.
+\end{enumerate}
+\end{definition}
+\end{frame}
+
+\subsection{Requirements}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}
+	\frametitle{Requirements}
+\begin{restatable}{requirement}{reqIntegration}
+A configuration library must mitigate the configuration integration problem.%
+\label{req:integration}
+\end{restatable}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{assignment}
+	\frametitle{First Assignment}
+	Discuss about requirements a configuration framework should fulfil.
+\end{assignment}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\subsection{Literature}
+
+\nocite{raab2017introducing}
+
+\begin{frame}[allowframebreaks]
+	\bibliographystyle{alpha}
+	\bibliography{../elektra.bib}
+\end{frame}
+
+\end{document}
+
+

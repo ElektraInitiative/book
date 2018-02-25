@@ -1,0 +1,96 @@
+\beamertemplatenavigationsymbolsempty
+
+\setbeamertemplate{bibliography item}[text]
+
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{breakurl}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{calc}
+\usetikzlibrary{matrix}
+\usetikzlibrary{shapes}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{fit}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{plotmarks}
+\usepackage{stmaryrd}
+\usepackage{listings}
+\usepackage{pdflscape}
+\usepackage{perpage}
+
+%\usepackage[thmmarks,amsmath,amsthm]{ntheorem}
+\usepackage{thm-restate}
+
+\MakePerPage{footnote}
+
+\tikzstyle{o}=[r,ppBlue]
+\tikzstyle{r}=[thick,rectangle,align=center]
+\tikzstyle{t}=[r,ppTrans] %,font=\bfseries]
+\tikzstyle{dd}=[densely dashed]
+\tikzstyle{n}=[r,ppBlue]
+\tikzstyle{p}=[r,ppRed]
+\tikzstyle{ppRed}  =[draw=red,  fill=  red!20]
+\tikzstyle{ppBlue} =[draw=blue, fill= blue!20]
+\tikzstyle{ppGreen}=[draw=green,fill=green!20]
+\tikzstyle{ppTrans}=[draw=none, fill=none]
+
+\usetheme{Warsaw}
+
+\useoutertheme[subsection=true]{smoothbars}
+%\useoutertheme[subsection=false]{miniframes}
+
+\definecolor{bblue}{HTML}{D7DF01}	% yellow-ish actually, for better black/white printing
+\definecolor{rred}{HTML}{C0504D}
+\definecolor{ggreen}{HTML}{9BBB59}
+\definecolor{ppurple}{HTML}{9F4C7C}
+\definecolor{lightgray}{rgb}{0.3,0.3,0.3}
+\definecolor{lightergray}{rgb}{0.9,0.9,0.9}
+\definecolor{UniBlue}{RGB}{83,121,170}
+
+% \input{../commandsetup.tex}
+
+\DeclareTextFontCommand\textintro{\normalfont\bfseries\itshape} % nice!
+\newcommand{\intro}[2][]
+{%
+	\textintro{#2}%
+}
+\newcommand{\empha}[2][]
+{%
+	\emph{#2}%
+}
+
+%\theoremstyle{plain}
+\newcounter{reqcounter}
+\newtheorem{requirement}[reqcounter]{Requirement}
+
+%setbeamercolor{structure}{fg=violet}
+
+\newenvironment{assignment}%
+{%\setbeamercolor{background canvas}{bg=violet}%
+%\setbeamercolor{structure}{fg=cyan!90!black}%
+ \setbeamercolor{frametitle}{bg=yellow,fg=red}
+\begin{frame}}%
+{\end{frame}}%
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+
+
+
+\pgfplotsset{compat=1.14}
+\author{Markus Raab}
