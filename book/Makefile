@@ -1,6 +1,6 @@
 #Default Target
 .PHONY:all
-all:book/book.pdf
+all:elektra.pdf
 
 .PHONY:rebuild
 rebuild:clean all
@@ -9,9 +9,11 @@ rebuild:clean all
 errors:
 	grep "^.*:[0-9]*:" elektra.log
 
+.PHONY:clean
+clean:
+	latexmk -c elektra
+
 texfiles=*.tex
 
-book/book.pdf:${texfiles} elektra.bib
+elektra.pdf:${texfiles} ../shared/elektra.bib
 	latexmk -pdf elektra
-	mv elektra.pdf book/book.pdf
-	mv elektra.synctex.gz book/book.synctex.gz
