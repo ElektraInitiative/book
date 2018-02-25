@@ -14,12 +14,14 @@
 
 \begin{document}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INTRODUCTION
+\renewcommand{\enquote}[1]{\emph{``#1''}} % Cannot be done earlier
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 	\titlepage
+	\doclicenseThis
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \begin{frame}
 	\frametitle{Language}
 	\begin{itemize}
@@ -29,26 +31,46 @@
 	\end{itemize}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \begin{assignment}
 	\frametitle{Language of the Talk?}
+	\begin{task}
+	Hands up if you prefer German.
+	\end{task}
 	Unanimous preference of German required, otherwise English.
 \end{assignment}
 
-\section{Motivation}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Motivation}
 {
 \usebackgroundtemplate{\includegraphics[width=\paperwidth]{pics/clouds.jpg}}%
 \begin{frame}
 	\frametitle{Misconfiguration}
 	\begin{itemize}
-		\item Configuration is a user interface for system administrators
-		\item Currently error-prone and under-specified
+		\item configuration is a user interface for system administrators
+		\item \empha[misconfiguration]{misconfigurations}~\cite{yin2011empirical,su2007autobash,attariyan2010automating,xu2015systems}
+			are a major cause of system failures~\cite{wool2004quantitative,oppenheimer2003internet,pertet2005causes}
+		\item much time needed to fix misconfigurations~\cite{rabkin2011static,oppenheimer2003internet,yin2011empirical,mahajan2002bgp}
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{No-Futz}
+	\begin{itemize}
+		\item \citet{holland2001nofutz}~defined \empha{futzing} to denote \enquote{tinkering or fiddling experimentally with something.}
+		\item With \intro[no-futz computing]{no-futz computing} \citet{holland2001nofutz} mean \enquote{that futzing should be allowed, but should never be required.}
+		\item currently configuration is error-prone and under-specified, \empha{futzing} is often required
 	\end{itemize}
 \end{frame}
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{assignment}
+	\begin{itemize}
+		\item Have you already experienced misconfiguration?
+		\item Did you read about misconfiguration in the news?
+	\end{itemize}
+	\begin{task}
+	Discuss with your neighbor and tell us the best story.
+	\end{task}
+\end{assignment}
+
 \begin{frame}
 	\tableofcontents
 \end{frame}
@@ -105,7 +127,7 @@ A configuration library must mitigate the configuration integration problem.%
 \nocite{raab2017introducing}
 
 \begin{frame}[allowframebreaks]
-	\bibliographystyle{alpha}
+	\bibliographystyle{plainnat}
 	\bibliography{../elektra.bib}
 \end{frame}
 

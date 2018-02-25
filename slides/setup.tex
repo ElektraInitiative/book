@@ -2,6 +2,8 @@
 
 \setbeamertemplate{bibliography item}[text]
 
+\usepackage[type={CC},modifier={by-sa},version={4.0}]{doclicense}
+
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 \usepackage{breakurl}
@@ -24,8 +26,10 @@
 \usepackage{pdflscape}
 \usepackage{perpage}
 
-%\usepackage[thmmarks,amsmath,amsthm]{ntheorem}
+%\usepackage[thmmarks,amsmath,amsthm]{ntheorem} % already included in beamer
 \usepackage{thm-restate}
+
+\usepackage[sort&compress,numbers]{natbib}  % to be have \citet, \citeauthor, \citeyear
 
 \MakePerPage{footnote}
 
@@ -53,8 +57,6 @@
 \definecolor{lightergray}{rgb}{0.9,0.9,0.9}
 \definecolor{UniBlue}{RGB}{83,121,170}
 
-% \input{../commandsetup.tex}
-
 \DeclareTextFontCommand\textintro{\normalfont\bfseries\itshape} % nice!
 \newcommand{\intro}[2][]
 {%
@@ -70,6 +72,18 @@
 \newtheorem{requirement}[reqcounter]{Requirement}
 
 %setbeamercolor{structure}{fg=violet}
+
+\makeatletter
+\def\th@task{%
+    \normalfont % body font
+    \setbeamercolor{block title example}{bg=orange,fg=white}
+    \setbeamercolor{block body example}{bg=orange!20,fg=black}
+    \def\inserttheoremblockenv{exampleblock}
+  }
+\makeatother
+
+\theoremstyle{task}
+\newtheorem{task}{Task}
 
 \newenvironment{assignment}%
 {%\setbeamercolor{background canvas}{bg=violet}%
