@@ -1,0 +1,41 @@
+/*
+Visualization of topics in CM.
+
+To compile it run:
+	dot -Tpdf topics.dot -o topics.pdf
+
+clusters represent group (CMTools, CMApps)
+
+Naming conventions:
+	i<name>: abstraction of concept (rough idea of it)
+	e<name>: end of document (needed for "See also" section)
+	l<name>: link to document
+	<name>:  all other nodes represent a concept
+*/
+digraph G {
+	// start [shape=Mdiamond]; // readers start here
+	// start -> "sources of configuration";
+	subgraph cluster0 {
+		node [style=filled,color=white]; // only for style, can be removed
+		style=filled;                    // only for style, can be removed
+		color=lightgrey;                 // only for style, can be removed
+		label = "CM use";
+		// dependences
+		"sources of configuration" -> "design and architecture";
+		"design and architecture" -> "reduction of misconfiguration";
+		"reduction of misconfiguration" -> "further topics";
+		"further topics";
+	}
+	// uend -> tstart;
+	subgraph cluster1 {
+		node [style=filled,color=white]; // only for style, can be removed
+		style=filled;                    // only for style, can be removed
+		color=lightgrey;                 // only for style, can be removed
+		label = "CM tools";
+		// dependences
+		"validation" -> "user interface";
+		"user interface" -> "desirable properties";
+		"desirable properties" -> "configuration management tools";
+	}
+	// tend -> start;
+}
