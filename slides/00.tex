@@ -57,6 +57,15 @@
 		\item currently configuration is error-prone and under-specified, \empha{futzing} is often required
 	\end{itemize}
 \end{frame}
+\begin{frame}
+	\frametitle{Examples}
+	Not every misconfiguration involves big companies, cloud, and huge amounts of money:
+	\begin{itemize}
+		\item No internet access because resolv.conf symlink broken.
+		\item KDE crash because of ulimit setting.
+		\item Out-of-service of computers during exam.
+	\end{itemize}
+\end{frame}
 }
 \begin{assignment}
 	\frametitle{First Assignment}
@@ -65,7 +74,7 @@
 		\item Did you read about misconfiguration in the news?
 	\end{itemize}
 	\begin{task}
-	Discuss with your neighbor and tell us the best story.
+	Discuss with your neighbor and tell us the best stories.
 	\end{task}
 \end{assignment}
 
@@ -105,23 +114,60 @@ Validation of configuration settings must happen systematically before the appli
 
 \subsection{Topics}
 \begin{frame}
-	Topic: \textit{reduction of misconfiguration and configuration duplicates} \\
-	Misconfiguration obviously needs configuration.
-	We will discuss the ideas of:
-	\begin{itemize}
-		\item when configuration is needed (decisions, user interface)
-		\item how duplication can be avoided (generation of artifacts)
-		\item configuration-less systems (auto-detection)
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
 	Topic: \textit{sources of configuration}
 	\begin{itemize}
 		\item semi-structured data
 		\item configuration file formats
 		\item command-line arguments
 		\item environment variables
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Topic: \textit{reduction of misconfiguration and configuration duplicates} \\
+	Misconfiguration obviously needs configuration.
+	We will discuss the ideas of:
+	\begin{itemize}
+		\item complexity reduction
+		\item when configuration is needed (decisions, user interface)
+		\item configuration-less systems (auto-detection)
+		\item how duplication can be avoided (generation of artifacts)
+		\item testability (generation of test cases)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Topic: \textit{design and architecture of configuration and configuration access}
+	\begin{itemize}
+		\item architectural decisions
+		\item introspection
+		\item code generation
+		\item variability
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Further topics:
+	\begin{itemize}
+		\item \textit{context-awareness, avoidance of dependences}
+		\item \textit{cascading configuration}
+		\item \textit{strategies for validation and modularization}
+		\item \textit{documentation of configuration}
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	Topic: \textit{configuration as user interface}
+	\begin{itemize}
+		\item How system administrators work.
+		\item Which user interfaces exist.
+		\item Which structures exist.
 	\end{itemize}
 \end{frame}
 
@@ -135,40 +181,8 @@ Validation of configuration settings must happen systematically before the appli
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	Topic: \textit{configuration as user interface}
-	\begin{itemize}
-		\item How system administrators work.
-		\item Which user interfaces exist.
-		\item Which structures exist.
-	\end{itemize}
-\end{frame}
 
 \begin{frame}
-	Topic: \textit{design of configuration and configuration access}
-	\begin{itemize}
-		\item architecture
-		\item introspection
-		\item code generation
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	Topic: \textit{influence of variability on software architecture}
-	\begin{itemize}
-		\item variability
-		\item architectural decisions
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Topic: \textit{complexity reduction and testability of configurable applications}
 	Are all configuration settings:
 	\begin{itemize}
 		\item used?
@@ -178,10 +192,11 @@ Validation of configuration settings must happen systematically before the appli
 \end{frame}
 
 \begin{frame}
-	Topic: \textit{early detection of misconfiguration}
+	Topic: \textit{sound, complete and early detection of misconfiguration}
 	\begin{itemize}
 		\item points in time for configuration access and validation
 		\item validation techniques
+		\item constraints
 	\end{itemize}
 \end{frame}
 
@@ -192,16 +207,6 @@ Validation of configuration settings must happen systematically before the appli
 		\item CfEngine
 		\item Nix
 		\item others...
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Further topics:
-	\begin{itemize}
-		\item \textit{context-awareness, avoidance of dependences}
-		\item \textit{cascading configuration}
-		\item \textit{strategies for validation and modularization}
-		\item \textit{documentation of configuration}
 	\end{itemize}
 \end{frame}
 
@@ -327,7 +332,7 @@ Validation of configuration settings must happen systematically before the appli
 	You can select your own task related to \emph{use} configuration management.
 	For example:
 	\begin{itemize}
-		\item Use Elektra in a small application.
+		\item Use Elektra or Puppet-Libelektra in/for a small application.
 		\item Write a tutorial about how you did it.
 		\item Fix usage bugs in Elektra, make it easier. (Extrapoints)
 	\end{itemize}
@@ -365,9 +370,19 @@ Validation of configuration settings must happen systematically before the appli
 		\item[16.3.2018:] topic homework and talk
 		\item[23.3.2018:] teams found together
 		\item[13.4.2018:] homework submitted, topics of team exercise
+		\item[18.5.2018:] guest lecture
 		\item[25.5.2018:] team exercise submitted
 		\item[22.6.2018:] last corrections of team exercise
 		\item[29.6.2018:] test
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Guest Lecture?}
+	\begin{description}
+		\item[Title:] Formal Foundations of Configuration Management for Program Analysis
+		\item[Name:] Jürgen Cito, MIT
+		\item[Date/Time:] 18.05.2018, 14:00 (c.t.), 1h
 	\end{description}
 \end{frame}
 
