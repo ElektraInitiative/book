@@ -43,7 +43,7 @@
 \begin{frame}
 	\frametitle{Misconfiguration}
 	\begin{itemize}
-		\item configuration is a user interface for system administrators
+		\item configuration is a user interface for both developers and system administrators
 		\item \empha[misconfiguration]{misconfigurations}~\cite{yin2011empirical,su2007autobash,attariyan2010automating,xu2015systems}
 			are a major cause of system failures~\cite{wool2004quantitative,oppenheimer2003internet,pertet2005causes}
 		\item much time needed to fix misconfigurations~\cite{rabkin2011static,oppenheimer2003internet,yin2011empirical,mahajan2002bgp}
@@ -95,11 +95,6 @@ A configuration library must be able to integrate (legacy) systems and must full
 \label{req:legacy}
 \end{restatable}
 
-\begin{restatable}{requirement}{reqIntegration}
-A configuration library must mitigate the configuration integration problem.%
-\label{req:integration}
-\end{restatable}
-
 \begin{restatable}{requirement}{reqValidate}
 Validation of configuration settings must happen systematically before the application is even started.
 \end{restatable}
@@ -149,7 +144,8 @@ Validation of configuration settings must happen systematically before the appli
 \begin{frame}
 	Further topics:
 	\begin{itemize}
-		\item \textit{context-awareness, avoidance of dependences}
+		\item \textit{context-awareness}, (context-oriented programming)
+		\item \textit{avoidance of dependences}
 		\item \textit{cascading configuration}
 		\item \textit{strategies for validation and modularization}
 		\item \textit{documentation of configuration}
@@ -176,7 +172,7 @@ Validation of configuration settings must happen systematically before the appli
 	\begin{itemize}
 		\item How system administrators work.
 		\item Which user interfaces exist.
-		\item Which structures exist.
+		\item How to specify configuration.
 	\end{itemize}
 \end{frame}
 
@@ -205,6 +201,21 @@ Validation of configuration settings must happen systematically before the appli
 	\hspace*{-1cm}\includegraphics[width=\paperwidth]{dot/topics}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Elektra}
+	\hfill \includegraphics[width=2cm]{../figures/logo}
+	\vspace{-1cm}
+	%Elektra is an implementation of the next generation of configuration systems:
+	\begin{itemize}
+		\item Elektra improves configuration management.
+		\item Configuration management tools can use Elektra.
+		\item Elektra implements what we discuss in this lecture.
+		\item Elektra allows applications to fulfil the requirements we will discuss.
+		\item Obviously you will also be able to apply the knowledge from this LVA without Elektra.
+		\item Developed at TU Wien (\url{https://libelektra.org}).
+	\end{itemize}
+\end{frame}
+
 \begin{assignment}
 	\frametitle{In which topics are you interested?}
 	\begin{task}[1]
@@ -220,20 +231,6 @@ Validation of configuration settings must happen systematically before the appli
 	(Can be topics of stations or new topics.)
 	\end{task}
 \end{assignment}
-
-\begin{frame}
-	\frametitle{Elektra}
-	\hfill \includegraphics[width=2cm]{../figures/logo}
-	\vspace{-1cm}
-	%Elektra is an implementation of the next generation of configuration systems:
-	\begin{itemize}
-		\item Elektra improves configuration management.
-		\item Configuration management tools can use Elektra.
-		\item Elektra implements what we discuss in this lecture.
-		\item Elektra allows applications to fulfil the requirements we will discuss.
-		\item Obviously you will also be able to apply the knowledge from this LVA without Elektra.
-	\end{itemize}
-\end{frame}
 
 
 
@@ -255,7 +252,7 @@ Validation of configuration settings must happen systematically before the appli
 
 \begin{assignment}
 	\begin{task}
-	Send me your GitHub name per email to get access to private repo.
+	Send me your GitHub name by email to get access to private repo.
 	\end{task}
 \end{assignment}
 
@@ -329,13 +326,13 @@ Validation of configuration settings must happen systematically before the appli
 	\begin{itemize}
 		\item Use Elektra or Puppet-Libelektra in/for a small application.
 		\item Write a tutorial about how you did it.
-		\item Fix usage bugs in Elektra, make it easier. (Extrapoints)
+		\item Fix usability bugs in Elektra, make it easier. (Extrapoints)
 	\end{itemize}
 \end{frame}
 
 \begin{assignment}
 	\begin{task}
-	Think about a talk and task till next week.
+	Think about a talk and homework till next week.
 	Write it down in the private repo (first come, first served).
 	\end{task}
 \end{assignment}
