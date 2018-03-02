@@ -19,7 +19,7 @@ digraph G {
 		node [style=filled,color=white]; // only for style, can be removed
 		style=filled;                    // only for style, can be removed
 		color=lightgrey;                 // only for style, can be removed
-		label = "CM use";
+		label = "consume configuration";
 		// dependences
 		"sources of configuration" -> "design and architecture";
 		"design and architecture" -> "reduction of misconfiguration";
@@ -31,7 +31,7 @@ digraph G {
 		node [style=filled,color=white]; // only for style, can be removed
 		style=filled;                    // only for style, can be removed
 		color=lightgrey;                 // only for style, can be removed
-		label = "CM tools";
+		label = "produce configuration";
 		// dependences
 		"validation" -> "user interface";
 		"user interface" -> "desirable properties";
