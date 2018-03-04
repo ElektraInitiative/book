@@ -8,7 +8,6 @@
 
 \usepackage[type={CC},modifier={by-sa},version={4.0}]{doclicense}
 
-\usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 \usepackage{breakurl}
 \usepackage{graphicx}
@@ -31,8 +30,16 @@
 \usepackage{perpage}
 \usepackage{appendixnumberbeamer}
 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{amsmath}    % Extended typesetting of mathematical expression.
+\usepackage{amssymb}    % Provides a multitude of mathematical symbols.
+\usepackage{mathtools}  % Further extensions of mathematical typesetting.
+
 %\usepackage[thmmarks,amsmath,amsthm]{ntheorem} % already included in beamer
 \usepackage{thm-restate}
+\usepackage{listings}
 
 \usepackage[sort&compress,numbers]{natbib}  % to be have \citet, \citeauthor, \citeyear
 
@@ -111,7 +118,6 @@
 
 
 
-
 \pgfplotsset{compat=1.14}
 
 \author{Markus Raab}
@@ -120,3 +126,5 @@
 
 %\subtitle{}
 \institute{Institute of Information Systems Engineering, TU Wien}
+
+\input{../shared/setup}

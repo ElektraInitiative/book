@@ -14,7 +14,72 @@
 	\doclicenseThis
 \end{frame}
 
-\section[File Formats]{Configuration File Formats}
+\begin{assignment}
+	\frametitle{Language of the Talk?}
+	\begin{task}
+	Hands up if you prefer German.
+	\end{task}
+	Unanimous preference of German required, otherwise English.
+\end{assignment}
+
+\section{Configuration File Formats}
+
+\subsection{Definitions}
+
+\begin{frame}
+	\frametitle{Basic Definitions}
+	The \intro[execution environment]{execution environment} is information outside the boundaries of each currently running process~\cite{corbato1971multics}.
+
+	Controlling the execution environment is essential for configuration management~\cite{cons2002pan,huang2015confvalley}, testing~\cite{van2010automating,wang2009context}, and security~\cite{goldberg1996secure,schreuders2012towards,perkins2009automatically,liang2003isolated}.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Configuration Setting}
+	\input{../shared/def/configurationsetting.tex}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Synonyms}
+\intro[user preferences|see{configuration setting}]{User preferences}~\cite{jin2014configurations} and \intro[customization|see{configuration setting}]{customization}~\cite{anderson2002researching} stress that users make the change although that might not always be the case.
+\intro[variability point|see{configuration setting}]{Variability points}~\cite{gunther2012software,rhein2016variability,villela2014survey,van2001notion,nadi2014mining,mens2016taxonomy} aim at describing the capability of software to adapt its behavior.
+\intro[derivation decision|see{configuration setting}]{Derivation decision}~\cite{software1993reuse,czarnecki2012cool} puts the decisions to make and not the result in focus.
+\intro[configuration parameter|see{configuration setting}]{Configuration parameter}~\cite{yin2011empirical,anderson1994towards} is easily confused with other kinds of parameters.
+\intro[configuration item|see{configuration setting}]{Configuration item}~\cite{anthony2009context} or \intro[configuration option|see{configuration setting}]{configuration option}~\cite{rabkin2011static,zhang2013automated,zhang2014configuration} are sometimes not applicable, for example, ``proxy option'', or ``language item''.
+\intro[configuration data|see{configuration setting}]{Configuration data}~\cite{huang2015confvalley} is often used in the context of programmable gate arrays and has a different meaning in that domain.
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Definition}
+	A \intro{configuration file} is a file containing configuration settings.
+
+	\pause
+	A Web server configuration file:
+
+\begin{lstlisting}
+port=80 ; comment
+address=127.0.0.1\end{lstlisting}
+	\pause
+
+	Their configuration values are ^80^ and ^127.0.0.1^, respectively.
+	Other information in the configuration file is metadata for the configuration settings (such the comment).
+\end{frame}
+
+\begin{frame}
+	\frametitle{}
+\end{frame}
+
+\begin{assignment}
+	\frametitle{Introduce somebody}
+	\begin{task}
+	Talk with someone else about your favourite configuration file format.
+	\end{task}
+
+	\begin{task}
+	Explain to everyone about the other person and the favourite configuration file format.
+	\end{task}
+\end{assignment}
+
 \section{Command-line Arguments}
 \section{Environment Variables}
 
