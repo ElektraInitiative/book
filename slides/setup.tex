@@ -30,6 +30,9 @@
 \usepackage{perpage}
 \usepackage{appendixnumberbeamer}
 
+\usepackage{siunitx} % percent
+\usepackage[nodayofweek]{datetime} % for nicely formatted dates
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
@@ -123,7 +126,18 @@
   \end{frame}
 }
 
+\newcommand{\question}[1]
+{\emph{``#1''}}
 
+\newcommand{\methodQuestion}{\emph{Q:}}
+
+\newcommand{\methodSource}{\emph{S:}}
+
+%define p
+\makeatletter
+\newcommand{\p}[1]{\SI{#1}{\percent}}
+\let\@p\@@p
+\makeatother
 
 \pgfplotsset{compat=1.14}
 

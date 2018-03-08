@@ -24,7 +24,13 @@
 
 \begin{frame}
 	\frametitle{Organization}
+	Slides now available at
+	\url{https://www.libelektra.org/ftp/elektra/slides/cm/}
+	\\[2cm]
+	Next lectures:
 	\begin{description}
+		\item[23.3.2018:] last lecture before eastern
+		\item[13.4.2018:] first lecture after eastern
 		\item[20.4.2018:] no lecture
 	\end{description}
 \end{frame}
@@ -81,15 +87,24 @@ address=127.0.0.1\end{lstlisting}
 \subsection{Formats}
 
 \begin{frame}
-	\frametitle{}
+	\frametitle{Types of Formats}
+	\begin{itemize}
+	\item CSV (comma-separated values)
+	\item semi-structured
+	\item programming language
+	\item document-oriented, literate
+	\item especially made (easy to use vs.\ easy to implement)
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{CSV formats}
 	\begin{itemize}
-	\item e.g., passwd, group (:)
+	\item \formatdate{3}{11}{1971}
+	\item passwd, group use :
 	\item are difficult to extend (e.g., GECOS)
 	\item only used for legacy reasons
+	\item are replaced one-by-one (e.g., inetd, crontab)
 	\end{itemize}
 \end{frame}
 
@@ -97,9 +112,9 @@ address=127.0.0.1\end{lstlisting}
 	\frametitle{Trends}
 	\begin{itemize}
 	\item away from CSV
-	\item general-purpose serialization formats
+	\item towards general-purpose serialization formats (INI, JSON)
 	\item human-read/writable (YAML, HOCON, TOML)
-	\item programming language as configuration file (e.g., for window managers)
+	\item programming language as configuration file
 	\end{itemize}
 \end{frame}
 
@@ -110,21 +125,57 @@ address=127.0.0.1\end{lstlisting}
 	\end{task}
 
 	\begin{task}
-	Explain to everyone about the other person and the favourite configuration file format.
+	Did you implement a configuration file parser and/or invented a new configuration file format?
+	\end{task}
+
+	\begin{task}
+	Explain to everyone about the other person and his/her favourite configuration file format.
 	\end{task}
 \end{assignment}
 
-\subsection{Requirements}
+\begin{frame}
+	\frametitle{Method}
+	\begin{description}
+	\item[\methodSource{}] source code analysis of 16 applications, comprising 50 million lines of code~\cite{raab2017challenges}
+	\item[\methodQuestion{}] survey with 672 persons visiting, 162 persons completing the survey~\cite{raab2017challenges}
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Why are so many formats present?}
+	\methodQuestion{} \question{In which way have you used or contributed to the configuration system/library/API in your previously mentioned FLOSS project(s)?}~\cite{raab2017challenges}
+	\begin{itemize}
+	\item \p{19} persons ($n=251$) claim to have introduced a configuration file format.
+	\item \p{29} implemented a configuration file parser.
+	\item \p{15} introduced a configuration system/library/API.
+	\item used external configuration access APIs (\p{34}).
+	\end{itemize}
+\end{frame}
+
+
+
 \subsection{Abstractions}
+
+\begin{frame}
+	\frametitle{Abstraction}
+	\begin{restatable}{requirement}{reqLegacy}
+	A configuration library must be able to integrate (legacy) systems and must fully support (legacy) configuration files.%
+	\label{req:legacy}
+	\end{restatable}
+
+	\vspace{1cm}
+
+	How can we deal with the many formats?
+\end{frame}
+
 
 \begin{frame}
 	\frametitle{Key-Value}
 A key-value pair is the simplest generic data structure~\cite{strang2004context}.
 While all these formats above have many differences, all of them represent configuration settings as \intro[key-value pair]{key-value pairs}~\cite{jin2014configurations,rabkin2011static,xu2013blame,lathia2013open}.
-\end{frame}
+\\[1cm]
 
-\begin{frame}
-	\includegraphics{cascading}
+For configuration as program you need to execute them first.
 \end{frame}
 
 \begin{frame}
@@ -138,26 +189,177 @@ While all these formats above have many differences, all of them represent confi
 
 \begin{frame}
 	\frametitle{Plugins}
+
+	Different backends can use different plugins:
+	\begin{description}[labelsep=10cm,align=right]
+	\item[\texttt{/sw}] in the INI file config.ini
+	\item[\texttt{/sw/libreoffice}] in the XML file libreoffice.xml
+	\end{description}
+
+	\includegraphics{mounting}
 \end{frame}
 
 \begin{assignment}
 	\begin{task}
-	Possible Task: Implement a storage plugin with existing parser.
+	Possible Homework: Implement a storage plugin with existing parser.
 	\end{task}
 
 	\begin{task}
-	Discuss the differences of cascading, mounting, and plugins with your neighbor.
+	Explain your neighbor what mounting is.
 	\end{task}
 \end{assignment}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Command-line Arguments}
+
+\subsection{Usage and Popularity}
+
+\begin{frame}
+	\frametitle{Is there something else?}
+	\begin{itemize}
+	\item configuration files are the most researched of all configuration sources~\cite{jin2014configurations}
+	\item but it is neither the most used nor most popular~\cite{raab2017challenges}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\methodQuestion{} \question{Which configuration systems/libraries/APIs have you already used or would like to use in one of your FLOSS project(s)?}
+	\begin{itemize}
+	\item command-line arguments (\p{92}, $n=222$)
+	\item environment variables (\p{79}, $n=218$)
+	\item \methodSource{} API \texttt{getenv} is used omnipresently with 2,683 occurrences
+	\item configuration files (\p{74}, $n=218$))
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\methodQuestion{} \question{What is your experience with the following configuration systems/libraries/APIs?}
+	\begin{itemize}
+	\item \texttt{getenv} (\p{10}, $n=198$)
+	\item configuration files (\p{6}, $n=190$)
+	\item command-line options (\p{4}, $n=210$)
+	\item X/Q/GSettings (\p{41}, \p{14}, \p{35})
+	\item KConfig (\p{21})
+	\item dconf (\p{42})
+	\item plist (\p{32})
+	\item Windows Registry (\p{69})
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Which configuration source do you use most?
+	\end{task}
+
+	\begin{task}
+	Possible talk: About one of these sources.
+	\end{task}
+\end{assignment}
+
+\subsection{Semantics}
+
+\begin{frame}
+	\begin{itemize}
+	\item passed by main for a new process via \\ (\texttt{int argc, char ** argv})
+	\item visible from other processes (e.g., via \texttt{ps aux})
+	\item could be passed along to subprocesses but hardly done
+	\item need to be parsed by process
+	\item portability: differences in parsing
+	\item cannot be changed from outside (requires restart, no IPC)
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Environment Variables}
+
+\begin{frame}
+	\frametitle{Semantics}
+	\begin{itemize}
+	\item are also per-process (\texttt{/proc/self/environ})
+	\item are not visible from other processes
+	\item are automatically inherited by subprocesses
+	\item need to be parsed by process (\texttt{[extern] char **environ}) but API is provided (\texttt{getenv})
+	\item cannot be changed from outside (requires restart, no IPC)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{getenv}
+	\begin{itemize}
+	\item is widely standardized, including SVr4, POSIX.1-2001, 4.3BSD, C89, C99~\cite{man2017getenv},
+	\item and is supported by many programming languages.
+	\item Enforces \texttt{key=value} convention.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Usage}
+	\begin{enumerate}
+	\item bypassing other configuration accesses (\methodQuestion{} \p{45})
+	\item locating configuration files
+	\item debugging and testing (\methodQuestion{} \p{55}, \methodSource{} 1,152, i.\,e. \p{43})
+	\item sharing configuration settings across applications (\methodQuestion{} \p{53}, \methodSource{} 716, i.\,e. \p{47})
+	\item for configuration settings unlikely to be changed by a user (\methodQuestion{} \p{20})
+	\item \question{even when it is used inside a loop} (\methodQuestion{} \p{2})
+	\end{enumerate}
+\end{frame}
 
 \begin{frame}
 	\frametitle{Portability}
 	\begin{itemize}
-	\item separators
-	\item case sensitivity
+	\item no separators for values defined
+	\item case sensitivity problems
+	\item often many environment variables for the same purpose: TMP, TEMP, or TMPDIR
+	\item sometimes one environment variable for different purposes: PATH
+	\end{itemize}
+\end{frame}
+
+\subsection{Trends}
+
+\begin{frame}
+	\frametitle{Trend Firefox}
+	\includegraphics[scale=0.7]{firefox}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Trend Chromium}
+	\includegraphics[scale=0.7]{chromium}
+\end{frame}
+
+\subsection{Requirements}
+
+\begin{frame}
+	How can we deal with the many sources?
+
+	\vspace{1cm}
+
+	\begin{restatable}{requirement}{reqEnvironment}
+	A configuration library must support all three popular ways for configuration access:
+	configuration files, command-line options, and environment variables.
+	\end{restatable}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cascading}
+	\includegraphics{cascading}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Discuss the differences of mounting and cascading with your neighbor.
+	\end{task}
+\end{assignment}
+
+\subsection{Conclusion}
+
+\begin{frame}
+	\frametitle{Conclusion}
+	\begin{itemize}
+	\item three different configuration sources widely used
+	\item all three used for different reasons but often for the same configuration settings
+	\item configuration files the most chaotic but the only persistent one
 	\end{itemize}
 \end{frame}
 
