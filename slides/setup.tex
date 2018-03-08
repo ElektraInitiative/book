@@ -78,6 +78,13 @@
 {%
 	\emph{#2}%
 }
+%% For Elektra names
+\newcommand{\elektra}[2][]
+{%
+	\ifthenelse{\isempty{#2}}%
+		{\textsc{Elektra}}% if #2 is empty
+		{\textsc{#2\-Elektra}}% if #1 is empty, do not index it!
+}
 
 %\theoremstyle{plain}
 \newcounter{reqcounter}

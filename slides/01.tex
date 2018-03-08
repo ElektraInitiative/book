@@ -22,6 +22,13 @@
 	Unanimous preference of German required, otherwise English.
 \end{assignment}
 
+\begin{frame}
+	\frametitle{Organization}
+	\begin{description}
+		\item[20.4.2018:] no lecture
+	\end{description}
+\end{frame}
+
 \section{Configuration File Formats}
 
 \subsection{Definitions}
@@ -59,14 +66,41 @@
 \begin{lstlisting}
 port=80 ; comment
 address=127.0.0.1\end{lstlisting}
+
+	\only<2-2>{
+	\begin{task}
+	What are keys? What are configuration values? What is metadata?
+	\end{task}
+	}
 	\pause
 
-	Their configuration values are ^80^ and ^127.0.0.1^, respectively.
-	Other information in the configuration file is metadata for the configuration settings (such the comment).
+	The configuration values are ^80^ and ^127.0.0.1^, respectively.
+	Other information in the configuration file is metadata for the configuration settings (such as the comment).
 \end{frame}
+
+\subsection{Formats}
 
 \begin{frame}
 	\frametitle{}
+\end{frame}
+
+\begin{frame}
+	\frametitle{CSV formats}
+	\begin{itemize}
+	\item e.g., passwd, group (:)
+	\item are difficult to extend (e.g., GECOS)
+	\item only used for legacy reasons
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Trends}
+	\begin{itemize}
+	\item away from CSV
+	\item general-purpose serialization formats
+	\item human-read/writable (YAML, HOCON, TOML)
+	\item programming language as configuration file (e.g., for window managers)
+	\end{itemize}
 \end{frame}
 
 \begin{assignment}
@@ -80,8 +114,53 @@ address=127.0.0.1\end{lstlisting}
 	\end{task}
 \end{assignment}
 
+\subsection{Requirements}
+\subsection{Abstractions}
+
+\begin{frame}
+	\frametitle{Key-Value}
+A key-value pair is the simplest generic data structure~\cite{strang2004context}.
+While all these formats above have many differences, all of them represent configuration settings as \intro[key-value pair]{key-value pairs}~\cite{jin2014configurations,rabkin2011static,xu2013blame,lathia2013open}.
+\end{frame}
+
+\begin{frame}
+	\includegraphics{cascading}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Mounting}
+	\intro[mounting]{Mounting} integrates a backend into the key database~\cite{raab2008thesis}.
+	Hence, \elektra{} allows several backends to deal with configuration files at the same time.
+	Each backend is responsible for its own subtree of the key database.
+
+	\includegraphics{mounting}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Plugins}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Possible Task: Implement a storage plugin with existing parser.
+	\end{task}
+
+	\begin{task}
+	Discuss the differences of cascading, mounting, and plugins with your neighbor.
+	\end{task}
+\end{assignment}
+
 \section{Command-line Arguments}
 \section{Environment Variables}
+
+\begin{frame}
+	\frametitle{Portability}
+	\begin{itemize}
+	\item separators
+	\item case sensitivity
+	\end{itemize}
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
