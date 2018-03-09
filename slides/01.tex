@@ -26,14 +26,59 @@
 	\frametitle{Organization}
 	Slides now available at
 	\url{https://www.libelektra.org/ftp/elektra/slides/cm/}
-	\\[2cm]
+	\\[1cm]
 	Next lectures:
 	\begin{description}
-		\item[23.3.2018:] last lecture before eastern
-		\item[13.4.2018:] first lecture after eastern
-		\item[20.4.2018:] no lecture
+		\item[9.3.2018:] \textbf{TISS registration}
+		\item[16.3.2018:] \textbf{topic homework and talk} (GitHub account!)
+		\item[23.3.2018:] teams found together
+		\item[13.4.2018:] homework submitted, topics of team exercise
+		\item[20.4.2018:] \textbf{no lecture}
+
+		\item[18.5.2018:] guest lecture
+		\item[25.5.2018:] team exercise submitted
+		\item[22.6.2018:] last corrections of team exercise
+		%\item[29.6.2018:] test
 	\end{description}
 \end{frame}
+
+
+\begin{frame}
+	\frametitle{Popular Topics}
+	\vspace{-0.5cm}
+	\begin{multicols}{2}
+	\begin{description}
+	\item[4] validation
+	\item[4] user interface
+	\item[3] tools (benefits?)
+	\item[3] testability
+	\item[3] complexity reduction (when conf. needed?)
+	\item[3] architectural decisions
+	\item[2] Puppet
+	\item[2] modularity
+	\item[2] environment variables
+	\item[2] documentation
+	\item[2] configuration specification
+	\item[2] command-line args
+	\item[2] code generation
+	\item[1] variability
+	\item[1] self-description
+	\item[1] round-tripping
+	\item[1] introspection
+	\item[1] early
+	\item[1] dependencies
+	\item[1] context-awareness
+	\item[1] auto-detection
+	\item[1] administrators
+	\end{description}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}
+	\hspace*{-1cm}\includegraphics[width=\paperwidth]{dot/topics}
+\end{frame}
+
+
 
 \section{Configuration File Formats}
 
@@ -53,7 +98,7 @@
 
 
 \begin{frame}[fragile]
-	\frametitle{Synonyms}
+	\frametitle{Synonyms for Configuration Settings}
 \intro[user preferences|see{configuration setting}]{User preferences}~\cite{jin2014configurations} and \intro[customization|see{configuration setting}]{customization}~\cite{anderson2002researching} stress that users make the change although that might not always be the case.
 \intro[variability point|see{configuration setting}]{Variability points}~\cite{gunther2012software,rhein2016variability,villela2014survey,van2001notion,nadi2014mining,mens2016taxonomy} aim at describing the capability of software to adapt its behavior.
 \intro[derivation decision|see{configuration setting}]{Derivation decision}~\cite{software1993reuse,czarnecki2012cool} puts the decisions to make and not the result in focus.
@@ -100,8 +145,8 @@ address=127.0.0.1\end{lstlisting}
 \begin{frame}
 	\frametitle{CSV formats}
 	\begin{itemize}
-	\item \formatdate{3}{11}{1971}
-	\item passwd, group use :
+	\item passwd: \formatdate{3}{11}{1971}
+	\item passwd and group use : as separator
 	\item are difficult to extend (e.g., GECOS)
 	\item only used for legacy reasons
 	\item are replaced one-by-one (e.g., inetd, crontab)
@@ -285,12 +330,18 @@ For configuration as program you need to execute them first.
 	\end{itemize}
 \end{frame}
 
+\begin{assignment}
+	\begin{task}
+	What is wrong with the code in the book?
+	\end{task}
+\end{assignment}
+
 \begin{frame}
 	\frametitle{getenv}
 	\begin{itemize}
 	\item is widely standardized, including SVr4, POSIX.1-2001, 4.3BSD, C89, C99~\cite{man2017getenv},
-	\item and is supported by many programming languages.
-	\item Enforces \texttt{key=value} convention.
+	\item is supported by many programming languages, and
+	\item enforces \texttt{key=value} convention.
 	\end{itemize}
 \end{frame}
 
@@ -355,11 +406,21 @@ For configuration as program you need to execute them first.
 \subsection{Conclusion}
 
 \begin{frame}
+	\frametitle{User View}
+	\begin{itemize}
+	\item command-line for trying out configuration settings
+	\item environment variables for configuration settings within a shell
+	\item configuration files for persistent configuration settings
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Conclusion}
 	\begin{itemize}
 	\item three different configuration sources widely used
 	\item all three used for different reasons but often for the same configuration settings
-	\item configuration files the most chaotic but the only persistent one
+	\item many different configuration file formats
+	\item abstractions: key-value, mounting, and cascading
 	\end{itemize}
 \end{frame}
 
