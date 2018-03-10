@@ -32,8 +32,9 @@
 
 \usepackage{siunitx} % percent
 \usepackage[nodayofweek]{datetime} % for nicely formatted dates
-\usepackage{multicol}
-\usepackage{catchfilebetweentags}
+\usepackage{multicol} % for automatic columns
+\usepackage{catchfilebetweentags} % to include files
+\usepackage{etoolbox} % to patch catchfilebetweentags
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -139,6 +140,13 @@
 \makeatletter
 \newcommand{\p}[1]{\SI{#1}{\percent}}
 \let\@p\@@p
+\makeatother
+
+% see https://tex.stackexchange.com/questions/40699/input-only-part-of-a-file-using-catchfilebetweentags-package
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\CatchFBT@Fin@l}{\endlinechar\m@ne}{}
+  {}{\typeout{Unsuccessful patch!}}
 \makeatother
 
 \pgfplotsset{compat=1.14}
