@@ -1,0 +1,137 @@
+\lstdefinelanguage{dump}
+{
+	morekeywords={kdbOpen,ksNew,keyNew,keyMeta,keyCopyMeta,keyEnd,ksEnd,kdbClose},
+	sensitive=false,
+	morecomment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	morestring=[b]",
+}
+
+
+\lstdefinelanguage{SpecElektra}{
+	%
+	comment=[l]{;},
+	commentstyle=\color{purple}\ttfamily,
+	%
+	morestring=[b]',
+	morestring=[b]`,
+	morestring=[b]",
+	stringstyle=\color{purple}\ttfamily,
+	%
+	sensitive=f,% keywords are not case sensitive
+	%
+	% Colors see https://en.wikibooks.org/wiki/LaTeX/Colors
+	%
+	keywordstyle=\color{BlueViolet}\bfseries,
+	keywordstyle=[2]\color{Green},
+	keywordstyle=[3]\color{Aquamarine}\bfseries\textit,
+	keywordstyle=[4]\color{NavyBlue}\bfseries,
+	keywordstyle=[5]\color{Mahogany},
+	%
+	keywords={layer, require, validation, check, range, description, rationale, requirement, accessibility, enable, condition, message, default, opt, readonly, type, context, property1, property2, description, file, content, mountpoint, metadata, infos, plugins},
+	keywords=[2]{},
+	keywords=[3]{order, interface, network, emphasized},
+	%keywords=[4]{[, ]},  %Not needed
+	keywords=[4]{},
+	keywords=[5]{},
+	%
+	literate={:=}{{{\color{red}\textbf:=}}}2
+		 {\%}{{{\color{NavyBlue}\textbf\%}}}1
+		 {[}{{{\color{Sepia}\textbf[}}}1
+		 {]}{{{\color{Sepia}\textbf]}}}1,
+}
+
+\lstdefinelanguage{Cpp}{%
+	language     = C++,
+	literate=
+}
+
+
+\lstdefinelanguage{CfgElektra}{
+	comment=[l]{;},
+	commentstyle=\color{purple}\ttfamily,
+	%
+	morestring=[b]',
+	morestring=[b]`,
+	morestring=[b]",
+	stringstyle=\color{purple}\ttfamily,
+	%
+	%
+	sensitive=f,% keywords are not case sensitive
+	%
+	% Colors see https://en.wikibooks.org/wiki/LaTeX/Colors
+	%
+	keywordstyle=\color{Bittersweet}\bfseries,
+	keywordstyle=[2]\color{DarkOrchid}\bfseries,
+	keywordstyle=[3]\color{ForestGreen}\bfseries\textit,
+	keywordstyle=[4]\color{Goldenrod}\bfseries,
+	keywordstyle=[5]\color{CarnationPink},
+	%
+	keywords={},
+	keywords=[2]{},
+	keywords=[3]{},
+	keywords=[4]{},
+	keywords=[5]{},
+	%
+	literate={=}{{{\color{ForestGreen}\textbf=}}}1
+		 %{<-}{{{\color{ForestGreen}\textbf<-}}}2
+		 %{*}{{{\color{Bittersweet}\textbf*}}}1
+		 {\%}{{{\color{NavyBlue}\textbf\%}}}1,
+}
+
+
+
+
+\lstset{language=SpecElektra, % Use SpecElektra as default programming language
+	%boxpos=t, % make boxes a bit more unbreakable
+	%frame=lines, % top+bottom line
+	basicstyle=\ttfamily, % Use normal-size true type font
+	showspaces,%
+	showstringspaces=false, % Don't put marks in string spaces
+	showlines=true, % make sure empty lines at end are shown (needed for concurrency
+	tabsize=4, % spaces per tab
+	xleftmargin=\parindent, % should be 18pt or 1.5em as defined by memoir
+	%Does not really work well (needs to be deactivated for shortlistings):
+	breaklines=false,
+	%postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+	%breakautoindent=true,
+	%prebreak={\mbox{\ensuremath{\curvearrowright}}} % Zeichen am Zeilenende (Umbruch)
+	%breaklines=true,
+	%breakautoindent=true,
+	%prebreak=\small\symbol{'134}, % backslash
+	%prebreak={\mbox{\ensuremath{\curvearrowright}}} % lange kure
+	%prebreak={\mbox{\ensuremath{\hookleftarrow}}} % lange kure
+	%xleftmargin=3.0ex, %for some formats
+	%xrightmargin=1.0ex, %for some formats
+	%
+	% Files do not work in utf8 see also:
+	% http://stackoverflow.com/questions/1116266/listings-in-latex-with-utf-8-or-at-least-german-umlauts
+	% http://tex.stackexchange.com/questions/24528/having-problems-with-listings-and-utf-8-can-it-be-fixed
+	% Should work but doesn't? (Maybe add to literate broken?)
+	%add to literate={ö}{{\"o}}1
+	%	{ä}{{\"a}}1
+	%	{ü}{{\"u}}1
+	%	{Ö}{{\"O}}1
+	%	{Ä}{{\"A}}1
+	%	{Ü}{{\"U}}1
+	%	{ß}{{\ss}}1,
+	%
+	% listingsutf8 did not work, made umlauts in comments very strange
+	%extendedchars=true,
+	%inputencoding=utf8,
+	%
+	%morecomment=[l][\color{blue}]{...}, % Line continuation (...) e.g. blue comment
+	morekeywords={for_each},
+	numbers=left, % Line numbers on left
+	firstnumber=1, % Line numbers start with line 1
+	numberstyle=\small\color{blue}, % Line numbers are blue and small
+	numbersep=5pt,
+	%stepnumber=5 % Line numbers go in steps of 5
+}
+
+
+
+\lstMakeShortInline[postbreak=,keywordstyle={}]^
+
+\graphicspath{{../pic/}{../figures/}{../graphics/}{../ipe/}{../ggplot/}}
+
