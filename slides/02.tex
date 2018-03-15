@@ -182,7 +182,6 @@
 	\item up to \p{54} are seldom set
 	\item up to \p{47} of numeric parameters have no more than five distinct values
 	\item \p{17} to \p{48} of configuration issues are about difficulties in finding settings
-	\item up to \p{54} of settings are rarely used
 	\end{itemize}
 \end{frame}
 
@@ -224,7 +223,7 @@
 	\item needed for any further techniques we will discuss
 	\pause
 	\item essential for \intro[no-futz computing]{no-futz computing}~\citet{holland2001nofutz}
-	\item the foundation for any advanced tooling, to support no-futz configuration management
+	\item the foundation for any advanced tooling like configuration management tools
 	\pause
 	\item needed as communication of producers and consumers of configuration
 	\end{itemize}
@@ -254,9 +253,11 @@
 	\frametitle{Limitation of Schemata designed for Data}
 	\begin{itemize}
 	\item like XSD/JSON schemas
+	\item they are already very helpful but:
 	\pause
 	\item not key-value based
 	\item not easy to introspect
+	\item designed to validate data without semantics: file path vs.\ presence of file
 	\item not always possible to write own plugins
 	\item tied to specific formats (e.g. XML/JSON)
 	\end{itemize}
@@ -448,7 +449,7 @@
 	description:=adjust to use more threads
 	rationale:=needed for many-core systems
 	requirement:=1234
-	visibility:=platform engineers
+	visibility:=developer
 	\end{code}
 \end{frame}
 
@@ -457,8 +458,9 @@
 	\begin{itemize}
 	\item alarming trend in number and complexity of configuration settings
 	\item visibility and default value calculation helps
-	\item needed abstraction: configuration specification
-	\item but also more courageous decisions needed
+	\item needs abstraction: configuration specification
+	\item but also more courageous decisions and periodical reevaluation
+	\item different ways to reduce configuration space
 	\end{itemize}
 \end{frame}
 
