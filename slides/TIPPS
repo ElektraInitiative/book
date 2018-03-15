@@ -1,0 +1,64 @@
+add [fragile] to frame for listings
+gobble=4 for indent
+
+
+--------------
+
+\pause
+
+\textbf<>{}
+\textit<>{}
+\color<>[]{}
+\alert<>{}
+
+\only<>{}       control when to show, needs no space
+\uncover<>{}    control when shown, needs space
+
+
+--------------
+
+
+\begin{itemize}[<+-| alert@+>]  % with highlighting of current
+\begin{itemize}[<+->]
+\item First point.
+\item<.-> Second point shown together.
+\item Third point.
+\end{itemize}
+
+
+--------------
+
+\begin{center}
+\rowcolors{1}{RoyalBlue!20}{RoyalBlue!5} % alternating colors
+\begin{tabular}{|l|c|}\hline
+J.\ S.\ Bach & 1685--1750 \\
+W.\ A.\ Mozart & 1756--1791 \\
+L.\ Beethoven & 1770--1827 \\
+F.\ Chopin & 1810--1849 \\
+R.\ Schumann & 1810--1856 \\
+B.\ Bart\’{o}k & 1881--1945 \\ \hline
+\end{tabular}
+\end{center}
+
+
+
+--------------
+
+\begin{alertblock}{This is an Alert block}
+This is an important alert
+\end{alertblock}
+
+\begin{exampleblock}{This is an Example block}
+This is an example 
+\end{exampleblock}
+
+
+--------------
+
+
+\begin{columns}[c] % Columns centered vertically.
+\column{5.5cm}     % Adjust column width to taste.
+\includegraphics ...
+\column{5cm}
+\includegraphics ...
+\end{columns}
