@@ -169,6 +169,7 @@
 	\item configuration settings may depend on each other
 	\item form a decision tree~\cite{reiser2009cvm,czarnecki2012cool}
 	\item the decision tree is an instantiation of chosen configuration settings
+	\item calculation only needs to consider possible instantiation
 	\end{itemize}
 \end{frame}
 
@@ -214,7 +215,34 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Configuration Specification}
 
-\subsection{Why}
+\subsection{Why?}
+
+\begin{frame}
+	\frametitle{Rationale}
+	\begin{itemize}
+	\item without specification you and others do not even know which settings are available
+	\item needed for any further techniques we will discuss
+	\pause
+	\item essential for \intro[no-futz computing]{no-futz computing}~\citet{holland2001nofutz}
+	\item the foundation for any advanced tooling, to support no-futz configuration management
+	\pause
+	\item needed as communication of producers and consumers of configuration
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Brainstorming: What can be part of a configuration specification?
+	\end{task}
+
+	\begin{task}
+	Advantages/Disadvantages?
+	\end{task}
+
+	\begin{task}
+	Alternatives?
+	\end{task}
+\end{assignment}
 
 \begin{frame}
 	\methodQuestion{}
@@ -225,35 +253,161 @@
 \begin{frame}
 	\frametitle{Limitation of Schemata designed for Data}
 	\begin{itemize}
+	\item like XSD/JSON schemas
+	\pause
 	\item not key-value based
-	\item not possible to write own plugins
+	\item not easy to introspect
+	\item not always possible to write own plugins
 	\item tied to specific formats (e.g. XML/JSON)
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Limitation of Zero-Configuration-Free}
+	\frametitle{Limitation of Zero-Configuration}
 	\begin{itemize}
 	\item e.g. gpsd\footnote{\url{www.aosabook.org/en/gpsd.html}}
+	\pause
 	\item broken hardware or protocols
 	\item auto-detection may go wrong
-	\item the configuration actually lives elsewhere (e.g., in the GPS devices)
+	\item the configuration actually lives elsewhere \\ (e.g., in the GPS devices)
 	\end{itemize}
 \end{frame}
 
-\subsection{Hiding}
+\subsection{How?}
 
 \begin{frame}
-	\frametitle{Limitation of Schemata designed for Data}
-	\methodQuestion{}
+	\frametitle{Types of Specifications}
+	\includegraphics[scale=0.8]{specifications}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Metalevels}
+	\includegraphics{metalevels}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	What do we mean with a configuration specification?
+	\end{task}
+
+	\begin{task}
+	Which requirements do we have for a configuration specification?
+	\end{task}
+\end{assignment}
+
+
+\begin{frame}
+	\frametitle{Requirements}
+
 	\begin{itemize}
-	\item not key-value based
-	\item not possible to write own plugins
-	\item tied to specific formats (e.g. XML/JSON)
+	\item formal/informal?
+	\item complete?
+	\pause
+	\item should be extensible
+	\item should be external to application
+	\item open for introspection (for tooling)
+	\item should talk to users
+	\item should allow generation of artefacts
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Grammar}
+	\begin{grammar}
+	<configuration specifications> ::= \{ <configuration specification> \}
+
+	<configuration specification> ::= '[' <key> ']' <properties>
+
+	<properties> ::= \{ <property> \}
+
+	<property> ::= <property name> ':=' [ <property value> ]
+	\end{grammar}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Example}
+	\begin{code}[gobble=4]
+	[slapd/threads/listener]
+	default:=1
+	type:=int
+	\end{code}
+\end{frame}
+
+\subsection{Visibility}
+
+\begin{frame}
+	\frametitle{Visibility}
+	\begin{itemize}
+	\item idea: show only relevant settings for specific user group
+	\item or disallow editing: accessibility
+	\pause
+	\item requires user-feedback loops~\cite{xu2015hey}
+	\item most-used settings should be best visible
+	\item think of your users (administrators), \\ only expose what users need
+	\item write an rationale why someone needs it
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Example}
+	\begin{code}[gobble=4]
+	[slapd/threads/listener]
+	visibility:=developer
+
+	[slapd/access/#]
+	visibility:=user
+	\end{code}
+\end{frame}
+
+
+\begin{assignment}
+	\begin{task}
+	Brainstorming: Now, how do we implement such a specification?
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	\frametitle{Implementations}
+	For example:
+	\begin{itemize}
+	\item generate examples/documentation
+	\item auto-completion/syntax highlighting/IDE support
+	\item tooling (GUI, Web UI)
+	\item validate configuration files
+	\item visudo-like
 	\end{itemize}
 \end{frame}
 
 \subsection{Calculate Default Values}
+
+\begin{frame}
+	\begin{itemize}
+	\item idea: make default value better
+	\item can be combined with visibility
+	\pause
+	\item can be derived from other configuration settings
+	\item can be derived from context~\cite{raab2017introducing}
+	\item can be derived from hardware/system (problem with dependences)
+	\pause
+	\item XServer vs.\ gpsd
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Examples}
+	\begin{code}[gobble=4]
+	[slapd/threads/listener]
+	context:=/slapd/threads/%cpu%/listener
+	\end{code}
+
+	\begin{code}[gobble=4]
+	[gps/status]
+	assign:=(battery > 'low') ? ('on') : ('off')
+	\end{code}
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -263,7 +417,7 @@
 	\frametitle{software architecture}
 	\begin{itemize}
 	\item architecture is high-level description of the overall system
-	\item use ready-made templates for architecture
+	\item use ready-made patterns and templates for architecture
 	\pause
 	\item e.g., \url{http://arc42.org/}
 	\item architectural decisions~\cite{zdun2007patterns} essential (e.g., Chapter~9 in arc42)
@@ -273,25 +427,29 @@
 \begin{frame}
 	\frametitle{architectural decisions}
 	\begin{itemize}
-	\item useful to have templates/patterns~\cite{zdun2007patterns}, too
-	\item problem, category, context
+	\item describe decisions that lead to the architecture
+	\item open decisions are high-level configuration
+	\item useful to have patterns~\cite{zdun2007patterns} and templates, too
+	\item template: problem, constraints, assumptions, considered alternatives, decision, rationale, implications, related, notes
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	Why are configuration settings added?
+	Why are configuration settings added? \\[1cm]
+	\pause
+	The typical reasons are:
 	\ExecuteMetaData[../book/implications.tex]{reasons-adding}
 \end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{in configuration specification}
-\begin{code}
-[slapd/threads/listener]
-description:=adjust to use more threads
-rationale:=needed for many-core systems
-requirement:=1234
-accessibility:=platform engineers
-\end{code}
+	\begin{code}[gobble=4]
+	[slapd/threads/listener]
+	description:=adjust to use more threads
+	rationale:=needed for many-core systems
+	requirement:=1234
+	visibility:=platform engineers
+	\end{code}
 \end{frame}
 
 \begin{frame}
@@ -299,8 +457,8 @@ accessibility:=platform engineers
 	\begin{itemize}
 	\item alarming trend in number and complexity of configuration settings
 	\item visibility and default value calculation helps
+	\item needed abstraction: configuration specification
 	\item but also more courageous decisions needed
-	\item abstractions: specifications
 	\end{itemize}
 \end{frame}
 
