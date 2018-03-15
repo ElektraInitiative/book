@@ -1,9 +1,3 @@
-\documentclass{beamer}
-
-%TODO: motivation why specification language (complexity+misconfiguration)
-%TODO: visibility
-%TODO: requirements for CM: uniform configuration access with introspection
-
 \input{setup}
 
 \date{16.3.2018}
@@ -22,7 +16,7 @@
 	\frametitle{Organization}
 	Next lectures:
 	\begin{description}
-		\item[16.3.2018:] \textbf{topic homework and talk} (GitHub account!)
+		\item[16.3.2018:] \textbf{topic homework and talk (GitHub account!)}
 		\item[23.3.2018:] teams found together
 		\item[13.4.2018:] homework submitted, topics of team exercise
 		\item[20.4.2018:] no lecture
@@ -265,6 +259,40 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Architectural Decisions}
 
+\begin{frame}
+	\frametitle{software architecture}
+	\begin{itemize}
+	\item architecture is high-level description of the overall system
+	\item use ready-made templates for architecture
+	\pause
+	\item e.g., \url{http://arc42.org/}
+	\item architectural decisions~\cite{zdun2007patterns} essential (e.g., Chapter~9 in arc42)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{architectural decisions}
+	\begin{itemize}
+	\item useful to have templates/patterns~\cite{zdun2007patterns}, too
+	\item problem, category, context
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Why are configuration settings added?
+	\ExecuteMetaData[../book/implications.tex]{reasons-adding}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{in configuration specification}
+\begin{code}
+[slapd/threads/listener]
+description:=adjust to use more threads
+rationale:=needed for many-core systems
+requirement:=1234
+accessibility:=platform engineers
+\end{code}
+\end{frame}
 
 \begin{frame}
 	\frametitle{Conclusion}

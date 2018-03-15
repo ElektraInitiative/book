@@ -1,3 +1,5 @@
+\documentclass[xcolor={dvipsnames,table}]{beamer}
+
 % Make nice A4 pages for print:
 %\usepackage{pgfpages}
 %\pgfpagesuselayout{resize to}[a4paper,border shrink=5mm,landscape]
@@ -148,6 +150,14 @@
 \patchcmd{\CatchFBT@Fin@l}{\endlinechar\m@ne}{}
   {}{\typeout{Unsuccessful patch!}}
 \makeatother
+
+% code environment (avoids listings to have page breaks within them)
+% \begin{code}[caption={a},language=Cpp]
+% \end{code}
+\lstnewenvironment{code}[1][]%
+{%
+\lstset{#1}}%
+{}
 
 \pgfplotsset{compat=1.14}
 
