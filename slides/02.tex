@@ -129,7 +129,7 @@
 
 	Examples:
 	\begin{itemize}
-	\item 600 boolean settings in Apache httpd:
+	\item 600 boolean settings in Apache httpd (let us assume $n=2$):
 	\pause
 	$2^{600} \approx 10^{180}$
 
@@ -137,13 +137,25 @@
 	\pause
 	${2^{32}}^{19} = 2^{32 \cdot 19} = 2^{609} \approx 10^{183}$
 
-	\item 2000 boolean settings in Firefox:
+	\item 2000 boolean settings in Firefox~\cite{jin2014configurations}:
 	\pause
 	$2^{2000} \approx 10^{602}$
+	\end{itemize}
+\end{frame}
 
+\begin{frame}
+	\frametitle{Calculation of Complexity (cont.)}
+
+	Examples:
+	\begin{itemize}
 	\item for 20 boolean and 20 enums with 5 possibilities:
 	\pause
 	$$2^{20}*5^{20} = 10^{20}$$
+
+	\item MySQL has 461 settings, of which 216 are non-simple types~\cite{xu2015hey} \\ (let us assume $n=\{3,20\}$):
+	\pause
+	$3^{245} * 20^{216} \approx 10^{397}$ \\
+	(settings are explained in 5560 pages\footnote{\url{https://downloads.mysql.com/docs/refman-5.7-en.pdf}})
 
 	\item an array with $1-20$ boolean settings:
 	\pause
@@ -169,19 +181,51 @@
 	\item configuration settings may depend on each other
 	\item form a decision tree~\cite{reiser2009cvm,czarnecki2012cool}
 	\item the decision tree is an instantiation of chosen configuration settings
-	\item calculation only needs to consider possible instantiation
+	\item calculation only needs to consider instantiations which make a difference: \\
+	essential configuration complexity~\cite{meinicke2016essential}
 	\end{itemize}
 \end{frame}
 
 \subsection{Usage}
+
+\begin{frame}[fragile]
+	\frametitle{Harmful Defaults~\cite{xu2015hey}}
+	\begin{itemize}
+	\item Problem: Two major data losses on a dozen machines.
+	\item Cause:
+	Stayed with the default values of the data-path settings
+	(e.g., ^dfs.name.dir^, ^dfs.data.dir^) which point to locations in ^/tmp^.
+	Thus, after the machines reboot, data losses occur.
+	``One of the common problems from users.'' (from Cloudera)
+	\item up to \p{53} of misconfigurations is due to staying at defaults
+	\item \p{17} to \p{48} of configuration issues are about difficulties in finding settings
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Unnecessary Settings~\cite{xu2015hey}}
+	\begin{itemize}
+	\item Configuration Parameter: ^dfs.namenode.tolerate.heartbeat.multiplier^
+	\item Developers' Discussion:
+	Since we are not sure what is a good choice, how about making it
+	configurable?
+	We should add a configuration option for it. Even if it's unlikely to
+	change, if someone does want to change it they'll thank us that they
+	don't have to change the code/recompile to do so.
+	\item Real-World Usage:
+	\begin{itemize}
+	\item No usage found by searching the entire mailing lists and Google.
+	\item No usage reported in a survey of 15 Hadoop users in UCSD.
+	\end{itemize}
+	\end{itemize}
+\end{frame}
 
 \begin{frame}
 	\frametitle{Unnecessary Settings~\cite{xu2015hey}}
 	\begin{itemize}
 	\item \p{6} to \p{17} of settings set by majority
 	\item up to \p{54} are seldom set
-	\item up to \p{47} of numeric parameters have no more than five distinct values
-	\item \p{17} to \p{48} of configuration issues are about difficulties in finding settings
+	\item up to \p{47} of numeric settings have no more than five distinct values
 	\end{itemize}
 \end{frame}
 
@@ -250,21 +294,21 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Limitation of Schemata designed for Data}
+	\frametitle{Limitations of Schemata designed for Data}
 	\begin{itemize}
 	\item like XSD/JSON schemas
 	\item they are already very helpful but:
 	\pause
 	\item not key-value based
 	\item not easy to introspect
-	\item designed to validate data without semantics: file path vs.\ presence of file
-	\item not always possible to write own plugins
+	\item designed to validate data without semantics: \\ file path vs.\ presence of file
+	\item not always possible to extend with plugins
 	\item tied to specific formats (e.g. XML/JSON)
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Limitation of Zero-Configuration}
+	\frametitle{Limitations of Zero-Configuration}
 	\begin{itemize}
 	\item e.g. gpsd\footnote{\url{www.aosabook.org/en/gpsd.html}}
 	\pause
@@ -345,7 +389,7 @@
 	\item or disallow editing: accessibility
 	\pause
 	\item requires user-feedback loops~\cite{xu2015hey}
-	\item most-used settings should be best visible
+	\item most-used settings should be best visible (or even enforce them to be changed: against harmful defaults)
 	\item think of your users (administrators), \\ only expose what users need
 	\item write an rationale why someone needs it
 	\end{itemize}
@@ -378,6 +422,7 @@
 	\item tooling (GUI, Web UI)
 	\item validate configuration files
 	\item visudo-like
+	\item plugins in configuration framework
 	\end{itemize}
 \end{frame}
 
@@ -386,6 +431,7 @@
 \begin{frame}
 	\begin{itemize}
 	\item idea: make default value better
+	\item is the generalization of sharing configuration values
 	\item can be combined with visibility
 	\pause
 	\item can be derived from other configuration settings
@@ -398,11 +444,38 @@
 
 \begin{frame}[fragile]
 	\frametitle{Examples}
+	Sharing:
+	\begin{code}[gobble=4]
+	[slapd/threads/listener]
+	fallback/#0:=slapd/threads
+	\end{code}
+
+	\vspace{1cm}
+	Percentages
+	\\ (e.g., configured image should be additionally cropped):
+	\pause
+	\begin{code}[gobble=4]
+	[image/width]
+	type:=int
+
+	[crop]
+	type:=int
+	check/range:=0-100
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Examples}
+	Context:
 	\begin{code}[gobble=4]
 	[slapd/threads/listener]
 	context:=/slapd/threads/%cpu%/listener
 	\end{code}
 
+	\vspace{1cm}
+	Calculation with Context
+	\\ (e.g., switch off GPS if battery low):
+	\pause
 	\begin{code}[gobble=4]
 	[gps/status]
 	assign:=(battery > 'low') ? ('on') : ('off')
@@ -415,7 +488,7 @@
 \section{Architectural Decisions}
 
 \begin{frame}
-	\frametitle{software architecture}
+	\frametitle{Software Architecture}
 	\begin{itemize}
 	\item architecture is high-level description of the overall system
 	\item use ready-made patterns and templates for architecture
@@ -426,7 +499,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{architectural decisions}
+	\frametitle{Architectural Decisions}
 	\begin{itemize}
 	\item describe decisions that lead to the architecture
 	\item open decisions are high-level configuration
@@ -443,7 +516,7 @@
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{in configuration specification}
+	\frametitle{in Configuration Specification}
 	\begin{code}[gobble=4]
 	[slapd/threads/listener]
 	description:=adjust to use more threads
@@ -457,7 +530,7 @@
 	\frametitle{Conclusion}
 	\begin{itemize}
 	\item alarming trend in number and complexity of configuration settings
-	\item visibility and default value calculation helps
+	\item sharing, visibility and default value calculation often helps
 	\item needs abstraction: configuration specification
 	\item but also more courageous decisions and periodical reevaluation
 	\item different ways to reduce configuration space
