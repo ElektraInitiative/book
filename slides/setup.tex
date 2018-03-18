@@ -112,6 +112,7 @@
 
 \theoremstyle{task}
 \newtheorem{task}{Task}
+\newtheorem{finding}{Finding}
 
 \newenvironment{assignment}%
 {%\setbeamercolor{background canvas}{bg=violet}%
@@ -157,6 +158,7 @@
 % \end{code}
 \lstnewenvironment{code}[1][]%
 {%
+\lstset{showspaces=no}%
 \lstset{#1}}%
 {}
 
@@ -168,5 +170,7 @@
 
 %\subtitle{}
 \institute{Institute of Information Systems Engineering, TU Wien}
+
+\lstMakeShortInline[postbreak=,keywordstyle={},showspaces=no]^
 
 \input{../shared/setup}

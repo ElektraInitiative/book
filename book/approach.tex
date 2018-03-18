@@ -739,10 +739,13 @@ Furthermore, key sets are used for communication between any parts of \elektra{}
 \subsection{\textsc{SpecElektra}}
 \label{sec:spec}
 
+%<*definition-spec>
 \elektra[Spec]{Spec} is a modular \intro{configuration specification language} for configuration settings.
 In \elektra{Spec} we use properties to specify configuration settings and configuration access.
 \elektra{Spec} enables us to specify different parts of \elektra{}.
+%</definition-spec>
 
+%<*definition-plugins>
 \intro[plugin]{Plugins} are filters, sinks, and sources processing a key set.
 We aim at \elektra{Spec} to be as modular as possible and make extensive use of plugins:
 
@@ -752,6 +755,7 @@ We aim at \elektra{Spec} to be as modular as possible and make extensive use of 
 \item Configuration specifications are present within the execution environment.
 Thus any tool and plugin can introspect and use the specifications.
 \end{enumerate}
+%</definition-plugins>
 
 \subsubsection{Semantics}
 

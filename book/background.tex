@@ -74,11 +74,15 @@ In our terminology, Apache's configuration file ^.htaccess^\footnote{It provides
 
 \subsubsection{Configuration Access}
 
+%<*definition-configuration-access>
 \intro[configuration access]{Configuration access}
 is the part of every software system concerned with fetching and storing configuration settings from and to the execution environment.
 There are many ways to access configuration~\cite{kiciman2004discovering,xu2013blame,jin2014configurations}.
 \intro[configuration access API]{Configuration access APIs} are APIs that enable configuration access.
+%</definition-configuration-access>
+%<*definition-configuration-access-points>
 Within the source code the \intro[configuration access point]{configuration access points} are configuration access API invocations that return configuration values.
+%</definition-configuration-access-points>
 
 \pagebreak
 \begin{example}
@@ -148,7 +152,9 @@ Furthermore, the user's decision about a configuration value can always be earli
 
 \subsection{Libraries}
 
+%<*definition-configuration-library>
 \intro[configuration library]{Configuration libraries} provide implementations for a configuration access API.
+%</definition-configuration-library>
 
 \subsubsection{Abstractions}
 
