@@ -22,10 +22,13 @@
 
 \begin{frame}
 	\frametitle{Organization}
-	Next dates:
+	Today:
 	\begin{description}
 		\item[23.3.2018:] \textbf{teams found together, dates of talks}
-		\item[13.4.2018:] homework submitted, topics of team exercise
+	\end{description}
+	Next dates:
+	\begin{description}
+		\item[13.4.2018:] \textbf{homework submitted, topics of team exercise}
 		\item[27.4.2018:] lecture
 		\item[4.5.2018:] lecture
 		\item[18.5.2018:] guest lecture
@@ -55,11 +58,6 @@
 \end{frame}
 
 \begin{frame}
-	\Large
-	\ExecuteMetaData[../book/approach.tex]{definition-spec}
-\end{frame}
-
-\begin{frame}
 	\frametitle{Recapitulation (Requirements of SpecElektra)}
 
 	\begin{itemize}
@@ -71,6 +69,13 @@
 	\item should talk to users
 	\item should allow generation of artefacts
 	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{SpecElektra}
+
+	\fontsize{18}{0}\selectfont
+	\ExecuteMetaData[../book/approach.tex]{definition-spec}
 \end{frame}
 
 
@@ -137,7 +142,11 @@
 \subsection{Definitions}
 
 \begin{frame}
+	\frametitle{Configuration Access APIs}
+
 	\Large
+	\ExecuteMetaData[../book/background.tex]{definition-api}
+
 	\ExecuteMetaData[../book/background.tex]{definition-configuration-access}
 \end{frame}
 
@@ -164,6 +173,7 @@
 %TODO: disadvantages in missing introspection
 
 \begin{frame}[fragile]
+	\frametitle{Configuration Access Points}
 	\ExecuteMetaData[../book/background.tex]{definition-configuration-access-points}
 
 	\begin{code}[language=Cpp,gobble=4,showspaces=no]
@@ -175,6 +185,7 @@
 \end{frame}
 
 \begin{frame}[fragile]
+	\frametitle{Configuration Libraries}
 	\ExecuteMetaData[../book/background.tex]{definition-configuration-library}
 
 	Trends:
@@ -186,6 +197,7 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Types of Modularity}
 	\Large
 	\ExecuteMetaData[../book/backend.tex]{definition-modularity}
 \end{frame}
@@ -204,7 +216,7 @@
 
 
 \begin{frame}
-	\frametitle{Retain Modularity \cite{raab2016improving}}
+	\frametitle{Retain Vertical Modularity \cite{raab2016improving}}
 
 	\elektra{} provides two mechanisms to retain vertical modularity:
 
@@ -219,6 +231,7 @@
 \end{frame}
 
 \begin{frame}[fragile]
+	\frametitle{Vertical Modularity \cite{raab2016improving}}
 	Mountpoints can also be a part of the specification:
 
 	\begin{code}[language=Cpp,gobble=4,showspaces=no]
@@ -255,11 +268,14 @@
 \subsection{Horizontal}
 
 \begin{frame}
+	\frametitle{Horizontal Modularity \cite{raab2016improving}}
+
 	\intro[Modularity!horizontal]{Horizontal modularity} is ``the degree of separation in configuration access code''~\cite{raab2016improving}. 
 	A higher degree of horizontal modularity allows us to better separate configuration access code and plug the code together as needed.
 \end{frame}
 
 \begin{frame}
+	\label{slide:horizontal-modularity}
 	Three factors of \elektra{Spec} improve horizontal modularity:
 	\begin{enumerate}
 	\item
@@ -297,8 +313,25 @@
 
 \subsection{Why?}
 
+\begin{frame}[fragile]
+	\frametitle{Acceptable Effort}
+
+	\methodQuestion{} \question{Which effort do you think is worthwhile for providing better configuration experience?}
+
+	\begin{itemize}
+	\item \p{44} would use other configuration access APIs next to ^getenv^.
+	\item \p{30} would use OS-specific sources.
+	\item \p{21} would use dedicated libraries.
+	\item \p{19} would read other application's configuration settings,
+	\item \p{16} would use external configuration access APIs that add new dependences.
+	\end{itemize}
+\end{frame}
+
+
 \begin{frame}
+	\frametitle{Why?}
 	\begin{finding}
+	\methodQuestion{}
 	Most developers have concerns adding dependences for more validation~(\p{84}) but consider good defaults important (\p{80}).
 	\end{finding}
 
@@ -312,9 +345,10 @@
 	\frametitle{Rationale}
 	Why is it difficult to have good defaults?
 	\begin{itemize}[<+->]
-	\item modularity: diverse and conflicting requirements between applications %TODO: example
-	\item system-level: specification must always be enforced
-	\item Examples:
+	\item \textbf{Modularity:} diverse and conflicting requirements between applications.
+	Especially in validation, for example, \linebreak
+	constraint solvers vs. type systems vs. model checkers.
+	\item \textbf{System-level:} specification must always be enforced. Examples:
 	\begin{itemize}[<+-| alert@+>]
 	\item which desktop is the application started in?
 	\item how many CPUs does the system have?
@@ -333,14 +367,31 @@
 \end{frame}
 
 \begin{frame}
-	Automatic Assembling of Plugins:
+	\frametitle{KeySet}
+
+	The common data structure between plugins:
+	\vspace{1cm}
+
+	\includegraphics{keyset}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Plugin Assembly}
+
+	automatic assembling of plugins:
 
 	\begin{itemize}[<+->]
 	\item iterate over the specification and collect all key words
 	\item iterate over all plugins and check if they offer key words
-	\item use best suited plugins
-	\item make sure the contract between plugins and specification is fulfilled
+	\item check contract between plugins and specification
+	\item of the remaining plugins: use best suited or rated
 	\end{itemize}
+
+	\vspace{1cm}
+
+	\pause[\thebeamerpauses]
+
+	(implemented in ^kdb mount^ / ^kdb spec-mount^ in Elektra)
 \end{frame}
 
 \begin{frame}
@@ -351,12 +402,23 @@
 	\item The \empha{provider} abstractions in the dependences between the plugins abstract over concrete implementations of configuration access code.
 	\item We have a modular implementation of SpecElektra.
 	\end{itemize}
+
+	\onslide<+->{
+	\begin{task}
+	Which kind of modularity does \empha{provider} improve?
+	\end{task}
+	}
+
+	\onslide<+->{
+	\begin{answer}
+	3\textsuperscript{rd} point of horizontal modularity on Slide~\ref{slide:horizontal-modularity}
+	\end{answer}
+	}
 \end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{Examples}
-	Calculation with Context:
-	\pause
+	calculation with context:
 	\begin{code}[gobble=4]
 	[gps/status]
 	assign:=(battery > 'low') ? ('on') : ('off')
@@ -364,21 +426,11 @@
 	plugins:=battery
 	\end{code}
 
-	Other example: how to resolve names of configuration files on an operating system.
+	\pause
+	\vspace{1cm}
+
+	other example: how to resolve names of configuration files on an operating system
 \end{frame}
-
-\begin{frame}
-	We achieve:
-
-	\begin{itemize}[<+->]
-	\item a system-level dependency injection,
-	\item reusable plugins,
-	\item operating system abstraction,
-	\item which avoid dependences within application (except to SpecElektra).
-	\item \elektra{} has no dependence to other libraries but only concrete plugins introduce dependences.
-	\end{itemize}
-\end{frame}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -388,7 +440,7 @@
 \begin{frame}
 	\frametitle{Elektra as Virtual Filesystem}
 	\begin{itemize}
-	\item configuration files are seen as "block devices" (like `/dev/sda`)
+	\item configuration files are seen like ``block devices''
 	\item are mounted with respective filesystem drivers into the filesystem
 	\item many tools and APIs evolved to work with files
 	\end{itemize}
@@ -412,7 +464,7 @@
 
 
 \begin{frame}[fragile]
-	\begin{description}
+	\begin{description}[align=left]
 	\item[kdb.open():]
 	The first step is to bootstrap into a situation where the necessary plugins can be loaded.
 	\item[kdb.get(\texttt{KeySet}):] \index{kdb.get}
@@ -427,15 +479,25 @@
 	\end{description}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Recapitulation (Metalevels)}
+	\includegraphics{metalevels}
+
+	We will now walk through metalevels bottom-up.
+\end{frame}
+
 \begin{frame}[fragile]
-	\frametitle{Configurations}
+	\frametitle{Configuration Settings}
+
+	A configuration file may look like:
+
 	\begin{code}[language=CfgElektra]
 	a=5
 	b=10
 	c=15
 	\end{code}
 
-	We apply these configuration settings using:
+	We apply these configuration settings imperatively using:
 
 	\begin{code}[language=bash]
 	kdb set /a 5
@@ -456,7 +518,7 @@
 	  default:=1
 	\end{code}
 
-	We use:
+	We apply the specifications imperatively using:
 
 	\begin{code}[language=bash,morekeywords={setmeta}]
 	kdb setmeta /slapd/threads/listener\
@@ -464,6 +526,8 @@
 	kdb setmeta /slapd/threads/listener\
 	       	default 1
 	\end{code}
+
+	(automatically uses ^spec^ namespace)
 \end{frame}
 
 \begin{frame}[fragile]
@@ -479,14 +543,16 @@
 	     configuration setting?
 	\end{code}
 
-	We use:
+	We apply the meta-specifications imperatively using:
 
 	\begin{code}[language=bash,morekeywords={setmeta}]
-	kdb setmeta spec/elektra/meta/\
+	kdb setmeta /elektra/meta/\
 		visibility type enum ...
-	kdb setmeta spec/elektra/meta/\
+	kdb setmeta /elektra/meta/\
 		visibility description "Who ...
 	\end{code}
+
+	(see ^doc/METADATA.ini^, disclaimer: 1.0 not yet released)
 \end{frame}
 
 \begin{frame}
@@ -495,7 +561,7 @@
 	\item unified get/set access to (meta*)-key/values
 	\item access via applications, CLI, GUI, web-UI, ...
 	\item access via any programming language (similar to file systems)
-	\item GUI, web-UI can semantically interpret metadata!
+	\item GUI, web-UI can semantically interpret metadata
 	\end{itemize}
 \end{frame}
 
@@ -506,11 +572,18 @@
 	\begin{itemize}
 	\item definitions: APIs, modularity
 	\item goal:
-	\begin{itemize}
-	\item good defaults
-	\item system-wide introspection
-	\item dependency injection
-	\end{itemize}
+		\begin{itemize}
+		\item good defaults
+		\item system-wide introspection
+		\end{itemize}
+	\item how?
+		\begin{itemize}
+		\item We use a system-level dependency injection.
+		\item We get reusable plugins operating on key/value pairs.
+		\item We get operating system abstractions of context.
+		\item We avoid to have dependences in the applications.
+		\end{itemize}
+	\item \elektra{} has no dependence to other libraries but only concrete plugins introduce dependences.
 	\end{itemize}
 \end{frame}
 
@@ -518,6 +591,7 @@
 
 \begin{frame}
 	\frametitle{Preview}
+	next lecture after eastern:
 	\begin{itemize}
 	\item code generation vs. introspection
 	\item testability

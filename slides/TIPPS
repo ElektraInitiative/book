@@ -1,18 +1,32 @@
 add [fragile] to frame for listings
 gobble=4 for indent
+whitespaces=no
+
+--------------
+
+fix descriptions:
+
+
+\begin{description}[labelsep=10cm,align=right]
+\begin{description}[align=left]
 
 
 --------------
 
 \pause
+\pause[\thebeamerpauses]    show after \begin{itemize}[<+->]
 
 \textbf<>{}
 \textit<>{}
 \color<>[]{}
 \alert<>{}
 
+\onslide<+->{}
+
 \only<>{}       control when to show, needs no space
 \uncover<>{}    control when shown, needs space
+
+
 
 
 --------------
