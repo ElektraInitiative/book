@@ -94,12 +94,26 @@
 		{\textsc{Elektra}}% if #2 is empty
 		{\textsc{#2\-Elektra}}% if #1 is empty, do not index it!
 }
+\newcommand{\namespace}[2][]
+{%
+	{\textsc{#2}}%
+}
 
 %\theoremstyle{plain}
 \newcounter{reqcounter}
 \newtheorem{requirement}[reqcounter]{Requirement}
 
-%setbeamercolor{structure}{fg=violet}
+\makeatletter
+\def\th@goal{%
+    \normalfont % body font
+    \setbeamercolor{block title example}{bg=violet,fg=white}
+    \setbeamercolor{block body example}{bg=violet!20,fg=black}
+    \def\inserttheoremblockenv{exampleblock}
+  }
+\makeatother
+
+\theoremstyle{goal}
+\newtheorem{goal}{Goal}
 
 \makeatletter
 \def\th@task{%

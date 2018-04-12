@@ -1,0 +1,311 @@
+%TODO: add cliffhanger with preview for next time
+
+%variability
+%code-generation
+%testing
+
+%modularity? + dependences
+
+%TODO: argumentation/motivation for code generation:
+% - misconfiguration caused by transformation/defaults/...
+
+\input{setup}
+
+\date{13.4.2018}
+
+\begin{document}
+
+\renewcommand{\enquote}[1]{\emph{``#1''}} % Cannot be done earlier
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\titlepage
+	\doclicenseThis
+\end{frame}
+
+\begin{frame}
+	\frametitle{Organization}
+	Next dates:
+	\begin{description}
+		\item[13.4.2018:] \textbf{homework submitted, topics of team exercise}
+		\item[27.4.2018:] lecture
+		\item[4.5.2018:] lecture
+		\item[18.5.2018:] guest lecture
+		\item[25.5.2018:] team exercise submitted
+		\item[1.6.2018:] lecture
+		\item[8.6.2018:] lecture
+		\item[15.6.2018:] last corrections of team exercise
+		\item[22.6.2018:] test
+	\end{description}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Popular Topics}
+	\vspace{-0.5cm}
+	\begin{multicols}{2}
+	\begin{description}
+	\item[4] validation
+	\item[4] user interface
+	\item[3] tools (benefits?)
+	\color{red}
+	\item[3] testability
+	\color{gray}
+	\item[3] complexity reduction (when conf. needed?)
+	\item[3] architectural decisions
+	\color{black}
+	\item[2] Puppet
+	\item[2] modularity
+	\color{gray}
+	\item[2] environment variables
+	\color{black}
+	\item[2] documentation
+	\color{red}
+	\item[2] configuration specification
+	\color{gray}
+	\item[2] command-line args\color{black}
+	\color{red}
+	\item[2] code generation
+	\item[1] variability
+	\color{black}
+	\item[1] self-description
+	\item[1] round-tripping
+	\item[1] introspection
+	\item[1] early
+	\item[1] dependences
+	\item[1] context-awareness
+	\item[1] auto-detection
+	\item[1] administrators
+	\end{description}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}
+	\hspace*{-1cm}\includegraphics[width=\paperwidth]{dot/topics}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Configuration Access (Recapitulation)}
+	\pause
+
+	\ExecuteMetaData[../book/background.tex]{definition-configuration-access}
+
+	\ExecuteMetaData[../book/background.tex]{definition-configuration-access-points}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Trend (Recapitulation)}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item alarming trend in number and complexity of configuration settings
+	\item sharing, visibility and default value calculation often helps
+	\item needs abstraction: configuration specification
+	\item but also more courageous decisions and periodical reevaluation
+	\item different ways to reduce configuration space
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{SpecElektra (Recapitulation)}
+	\pause
+
+	\fontsize{18}{0}\selectfont
+	\ExecuteMetaData[../book/approach.tex]{definition-spec}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Modularity (Recapitulation)}
+	\pause
+	\Large
+	\ExecuteMetaData[../book/backend.tex]{definition-modularity}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Plugins (Recapitulation)}
+	\pause
+	\Large
+	\ExecuteMetaData[../book/approach.tex]{definition-plugins}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Introspection (Recapitulation)}
+	\pause
+	\begin{itemize}
+	\item unified get/set access to (meta*)-key/values
+	\item access via applications, CLI, GUI, web-UI, ...
+	\item access via any programming language (similar to file systems)
+	\item GUI, web-UI can semantically interpret metadata
+	\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Code Generation}
+
+\subsection{Why?}
+
+\begin{assignment}
+	\begin{task}
+	How to ensure that configuration access points match with present configuration settings?
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	\frametitle{Rationale (Partly Recapitulation)}
+	Configuration Specification:
+	\begin{itemize}
+	\item without specification you and others do not even know which settings are available
+	\item needed for any further techniques we will discuss:
+		\begin{itemize}
+		\color{red}
+		\item code generation guarantees that configuration access points match with specification
+		\item validation guarantees that configuration settings match with specification
+		\end{itemize}
+	\item essential for \intro[no-futz computing]{no-futz computing}~\citet{holland2001nofutz}
+	\item the foundation for any advanced tooling like configuration management tools
+	\item needed as communication of producers and consumers of configuration
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Brainstorming: Which artefacts can we produce with code generation?
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	\frametitle{Implementations}
+	For example:
+	\begin{itemize}
+	\item generate examples/documentation
+	\item auto-completion/syntax highlighting/IDE support
+	\item tooling (GUI, Web UI)
+	\item validation code
+	\end{itemize}
+	\pause
+	Are all of them useful?
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Current Challenges}
+	Configuration Access Code usually has:
+	\begin{itemize}
+	\item code duplications
+	\item hard-coded default values
+	\item unexpected transformations
+	\item no introspection facilities
+	\end{itemize}
+	\begin{example}
+	\begin{code}[gobble=4,language=C++]
+	if (!strcasecmp(token, "on")) {
+		*var = 1;
+	} else {
+		*var = 0;
+	} /* src/cache_cf.cc from Squid */
+	\end{code}\end{example}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Goal}
+
+	\begin{goal}
+	Configuration settings should adhere the specification from source to destination.
+	\end{goal}
+
+	\begin{restatable}{requirement}{reqGeneration}
+	The specification must enable code generation and inconsistencies must be ruled out during compilation.
+	\end{restatable}
+\end{frame}
+
+
+\subsection{How?}
+
+\begin{frame}
+	\frametitle{Code Generation}
+
+	\ExecuteMetaData[../book/approach.tex]{code-generation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Possible Properties}
+	For example, SpecElektra has following properties:
+	\begin{description}
+	\item[type] represents the type to be used in the emitted source code.
+	\item[opt] is used for short command-line options to be copied to the namespace \namespace{proc}.
+	\item[opt/long] is used for long command-line options, which differ from short command-line options by supporting strings and not only characters.
+	\item[readonly] yields compilation errors when developers assign a value to a contextual value within the program.
+	\item[default] enables us to start the application even if the backend does not work.
+	\end{description}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Introspection vs. Generation}
+
+\begin{frame}
+	\begin{alertblock}{Question}
+	Variability vs. Configurability
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}
+	\begin{alertblock}{Question}
+	Introspection vs. Generation
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}
+	Example for Artifacts:
+	\begin{itemize}
+	\item configuration management code
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Limitations of Introspection:
+	\begin{itemize}
+	\item no whole-program optimizations (API barriers)
+	\item no static checks
+	\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Testability}
+
+
+\begin{frame}
+	\frametitle{Conclusion}
+	\begin{itemize}
+	\item definitions:
+	\item code generation vs. introspection
+	\item testability: reduction and automatic testing
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Preview}
+	\begin{itemize}
+	\item modularity
+	\item dependences
+	\item auto-detection
+	\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\nocite{raab2017introducing}
+
+\appendix
+
+\begin{frame}[allowframebreaks]
+	\bibliographystyle{plainnat}
+	\bibliography{../shared/elektra.bib}
+\end{frame}
+
+\end{document}
+
+

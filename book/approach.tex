@@ -1136,8 +1136,10 @@ Bold, blue boxes need to be provided by users of \elektra{}.}
 \subsubsection{Code Generation}
 \label{sec:approach-code-generation}
 
+%<*code-generation>
 The code generator \elektra[Gen]{Gen} reads \elektra{Spec} specifications and emits high-level APIs to be used in applications.
 \elektra{Gen} facilitates the key names to generate unique API names.
+%</code-generation>
 We use nested objects (accessed by ^.^ via a root object ^env^) according to the hierarchy levels of the key name.
 These objects are used like variables.
 \elektra{Gen} employs the following properties from \elektra{Spec}:
