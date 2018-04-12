@@ -54,9 +54,10 @@
 	\item[3] complexity reduction (when conf. needed?)
 	\item[3] architectural decisions
 	\color{black}
+	\color{red}
 	\item[2] Puppet
-	\item[2] modularity
 	\color{gray}
+	\item[2] modularity
 	\item[2] environment variables
 	\color{black}
 	\item[2] documentation
@@ -66,15 +67,17 @@
 	\item[2] command-line args\color{black}
 	\color{red}
 	\item[2] code generation
-	\item[1] variability
 	\color{black}
+	\item[1] variability
 	\item[1] self-description
 	\item[1] round-tripping
-	\item[1] introspection
 	\item[1] early
+	\color{gray}
+	\item[1] introspection
 	\item[1] dependences
-	\item[1] context-awareness
 	\item[1] auto-detection
+	\color{black}
+	\item[1] context-awareness
 	\item[1] administrators
 	\end{description}
 	\end{multicols}
@@ -120,6 +123,19 @@
 	\Large
 	\ExecuteMetaData[../book/backend.tex]{definition-modularity}
 \end{frame}
+
+\begin{frame}
+	\frametitle{Vertical Modularity}
+	\begin{columns}[c]
+	\column{7cm}
+	\includegraphics[scale=0.75]{verticalmodularity}
+	\column{4cm}
+	Needed to keep applications independently.
+
+	Boxes are applications, cylinders are configuration files, F? are frontends or frontend adapters, L? are configuration libraries~\cite{raab2016improving}.
+	\end{columns}
+\end{frame}
+
 
 \begin{frame}
 	\frametitle{Plugins (Recapitulation)}
@@ -175,16 +191,15 @@
 \end{assignment}
 
 \begin{frame}
-	\frametitle{Implementations}
-	For example:
+	Artefacts:
 	\begin{itemize}
 	\item generate examples/documentation
 	\item auto-completion/syntax highlighting/IDE support
 	\item tooling (GUI, Web UI)
 	\item validation code
+	\item configuration management tool code
+	\item configuration access APIs
 	\end{itemize}
-	\pause
-	Are all of them useful?
 \end{frame}
 
 \begin{frame}[fragile]
@@ -239,58 +254,336 @@
 	\end{description}
 \end{frame}
 
+\begin{frame}[fragile]
+	With the specification:
+	\par
+	\begin{code}[gobble=4]
+	[foo/bar]
+	  default:=Hello
+	  type:=string
+	  opt:=b
+	  readonly:=1
+	\end{code}
+	\par
+	\elektra{Gen} gives the user read-only access to the object ^env.foo.bar^:
+	\par
+	\begin{code}[language=Cpp]
+	std::cout << env.foo.bar;
+	env.foo.bar = "Other world"; // comp. error
+	\end{code}
+	\par
+	\small
+	Line~1 prints the configuration value of ^/foo/bar^ or ^"Hello"^ (without quotes) by default.
+	When invoking the application with ^application -b "This world"^, the application would print ^"This world"^ (without quotes).
+	Line~2 leads to a compilation error because of the property \property{readonly}.
+\end{frame}
+
+\begin{frame}
+	\frametitle{KeySet (Recapitulation)}
+
+	The common data structure between plugins:
+	\vspace{1cm}
+
+	\includegraphics{keyset}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{KeySet Generation}
+	\begin{alertblock}{Question}
+	Idea: What if the configuration file format grammar describes source code?
+	\end{alertblock}
+	\pause
+
+	\begin{grammar}
+	<KeySet> ::= \lq ksNew'\WhiteSpace(' \{ <Key> \lq , \LineBreak'  \}  \{ \lq\WhiteSpace' \} \lq KS\_END);'
+
+	<Key> ::= \lq keyNew \WhiteSpace ('' ' <key name> \lq ''  , \LineBreak' [ <Value> ] <properties> \lq KEY_END)'
+
+	<Value> ::=  \{ \lq\WhiteSpace' \} \lq KEY\_VALUE, \WhiteSpace '' ' <configuration value> \lq ''  , \LineBreak'
+
+	<properties> ::= \{ \{ \lq\WhiteSpace' \} <property> \lq , \LineBreak' \}
+
+	<property> ::=  \lq KEY\_META, \WhiteSpace " ' <property name> \lq "  , \WhiteSpace " ' <property value> \lq " '
+	\end{grammar}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Example}
+	Given the key ^spec:/slapd/threads/listener^, with the configuration value ^4^ and the property $\property{default} \mapsto 1$, \elektra{Gen} emits:
+
+	\begin{code}[gobble=4,language=Cpp]
+	ksNew (keyNew ("spec:/slapd/threads/listener",
+		       KEY_VALUE, "4",
+		       KEY_META, "default", "1",
+		       KEY_END),
+	       KS_END);
+	\end{code}
+
+	\pause
+	\begin{alertblock}{Result}
+	We have source code representing the settings!
+	And if we instantiate it, we have a data structure representing the settings!
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Which Configuration Access API?}
+
+	First approach, one class (or function) per configuration setting:
+	\\[1em]
+	\begin{code}[gobble=4,language=Cpp]
+	class SlapdThreadsListener : public Value<long,
+		WritePolicyIs<ReadOnlyPolicy>> {
+		... keyNew ("/slapd/threads/listener",
+			    KEY_META, "type", "long",
+			    KEY_META, "readonly", "1",
+			    KEY_END) ...
+	};
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Which Configuration Access API?}
+
+	Bad idea, manual instantiation and long names necessary:
+	\\[1em]
+	\begin{code}[gobble=4,language=Cpp]
+	KeySet config;
+	Context c;
+	long foo ()
+	{
+		SlapdThreadsListener slapdThreadsListener (config, c);
+		slapdThreadsListener++;
+		return slapdThreadsListener;
+	}
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Which Configuration Access API?}
+
+	Use hierarchy with namespaces or nasted classes:
+	\\[1em]
+	\begin{code}[gobble=4,language=Cpp]
+	namespace slapd
+	{
+	namespace threads
+	{
+	class Listener : public Value<long> {};
+	}  // <continues on the next page>
+	class Threads : public Value<none_t>
+	{threads::Listener listener;};
+	}  // end namespace slapd
+	class Slapd : public Value<none_t>
+	{slapd::Threads threads;};
+	class Environment {Slapd slapd;};
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Which Configuration Access API?}
+
+	Much easier to use:
+	\begin{code}[gobble=4,language=Cpp]
+	long foo(slapd::Threads const & threads)
+	{
+		threads.listener++;
+		Context & c = threads.context (); // access context
+		return threads.listener;
+	}
+
+	int main()
+	{
+		KeySet config;
+		Context c;
+		Environment env (config, c);
+		long x = foo (env.slapd.threads);
+	}
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Which Configuration Access API?}
+
+	In C, we use identifiers to be passed to the API:
+	\\[2em]
+	\begin{code}[gobble=4,language=Cpp]
+	elektraGetString (elektra, ELEKTRA_TAG_X);
+	\end{code}
+	Where ^ELEKTRA_TAG_X^ is a struct for that type.
+\end{frame}
+
+\begin{frame}
+	Guarantees by code generation:
+	\begin{itemize}
+	\item Every configuration setting is specified.
+	\item Configuration access with defaults is always successful.
+	Reason: We compile in a KeySet and use it if everything else fails.
+	\end{itemize}
+	\vspace{3em}
+	Missing Guarantee: Is every specified setting actually used?
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Introspection vs. Generation}
 
+\subsection{}
+
 \begin{frame}
 	\begin{alertblock}{Question}
-	Variability vs. Configurability
+	Introspection vs. Code Generation?
 	\end{alertblock}
 \end{frame}
 
 \begin{frame}
-	\begin{alertblock}{Question}
-	Introspection vs. Generation
-	\end{alertblock}
-\end{frame}
-
-\begin{frame}
-	Example for Artifacts:
+	Limitations of introspection:
 	\begin{itemize}
-	\item configuration management code
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Limitations of Introspection:
-	\begin{itemize}
-	\item no whole-program optimizations (API barriers)
 	\item no static checks
+	\item no whole-program optimizations (API barriers)
 	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Overhead without code generation (=backend) is $1.8$x higher~\cite{raab2015kps}:
+	\includegraphics[width=\textwidth]{mean2}
+\end{frame}
+
+\begin{frame}
+	But it might not matter because configuration access might not be a bottleneck~\cite{raab2015kps},
+	for example, a word counting application:
+
+	\includegraphics[width=\textwidth]{wc}
+
+	But: \pause
+	Configuration access points within loops might be a bottleneck.
+\end{frame}
+
+\begin{frame}
+	Advantages of introspection:
+	\begin{itemize}
+	\item specification can be updated live on the system without recompilation
+	\item tooling has generic access to all specifications
+ 	\item new features the key database (e.g., better validation) are immediately available consistently
+	\end{itemize}
+	\vspace{1em}
+	\begin{alertblock}{Implication}
+	We generally prefer introspection
+	\end{alertblock}
+	\vspace{1em}
+	\begin{restatable}{requirement}{reqIntrospection}
+	Configuration settings and specifications must be introspectable.%
+	\end{restatable}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Testability}
 
+\subsection{}
+
+\lstDeleteShortInline^
+\begin{frame}
+	\frametitle{\cite{jin2014configurations}}
+
+	\begin{itemize}
+	\item Wants to improve configuration-ware testing and debugging
+	\item Manual investigations for three applications
+	\item Finds 1957 settings in Firefox ($2^{846} * 3^{1111}$) and \\
+		36322 in LibreOffice ($2^{4433} * 3^{31889}$)
+	\item Finds unused settings: settings only in the source code
+	\item Finds unsynchronized configuration settings (see in ``early'')
+	\end{itemize}
+
+	\begin{requirement}
+	Configuration setting traceability is a necessity.
+	\end{requirement}
+
+	\begin{alertblock}{Idea}
+	Code generation helps to trace settings and to find unused settings.
+	\end{alertblock}
+\end{frame}
+\lstMakeShortInline[postbreak=,keywordstyle={},showspaces=no]^
+%XXX
+
+%Other requirements they have:
+%\begin{frame}
+%	\frametitle{Requirements \cite{jin2014configurations}}
+%	\begin{requirement}
+%	Configuration Modeling Should Merge Multiple Layers.
+%	\end{requirement}
+%	\begin{requirement}
+%	Analysis Tools Need to Cross the Programming Language Barrier
+%	\end{requirement}
+%	\begin{requirement}
+%	Configuration State Capture or Approximation Techniques are Needed
+%	\end{requirement}
+%\end{frame}
+
 
 \begin{frame}
+	\frametitle{Find Unused Settings}
+
+	%contextual value not yet introduced:
+	%\ExecuteMetaData[../book/implications.tex]{algorithm-first}
+	The first (optional) step of the algorithm is:
+	\begin{itemize}
+	\item Run all tests with code coverage.
+	\item Check if generated code is executed.
+	\item If it is, we know that the configuration setting is used in a test case.
+	Otherwise, we know it is not tested by the test suite.
+	All these untested configuration settings are remembered as candidates for the second step.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\small
+	\fontsize{10}{0}\selectfont
+	\begin{code}[gobble=4,language=Cpp]
+	KeySet findUnusedSettings (KeySet untestedSettings,
+				   KDB kdb,
+				   Builder build)
+	{
+	   KeySet unusedSettings = {};
+	   KeySet configurationSpecification;
+	   kdb.get (configurationSpecification);
+
+	   for (candidate: untestedSettings)
+	   {
+	       configurationSpecification.remove (candidate);
+	       kdb.set (configurationSpecification);
+	       build.recompile ();
+	       if (build.wasSuccessful ())
+	       {
+	          unusedSettings.append (candidate);
+	       }
+	       configurationSpecification.append (candidate);
+	   }
+
+	   kdb.set (configurationSpecification);
+	   return unusedSettings;
+	}
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
 	\frametitle{Conclusion}
 	\begin{itemize}
-	\item definitions:
-	\item code generation vs. introspection
-	\item testability: reduction and automatic testing
+	\item Challenges: duplications, transformations, ...
+	\item Configuration access APIs with code generation
+	\item Guarantees of configuration access points
+	\item We reuse properties of SpecElektra (^type^, ^default^)
+	\item We prefer hierarchies and tags to long function names
+	\item Usually introspection preferred, except for static type safety
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Preview}
 	\begin{itemize}
-	\item modularity
-	\item dependences
-	\item auto-detection
+	\item Puppet-Libelektra talk
+	\item Early Detection of Misconfiguration
 	\end{itemize}
 \end{frame}
 

@@ -133,3 +133,33 @@
 
 \graphicspath{{../pic/}{../figures/}{../graphics/}{../ipe/}{../ggplot/}}
 
+%amsmath stuff
+\DeclareMathSymbol{\mlq}{\mathord}{operators}{``}  % math left quote
+\DeclareMathSymbol{\mrq}{\mathord}{operators}{`'}  % math right quote
+
+
+%operators
+\DeclareMathOperator*{\concat}{\mathnormal{+\!\!+}}
+\DeclareMathOperator*{\concatkey}{\mathnormal{\colon\!\!\!/}}
+
+%symbols
+%make Linebreak work without math
+\newcommand{\NullValue}{\epsilon}
+\newcommand{\CleanString}{\overrightarrow{C'}}
+\newcommand{\RelativeKeyNames}{\mathbb{R}}
+\newcommand{\KeyNames}{\mathbb{N}}
+\newcommand{\MetaKeyValues}{\bigcup\limits_{g \in G} X_g}
+\newcommand{\EmptyNameSpace}{\epsilon}
+\newcommand{\Keys}{\mathbb{K}}
+\newcommand{\KeySets}{\mathcal{K}}
+\newcommand{\NullKey}{\varnothing}
+\newcommand{\EmptyKeySet}{\kappa}
+\newcommand{\NameSpaces}{\mathnormal{N}}
+\newcommand{\LineBreak}{\ensuremath{\hookleftarrow}}
+\newcommand{\WhiteSpace}{\textvisiblespace}
+\newcommand{\SetOfValues}{\ensuremath{\mathbb{C}_\NullValue}}
+\newcommand{\Strings}{\ensuremath{\mathbb{C}}}
+\newcommand{\NonEmptyStrings}{\ensuremath{\mathbb{C}_{\geq1}}}
+\newcommand{\CleanStrings}{\ensuremath{\mathbb{C}'}}
+\newcommand{\NonEmptyCleanStrings}{\ensuremath{\mathbb{C}_{\geq1}'}}
+

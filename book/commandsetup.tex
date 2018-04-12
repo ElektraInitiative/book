@@ -61,10 +61,6 @@
 %\DeclareTextFontCommand\textintro{\normalfont\slshape\scshape} % also nice! needs slantsc
 %\DeclareTextFontCommand{\question}{\em}
 
-%amsmath stuff
-\DeclareMathSymbol{\mlq}{\mathord}{operators}{``}  % math left quote
-\DeclareMathSymbol{\mrq}{\mathord}{operators}{`'}  % math right quote
-
 %% Introduces a new word in the book + index it
 \newcommand{\intro}[2][]
 {%
@@ -326,31 +322,6 @@
 
 %two lines within a cell
 \newcommand{\blap}[1]{{\begin{tabular}[t]{@{}c@{}}#1\end{tabular}}}
-
-%operators
-\DeclareMathOperator*{\concat}{\mathnormal{+\!\!+}}
-\DeclareMathOperator*{\concatkey}{\mathnormal{\colon\!\!\!/}}
-
-%symbols
-%make Linebreak work without math
-\newcommand{\NullValue}{\epsilon}
-\newcommand{\CleanString}{\overrightarrow{C'}}
-\newcommand{\RelativeKeyNames}{\mathbb{R}}
-\newcommand{\KeyNames}{\mathbb{N}}
-\newcommand{\MetaKeyValues}{\bigcup\limits_{g \in G} X_g}
-\newcommand{\EmptyNameSpace}{\epsilon}
-\newcommand{\Keys}{\mathbb{K}}
-\newcommand{\KeySets}{\mathcal{K}}
-\newcommand{\NullKey}{\varnothing}
-\newcommand{\EmptyKeySet}{\kappa}
-\newcommand{\NameSpaces}{\mathnormal{N}}
-\newcommand{\LineBreak}{\ensuremath{\hookleftarrow}}
-\newcommand{\WhiteSpace}{\textvisiblespace}
-\newcommand{\SetOfValues}{\ensuremath{\mathbb{C}_\NullValue}}
-\newcommand{\Strings}{\ensuremath{\mathbb{C}}}
-\newcommand{\NonEmptyStrings}{\ensuremath{\mathbb{C}_{\geq1}}}
-\newcommand{\CleanStrings}{\ensuremath{\mathbb{C}'}}
-\newcommand{\NonEmptyCleanStrings}{\ensuremath{\mathbb{C}_{\geq1}'}}
 
 %% Define a key
 \newcommand{\key}[1]{\lstinline[language=,literate={/}{}{0\discretionary{/}{}{/}},postbreak=,breaklines=false]{#1}}

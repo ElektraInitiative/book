@@ -1029,6 +1029,7 @@ We propose an algorithm that processes line coverage information in two steps.
 
 \subsubsection{Algorithm}
 
+%<*algorithm-first>
 The first (optional) step of the algorithm is:
 \begin{itemize}
 \item Run all tests with code coverage.
@@ -1037,6 +1038,7 @@ The first (optional) step of the algorithm is:
 Otherwise, we know it is not tested by the test suite.
 All these untested configuration settings are remembered as candidates for the second step.
 \end{itemize}
+%</algorithm-first>
 
 The second step ^findUnusedSettings^ uses mutation testing.
 We remove one of the candidates from the configuration specification and try to recompile the software.
