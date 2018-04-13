@@ -193,7 +193,8 @@
 \begin{frame}
 	Artefacts:
 	\begin{itemize}
-	\item generate examples/documentation
+	\item examples (e.g., defaults)
+	\item documentation
 	\item auto-completion/syntax highlighting/IDE support
 	\item tooling (GUI, Web UI)
 	\item validation code
@@ -204,7 +205,8 @@
 
 \begin{frame}[fragile]
 	\frametitle{Current Challenges}
-	Configuration Access Code usually has:
+	Configuration access code usually has:
+	\pause
 	\begin{itemize}
 	\item code duplications
 	\item hard-coded default values
@@ -240,42 +242,10 @@
 	\frametitle{Code Generation}
 
 	\ExecuteMetaData[../book/approach.tex]{code-generation}
-\end{frame}
 
-\begin{frame}
-	\frametitle{Possible Properties}
-	For example, SpecElektra has following properties:
-	\begin{description}
-	\item[type] represents the type to be used in the emitted source code.
-	\item[opt] is used for short command-line options to be copied to the namespace \namespace{proc}.
-	\item[opt/long] is used for long command-line options, which differ from short command-line options by supporting strings and not only characters.
-	\item[readonly] yields compilation errors when developers assign a value to a contextual value within the program.
-	\item[default] enables us to start the application even if the backend does not work.
-	\end{description}
-\end{frame}
-
-\begin{frame}[fragile]
-	With the specification:
-	\par
-	\begin{code}[gobble=4]
-	[foo/bar]
-	  default:=Hello
-	  type:=string
-	  opt:=b
-	  readonly:=1
-	\end{code}
-	\par
-	\elektra{Gen} gives the user read-only access to the object ^env.foo.bar^:
-	\par
-	\begin{code}[language=Cpp]
-	std::cout << env.foo.bar;
-	env.foo.bar = "Other world"; // comp. error
-	\end{code}
-	\par
-	\small
-	Line~1 prints the configuration value of ^/foo/bar^ or ^"Hello"^ (without quotes) by default.
-	When invoking the application with ^application -b "This world"^, the application would print ^"This world"^ (without quotes).
-	Line~2 leads to a compilation error because of the property \property{readonly}.
+	\pause
+	\vspace{2em}
+	But how?
 \end{frame}
 
 \begin{frame}
@@ -357,6 +327,43 @@
 	}
 	\end{code}
 	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Possible Properties}
+	For example, SpecElektra has following properties:
+	\begin{description}
+	\item[type] represents the type to be used in the emitted source code.
+	\item[opt] is used for short command-line options to be copied to the namespace \namespace{proc}.
+	\item[opt/long] is used for long command-line options, which differ from short command-line options by supporting strings and not only characters.
+	\item[readonly] yields compilation errors when developers assign a value to a contextual value within the program.
+	\item[default] enables us to start the application even if the backend does not work.
+	\end{description}
+\end{frame}
+
+\begin{frame}[fragile]
+	With the specification:
+	\par
+	\begin{code}[gobble=4]
+	[foo/bar]
+	  default:=Hello
+	  type:=string
+	  opt:=b
+	  readonly:=1
+	\end{code}
+	\par
+	\elektra{Gen} gives the user read-only access to the object ^env.foo.bar^:
+	\par
+	\begin{code}[language=Cpp]
+	std::cout << env.foo.bar;
+	env.foo.bar = "Other world"; // comp. error
+	\end{code}
+	\par
+	\small
+	\pause
+	Line~1 prints the configuration value of ^/foo/bar^ or ^"Hello"^ (without quotes) by default.
+	When invoking the application with ^application -b "This world"^, the application would print ^"This world"^ (without quotes).
+	Line~2 leads to a compilation error because of the property \property{readonly}.
 \end{frame}
 
 \begin{frame}[fragile]
@@ -495,6 +502,7 @@
 
 \begin{frame}
 	Advantages of introspection:
+	\pause
 	\begin{itemize}
 	\item specification can be updated live on the system without recompilation
 	\item tooling has generic access to all specifications
@@ -502,7 +510,7 @@
 	\end{itemize}
 	\vspace{1em}
 	\begin{alertblock}{Implication}
-	We generally prefer introspection
+	We generally prefer introspection, except for a very thin configuration access API.
 	\end{alertblock}
 	\vspace{1em}
 	\begin{restatable}{requirement}{reqIntrospection}
@@ -523,9 +531,9 @@
 
 	\pause
 	\begin{itemize}
-	\item Settings do what they should
-	\item Settings are properly validated
-	\item Functionality with different settings
+	\item That settings do what they should
+	\item That settings are properly validated
+	\item Functionality as expected with different settings
 	\item Regression tests~\cite{qu2008configuration}
 	\pause
 	\item Are all settings implemented?
@@ -536,7 +544,7 @@
 
 \lstDeleteShortInline^
 \begin{frame}
-	\frametitle{\cite{jin2014configurations}}
+	\frametitle{\citet{jin2014configurations}}
 
 	\begin{itemize}
 	\item Wants to improve configuration-ware testing and debugging
@@ -622,6 +630,7 @@
 	\frametitle{Conclusion}
 	\begin{itemize}
 	\item Challenges: duplications, transformations, ...
+	\item KeySet equivalence: settings are instantiated configuration files
 	\item Configuration access APIs with code generation
 	\item Guarantees of configuration access points
 	\item We reuse properties of SpecElektra (^type^, ^default^)
