@@ -125,7 +125,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Vertical Modularity}
+	\frametitle{Vertical Modularity (Recapitulation)}
 	\begin{columns}[c]
 	\column{7cm}
 	\includegraphics[scale=0.75]{verticalmodularity}
@@ -320,10 +320,43 @@
 	\end{code}
 
 	\pause
-	\begin{alertblock}{Result}
-	We have source code representing the settings!
-	And if we instantiate it, we have a data structure representing the settings!
+	\begin{alertblock}{Finding}
+	We have source code representing the settings.
+	And if we instantiate it, we have a data structure representing the settings.
+	Plugins emitting such ``configuration files'' are code generators.
 	\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Implementation Strategies}
+
+	\begin{itemize}
+	\item Using ^print^ (only for very small generators)
+	\item Using generative grammars
+	\begin{code}[gobble=4,language=Cpp]
+	query = '{' >> *(pair) > '}';
+	pair = '{' >> key_name > '=' >> key_value >>
+	       *('{' >> metakey_name > '=' >> metakey_value > '}')
+	       > '}';
+	\end{code}
+	\item Using template languages (RubyERB, Cheetah, GNU AutoGen)
+	\begin{code}[gobble=4,language=Python,basicstyle=\ttfamily\tiny,numberstyle=\ttfamily\tiny\color{blue}]
+	@for n in hierarchy.name.split('/')[1:-1]
+	namespace $support.nsnpretty($n)
+	{
+	class ${hierarchy.prettyclassname(support)}
+	{
+	typedef $support.typeof($hierarchy.info) type;
+	@if $support.typeof($hierarchy.info) != "kdb::none_t"
+	static type get(kdb::KeySet &ks, kdb::Key const& spec)
+	{
+		type value $support.valof($hierarchy.info)
+		Key found(ckdb::ksLookup(ks.getKeySet(), *spec,
+					ckdb::elektraLookupOptions::KDB_O_SPEC));
+		return found.get<$support.typeof($hierarchy.info)>();
+	}
+	\end{code}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -482,6 +515,24 @@
 \section{Testability}
 
 \subsection{}
+
+\begin{frame}
+	\begin{alertblock}{Question}
+	What do we want to test?
+	\end{alertblock}
+
+	\pause
+	\begin{itemize}
+	\item Settings do what they should
+	\item Settings are properly validated
+	\item Functionality with different settings
+	\item Regression tests~\cite{qu2008configuration}
+	\pause
+	\item Are all settings implemented?
+	\item Are all settings used in tests?
+	\item Are there unused settings in the code?
+	\end{itemize}
+\end{frame}
 
 \lstDeleteShortInline^
 \begin{frame}
