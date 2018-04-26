@@ -1,6 +1,6 @@
-FILE=04
+FILE=05
 
-$(FILE).pdf:$(FILE).tex
+$(FILE).pdf:$(FILE).tex setup.tex
 	latexmk $(FILE)
 
 .PHONY:errors

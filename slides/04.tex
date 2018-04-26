@@ -24,6 +24,14 @@
 \end{frame}
 
 \begin{frame}
+	\begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+		\usebeamerfont{title}Talk: JIRA/Confluence/Bitbucket\par%
+	\end{beamercolorbox}
+	\vspace{3em}
+	Configuration Management in JIRA/Confluence/Bitbucket (Server). Configuration approach of my personal software for staging to production cloning of JIRA/Confluence/Bitbucket
+\end{frame}
+
+\begin{frame}
 	\frametitle{Organization}
 	Next dates:
 	\begin{description}
@@ -48,7 +56,6 @@
 	\item[4] validation
 	\item[4] user interface
 	\item[3] tools (benefits?)
-	\color{red}
 	\item[3] testability
 	\color{gray}
 	\item[3] complexity reduction (when conf. needed?)
@@ -126,15 +133,9 @@
 
 \begin{frame}
 	\frametitle{Vertical Modularity (Recapitulation)}
-	\begin{columns}[c]
-	\column{7cm}
-	\includegraphics[scale=0.75]{verticalmodularity}
-	\column{4cm}
-	Needed to keep applications independently.
-
-	Boxes are applications, cylinders are configuration files, F? are frontends or frontend adapters, L? are configuration libraries~\cite{raab2016improving}.
-	\end{columns}
+	\includegraphics[scale=0.7]{verticalmodularity}
 \end{frame}
+
 
 
 \begin{frame}
@@ -518,131 +519,16 @@
 	\end{restatable}
 \end{frame}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Testability}
-
-\subsection{}
-
 \begin{frame}
-	\begin{alertblock}{Question}
-	What do we want to test?
-	\end{alertblock}
-
-	\pause
-	\begin{itemize}
-	\item That settings do what they should
-	\item That settings are properly validated
-	\item Functionality as expected with different settings
-	\item Regression tests~\cite{qu2008configuration}
-	\pause
-	\item Are all settings implemented?
-	\item Are all settings used in tests?
-	\item Are there unused settings in the code?
-	\end{itemize}
-\end{frame}
-
-\lstDeleteShortInline^
-\begin{frame}
-	\frametitle{\citet{jin2014configurations}}
-
-	\begin{itemize}
-	\item Wants to improve configuration-ware testing and debugging
-	\item Manual investigations for three applications
-	\item Finds 1957 settings in Firefox ($2^{846} * 3^{1111}$) and \\
-		36322 in LibreOffice ($2^{4433} * 3^{31889}$)
-	\item Finds unused settings: settings only in the source code
-	\item Finds unsynchronized configuration settings (see in ``early'')
-	\end{itemize}
-
-	\begin{requirement}
-	Configuration setting traceability is a necessity.
-	\end{requirement}
-
-	\begin{alertblock}{Idea}
-	Code generation helps to trace settings and to find unused settings.
-	\end{alertblock}
-\end{frame}
-\lstMakeShortInline[postbreak=,keywordstyle={},showspaces=no]^
-%XXX
-
-%Other requirements they have:
-%\begin{frame}
-%	\frametitle{Requirements \cite{jin2014configurations}}
-%	\begin{requirement}
-%	Configuration Modeling Should Merge Multiple Layers.
-%	\end{requirement}
-%	\begin{requirement}
-%	Analysis Tools Need to Cross the Programming Language Barrier
-%	\end{requirement}
-%	\begin{requirement}
-%	Configuration State Capture or Approximation Techniques are Needed
-%	\end{requirement}
-%\end{frame}
-
-
-\begin{frame}
-	\frametitle{Find Unused Settings}
-
-	%contextual value not yet introduced:
-	%\ExecuteMetaData[../book/implications.tex]{algorithm-first}
-	The first (optional) step of the algorithm is:
-	\begin{itemize}
-	\item Run all tests with code coverage.
-	\item Check if generated code is executed.
-	\item If it is, we know that the configuration setting is used in a test case.
-	Otherwise, we know it is not tested by the test suite.
-	All these untested configuration settings are remembered as candidates for the second step.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-	\small
-	\fontsize{10}{0}\selectfont
-	\begin{code}[gobble=4,language=Cpp]
-	KeySet findUnusedSettings (KeySet untestedSettings,
-				   KDB kdb,
-				   Builder build)
-	{
-	   KeySet unusedSettings = {};
-	   KeySet configurationSpecification;
-	   kdb.get (configurationSpecification);
-
-	   for (candidate: untestedSettings)
-	   {
-	       configurationSpecification.remove (candidate);
-	       kdb.set (configurationSpecification);
-	       build.recompile ();
-	       if (build.wasSuccessful ())
-	       {
-	          unusedSettings.append (candidate);
-	       }
-	       configurationSpecification.append (candidate);
-	   }
-
-	   kdb.set (configurationSpecification);
-	   return unusedSettings;
-	}
-	\end{code}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Conclusion}
-	\begin{itemize}
-	\item Challenges: duplications, transformations, ...
-	\item KeySet equivalence: settings are instantiated configuration files
-	\item Configuration access APIs with code generation
-	\item Guarantees of configuration access points
-	\item We reuse properties of SpecElektra (^type^, ^default^)
-	\item We prefer hierarchies and tags to long function names
-	\item Usually introspection preferred, except for static type safety
-	\end{itemize}
+	\begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+		\usebeamerfont{title}Talk: Puppet-Libelektra\par%
+	\end{beamercolorbox}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Preview}
 	\begin{itemize}
-	\item Puppet-Libelektra talk
+	\item Testing
 	\item Early Detection of Misconfiguration
 	\end{itemize}
 \end{frame}
