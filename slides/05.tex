@@ -1,0 +1,574 @@
+%TODO: add cliffhanger with preview for next time
+
+%variability
+%code-generation
+%testing
+
+%modularity? + dependences
+
+%TODO: argumentation/motivation for code generation:
+% - misconfiguration caused by transformation/defaults/...
+
+\input{setup}
+
+\date{27.4.2018}
+
+\begin{document}
+
+\renewcommand{\enquote}[1]{\emph{``#1''}} % Cannot be done earlier
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\titlepage
+	\doclicenseThis
+\end{frame}
+
+\begin{frame}
+	\frametitle{Organization}
+	Next dates:
+	\begin{description}
+		\item[27.4.2018:] \textbf{concepts for team exercise}
+		\item[4.5.2018:] lecture
+		\item[18.5.2018:] guest lecture
+		\item[25.5.2018:] team exercise submitted
+		\item[1.6.2018:] lecture
+		\item[8.6.2018:] lecture
+		\item[15.6.2018:] last corrections of team exercise
+		\item[22.6.2018:] test
+	\end{description}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Popular Topics}
+	\vspace{-0.5cm}
+	\begin{multicols}{2}
+	\begin{description}
+	\item[4] validation
+	\item[4] user interface
+	\item[3] tools (benefits?)
+	\color{red}
+	\item[3] testability
+	\color{gray}
+	\item[3] complexity reduction (when conf. needed?)
+	\item[3] architectural decisions
+	\color{black}
+	\item[2] Puppet
+	\color{gray}
+	\item[2] modularity
+	\item[2] environment variables
+	\color{black}
+	\item[2] documentation
+	\color{red}
+	\item[2] configuration specification
+	\color{gray}
+	\item[2] command-line args\color{black}
+	\color{red}
+	\item[2] code generation
+	\color{black}
+	\item[1] variability
+	\item[1] self-description
+	\item[1] round-tripping
+	\item[1] early
+	\color{gray}
+	\item[1] introspection
+	\item[1] dependences
+	\item[1] auto-detection
+	\color{black}
+	\item[1] context-awareness
+	\item[1] administrators
+	\end{description}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Configuration Access (Recapitulation)}
+	\pause
+
+	\ExecuteMetaData[../book/background.tex]{definition-configuration-access}
+
+	\ExecuteMetaData[../book/background.tex]{definition-configuration-access-points}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Trend (Recapitulation)}
+	\pause
+
+	\begin{itemize}
+	\item alarming trend in number and complexity of configuration settings
+	\item sharing, visibility and default value calculation often helps
+	\item needs abstraction: configuration specification
+	\item but also more courageous decisions and periodical reevaluation
+	\item different ways to reduce configuration space
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{SpecElektra (Recapitulation)}
+	\pause
+
+	\fontsize{18}{0}\selectfont
+	\ExecuteMetaData[../book/approach.tex]{definition-spec}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Modularity (Recapitulation)}
+	\pause
+	\Large
+	\ExecuteMetaData[../book/backend.tex]{definition-modularity}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Vertical Modularity (Recapitulation)}
+	\begin{columns}[c]
+	\column{7cm}
+	\includegraphics[scale=0.75]{verticalmodularity}
+	\column{4cm}
+	Needed to keep applications independently.
+
+	Boxes are applications, cylinders are configuration files, F? are frontends or frontend adapters, L? are configuration libraries~\cite{raab2016improving}.
+	\end{columns}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Plugins (Recapitulation)}
+	\pause
+	\Large
+	\ExecuteMetaData[../book/approach.tex]{definition-plugins}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Conclusion}
+	\begin{itemize}
+	\item Challenges: duplications, transformations, ...
+	\item KeySet equivalence: settings are instantiated configuration files
+	\item Configuration access APIs with code generation
+	\item Guarantees of configuration access points
+	\item We reuse properties of SpecElektra (^type^, ^default^)
+	\item We prefer hierarchies and tags to long function names
+	\item Usually introspection preferred, except for static type safety
+	\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Code Generation vs. Introspection}
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{Introspection (Recapitulation)}
+	\pause
+	\begin{itemize}
+	\item unified get/set access to (meta*)-key/values
+	\item access via applications, CLI, GUI, web-UI, ...
+	\item access via any programming language (similar to file systems)
+	\item GUI, web-UI can semantically interpret metadata
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Rationale (Recapitulation)}
+	\begin{task}
+	How to ensure that configuration access points match with present configuration settings?
+	\end{task}
+
+	\pause
+
+	\textbf{Configuration Specification}:
+	\begin{itemize}
+	\item without specification you and others do not even know which settings are available
+	\item needed for any further techniques we will discuss:
+		\begin{itemize}
+		\item code generation guarantees that configuration access points match with specification
+		\item validation guarantees that configuration settings match with specification
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Internal Specification}
+
+	For example, OWNER:
+	\begin{code}[gobble=4,language=Java]
+	import org.aeonbits.owner.Config;
+
+	public interface ServerConfig extends Config {
+		int port();
+		String hostname();
+		@DefaultValue("42")
+		int maxThreads();
+	}
+	\end{code}
+\end{frame}
+
+\begin{frame}
+	\begin{task}
+	Why do we need an external specification?
+	\end{task}
+
+	\pause
+
+	\textbf{Introspection}:
+	\begin{itemize}
+	\item essential for \intro[no-futz computing]{no-futz computing}~\citet{holland2001nofutz}
+	\item the foundation for any advanced tooling like configuration management tools
+	\item needed as communication of producers and consumers of configuration
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{External Specification}
+
+	\begin{code}[gobble=4]
+	[port]
+	type:=long
+	[hostname]
+	default:=42
+	[threads/max]
+	type:=long
+	\end{code}
+
+	\begin{itemize}
+	\item read and writable by other applications
+	\item we still can generate the internal specification
+	\item furthermore, we fulfill needs for configuration management tools
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Other Artefacts (Recapitulation):
+
+	\pause
+
+	\begin{itemize}
+	\item examples (e.g., defaults)
+	\item documentation
+	\item auto-completion/syntax highlighting/IDE support
+	\item tooling (GUI, Web UI)
+	\item validation code
+	\item configuration management tool code
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{KeySet (Recapitulation)}
+
+	The common data structure between plugins:
+	\vspace{1cm}
+
+	\includegraphics{keyset}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{KeySet Generation (Recapitulation)}
+	\begin{alertblock}{Question}
+	Idea: What if the configuration file format grammar describes source code?
+	\end{alertblock}
+
+	\pause
+
+	key ^spec:/slapd/threads/listener^, with the configuration value ^4^ and the property $\property{default} \mapsto 1$:
+
+	\begin{code}[gobble=4,language=Cpp]
+	ksNew (keyNew ("spec:/slapd/threads/listener",
+		       KEY_VALUE, "4",
+		       KEY_META, "default", "1",
+		       KEY_END),
+	       KS_END);
+	\end{code}
+
+	\begin{alertblock}{Finding}
+	We get source code representing the settings.
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Possible Properties (Recapitulation)}
+
+	\pause
+
+	For example, SpecElektra has following properties:
+	\begin{description}
+	\item[type] represents the type to be used in the emitted source code.
+	\item[opt] is used for short command-line options to be copied to the namespace \namespace{proc}.
+	\item[opt/long] is used for long command-line options, which differ from short command-line options by supporting strings and not only characters.
+	\item[readonly] yields compilation errors when developers assign a value to a contextual value within the program.
+	\item[default] enables us to start the application even if the backend does not work.
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{(Recapitulation)}
+	\begin{alertblock}{Question}
+	Introspection vs. Code Generation?
+	\end{alertblock}
+
+	\pause
+
+	\pause
+	\begin{description}
+	\item[$-$] more techniques for performance improvements with code generation
+	\item[$+$] specification can be updated live on the system without recompilation
+	\item[$+$] tooling has generic access to all specifications
+ 	\item[$+$] new features the key database (e.g., better validation) are immediately available consistently
+	\end{description}
+	\vspace{1em}
+	\begin{alertblock}{Implication}
+	We generally prefer introspection, except for a very thin configuration access API.
+	\end{alertblock}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Testability}
+
+%TODO: Talk about that more is unknown that known
+
+\subsection{}
+
+\begin{frame}
+	\begin{alertblock}{Question}
+	What do we want to test?
+	\end{alertblock}
+
+	\pause
+	\begin{itemize}
+	\item That settings do what they should (devs and admins)
+	\item That settings are properly validated (devs~\cite{xu2013blame})
+	\item Regression tests~\cite{qu2008configuration}
+	\pause
+	\vspace{1em}
+	\item Are all settings implemented?
+	\item Are all settings used in tests?
+	\item Are there unused settings in the code?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Matt Welsh from Google wrote in 2013:\footnote{What I wish systems researchers would work on. Retrieved from http://matt-welsh.blogspot.com/2013/05/what-i-wish-systems-researchers-would.html.}
+
+	\vspace{1em}
+
+	\emph{``Of course we have extensive testing infrastructure, but the ‘hard’ problems always
+	come up when running in a real production environment, with real traffic and real
+	resource constraints. Even integration tests and canarying are a joke compared to
+	how complex production-scale systems are.''}
+
+	\vspace{1em}
+
+	Most of these problems are still not well understood.
+\end{frame}
+
+\lstDeleteShortInline^
+\begin{frame}
+	\frametitle{\citet{jin2014configurations}}
+
+	\begin{itemize}
+	\item Wants to improve configuration-ware testing and debugging
+	\item Manual investigations for three applications
+	\item Finds 1957 settings in Firefox ($2^{846} * 3^{1111}$) and \\
+		36322 in LibreOffice ($2^{4433} * 3^{31889}$)
+	\item Finds unused settings: settings only in the source code
+	\item Finds unsynchronized configuration settings (see in ``early'')
+	\end{itemize}
+
+	\begin{requirement}
+	Configuration setting traceability is a necessity.
+	\end{requirement}
+
+	\begin{alertblock}{Idea}
+	Code generation helps to trace settings and to find unused settings.
+	\end{alertblock}
+\end{frame}
+\lstMakeShortInline[postbreak=,keywordstyle={},showspaces=no]^
+%XXX
+
+%Other requirements they have:
+%\begin{frame}
+%	\frametitle{Requirements \cite{jin2014configurations}}
+%	\begin{requirement}
+%	Configuration Modeling Should Merge Multiple Layers.
+%	\end{requirement}
+%	\begin{requirement}
+%	Analysis Tools Need to Cross the Programming Language Barrier
+%	\end{requirement}
+%	\begin{requirement}
+%	Configuration State Capture or Approximation Techniques are Needed
+%	\end{requirement}
+%\end{frame}
+
+\begin{frame}
+	\frametitle{Testing by developers:}
+	\begin{itemize}
+	\item ConfErr~\cite{keller2008conferr} uses models of key board layout, psychology and linguistics.
+	Tool injects possible misconfiguration.
+	\item Spex~\citet{xu2013blame} analyzes the source code to find misconfigurations.
+	As by-product it extracts internal specifications (including transformation bugs).
+	\item External specification can be directly used to generate test cases.
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Find Unused Settings}
+
+	%contextual value not yet introduced:
+	%\ExecuteMetaData[../book/implications.tex]{algorithm-first}
+	The first (optional) step of the algorithm is:
+	\begin{itemize}
+	\item Run all tests with code coverage.
+	\item Check if generated code is executed.
+	\item If it is, we know that the configuration setting is used in a test case.
+	Otherwise, we know it is not tested by the test suite.
+	All these untested configuration settings are remembered as candidates for the second step.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\small
+	\fontsize{10}{0}\selectfont
+	\begin{code}[gobble=4,language=Cpp]
+	KeySet findUnusedSettings (KeySet untestedSettings,
+				   KDB kdb,
+				   Builder build)
+	{
+	   KeySet unusedSettings = {};
+	   KeySet configurationSpecification;
+	   kdb.get (configurationSpecification);
+
+	   for (candidate: untestedSettings)
+	   {
+	       configurationSpecification.remove (candidate);
+	       kdb.set (configurationSpecification);
+	       build.recompile ();
+	       if (build.wasSuccessful ())
+	       {
+	          unusedSettings.append (candidate);
+	       }
+	       configurationSpecification.append (candidate);
+	   }
+
+	   kdb.set (configurationSpecification);
+	   return unusedSettings;
+	}
+	\end{code}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Early Detection}
+
+\begin{frame}
+	\frametitle{When are settings used?}
+	\begin{description}[labelsep=1cm,align=left]
+	\item[Implementation-time] configuration accesses \index{implementation-time}
+	are hard-coded settings in the sou\-rce code repository.
+	For example, architectural decisions~\cite{zdun2007patterns} lead to impl\-ementation-time settings.
+
+	\item[Compile-time] configuration accesses \index{compile-time}
+	are configuration accesses resolved by the build system while compiling the code.
+
+	\item[Deployment-time] configuration accesses \index{deployment-time}
+	are configuration accesses while the software is installed.
+
+	\item[Load-time] configuration accesses \index{load-time}
+	are configuration accesses during the start of applications.
+
+	\item[Run-time] configuration accesses \index{run-time}
+	are configuration accesses during execution not limited to the startup procedure.
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Latent Misconfiguration}
+	Phases when we can detect misconfigurations:
+	\begin{itemize}
+	\item Compilation stage in configuration management tool
+	\item Writing configuration settings on nodes
+	\item Starting applications (load-time)
+	\item When configuration setting is actually used (run-time)
+	\end{itemize}
+
+	\begin{alertblock}{Problem}
+	More context vs. easier to detect and fix.
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}
+	As shown in \cite{xu2016early}:
+	\begin{itemize}[<+-| alert@+>]
+	\item \p{12} -- \p{39} configuration settings are not used at all during initialization.
+	\item Applications often have latent misconfigurations (\p{14} -- \p{93})
+	\item Latent misconfigurations are particular severe (\p{75} of high-severity misconfigurations)
+	\item Latent misconfiguration need longer to diagnose
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Example~\cite{xu2016early}}
+
+	Squid uses ^diskd_program^ but not before requests are served.
+	Latent misconfiguration caused 7h downtime and 48h diagnosis effort.
+
+	\pause
+
+	\begin{alertblock}{Finding}
+	Configuration from all externals programs need to be checked, too.
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Using code generation}
+
+	Code generation makes sure that only specified configuration settings are used.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Checkers as plugins}
+
+	Using checkers as plugins exclude whole classes of errors such as:
+	\begin{itemize}
+	\item Invalid file paths using the plugin \plugin{path}.
+	\item Invalid IP addresses or host names using the plugins \plugin{network} or \plugin{ipaddr}.
+	\end{itemize}
+	Because the checks occur before the resources are actually used, the checks are subject to race conditions.
+
+	For example, a path that was present during the check, can have been removed when the application tries to access it.
+
+	In some situations facilities of the operating system help,\footnote{For example, we open the file during the check and pass \texttt{/proc/<pid>/fd/<fd>} to the application. This file cannot be unlinked, but unfortunately the file descriptor requires resources.} in others we have fundamental problems.\footnote{For example, if the host we want to reach has gone offline after validation.}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Conclusion}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item provide external specifications for other tooling and configuration management
+	\item use code generation to keep internal specifications consistent with external specifications
+	\item implement checkers as plugins
+	\item execute checkers as early as possible
+	\end{itemize}
+
+\end{frame}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\nocite{raab2017introducing}
+
+\appendix
+
+\begin{frame}[allowframebreaks]
+	\bibliographystyle{plainnat}
+	\bibliography{../shared/elektra.bib}
+\end{frame}
+
+\end{document}
+
+
