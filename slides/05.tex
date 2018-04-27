@@ -69,7 +69,8 @@
 	\item[1] variability
 	\item[1] self-description
 	\item[1] round-tripping
-	\item[1] early
+	\color{red}
+	\item[1] early detection
 	\color{gray}
 	\item[1] introspection
 	\item[1] dependences
@@ -139,19 +140,6 @@
 	\ExecuteMetaData[../book/approach.tex]{definition-plugins}
 \end{frame}
 
-\begin{frame}[fragile]
-	\frametitle{Conclusion}
-	\begin{itemize}
-	\item Challenges: duplications, transformations, ...
-	\item KeySet equivalence: settings are instantiated configuration files
-	\item Configuration access APIs with code generation
-	\item Guarantees of configuration access points
-	\item We reuse properties of SpecElektra (^type^, ^default^)
-	\item We prefer hierarchies and tags to long function names
-	\item Usually introspection preferred, except for static type safety
-	\end{itemize}
-\end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Code Generation vs. Introspection}
@@ -176,6 +164,7 @@
 	\end{task}
 
 	\pause
+	\vspace{1em}
 
 	\textbf{Configuration Specification}:
 	\begin{itemize}
@@ -210,12 +199,13 @@
 	\end{task}
 
 	\pause
+	\vspace{1em}
 
 	\textbf{Introspection}:
 	\begin{itemize}
-	\item essential for \intro[no-futz computing]{no-futz computing}~\citet{holland2001nofutz}
-	\item the foundation for any advanced tooling like configuration management tools
 	\item needed as communication of producers and consumers of configuration
+	\item the foundation for any advanced tooling like configuration management tools
+	\item essential for \intro[no-futz computing]{no-futz computing}~\citet{holland2001nofutz}
 	\end{itemize}
 \end{frame}
 
@@ -231,8 +221,12 @@
 	type:=long
 	\end{code}
 
+	\vspace{1em}
+
+	External Specification:
+	\pause
 	\begin{itemize}
-	\item read and writable by other applications
+	\item are read and writable by other applications
 	\item we still can generate the internal specification
 	\item furthermore, we fulfill needs for configuration management tools
 	\end{itemize}
@@ -307,18 +301,33 @@
 	\end{alertblock}
 
 	\pause
+	\vspace{0.5em}
 
-	\pause
-	\begin{description}
+	\begin{description} %[leftmargin=0cm] %TODO: move left
 	\item[$-$] more techniques for performance improvements with code generation
 	\item[$+$] specification can be updated live on the system without recompilation
 	\item[$+$] tooling has generic access to all specifications
  	\item[$+$] new features the key database (e.g., better validation) are immediately available consistently
 	\end{description}
-	\vspace{1em}
+
+	\vspace{0.5em}
+
 	\begin{alertblock}{Implication}
 	We generally prefer introspection, except for a very thin configuration access API.
 	\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Conclusion (Code Generation)}
+	\begin{itemize}[<+-| alert@+>]
+	\item Challenges: duplications, transformations, ...
+	\item KeySet equivalence: settings are instantiated configuration files
+	\item Configuration access APIs with code generation
+	\item Guarantees of configuration access points
+	\item We reuse properties of SpecElektra (^type^, ^default^)
+	\item We prefer hierarchies and tags to long function names
+	\item Usually introspection preferred, except for static type safety
+	\end{itemize}
 \end{frame}
 
 
@@ -367,12 +376,12 @@
 	\frametitle{\citet{jin2014configurations}}
 
 	\begin{itemize}
-	\item Wants to improve configuration-ware testing and debugging
+	\item Wants to improve configuration-aware testing and debugging
 	\item Manual investigations for three applications
 	\item Finds 1957 settings in Firefox ($2^{846} * 3^{1111}$) and \\
 		36322 in LibreOffice ($2^{4433} * 3^{31889}$)
 	\item Finds unused settings: settings only in the source code
-	\item Finds unsynchronized configuration settings (see in ``early'')
+	\item Finds unsynchronized configuration settings
 	\end{itemize}
 
 	\begin{requirement}
@@ -402,12 +411,13 @@
 
 \begin{frame}
 	\frametitle{Testing by developers:}
-	\begin{itemize}
+	\begin{itemize}[<+-| alert@+>]
 	\item ConfErr~\cite{keller2008conferr} uses models of key board layout, psychology and linguistics.
 	Tool injects possible misconfiguration.
-	\item Spex~\citet{xu2013blame} analyzes the source code to find misconfigurations.
+	\item Spex~\cite{xu2013blame} analyzes the source code to find misconfigurations.
 	As by-product it extracts internal specifications (including transformation bugs).
 	\item External specification can be directly used to generate test cases.
+	\item Find unused configuration settings.
 	\end{itemize}
 \end{frame}
 
@@ -461,9 +471,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Early Detection}
 
+\subsection{}
+
 \begin{frame}
 	\frametitle{When are settings used?}
-	\begin{description}[labelsep=1cm,align=left]
+	\begin{description}[<+-| alert@+>]
 	\item[Implementation-time] configuration accesses \index{implementation-time}
 	are hard-coded settings in the sou\-rce code repository.
 	For example, architectural decisions~\cite{zdun2007patterns} lead to impl\-ementation-time settings.
@@ -485,12 +497,14 @@
 \begin{frame}
 	\frametitle{Latent Misconfiguration}
 	Phases when we can detect misconfigurations:
-	\begin{itemize}
+	\begin{itemize}[<+-| alert@+>]
 	\item Compilation stage in configuration management tool
 	\item Writing configuration settings on nodes
 	\item Starting applications (load-time)
 	\item When configuration setting is actually used (run-time)
 	\end{itemize}
+
+	\pause[\thebeamerpauses]
 
 	\begin{alertblock}{Problem}
 	More context vs. easier to detect and fix.
@@ -503,8 +517,33 @@
 	\item \p{12} -- \p{39} configuration settings are not used at all during initialization.
 	\item Applications often have latent misconfigurations (\p{14} -- \p{93})
 	\item Latent misconfigurations are particular severe (\p{75} of high-severity misconfigurations)
-	\item Latent misconfiguration need longer to diagnose
+	\item Latent misconfiguration needs longer to diagnose
 	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Using code generation}
+
+	Code generation makes sure that only specified configuration settings are used.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Checkers as plugins}
+
+	Using checkers as plugins exclude whole classes of errors such as:
+	\begin{itemize}[<+-| alert@+>]
+	\item Invalid file paths using the plugin \plugin{path}.
+	\item Invalid IP addresses or host names using the plugins \plugin{network} or \plugin{ipaddr}.
+	\end{itemize}
+
+	\pause[\thebeamerpauses]
+	Because the checks occur before the resources are actually used, the checks are subject to race conditions.
+
+	\pause
+	For example, a path that was present during the check, can have been removed when the application tries to access it.
+
+	\pause
+	In some situations facilities of the operating system help,\footnote{For example, we open the file during the check and pass \texttt{/proc/<pid>/fd/<fd>} to the application. This file cannot be unlinked, but unfortunately the file descriptor requires resources.} in others we have fundamental problems.\footnote{For example, if the host we want to reach has gone offline after validation.}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -518,27 +557,6 @@
 	\begin{alertblock}{Finding}
 	Configuration from all externals programs need to be checked, too.
 	\end{alertblock}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Using code generation}
-
-	Code generation makes sure that only specified configuration settings are used.
-\end{frame}
-
-\begin{frame}
-	\frametitle{Checkers as plugins}
-
-	Using checkers as plugins exclude whole classes of errors such as:
-	\begin{itemize}
-	\item Invalid file paths using the plugin \plugin{path}.
-	\item Invalid IP addresses or host names using the plugins \plugin{network} or \plugin{ipaddr}.
-	\end{itemize}
-	Because the checks occur before the resources are actually used, the checks are subject to race conditions.
-
-	For example, a path that was present during the check, can have been removed when the application tries to access it.
-
-	In some situations facilities of the operating system help,\footnote{For example, we open the file during the check and pass \texttt{/proc/<pid>/fd/<fd>} to the application. This file cannot be unlinked, but unfortunately the file descriptor requires resources.} in others we have fundamental problems.\footnote{For example, if the host we want to reach has gone offline after validation.}
 \end{frame}
 
 
