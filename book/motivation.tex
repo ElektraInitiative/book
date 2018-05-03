@@ -1309,6 +1309,7 @@ Already \p{72} of the persons have configuration files in version control system
 \subsubsection{How do you inform yourself about configuration options?}
 
 
+%<*documentation-inform>
 \methodQuestion{}
 In detail, persons found it very important that (multiple choice, $n\geq150$, \question{You want to configure a FLOSS application. How important are the following ways for you?}):
 
@@ -1323,6 +1324,7 @@ In detail, persons found it very important that (multiple choice, $n\geq150$, \q
 \item[\p{5}] look into the configuration specification
 \item[\p{2}] ask colleagues and friends
 \end{description}
+%</documentation-inform>
 
 \paragraph{Discussion:}
 The results suggest that configuration specification shall be used to generate documentation and examples:
@@ -1330,9 +1332,11 @@ On the one hand, developers think that the main reason for specifying configurat
 On the other hand, developers hardly use configuration specification to directly look up documentation about configuration settings (\p{5}).
 This is supported by \p{40} of the persons, who would specify configuration to generate documentation.
 
+%<*documentation-req>
 \begin{restatable}{requirement}{reqDocumentation}
 There must be a support for shipping correct documentation and examples generated from the configuration specifications.
 \end{restatable}
+%</documentation-req>
 
 
 

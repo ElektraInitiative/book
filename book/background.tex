@@ -422,7 +422,7 @@ According to \citet{hintsch2016review}, in 2016 the number of papers published w
 
 \subsection{Context-aware Configuration}
 
-
+%<*context-definition>
 As adapted from~\citet{chalmers2002contextual}:
 \begin{quote}
 \intro[context]{Context} is the circumstances relevant to the configuration settings of the application.
@@ -433,6 +433,7 @@ We extend the definition with:
 \intro[context-aware configuration]{Context-aware configurations} are configuration settings that are consistent with its context.
 \intro[context-aware configuration access]{Context-aware configuration access} is configuration access providing context-aware configuration.
 \end{quote}
+%</context-definition>
 
 Next we investigate the research question:
 \rqBackgroundViewpoints*
@@ -453,6 +454,7 @@ We will extend it with a fourth type, orthogonal to all others that we will call
 \begin{itemize}
 \item[]
 \begin{description}[font=\textintro]
+%<*context-types>
 \item[Valid configuration] \index{valid configuration|boldindex}
 does not contradict the present validation specifications.
 With a valid configuration, applications can start but they may not do what the user wanted or may be inconsistent with context.
@@ -467,6 +469,7 @@ Optimization criteria are important if managing configuration of many computers 
 \item[Context-aware configuration] \index{context-aware configuration|boldindex}
 is in accordance with its context.
 Unlike configuration settings, the context changes in ways outside of our control.
+%</context-types>
 Context-aware configuration can also be valid, suitable, and optimal.
 \end{description}
 \end{itemize}
@@ -482,6 +485,7 @@ Three \intro[viewpoint]{viewpoints} are important for context-aware configuratio
 Adding new context sensors increases the context available in a system.
 Configuration that was context aware before, can be context unaware with respect to the context acquired from the new context sensors.
 
+%<*context-viewpoints>
 \item[Users:] Context awareness can be subjective with respect to the needs of a user.
 For different users, we may need different context specifications.
 Configuration that is context aware for one user, can be context unaware regarding the wishes of another user.
@@ -489,6 +493,7 @@ According to \citet{khalil2005context,khalil2005improving} personalization is es
 
 \item[Time:] Because context varies in time, on changes, we need to renew the context awareness of configuration settings.
 In such situations we speak of \intro{context changes}~\cite{geihs2009comprehensive,kamina2014context}.
+%</context-viewpoints>
 Without renewing configuration settings, configuration settings context aware in one moment of time, can be context unaware in the next moment.
 \end{description}
 
