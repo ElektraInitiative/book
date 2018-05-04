@@ -91,13 +91,6 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Plugins (Recapitulation)}
-	\pause
-	\Large
-	\ExecuteMetaData[../book/approach.tex]{definition-plugins}
-\end{frame}
-
 
 \begin{frame}
 	\frametitle{Introspection (Recapitulation)}
@@ -337,6 +330,8 @@
 \begin{frame}
 	\frametitle{Reevaluate specifications (Recapitulation)}
 
+	In which situations should you reevaluate if a configuration setting (specification) is needed?
+
 	\pause
 
 	\ExecuteMetaData[../book/implications.tex]{reasons-adding}
@@ -351,13 +346,13 @@
 \begin{frame}
 	\frametitle{Notification Goals}
 
-	\pause
-
 	\begin{enumerate}
-	\item transient and persistent configuration settings always in sync
+	\item transient and persistent configuration settings always in sync~\cite{jin2014configurations}
 	\item avoid polling of configuration settings
 	\item integrate in already existing mechanisms (main loops)\footnote{Is one of the main reasons why most framework already integrate configuration settings.}
 	\end{enumerate}
+
+	\ExecuteMetaData[../book/motivation.tex]{req-consistency}
 \end{frame}
 
 \begin{frame}
@@ -367,13 +362,13 @@
 
 	\begin{itemize}
 	\item If we write out configuration settings, we might conflict with settings recently written.
-	\item Notification intensify this problem (emergent misbehavior)
-	\item but many conflicts can be resolved with a 3-way merge
+	\item Notification intensifies this problem (emergent misbehavior).
+	\item Many conflicts can be resolved with a semantic 3-way merge.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Upgrading Applications}
+	\frametitle{Semantic 3-way merge}
 
 	The same problems happens when upgrading applications.
 
@@ -393,7 +388,7 @@
 \begin{frame}[fragile]
 	\frametitle{Conflicts Example}
 
-	\textbf{Mine:}
+	\textbf{Ours:}
 	\begin{code}[gobble=4,language=CfgElektra]
 	slapd/threads/listener=4
 
@@ -456,15 +451,18 @@
 \begin{frame}[fragile]
 	\frametitle{Context-aware Lookup}
 
+	\begin{itemize}
+	\item
 	Determine threads from CPUs:
 
 	\begin{code}[gobble=4]
-	[cpu]
+	[env/layer/cpu]
 	  type:=long
 	[slapd/threads/listener]
 	  context:=/slapd/threads/%cpu%/listener
 	\end{code}
 
+	\item
 	Determine vibration from sensors:
 
 	\begin{code}[gobble=4]
@@ -473,12 +471,14 @@
 	  context:=/phone/call/%inpocket%/vibration
 	\end{code}
 
+	\item
 	Determine proxy settings from network:
 
 	\begin{code}[gobble=4]
 	[env/override/http_proxy]
 	  context:=/http_proxy/%interface%/%network%
 	\end{code}
+	\end{itemize}
 \end{frame}
 
 
@@ -488,7 +488,7 @@
 \subsection{}
 
 \begin{frame}
-	\frametitle{Step 1 (15 min)}
+	\frametitle{Step 1 (5 min)}
 
 	Familiarize yourself with one of the configuration systems:
 
@@ -496,7 +496,9 @@
 	\item environment variables (Factor 12)
 	\item QSettings
 	\item Apache Commons Configurations
-	\item any other system you want to...
+	\item plist
+	\item Windows Registry
+	\item any other system you want to... (laptop)
 	\end{enumerate}
 \end{frame}
 
@@ -517,11 +519,12 @@
 	\frametitle{Goals}
 
 	\begin{enumerate}
+	\item configuration-management friendly
 	\item early detection of misconfiguration
 	\item smooth upgrades
 	\item transient and persistent configuration consistent
-	\item documentation
-	\item context-aware
+	\item consistent documentation
+	\item suitable and context-aware configurations
 	\item reuse software as much as possible but integrate them nicely
 	\end{enumerate}
 \end{frame}
@@ -529,16 +532,16 @@
 \begin{frame}
 	\frametitle{Requirements}
 
-	Design a camera-system that provides:
+	Design a camera system:
 
 	\begin{enumerate}
-	\item should be able to take single pictures and streams
-	\item has modular camera modules which can be plugged into the system
+	\item that is able to take single pictures and streams
+	\item pluggable camera modules (lenses, image sensor, ...)
 	\item should have camera profiles for different vendors
 	\item a Web-UI that shows all configuration settings
 	\item support remote configuration protocol (Web, SNMP, CMs, ...)
 	\item time synchronization via NTP
-	\item should be easily upgradeable with rescue if the upgrade fails
+	\item should be easily upgradeable (with fallback if the upgrade fails)
 	\end{enumerate}
 \end{frame}
 
@@ -548,12 +551,10 @@
 	\begin{enumerate}
 	\item design and architecture of configuration settings
 	\item design and architecture of configuration access
-	\item design decisions (which languages, which systems)
-	\item how to integrate the system
-	\item how to ensure smooth upgrades
-	\item design notifications
-	\item provide documentation for operators
-	\item ensure context-aware
+	\item design decisions (which languages, which software)
+	\item explain how to ensure smooth upgrades
+	\item provide documentation for operators (via IP)
+	\item ensure synchronized, suitable and context-aware configuration
 	\item reuse software as much as possible but integrate them nicely
 	\end{enumerate}
 \end{frame}

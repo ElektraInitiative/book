@@ -157,10 +157,12 @@ For users and system administrators it is confusing if the configuration file ha
 For example, in a commercial application configuration settings only take effect after the next startup~\cite{jin2014configurations}.
 We should avoid situations in which applications do not behave as their configuration files suggest:
 
+%<*req-consistency>
 \begin{restatable}{requirement}{reqConsistency}
 \label{req:consistency}
 Configuration libraries must provide ways to keep transient and persistent views consistent.
 \end{restatable}
+%</req-consistency>
 
 Users must be able to know which configuration settings exist, and which values are valid for them.
 In case of doubt, it must be possible for system administrators to query which configuration settings and specifications are actually used:
