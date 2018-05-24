@@ -407,6 +407,7 @@ This allows us to copy all needed configuration settings onto every machine and 
 While the approach is powerful if all machines are nearly identical, it shows severe limitations once the machines start to differ significantly.
 This was state of the art for a long time, until in 1994 when \enquote{the community nearly exploded with four new configuration systems}~\cite{evard1997analysis}:
 
+%<*configuration-management-first-four>
 \begin{description}
 \item[lcfg] from~\citet{anderson1994towards}.
 The development of lcfg started first in 1991~\cite{anderson1991local,anderson1994towards}.
@@ -415,6 +416,7 @@ Nevertheless, its development still continues \cite{anderson2002lcfg,hintsch2016
 \item[omniconf] from~\citet{hideyo1994omniconf}.
 \item[config] from~\citet{rouillard1994config}.
 \end{description}
+%</configuration-management-first-four>
 
 According to \citet{hintsch2016review}, in 2016 the number of papers published with a configuration management tool in focus is:
 15 papers about CFEngine, 11 papers about Puppet, 9 papers about Chef, 7 papers about lcfg, and 3 papers about BCFG2.
@@ -916,10 +918,12 @@ For others applications, context was an important design goal~\cite{baldauf2007s
 
 \subsubsection{Context-oriented Programming}
 
+%<*context-oriented-programming>
 One of the many systematic ways to write context-aware applications is called \intro[context-oriented programming]{context-oriented programming}~\cite{baldauf2007survey,hong2009context,alegre2016engineering,kamina2014context,dey2000towards,keays2003context,tanter2008contextvalues,schippers2010contextoperational,wasty2010contextlua,appeltauer2009contextcomparision,plaice2010contextcartesian,costanza2006efficientlayeractivation,lowis2007contextbeyond,appeltauer2008dedicated,salvaneschi2012context,hirschfeld2014visibility,springer2016cop,gonzalez2011subjective,aotani2014unifying}.
 Contrary to other techniques to improve context awareness, it focuses on the language level.
 Its run-time system is rather small, it does not need sophisticated frameworks, databases, or middleware.
 Context-oriented programming supports implementation of context-aware applications.
+%</context-oriented-programming>
 
 \citet{gassanenko1993context,gassanenko1998context} provided the first implementation using the name context-oriented programming in Forth.
 In response to this first work, \citet{costanza2006efficientlayeractivation}~criticized that Forth did not have object-oriented programming concepts.
@@ -962,11 +966,13 @@ It provides a systematic mapping from context-dependent use cases to layers~\cit
 \subsection{Contextual Values}
 
 
+%<*contextual-values>
 \citet{tanter2008contextvalues} introduced a lightweight extension to context-oriented programming:
 \intro[contextual value]{Contextual values} are variables whose values depend on the context in which they are read and modified.
 They \enquote{boil down to a trivial generalization of the idea of thread-local values}.
 The key idea is to use layers as \enquote{discriminate amongst possible values, not only the current thread}~\cite{tanter2008contextvalues}.
 Side effects are limited to the respective context~\cite{raab2016unanticipated}.
+%</contextual-values>
 Furthermore, contextual values naturally work along with layers as introduced in context-oriented programming.%
 {\parfillskip=0pt plus .7\textwidth \emergencystretch=.5\textwidth \par}
 
