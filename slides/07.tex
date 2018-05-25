@@ -19,7 +19,7 @@
 
 \begin{frame}
 	\frametitle{Organization}
-	Next dates:
+	Schedule:
 	\begin{description}
 		\item[25.5.2018:] \textbf{team exercise submitted}
 		\item[1.6.2018:] lecture
@@ -88,45 +88,29 @@
 	\vspace{1em}
 
 	\begin{itemize}
-	\item internal: within applications' source code
-	\item unified get/set access to (meta*)-key/values
+	\item \textit{internal}: within applications' source code
+	\item \textit{introspection}: unified get/set access to (meta*)-key/values
 	\item access via applications, CLI, GUI, web-UI, ...
 	\item access via any programming language (similar to file systems)
 	\item GUI, web-UI can semantically interpret metadata
-	\item needed as communication of producers and consumers of configuration
+	\item assemble modular parts (validation, logging, \dots)
+	\item needed as communication between producers and consumers
 	\item essential for \intro[no-futz computing]{no-futz computing}~\citet{holland2001nofutz}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Rationale (Recapitulation)}
+	\frametitle{Code Generation (Recapitulation)}
 	\begin{task}
-	How to ensure that configuration access points match with present configuration settings?
+	Which artifacts can be produced by an code generator?
 	\end{task}
-
-	\pause
-	\vspace{1em}
-
-	\textbf{Configuration Specification}:
-	\begin{itemize}
-	\item without specification you and others do not even know which settings are available
-	\item needed for any further techniques we will discuss:
-		\begin{itemize}
-		\item code generation guarantees that configuration access points match with specification
-		\item validation guarantees that configuration settings match with specification
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Other Artefacts (Recapitulation):
 
 	\pause
 
 	\begin{itemize}
 	\item documentation (to avoid duplication)
-	\item testing
-	\item assemble modular parts
+	\item testing (integration, unit, regression, \dots{} tests)
+	\item metrics (which configuration settings are used in the source)
 	\item examples (e.g., defaults)
 	\item auto-completion/syntax highlighting/IDE support
 	\item tooling (GUI, Web UI)
@@ -146,27 +130,34 @@
 
 \begin{frame}
 	\frametitle{Testing (Recapitulation)}
-	\begin{alertblock}{Question}
+	\begin{task}
 	What do we want to test?
-	\end{alertblock}
+	\end{task}
 
 	\pause
 
 	\begin{itemize}
 	\item That settings do what they should (devs and admins)
 	\item That settings are properly validated (devs~\cite{xu2013blame})
-	\item Regression tests~\cite{qu2008configuration}
+	\item Regression tests (devs~\cite{qu2008configuration})
 	\vspace{1em}
-	\item Are all settings implemented?
-	\item Are all settings used in tests?
-	\item Are there unused settings in the code?
+	\item Are all settings implemented? (devs)
+	\item Are all settings used in tests? (devs)
+	\item Are there unused settings in the code? (devs)
+	\item Do the chosen settings work? (admins)
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Latent Misconfiguration (Recapitulation)}
+	\frametitle{Early detection (Recapitulation)}
+	\begin{task}
+	When do we want to detect misconfiguration?
+	\end{task}
+
+	\pause
+
 	Phases when we can detect misconfigurations:
-	\begin{itemize}[<+-| alert@+>]
+	\begin{itemize} %[<+-| alert@+>]
 	\item Compilation stage in configuration management tool
 	\item Writing configuration settings on nodes
 	\item Starting applications (load-time)
@@ -176,7 +167,7 @@
 	\pause[\thebeamerpauses]
 
 	\begin{alertblock}{Problem}
-	More context vs. easier to detect and fix.
+	Earlier versus more context.
 	\end{alertblock}
 \end{frame}
 
@@ -197,7 +188,9 @@
 \begin{frame}
 	\frametitle{Reevaluate specifications (Recapitulation)}
 
+	\begin{task}
 	In which situations should you reevaluate if a configuration setting (specification) is needed?
+	\end{task}
 
 	\pause
 
@@ -210,42 +203,47 @@
 
 
 \begin{frame}
-	\frametitle{Notification Goals (Recapitulation)}
+	\frametitle{Notification (Recapitulation)}
+
+	\begin{task}
+	Why do we need notification?
+	\end{task}
+
+	\pause
 
 	\begin{enumerate}
-	\item transient and persistent configuration settings always in sync~\cite{jin2014configurations}
-	\item avoid polling of configuration settings
-	\item integrate in already existing mechanisms (main loops)\footnote{Is one of the main reasons why most framework already integrate configuration settings.}
+	\item to keep transient and persistent configuration settings always in sync~\cite{jin2014configurations}
+	\item to avoid polling of configuration settings
+	\item to better integrate into already existing mechanisms (main loops)\footnote{Is one of the main reasons why most framework already integrate configuration settings.}
 	\end{enumerate}
 
 	\ExecuteMetaData[../book/motivation.tex]{req-consistency}
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{Conflicts Example (Recapitulation)}
+	\frametitle{Semantic three-way merge (Recapitulation)}
 
 	\textbf{Ours:}
 	\begin{code}[gobble=4,language=CfgElektra]
 	slapd/threads/listener=4
 
-	abc=def;comment
+	slapd/pool/enabled=yes;tried to set no
 	\end{code}
 
-	\vspace{2em}
+	\vspace{1.5em}
 
 	\textbf{Theirs:}
 	\begin{code}[gobble=4,language=CfgElektra]
-	abc=changed
+	slapd/pool/enabled=off
 	slapd/threads/listener=8
 	\end{code}
 
-	\vspace{2em}
+	\vspace{1.5em}
 
-	\pause
 	\textbf{Origin:}
 	\begin{code}[gobble=4,language=CfgElektra]
 	slapd/threads/listener=8
-	abc=def
+	slapd/pool/enabled=on
 	\end{code}
 \end{frame}
 
@@ -259,6 +257,7 @@
 	They learned that in \p{89} of cases the mapping between activities and settings was consistent for individual users.
 	In the study, context-aware configuration improved satisfaction, even if deduced settings sometimes were not appropriate.
 	For example, a participant stated:
+	\vspace{2em}
 
 	\begin{quote}
 	``I like how it changes state without you having to tell it to. I always forget to turn my cell [off] in class and turn it on after.''
@@ -297,19 +296,45 @@
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{Contextual Values (Example)}
-	\begin{code}[gobble=4]
-	void visit (Person p)
+	\frametitle{Contextual Values (Pseudocode)}
+
+	\begin{code}[gobble=4,language=C++,morekeywords={context}]
+	void printBrowserConfig (Config config)
 	{
-		context.with(CurrentLocation)
+		context.with("private")
 		{
-			println (p.greeting);
+			println (config.keepHistory);
 		}
 		// same thread, different context:
-		println (p.greeting);
+		println (config.keepHistory);
+
+		context.activate(currentLocation)
 	}
 	\end{code}
 \end{frame}
+\begin{frame}
+	\frametitle{Introspection vs. Code Generation (Partly Recapitulation)}
+
+	Implementation of contextual values might be in key database or in generated code.
+	Advantages/Disadvantages?
+
+	\pause
+
+	\begin{description} %[leftmargin=0cm] %TODO: move left
+	\item[$-$] more techniques for performance improvements with code generation
+	\item[$+$] specification can be updated live on the system without recompilation
+	\item[$+$] tooling has generic access to all specifications
+ 	\item[$+$] new features the key database (e.g., better validation) are immediately available consistently
+	\item[$-$] \color{red} needed if context differs within same thread
+	\end{description}
+
+	\vspace{0.5em}
+
+	\begin{alertblock}{Implication}
+	We generally prefer introspection, except for a very thin configuration access API.
+	\end{alertblock}
+\end{frame}
+
 
 \begin{frame}[fragile]
 	\frametitle{Context Specifications (Recapitulation)}
@@ -344,30 +369,10 @@
 	\end{itemize}
 \end{frame}
 
+
 \begin{frame}
 	\frametitle{Types of Specifications (Recapitulation)}
 	\includegraphics[scale=0.8]{specifications}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Introspection vs. Code Generation (Mostly Recapitulation)}
-
-	\pause
-
-	\begin{description} %[leftmargin=0cm] %TODO: move left
-	\item[$-$] more techniques for performance improvements with code generation
-	\item[$+$] specification can be updated live on the system without recompilation
-	\item[$+$] tooling has generic access to all specifications
- 	\item[$+$] new features the key database (e.g., better validation) are immediately available consistently
-	\item[$-$] \color{red} needed if context differs within same thread
-	\end{description}
-
-	\vspace{0.5em}
-
-	\begin{alertblock}{Implication}
-	We generally prefer introspection, except for a very thin configuration access API.
-	\end{alertblock}
 \end{frame}
 
 
@@ -384,10 +389,10 @@
 	\begin{itemize}
 	\item usually consume configuration settings from configuration files, command-line arguments, and environment variables.
 	\item sometimes have a single GUI or CLI for configuration settings.
-	\item rarely has an API to access configuration settings.
-	\item rarely considers context.
-	\item rarely does in-depth validation.
-	\item nearly never has an API to access configuration specifications.
+	\item rarely have an API to access configuration settings.
+	\item rarely consider context.
+	\item rarely do in-depth validation.
+	\item nearly never have an API to access configuration specifications.
 	\end{itemize}
 
 	\begin{task}
@@ -400,12 +405,13 @@
 	\frametitle{Examples}
 
 	\begin{itemize}
-	\item Postfix: CLI (Properties, CSV, and others, postconf\footnote{http://www.postfix.org/OVERVIEW.html})
-	\item KDE: GUI (INI)
+	\item Postfix\footnote{\url{http://www.postfix.org/OVERVIEW.html}}: CLI (Properties, CSV, and others)
+	\item KDE\footnote{\url{https://api.kde.org/frameworks/kconfig/html/}}: GUI, CLI (INI)
 	\item Libreoffice: GUI (XML)
-	\item X.org\footnote{\url{ftp://www.x.org/pub/X11R6.7.0/doc/xorg.conf.5.html}}
-	\item sudo: CLI (visudo)
-	\item gpsd\footnote{\url{http://www.aosabook.org/en/gpsd.html}}
+	\item Firefox~\cite{jin2014configurations}: GUI (JavaScript and others)
+	\item sudo: CLI (sudoers edited with visudo)
+	\item X.org\footnote{\url{ftp://www.x.org/pub/X11R6.7.0/doc/xorg.conf.5.html}}: xorg.conf
+	\item gpsd\footnote{\url{http://www.aosabook.org/en/gpsd.html}}: environment variables and command-line arguments
 	\end{itemize}
 \end{frame}
 
@@ -422,10 +428,10 @@
 	\pause
 
 	\begin{itemize}
-	\item Which format? (irrelevant due to key/values)
-	\item Integration of external configuration settings?
+	\item Which configuration file format? (irrelevant due to key/values)
 	\item Split up into multiple configuration files? (irrelevant due to 3-way merging)
-	\item Important: Introspection, Validation, Horizontal Modularity,
+	\item Where are the configuration files? (irrelevant due to mounting and resolver)
+	\item Important: Introspection, Validation, Horizontal Modularity, Integration,
 		Specification, API, Guarantees, \dots
 	\end{itemize}
 \end{frame}
@@ -455,9 +461,15 @@
 	Examples:
 
 	\begin{itemize}
-	\item etcd: get/set/watch interface via REST, distributed coordination
-	\item Zookeeper
 	\item Redis: in-memory with persistence and notification
+	\item Zookeeper
+	\item etcd:
+		\begin{itemize}
+		\item not in-memory
+		\item get/set/watch interface via REST
+		\item distributed coordination~\cite{ongaro2014search}
+		\item needs configuration itself
+		\end{itemize}
 	\item Kubernetes: ConfigMaps
 	\end{itemize}
 \end{frame}
@@ -508,7 +520,7 @@
 	\begin{itemize}
 	\item help people involved in configuration management.
 	\item have means to describe the desired configuration of the whole managed system.
-	\item try to converge the actual configuration to the desired one~\cite{burgess1995cfengine}
+	\item try to converge the actual configuration to the desired one~\cite{burgess1995cfengine}.
 	\end{itemize}
 \end{frame}
 
@@ -534,25 +546,33 @@
 \begin{frame}
 	\frametitle{Cloning}
 
-	First approach:
+	It all started with:
 
 	\begin{itemize}
-	\item clone all files with rdist, rsync or unison (``golden image'')
+	\item clone all files with dd, rdist, rsync or unison (``golden image'')
 	\item then do necessary modifications with scripts or profiles
-	\item + works very good for many stateless identical machines
-	\item - fails with very different machines
 	\end{itemize}
+
+	\pause
+	\vspace{3em}
+	\hspace{-3em}
+
+	\begin{description} %[leftmargin=0cm] %TODO: move left?
+	\item[$+$] works very good for many identical stateless machines
+	\item[$-$] fails if differences between machines are too big
+	\end{description}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Scripts}
 
-	First improvement: have script to create the ``golden image''.
+	First improvement: have a script to create the ``golden image''.
+	Possible benefits:
 
-	\begin{itemize}
+	\begin{itemize}[<+-| alert@+>]
 	\item Documentation
-	\item Customization (configuration settings).
-	\item \textbf{Reproducability}
+	\item Customization (using configuration settings)
+	\item \textbf{Reproducability}: Reproduce creation using different operating system versions
 	\end{itemize}
 \end{frame}
 
@@ -563,7 +583,7 @@
 
 	\begin{itemize}
 	\item by hostname, information EEPROM, manual selection, \dots
-	\item 
+	\item can be activated as context:
 	\end{itemize}
 
 	\begin{code}[morekeywords={long},gobble=4]]
@@ -578,20 +598,22 @@
 
 \begin{frame}
 	\frametitle{First four configuration management tools}
-	This was state of the art for a long time, until in 1994 when \enquote{the community nearly exploded with four new configuration systems}~\cite{evard1997analysis}:
+	Cloning, and then NIS/NFS, was state of the art for a long time, until in 1994 when \enquote{the community nearly exploded with four new configuration systems}~\cite{evard1997analysis}:
 
 	\ExecuteMetaData[../book/background.tex]{configuration-management-first-four}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Benefits}
+	\frametitle{Possible Benefits}
 
-	\begin{itemize}
+	\begin{itemize}[<+-| alert@+>]
+	\item All advantages scripts have: \\
+		Documentation, Customization, Reproducability
+	\item Declarative description of the system \\
+		(Infrastructure as Code~\cite{waldemar2013testing})
 	\item Auditability
 	\item Less configuration drift
-	\item All of scripts
 	\item Error handling
-	\item More declarative
 	\item Pull/Push
 	\item Reusability
 	\item (Resource) Abstractions
@@ -602,10 +624,10 @@
 \begin{frame}
 	\frametitle{Conclusion and Outlook}
 
-	\begin{itemize}
+	\begin{itemize}[<+-| alert@+>]
 	\item Context-awareness is a goal.
 	\item Contextual values is a way to implement it.
-	\item Many (distributed) key databases to keep configuration settings.
+	\item Many (distributed) key databases enable us to persist configuration settings.
 	\item Definition and challenges in configuration management.
 	\item Cloning: There and back again.
 	\end{itemize}
