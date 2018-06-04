@@ -200,7 +200,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Introspection vs. Code Generation (Recapitulation)}
+	\frametitle{Introspection vs.\ Code Generation (Recapitulation)}
 
 	\begin{task}
 	Advantages/Disadvantages of contextual values in key database?
@@ -297,7 +297,7 @@
 	\frametitle{Infrastructure as Code}
 
 	Once we described configuration settings,
-	configuration management is simply an instantiation of the configuration specifications.
+	configuration settings are simply an instantiation of the configuration specifications.
 	\vspace{1em}
 
 	Code describing the instantiation is \textbf{CM code}.
@@ -334,14 +334,15 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Push vs. Pull}
+	\frametitle{Push vs.\ Pull}
 
 	\begin{itemize}[<+-| alert@+>]
-	\item Push is more interactive
-	\item Push cannot do its job if nodes are not reachable
-	\item Push needs additional techniques to scale with many nodes
-	\item Pull needs additional monitoring to know when a patch has been applied
-	\item Pull needs resources even if nothing is to do
+	\item Push is more interactive.
+	\item Push cannot do its job if nodes are not reachable.
+	\item Push needs additional techniques to scale with many nodes.
+	\item Push demands access to servers from a single server.
+	\item Pull needs additional monitoring to know when a patch has been applied.
+	\item Pull needs resources even if nothing is to do.
 	\end{itemize}
 
 	\begin{task}
@@ -398,7 +399,7 @@
 \begin{frame}
 	\frametitle{Goals}
 
-	Checking the specifications vs. checking the settings.
+	Checking the specifications vs.\ checking the settings.
 
 \end{frame}
 
@@ -510,7 +511,7 @@
 
 	Problems:
 	\begin{itemize}[<+-| alert@+>]
-	\item Generic vs. specific plugins
+	\item Generic vs.\ specific plugins
 	\item General principles of good error messages~\cite{lee2011personifying}
 	\item Give context
 	\item Precisely locate the cause:

@@ -14,7 +14,7 @@ fix descriptions:
 --------------
 
 \pause
-\pause[\thebeamerpauses]    show after \begin{itemize}[<+->]
+\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
 
 \textbf<>{}
 \textit<>{}
