@@ -69,6 +69,18 @@
 \subsection{}
 
 \begin{frame}
+	\frametitle{User View}
+
+	Who is the user of CM?
+
+	\begin{itemize}[<+-| alert@+>]
+	\item End Users?
+	\item Developers (devs)?
+	\item System Administrators (admins)?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{System Administrator Research}
 
 	\begin{itemize}[<+-| alert@+>]
@@ -80,6 +92,22 @@
 	\item The workshop was already dropped in the next year.
 	\item The tenor is that ``tools ... are not well aligned''~\cite{haber2007design}.
 	\item Research mainly looks at pre-CM. Manual administration is still standard (Source: e.g., Luke Kanies).
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{CM research}
+
+	In the meanwhile at Large Installation System Administrator Conference (LISA):
+
+	\begin{itemize}[<+-| alert@+>]
+	\item began at CFengine Workshop at LISA 2001
+	\item CM workshop by Paul Anderson~\cite{anderson2002researching}
+	\item in LISA 2003 an informal poll asked about CM tools: \\
+	 	the only user of each tool in the room at the time was its author~\cite{burgess2006modeling}
+	\item it is easy to invent CM tools (and configuration file formats)
+	\item it is difficult to make it useful beyond your own goals
 	\end{itemize}
 \end{frame}
 
@@ -241,7 +269,7 @@
 	\item[$-$] collaboration ineffective
 	\item[$-$] context/situational awareness is essential
 	\item[$+$] precise editing of configuration files works well
-	\item[$-$] no global optimizations
+	\item[$-$] global optimizations difficult
 	\item[$+$] self-written tools are very efficient
 	\end{description}
 
@@ -279,28 +307,96 @@
 	\item it should be easy to develop new high-level tools
 	\item to also support manual workflows and scripts
 	\item precise editing: change the configuration value as specified
+	\item provide a language for both devs and admins
 	\end{itemize}
 
 	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
 
-	Administrators/Devs still need to:
+	Admins/Devs still need to:
 
 	\begin{itemize}[<+-| alert@+>]
 	\item intensively review and improve the specifications
+	\item reduce the configuration space
 	\item test (and debug) configuration settings
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Key/values revisited}
+
+	Decide the \textbf{changeability} per key:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Who is responsible (end user, packages, admin manually or by CM).
+	\item In which namespaces the key is searched for (cascading lookup).
+	\item Who can see it (visibility).
+	\item Who can edit it (admin, end user, both).
+	\item Which configuration values are allowed (validation).
 	\end{itemize}
 
 	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
 
-	Open topics (incomplete):
+	\begin{alertblock}{Changeability}
+	Ownership of every key must be very clear.
+	\end{alertblock}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Layers of Abstractions}
+
+	%TODO: split different views of abstractions?
+	\begin{itemize}[<+-| alert@+>]
+	\item Bits in configuration files
+	\item Key/value view of configuration settings
+	\item Specification of the view
+	\item Arbitrary number of abstractions with CM code
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Design Rules~\cite{burgess2006modeling}}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item factor processes into containers to avoid setting overlaps.
+	\item maintain clear separation of ownership (for every key).
+	\item specify replicated settings in a single source (use links and derivations).
+	\item document all remaining overlaps (in the specification)
+	\item the manageability of settings is reduced by the number of possible configuration values
+	\item do not separate configuration management and monitoring
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Open Topics}
 
 	\begin{itemize}[<+-| alert@+>]
 	\item global optimizations/self-healing
+	\item configuration integration
 	\item safe migrations of settings and data
 	\item collaboration
 	\item management (including knowledge)
+	\item centralized vs.\ distributed
 	\end{itemize}
 \end{frame}
+
+
+\begin{frame}
+	\frametitle{Conclusion}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item be aware of the specifications, solving CM is solving constraints
+	\item do not design around tools but design tools around you
+	\item be brave and remove all configuration settings you can
+	\item use all help you can get: e.g.\ build tools, virtualization, package managers, distributions
+	\item complexity into CM vs.\ abstractions in CM vs.\ application's configuration specification
+	\item create stateless transactions (get/set)
+	\end{itemize}
+\end{frame}
+
 
 
 
