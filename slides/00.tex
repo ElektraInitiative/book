@@ -1,6 +1,6 @@
 \input{setup}
 
-\date{2.3.2018}
+\date{6.3.2019}
 
 \begin{document}
 
@@ -26,20 +26,20 @@
 	\begin{task}
 	Hands up if you prefer German.
 	\end{task}
-	Unanimous preference of German required, otherwise English.
 \end{assignment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Motivation}
+\subsection{}
 {
 \usebackgroundtemplate{\includegraphics[width=\paperwidth]{pics/clouds.jpg}}%
 \begin{frame}
 	\frametitle{Misconfiguration}
 	\begin{itemize}
-		\item configuration is a user interface for both developers and system administrators
 		\item \empha[misconfiguration]{misconfigurations}~\cite{yin2011empirical,su2007autobash,attariyan2010automating,xu2015systems}
 			are a major cause of system failures~\cite{wool2004quantitative,oppenheimer2003internet,pertet2005causes}
 		\item much time needed to fix misconfigurations~\cite{rabkin2011static,oppenheimer2003internet,yin2011empirical,mahajan2002bgp}
+		\item configuration is a user interface for both developers and system administrators
 	\end{itemize}
 \end{frame}
 \begin{frame}
@@ -183,9 +183,11 @@ Validation of configuration settings must happen systematically before the appli
 	Topic: \textit{configuration management tools}
 	\begin{itemize}
 		\item Puppet
+		\item Chef
+		\item Ansible
 		\item CfEngine
 		\item Nix
-		\item others...
+		\item many others...
 	\end{itemize}
 \end{frame}
 
@@ -236,8 +238,8 @@ Validation of configuration settings must happen systematically before the appli
 \begin{frame}
 	Communication:
 	\begin{itemize}
-		\item TISS (forum and news) \url{https://tiss.tuwien.ac.at/course/courseDetails.xhtml?courseNr=194030&semester=2018S}
-		\item GitHub (private and public repo) \url{https://git.libelektra.org}
+		\item TISS (forum and news) \url{https://tiss.tuwien.ac.at/course/courseDetails.xhtml?courseNr=194030&semester=2019S}
+		\item GitHub (private and public repository) \url{https://git.libelektra.org}
 		\item EMail \url{markus.raab@complang.tuwien.ac.at}
 		\item before/after/during lectures
 	\end{itemize}
@@ -245,42 +247,44 @@ Validation of configuration settings must happen systematically before the appli
 
 \begin{assignment}
 	\begin{task}
-	Send me your GitHub name by email to get access to private repo.
+	Create a pull request to the Elektra Repository.
+	The pull request description should contain ``CM''.
+	With the account you used, you will get access to a private repository.
 	\end{task}
+	Deadline: 13.03.2019 23:59
 \end{assignment}
-
-\begin{frame}
-	Feedback:
-	\begin{itemize}
-		\item TISS anonymous feedback
-		\item TISS LVA evaluation
-		\item EMail \url{markus.raab@complang.tuwien.ac.at}
-		\item before/after/during lectures
-	\end{itemize}
-\end{frame}
 
 \begin{frame}
 	\frametitle{Previous Knowledge}
 	\begin{itemize}
 		\item Obviously \textit{no} prior knowledge about Configuration or Configuration Management necessary.
 		\item If you already have experience, you can use it in your talk and assignments.
-		\item Knowledge about software engineering and software requirements is beneficially.
-		\item You should have an understanding of large-scale software construction.
+		\item Knowledge about large-scale software construction is beneficially.
+		\item You should have some understanding of software engineering and software requirements.
 		\item Programming skills is a must.
 	\end{itemize}
 \end{frame}
 
-\subsection{Grades}
 \begin{frame}
-	You will get a grade only if:
+	\frametitle{Programming Languages}
+	Elektra supports following programming languages:
 	\begin{itemize}
-		\item You submitted your homework. (PR is not enough.)
-		\item You participated in the team exercise.
-		\item You gave your talk.
+		\item C
+		\item C++
+		\item Java
+		\item Haskell
+		\item Ruby
+		\item Python
+		\item Lua
 	\end{itemize}
 \end{frame}
 
+\subsection{Grades}
+
 \begin{frame}
+	You will get a grade once you submitted a PR with ``CM'' in the description.
+	\vspace{1cm}
+
 	To get a positive grade:
 	\begin{itemize}
 		\item All parts must be done.
@@ -302,80 +306,105 @@ Validation of configuration settings must happen systematically before the appli
 \subsection{Assignments}
 \begin{frame}
 	\frametitle{Talk}
-	You can give a talk about anything related to configuration management.
+	about anything related to configuration management.
 	\begin{itemize}
-		\item 20 minutes.
+		\item The duration must be 20 minutes.
 		\item It must be about your experience.
-		\item I.e., not only about study of literature.
-		\item It is okay if the experience happened during this LVA.
-		\item If you extensively use some tool, please share your knowledge.
+		\begin{itemize}
+			\item E.g., about the homework you did.
+			\item I.e., not only about study of literature.
+			\item If you extensively use some tool before, please share your experience.
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Home Work}
-	You can select your own task related to \emph{use} configuration management.
-	For example:
-	\begin{itemize}
-		\item Use Elektra or Puppet-Libelektra in/for a small application.
-		\item Write a tutorial about how you did it.
-		\item Fix usability bugs in Elektra, make it easier. (Extrapoints)
-	\end{itemize}
+	\frametitle{Homework}
+	The homework consists of three parts:
+	\begin{enumerate}
+		\item Play around with Elektra, create a PR with anything you find.
+		For example:
+		\begin{itemize}
+			\item Improve a tutorial or write a new one (if none exists).
+			\item Write new examples.
+			\item Write new tests.
+			\item Fix documentation.
+		\end{itemize}
+		\item Fix five bugs (from the pool of issues, or assigned by me based on your skills)
+		\item Implement a non-trivial feature, for example:
+		\begin{itemize}
+			\item Make a configuration management tool use Elektra.
+			\item Write a validation plugin.
+			\item Write support for a new configuration file format (with an existing parser).
+		\end{itemize}
+	\end{enumerate}
 \end{frame}
 
 \begin{assignment}
 	\begin{task}
 	Think about a talk and homework till next week.
-	Write it down in the private repo (first come, first served).
+	Write it down in the private repository (first come, first served).
 	\end{task}
 \end{assignment}
 
 \begin{frame}
 	\frametitle{Team Exercise}
-	You can select your team (2-3 people) and your task related to \emph{improve} configuration management.
-	For example, you can improve Elektra:
-	\begin{itemize}
-		\item Write a validation plugin.
-		\item Write support for a configuration file format.
-		\item Make a configuration management tool use Elektra.
-		\item Fix bugs. (Extrapoints)
-	\end{itemize}
+	You can select your team (2 people) and your task related to \emph{improve} configuration management.
+	Every team member has a different task:
+
+	\begin{enumerate}
+		\item Elektrify some application.
+		\item Configure the application using Configuration Management.
+	\end{enumerate}
+
+	\vspace{0.5cm}
+	And then swap roles and start again with different task.
+
+	\vspace{0.5cm}
+	If possible, you should use the parts developed in the homework.
 \end{frame}
 
 \begin{assignment}
 	\begin{task}
-	Talk with someone who is not your neighbor about a potential collaboration in the team exercise.
+	Talk with someone who is not necessarily your neighbor about a potential collaboration in the team exercise.
 	\end{task}
 \end{assignment}
 
 \begin{frame}
-	Lecture is every week.
-	Time Line:
+	Lecture is every week Wednesday 09:00 - 11:00.
+
 	\begin{description}
-		\item[9.3.2018:] TISS registration
-		\item[16.3.2018:] topic homework and talk
-		\item[23.3.2018:] teams found together
-		\item[13.4.2018:] homework submitted, topics of team exercise
-		\item[18.5.2018:] guest lecture
-		\item[25.5.2018:] team exercise submitted
-		\item[22.6.2018:] last corrections of team exercise
-		\item[29.6.2018:] test
+		\item[06.03.2019:] topic, teams
+		\item[13.03.2019:] registration, initial PR
+		\item[20.03.2019:] Guest Lecture
+		\item[27.03.2019:] (HS?)
+		\item[03.04.2019:]
+		\item[08.05.2019:] (HS?)
+		\item[10.04.2019:] mid-term submission of exercises
+		\item[15.05.2019:]
+		\item[22.05.2019:]
+		\item[29.05.2019:]
+		\item[05.06.2019:] final submission of exercises
+		\item[12.06.2019:]
+		\item[19.06.2019:] last corrections of exercises
+		\item[26.06.2019:] exam
 	\end{description}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Guest Lecture?}
+
 	\begin{description}
 		\item[Title:] Formal Foundations of Configuration Management for Program Analysis
 		\item[Name:] Jürgen Cito, MIT
-		\item[Date/Time:] 18.05.2018, 14:00 (c.t.), 1h
+		\item[Date/Time:] 20.03.2019, 09:00 (c.t.)
 	\end{description}
 \end{frame}
 
 \begin{assignment}
 	\frametitle{Questions?}
 	\begin{task}
-	Please read TISS and register for the course.
+	Please register for the course and start playing with Elektra.
 	\end{task}
 
 	\begin{task}
