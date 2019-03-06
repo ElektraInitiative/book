@@ -74,6 +74,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Content Overview}
 
+\begin{frame}
+	\textit{learning outcome:}
+	\begin{itemize}
+		\item being familiar with the topics
+	\end{itemize}
+\end{frame}
+
 \subsection{Terminology}
 \begin{frame}
 	\frametitle{Terminology}
@@ -104,7 +111,6 @@ Validation of configuration settings must happen systematically before the appli
 \begin{frame}
 	Topic: \textit{sources of configuration}
 	\begin{itemize}
-		\item semi-structured data
 		\item configuration file formats
 		\item command-line arguments
 		\item environment variables
@@ -112,36 +118,44 @@ Validation of configuration settings must happen systematically before the appli
 \end{frame}
 
 \begin{frame}
-	Topic: \textit{design and architecture of configuration and configuration access}
-	\begin{itemize}
-		\item architectural decisions
-		\item introspection
-		\item code generation
-		\item variability
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Topic: \textit{reduction of misconfiguration and configuration duplicates} \\
-	Misconfiguration obviously needs configuration.
-	We will discuss the ideas of:
+	Topic: \textit{design of configuration}
 	\begin{itemize}
 		\item complexity reduction
-		\item when configuration is needed (decisions, user interface)
-		\item configuration-less systems (auto-detection)
-		\item how duplication can be avoided (generation of artifacts)
-		\item testability (generation of test cases)
+		\item configuration specification
+		\item documentation of configuration
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	Further topics:
+	Topic: \textit{architecture of configuration access}
 	\begin{itemize}
-		\item \textit{context-awareness} (context-oriented programming)
-		\item \textit{avoidance of dependences}
-		\item \textit{cascading configuration}
-		\item \textit{strategies for validation and modularization}
-		\item \textit{documentation of configuration}
+		\item architectural decisions
+		\item modularity
+		\item avoidance of dependences
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Topic: \textit{introspection vs.\ code generation}
+	\begin{itemize}
+		\item introspection
+		\item code generation
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Topic: \textit{misconfiguration detection and testing}
+	\begin{itemize}
+		\item early misconfiguration detection
+		\item testability (how much variability is tested)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Topic: \textit{context-aware configuration}
+	\begin{itemize}
+		\item cascading configuration
+		\item context-awareness
 	\end{itemize}
 \end{frame}
 
@@ -152,20 +166,21 @@ Validation of configuration settings must happen systematically before the appli
 \end{assignment}
 
 \begin{frame}
-	Topic: \textit{sound, complete and early detection of misconfiguration}
+	Topic: \textit{validation vs.\ auto-detection}
 	\begin{itemize}
 		\item points in time for configuration access and validation
 		\item validation techniques
-		\item constraints
+		\item configuration-less systems (auto-detection)
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	Topic: \textit{configuration as user interface}
+	Topic: \textit{configuration as a user interface}
 	\begin{itemize}
 		\item How system administrators work.
 		\item Which user interfaces exist.
 		\item How to specify configuration.
+		\item How to design error messages.
 	\end{itemize}
 \end{frame}
 
@@ -182,12 +197,12 @@ Validation of configuration settings must happen systematically before the appli
 \begin{frame}
 	Topic: \textit{configuration management tools}
 	\begin{itemize}
-		\item Puppet
-		\item Chef
-		\item Ansible
-		\item CfEngine
-		\item Nix
-		\item many others...
+		\item history
+		\item Infrastructure as Code
+		\item configuration drift
+		\item push vs.\ pull
+		\item full vs.\ partial changes
+		\item examples: Puppet, Chef, Ansible, CfEngine, Nix, \dots
 	\end{itemize}
 \end{frame}
 
