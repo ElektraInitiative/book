@@ -1,4 +1,5 @@
 %TODO: add cliffhanger with preview for next time
+%TODO: requirement that data structure should not be directly accessible (environp)
 
 \input{setup}
 
@@ -73,7 +74,124 @@
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Command-line Arguments}
 
+\subsection{Usage and Popularity}
+
+\begin{frame}
+	\frametitle{Is there something else?}
+	\begin{itemize}
+	\item configuration files are the most researched of all configuration sources~\cite{jin2014configurations}
+	\item but it is neither the most used nor most popular~\cite{raab2017challenges}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\methodQuestion{} \question{Which configuration systems/libraries/APIs have you already used or would like to use in one of your FLOSS project(s)?}
+	\begin{itemize}
+	\item command-line arguments (\p{92}, $n=222$)
+	\item environment variables (\p{79}, $n=218$)
+	\item \methodSource{} API \texttt{getenv} is used omnipresently with 2,683 occurrences
+	\item configuration files (\p{74}, $n=218$))
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\methodQuestion{} \question{What is your experience with the following configuration systems/libraries/APIs?}
+	\begin{itemize}
+	\item \texttt{getenv} (\p{10}, $n=198$)
+	\item configuration files (\p{6}, $n=190$)
+	\item command-line options (\p{4}, $n=210$)
+	\item X/Q/GSettings (\p{41}, \p{14}, \p{35})
+	\item KConfig (\p{21})
+	\item dconf (\p{42})
+	\item plist (\p{32})
+	\item Windows Registry (\p{69})
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Which configuration source do you use most?
+	\end{task}
+
+	\begin{task}
+	Possible talk: About one of these sources.
+	\end{task}
+\end{assignment}
+
+\subsection{Semantics}
+
+\begin{frame}
+	\begin{itemize}
+	\item passed by main for a new process via \\ (\texttt{int argc, char ** argv})
+	\item visible from other processes (e.g., via \texttt{ps aux})
+	\item could be passed along to subprocesses but hardly done
+	\item need to be parsed by process
+	\item portability: differences in parsing
+	\item cannot be changed from outside (requires restart, no IPC)
+	\end{itemize}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Environment Variables}
+
+\begin{frame}
+	\frametitle{Semantics}
+	\begin{itemize}
+	\item are also per-process (\texttt{/proc/self/environ})
+	\item are not visible from other processes
+	\item are automatically inherited by subprocesses
+	\item need to be parsed by process (\texttt{[extern] char **environ}) but API is provided (\texttt{getenv})
+	\item cannot be changed from outside (requires restart or an additional IPC mechanism)
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	What is wrong with the code in the book?
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	\frametitle{getenv}
+	\begin{itemize}
+	\item is widely standardized, including SVr4, POSIX.1-2001, 4.3BSD, C89, C99~\cite{man2017getenv},
+	\item is supported by many programming languages, and
+	\item enforces \texttt{key=value} convention.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Usage}
+	\begin{enumerate}
+	\item bypassing other configuration accesses (\methodQuestion{} \p{45})
+	\item locating configuration files
+	\item debugging and testing (\methodQuestion{} \p{55}, \methodSource{} 1,152, i.\,e. \p{43})
+	\item sharing configuration settings across applications (\methodQuestion{} \p{53}, \methodSource{} 716, i.\,e. \p{47})
+	\item for configuration settings unlikely to be changed by a user (\methodQuestion{} \p{20})
+	\item \question{even when it is used inside a loop} (\methodQuestion{} \p{2})
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Portability}
+	\begin{itemize}
+	\item no separators for values defined
+	\item case sensitivity problems
+	\item often many environment variables for the same purpose: TMP, TEMP, or TMPDIR
+	\item sometimes one environment variable for different purposes: PATH
+	\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Complexity}
 
 \subsection{Trend}
@@ -258,6 +376,8 @@
 	Configuration Specification
 	\end{exampleblock}
 \end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Configuration Specification}

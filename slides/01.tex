@@ -1,13 +1,3 @@
-%TODO: already introduce specification language (needed for mounting+cascading)
-%TODO: requirement that data structure should not be directly accessible (environp)
-%TODO: add outlook for next lecture
-
-%add breaks
-%move Elektra chapter here?
-%
-%why is the homework so individual?
-%more about which issues
-
 \input{setup}
 
 \date{13.3.2018}
@@ -27,33 +17,28 @@
 	\begin{task}
 	Hands up if you prefer German.
 	\end{task}
-	Unanimous preference of German required, otherwise English.
 \end{assignment}
 
 \begin{frame}
-	\frametitle{Organization}
-	Slides now available at
-	\url{https://www.libelektra.org/ftp/elektra/slides/cm/}
-	\\[1cm]
+	Lecture is every week Wednesday 09:00 - 11:00.
 
-	More Slides/book
-	\url{https://book.libelektra.org}
-	\\[1cm]
-	Time Line:
 	\begin{description}
-		\item[9.3.2018:] \textbf{TISS registration}
-		\item[16.3.2018:] \textbf{topic homework and talk} (GitHub account!)
-		\item[23.3.2018:] teams found together
-		\item[13.4.2018:] homework submitted, topics of team exercise
-		\item[20.4.2018:] \textbf{no lecture}
-
-		\item[18.5.2018:] guest lecture
-		\item[25.5.2018:] team exercise submitted
-		\item[22.6.2018:] last corrections of team exercise
-		%\item[29.6.2018:] test
+		\item[06.03.2019:] topic, teams
+		\item[13.03.2019:] {\color{red} registration, initial PR}
+		\item[20.03.2019:] Guest Lecture
+		\item[27.03.2019:] (HS?)
+		\item[03.04.2019:]
+		\item[08.05.2019:] (HS?)
+		\item[10.04.2019:] mid-term submission of exercises
+		\item[15.05.2019:]
+		\item[22.05.2019:]
+		\item[29.05.2019:]
+		\item[05.06.2019:] final submission of exercises
+		\item[12.06.2019:]
+		\item[19.06.2019:] last corrections of exercises
+		\item[26.06.2019:] exam
 	\end{description}
 \end{frame}
-
 
 \begin{frame}
 	\frametitle{Popular Topics}
@@ -92,8 +77,39 @@
 	\end{multicols}
 \end{frame}
 
+
 \begin{frame}
-	\hspace*{-1cm}\includegraphics[width=\paperwidth]{dot/topics}
+	\frametitle{Organisation}
+	\begin{itemize}
+	\item PR must be done today, can be trivial
+	\item why is the homework so individual?
+	\item more about which issues
+	\item https://github.com/orgs/ElektraInitiative/teams/cm2019s
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Talk}
+	about anything related to configuration management.
+	\begin{itemize}
+		\item The duration must be not longer than 20 minutes.
+		\item It must be about your experience.
+		\begin{itemize}
+			\item E.g., about the homework you did.
+			\item I.e., not only about study of literature.
+			\item If you extensively use some tool before, please share your experience.
+		\end{itemize}
+		\item Two persons per date.
+		\item Same topic allowed if persons coordinate their talk.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\textit{learning outcome:}
+	\begin{itemize}
+		\item Having an overview of configuration file formats.
+		\item Understanding Elektra's abstraction that deals with this issue.
+	\end{itemize}
 \end{frame}
 
 
@@ -211,6 +227,168 @@
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Elektra}
+
+
+\begin{frame}
+	\frametitle{Elektra as Virtual Filesystem}
+	\begin{itemize}
+	\item configuration files are seen like ``block devices''
+	\item are mounted with respective filesystem drivers into the filesystem
+	\item many tools and APIs evolved to work with files
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Why is Elektra not a Filesystem then?}
+	\begin{itemize}
+	\item API semantics: key/value get/set
+	\item namespaces: based on established semantics
+	\item many features essential for misconfiguration hardening:
+		\begin{itemize}
+		\item validation
+		\item visibility
+		\item defaults
+		\item \dots (extensible specification)
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\begin{description}[align=left]
+	\item[kdb.open():]
+	The first step is to bootstrap into a situation where the necessary plugins can be loaded.
+	\item[kdb.get(\texttt{KeySet}):] \index{kdb.get}
+	The application (initially) fetches and (later) updates its configuration settings as a key set of type ^KeySet^ from the execution environment by one or many calls to ^kdb.get^.
+	If all relevant configuration files are unmodified since the last invocation, ^kdb.get^ will do nothing.
+	\item[kdb.set(\texttt{KeySet}):] \index{kdb.set}
+	When a user finishes editing configuration settings, ^kdb.set^ is in charge of writing all changes back to the key database.
+	This function atomically persists a whole key set in involved parts of the execution environment.
+	In the case of an error no action takes place.
+	\item[kdb.close():] \index{kdb.close}
+	The last step is to close the connection to the key database.
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Recapitulation (Metalevels)}
+	\includegraphics{metalevels}
+
+	We will now walk through metalevels bottom-up.
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Configuration Settings}
+
+	A configuration file may look like:
+
+	\begin{code}[language=CfgElektra]
+	a=5
+	b=10
+	c=15
+	\end{code}
+
+	We apply these configuration settings imperatively using:
+
+	\begin{code}[language=bash]
+	kdb set /a 5
+	kdb set /b 10
+	kdb set /c 15
+	\end{code}
+
+	And we list them with \lstinline[language=bash,morekeywords={ls},showspaces=no]^kdb ls /^.
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Specifications}
+	For specifications such as:
+
+	\begin{code}
+	[slapd/threads/listener]
+	  check/range:=1,2,4,8,16
+	  default:=1
+	\end{code}
+
+	We apply the specifications imperatively using:
+
+	\begin{code}[language=bash,morekeywords={setmeta}]
+	kdb setmeta /slapd/threads/listener\
+		check/range 1,2,4,8,16
+	kdb setmeta /slapd/threads/listener\
+	       	default 1
+	\end{code}
+
+	(automatically uses ^spec^ namespace)
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Meta-Specifications}
+	For meta-specifications such as:
+
+	\small
+	\begin{code}
+	[visibility]
+	type:=enum critical important user\
+	      advanced developer debug disabled
+	description:=Who should see this\
+	     configuration setting?
+	\end{code}
+
+	We apply the meta-specifications imperatively using:
+
+	\begin{code}[language=bash,morekeywords={setmeta}]
+	kdb setmeta /elektra/meta/\
+		visibility type enum ...
+	kdb setmeta /elektra/meta/\
+		visibility description "Who ...
+	\end{code}
+
+	(see ^doc/METADATA.ini^, disclaimer: 1.0 not yet released)
+\end{frame}
+
+\begin{frame}
+	\frametitle{Introspection}
+	\begin{itemize}
+	\item unified get/set access to (meta*)-key/values
+	\item access via applications, CLI, GUI, web-UI, ...
+	\item access via any programming language (similar to file systems)
+	\item GUI, web-UI can semantically interpret metadata
+	\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Conclusion}
+	\begin{itemize}
+	\item definitions: APIs, modularity
+	\item goal:
+		\begin{itemize}
+		\item good defaults
+		\item system-wide introspection
+		\end{itemize}
+	\item how?
+		\begin{itemize}
+		\item We use a system-level dependency injection.
+		\item We get reusable plugins operating on key/value pairs.
+		\item We get operating system abstractions of context.
+		\item We avoid to have dependences in the applications.
+		\end{itemize}
+	\item \elektra{} has no dependence to other libraries but only concrete plugins introduce dependences.
+	\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 \subsection{Abstractions}
 
@@ -235,6 +413,12 @@ While all these formats above have many differences, all of them represent confi
 
 For configuration as program you need to execute them first.
 \end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
 
 \begin{frame}
 	\frametitle{Mounting}
@@ -267,118 +451,6 @@ For configuration as program you need to execute them first.
 	\end{task}
 \end{assignment}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Command-line Arguments}
-
-\subsection{Usage and Popularity}
-
-\begin{frame}
-	\frametitle{Is there something else?}
-	\begin{itemize}
-	\item configuration files are the most researched of all configuration sources~\cite{jin2014configurations}
-	\item but it is neither the most used nor most popular~\cite{raab2017challenges}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\methodQuestion{} \question{Which configuration systems/libraries/APIs have you already used or would like to use in one of your FLOSS project(s)?}
-	\begin{itemize}
-	\item command-line arguments (\p{92}, $n=222$)
-	\item environment variables (\p{79}, $n=218$)
-	\item \methodSource{} API \texttt{getenv} is used omnipresently with 2,683 occurrences
-	\item configuration files (\p{74}, $n=218$))
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\methodQuestion{} \question{What is your experience with the following configuration systems/libraries/APIs?}
-	\begin{itemize}
-	\item \texttt{getenv} (\p{10}, $n=198$)
-	\item configuration files (\p{6}, $n=190$)
-	\item command-line options (\p{4}, $n=210$)
-	\item X/Q/GSettings (\p{41}, \p{14}, \p{35})
-	\item KConfig (\p{21})
-	\item dconf (\p{42})
-	\item plist (\p{32})
-	\item Windows Registry (\p{69})
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Which configuration source do you use most?
-	\end{task}
-
-	\begin{task}
-	Possible talk: About one of these sources.
-	\end{task}
-\end{assignment}
-
-\subsection{Semantics}
-
-\begin{frame}
-	\begin{itemize}
-	\item passed by main for a new process via \\ (\texttt{int argc, char ** argv})
-	\item visible from other processes (e.g., via \texttt{ps aux})
-	\item could be passed along to subprocesses but hardly done
-	\item need to be parsed by process
-	\item portability: differences in parsing
-	\item cannot be changed from outside (requires restart, no IPC)
-	\end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Environment Variables}
-
-\begin{frame}
-	\frametitle{Semantics}
-	\begin{itemize}
-	\item are also per-process (\texttt{/proc/self/environ})
-	\item are not visible from other processes
-	\item are automatically inherited by subprocesses
-	\item need to be parsed by process (\texttt{[extern] char **environ}) but API is provided (\texttt{getenv})
-	\item cannot be changed from outside (requires restart or an additional IPC mechanism)
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	What is wrong with the code in the book?
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	\frametitle{getenv}
-	\begin{itemize}
-	\item is widely standardized, including SVr4, POSIX.1-2001, 4.3BSD, C89, C99~\cite{man2017getenv},
-	\item is supported by many programming languages, and
-	\item enforces \texttt{key=value} convention.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Usage}
-	\begin{enumerate}
-	\item bypassing other configuration accesses (\methodQuestion{} \p{45})
-	\item locating configuration files
-	\item debugging and testing (\methodQuestion{} \p{55}, \methodSource{} 1,152, i.\,e. \p{43})
-	\item sharing configuration settings across applications (\methodQuestion{} \p{53}, \methodSource{} 716, i.\,e. \p{47})
-	\item for configuration settings unlikely to be changed by a user (\methodQuestion{} \p{20})
-	\item \question{even when it is used inside a loop} (\methodQuestion{} \p{2})
-	\end{enumerate}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Portability}
-	\begin{itemize}
-	\item no separators for values defined
-	\item case sensitivity problems
-	\item often many environment variables for the same purpose: TMP, TEMP, or TMPDIR
-	\item sometimes one environment variable for different purposes: PATH
-	\end{itemize}
-\end{frame}
 
 \subsection{Trends}
 
@@ -434,6 +506,15 @@ For configuration as program you need to execute them first.
 	\item all three used for different reasons but often for the same configuration settings
 	\item many different configuration file formats
 	\item abstractions: key-value, mounting, and cascading
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Outlook}
+	\begin{itemize}
+	\item Environment Variables
+	\item Command-line options
+	\item Complexity
 	\end{itemize}
 \end{frame}
 
