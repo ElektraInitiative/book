@@ -24,7 +24,7 @@
 
 	\begin{description}
 		\item[06.03.2019:] topic, teams
-		\item[13.03.2019:] {\color{red}TISS registration, initial PR}
+		\item[{\color{red}13.03.2019:}] {\color{red}TISS registration, initial PR}
 		\item[20.03.2019:] other registrations, Guest Lecture
 		\item[27.03.2019:] (HS?)
 		\item[03.04.2019:]
@@ -50,7 +50,7 @@
 	\item[14] tools
 	\item[9] testability
 	\item[9] code-generation
-	\item[7] context-aware % configuration
+	\item[7] context-awareness
 	\item[6] specification
 	\item[6] misconfiguration
 	\item[6] complexity reduction
@@ -63,42 +63,30 @@
 	\item[4] design
 	\item[4] cascading
 	\item[4] architecture of access
-	\item[3] sources
+	\item[3] {\color{red} configuration sources}
 	\item[3] config-less systems
 	\item[2] secure conf
 	\item[2] architectural decisions
 	\item[1] push vs.\ pull
 	\item[1] infrastructure as code
 	\item[1] full vs.\ partial
-	\item[1] convention % over configuration
+	\item[1] convention over conf %iguration
 	\item[1] CI/CD
 	\item[0] documentation
 	\end{description}
 	\end{multicols}
 \end{frame}
 
-\begin{assignment}
-	\frametitle{Introduce somebody}
-	\begin{task}
-	Initial PR must be done today, can be trivial
-	\end{task}
-
-	\begin{task}
-	Registration for talk, homework, teamwork until 20.03.2019 23:59
-	\end{task}
-
-	\begin{task}
-	Assign yourself at least one issue or ask me to assign one to you.
-	(make sure to say which programming languages you know)
-       	Deadline: 20.03.2019 23:59
-	\end{task}
-\end{assignment}
-
 \begin{frame}
 	\frametitle{Organisation}
 	\begin{itemize}
 	\item https://github.com/orgs/ElektraInitiative/teams/cm2019s now created
 	\item private repo created
+	\item first PRs created and accepted:
+	\begin{itemize}
+	\item release notes often not updated
+	\item please set ``ready to merge'' if build server is happy
+	\end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -117,6 +105,23 @@
 		\item Same topic allowed if persons coordinate their talk.
 	\end{itemize}
 \end{frame}
+
+\begin{assignment}
+	\frametitle{Next tasks}
+	\begin{task}
+	Initial PR must be done \textbf{today}, can be trivial
+	\end{task}
+
+	\begin{task}
+	Registration for talk, homework, teamwork until 20.03.2019 23:59
+	\end{task}
+
+	\begin{task}
+	Assign yourself at least one issue or ask me to assign one to you.
+	(make sure to say which programming languages you know)
+       	Deadline: 20.03.2019 23:59
+	\end{task}
+\end{assignment}
 
 \begin{frame}
 	\textit{learning outcome:}
@@ -180,8 +185,8 @@
 	\item CSV (comma-separated values)
 	\item semi-structured
 	\item programming language
-	\item document-oriented, literate
-	\item especially made (easy to use vs.\ easy to implement)
+	\item document-oriented
+	\item literate
 	\end{itemize}
 \end{frame}
 
@@ -191,7 +196,7 @@
 	\item passwd: \formatdate{3}{11}{1971}
 	\item passwd and group use : as separator
 	\item are difficult to extend (e.g., GECOS)
-	\item only used for legacy reasons
+	\item today mostly used for legacy reasons
 	\item are replaced one-by-one (e.g., inetd, crontab)
 	\end{itemize}
 \end{frame}
@@ -211,15 +216,16 @@
 	\begin{description}
 	\item[$+$] very easy for developers (simply source the file)
 	\item[$+$] above-overage quality of error message
-	\item[$-$] makes automatic change of individual values much harder
-	\item[$-$] very hard to use for people who do not know the language
+	\item[$-$] makes automatic change of individual values harder
+	\item[$-$] very hard to use for people who do not know the programming language
+	\item[$-$] does not separate code and data
 	\end{description}
 \end{frame}
 
 \begin{assignment}
 	\frametitle{Introduce somebody}
 	\begin{task}
-	Talk with someone else about your favourite configuration file format.
+	Talk with someone about your favourite configuration file format.
 	\end{task}
 
 	\begin{task}
@@ -233,9 +239,12 @@
 
 \begin{frame}
 	\frametitle{Method}
+
+	What do FLOSS developers say?
+
 	\begin{description}
-	\item[\methodSource{}] source code analysis of 16 applications, comprising 50 million lines of code~\cite{raab2017challenges}
 	\item[\methodQuestion{}] survey with 672 persons visiting, 162 persons completing the survey~\cite{raab2017challenges}
+	\item[\methodSource{}] source code analysis of 16 applications, comprising 50 million lines of code~\cite{raab2017challenges}
 	\end{description}
 \end{frame}
 
@@ -246,7 +255,7 @@
 	\item \p{19} persons ($n=251$) have introduced a configuration file format.
 	\item \p{29} implemented a configuration file parser.
 	\item \p{15} introduced a configuration system/library/API.
-	\item used external configuration access APIs (\p{34}).
+	\item \p{34} used external configuration access APIs.
 	\end{itemize}
 \end{frame}
 
@@ -269,12 +278,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Elektra}
 
+\subsection{Basics}
+
 \begin{frame}
 	\frametitle{Elektra as Virtual Filesystem}
 	\begin{itemize}
 	\item configuration files are seen like ``block devices''
 	\item are mounted with respective filesystem drivers into the filesystem
 	\item many tools and APIs evolved to work with files
+	\item Idea of Elektra: establish a similar ecosystem for configuration
 	\end{itemize}
 \end{frame}
 
@@ -293,24 +305,55 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Main Idea: Everything as plugin}
+% hack: needed to render graphics properly
+\begin{frame}<0>[noframenumbering]
 	\begin{columns}[c]
-	\column{7cm}
-	\includegraphics[scale=0.95]{horizontalmodularity}
-	\column{4cm}
-	Cylinders are configuration files, P? are plugins~\cite{raab2016improving}
+	\begin{column}{7cm}
+	\includegraphics[scale=0.8]{horizontalmodularity}
+	\end{column}
+	\begin{column}{4cm}
+	Cylinders are configuration files, P? are plugins~\cite{raab2016improving}.
 
+	Key ideas:
 	\begin{itemize}
 	\item all work is done by plugins
-	\item central data structure implements 
+	\item central data structure implements semantics
 	\end{itemize}
+	\end{column}
 	\end{columns}
 \end{frame}
 
+\begin{frame}
+	\begin{columns}[c]
+	\begin{column}{7cm}
+	\includegraphics[scale=0.8]{horizontalmodularity}
+	\end{column}
+	\begin{column}{4cm}
+	Cylinders are configuration files, P? are plugins~\cite{raab2016improving}.
+
+	Key ideas:
+	\begin{itemize}
+	\item all work is done by plugins
+	\item central data structure implements semantics
+	\end{itemize}
+	\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{KeySet}
+
+	The common data structure between plugins:
+	\vspace{1cm}
+
+	\includegraphics{keyset}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Is meta-data separated from or included in the data structure?
+	\end{task}
+\end{assignment}
 
 \begin{frame}[fragile]
 	\begin{description}[align=left]
@@ -318,15 +361,23 @@
 	The first step is to bootstrap into a situation where the necessary plugins can be loaded.
 	\item[kdb.get(\texttt{KeySet}):] \index{kdb.get}
 	The application (initially) fetches and (later) updates its configuration settings as a key set of type ^KeySet^ from the execution environment by one or many calls to ^kdb.get^.
-	If all relevant configuration files are unmodified since the last invocation, ^kdb.get^ will do nothing.
+	%If all relevant configuration files are unmodified since the last invocation, ^kdb.get^ will do nothing.
 	\item[kdb.set(\texttt{KeySet}):] \index{kdb.set}
 	When a user finishes editing configuration settings, ^kdb.set^ is in charge of writing all changes back to the key database.
-	This function atomically persists a whole key set in involved parts of the execution environment.
-	In the case of an error no action takes place.
+	%This function atomically persists a whole key set in involved parts of the execution environment.
+	%In the case of an error no action takes place.
 	\item[kdb.close():] \index{kdb.close}
 	The last step is to close the connection to the key database.
 	\end{description}
 \end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
+\subsection{Metalevels}
 
 \begin{frame}
 	\frametitle{Metalevels}
@@ -404,31 +455,63 @@
 	(see ^doc/METADATA.ini^, disclaimer: 1.0 not yet released)
 \end{frame}
 
+\begin{assignment}
+	\begin{task}
+	Brainstorming: Ideas for (meta-)specifications.
+	\end{task}
+\end{assignment}
+
+\subsection{Conclusions}
+
 \begin{frame}
 	\frametitle{Introspection}
-	\begin{itemize}
+	\begin{itemize}[<+->]
 	\item unified get/set access to (meta*)-key/values
 	\item access via applications, CLI, GUI, web-UI, ...
-	\item access via any programming language (similar to file systems)
 	\item GUI, web-UI can semantically interpret metadata
+	\item access via any programming language
+	\item access via any configuration management system
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Users of Elektra}
+	\begin{itemize}[<+->]
+	\item Embedded systems
+	\begin{itemize}
+	\item OpenWRT (distribution)
+	\item Broadcom (blue-ray devices)
+	\item Kapsch (cameras)
+	\item Toshiba (TVs)
+	\end{itemize}
+	\item Server
+	\begin{itemize}
+	\item Allianz (insurance)
+	\item TU Wien
+	\item puppet-libelektra
+	\item Other Universities
+	\end{itemize}
+	\item Desktop
+	\begin{itemize}
+	\item Oyranos
+	\item LCDproc (in progress)
+	\item KDE
+	\end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Conclusion}
 	\begin{itemize}
-	\item definitions: APIs, modularity
-	\item goal:
+	\item goals:
 		\begin{itemize}
+		\item make simple configuration management tasks simple
+		\item improve robustness
+		\item improve extensibility (reusable plugins operating on key/value)
+		\item improve performance
 		\item good defaults
 		\item system-wide introspection
-		\end{itemize}
-	\item how?
-		\begin{itemize}
-		\item We use a system-level dependency injection.
-		\item We get reusable plugins operating on key/value pairs.
-		\item We get operating system abstractions of context.
-		\item We avoid to have dependences in the applications.
+		\item system-level dependency injection
 		\end{itemize}
 	\item \elektra{} has no dependence to other libraries but only concrete plugins introduce dependences.
 	\end{itemize}
@@ -437,17 +520,13 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Abstractions}
 
-
-
-\subsection{Abstractions}
+\subsection{Mounting}
 
 \begin{frame}
 	\frametitle{Abstraction}
-	\begin{restatable}{requirement}{reqLegacy}
-	A configuration library must be able to integrate (legacy) systems and must fully support (legacy) configuration files.%
-	\label{req:legacy}
-	\end{restatable}
+	\reqLegacy*
 
 	\vspace{1cm}
 
@@ -463,12 +542,6 @@ While all these formats above have many differences, all of them represent confi
 
 For configuration as program you need to execute them first.
 \end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
 
 \begin{frame}
 	\frametitle{Mounting}
@@ -493,16 +566,12 @@ For configuration as program you need to execute them first.
 
 \begin{assignment}
 	\begin{task}
-	Possible Homework: Implement a storage plugin with an existing parser.
-	\end{task}
-
-	\begin{task}
 	Explain your neighbor what mounting is.
 	\end{task}
 \end{assignment}
 
 
-\subsection{Trends}
+\subsection{Trend and Outlook}
 
 \begin{frame}
 	\frametitle{Trend Firefox}
@@ -514,19 +583,12 @@ For configuration as program you need to execute them first.
 	\includegraphics[scale=0.7]{chromium}
 \end{frame}
 
-\begin{assignment}
-	\begin{task}
-	Discuss the differences of mounting and cascading with your neighbor.
-	\end{task}
-\end{assignment}
-
 \begin{frame}
 	\frametitle{Outlook}
 	\begin{itemize}
 	\item Environment Variables
 	\item Command-line options
 	\item Complexity
-	\item Do not forget the registration
 	\end{itemize}
 \end{frame}
 
