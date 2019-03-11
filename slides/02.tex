@@ -191,6 +191,51 @@
 
 
 
+\subsection{Requirements}
+
+\begin{frame}
+	How can we deal with the many sources?
+
+	\vspace{1cm}
+
+	\begin{restatable}{requirement}{reqEnvironment}
+	A configuration library must support all three popular ways for configuration access:
+	configuration files, command-line options, and environment variables.
+	\end{restatable}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cascading}
+	\includegraphics{cascading}
+\end{frame}
+
+
+\subsection{Conclusion}
+
+\begin{frame}
+	\frametitle{User View}
+	\begin{itemize}
+	\item command-line for trying out configuration settings
+	\item environment variables for configuration settings within a shell
+	\item configuration files for persistent configuration settings
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conclusion}
+	\begin{itemize}
+	\item three different configuration sources widely used
+	\item all three used for different reasons but often for the same configuration settings
+	\item many different configuration file formats
+	\item abstractions: key-value, mounting, and cascading
+	\end{itemize}
+\end{frame}
+
+
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Complexity}
 
