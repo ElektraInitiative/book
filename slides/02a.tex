@@ -1,3 +1,5 @@
+%TODO: add cliffhanger with preview for next time
+
 \input{setup}
 
 \date{20.3.2018}
@@ -16,10 +18,10 @@
 	Lecture is every week Wednesday 09:00 - 11:00.
 
 	\begin{description}
-		\item[06.03.2019:] {\color{gray}topic, teams}
-		\item[13.03.2019:] {\color{gray}TISS registration, initial PR}
-		\item[20.03.2019:] {\color{red}other registrations, guest lecture}
-		\item[27.03.2019:] {\color{orange}first issue done, second assigned, \\ HS: kleiner Schiffbau}
+		\item[06.03.2019:] topic, teams
+		\item[13.03.2019:] TISS registration, initial PR
+		\item[{\color{red}20.03.2019}:] {\color{red}other registrations, Guest Lecture}
+		\item[27.03.2019:] first issue done, second assigned, \\ HS: kleiner Schiffbau
 		\item[03.04.2019:]
 		\item[10.04.2019:] mid-term submission of exercises
 		\item[08.05.2019:] (HS?)
@@ -92,11 +94,8 @@
 	(until 20.03.2019 23:59)
 
 	\begin{task}
-	Make sure to say which programming languages you know in STUDENTS.ini.
-	\end{task}
-
-	\begin{task}
-	Registration for talk, homework, teamwork.
+	Registration for talk, homework, teamwork and
+	make sure to say which programming languages you know in STUDENTS.ini.
 	\end{task}
 
 	\begin{task}
@@ -106,22 +105,17 @@
 
 \begin{assignment}
 	\frametitle{Tasks for next week}
-	(until 27.03.2019 23:59) \\ 
-	(hint: to get help submit at least one day earlier)
+	(until 27.03.2019 23:59, hint: to get help submit at least one day earlier)
 
 	\begin{task}
-	Description of homework.
+	Description of homework as pull request in private repo.
+	(Inside a folder for you, use GitHub name.)
 	\end{task}
 
 	\begin{task}
-	Description of teamwork (which application, which CM tool).
+	Description of teamwork (which application, which CM tool) as pull request in private repo.
+	(Inside a folder for your team.)
 	\end{task}
-
-	Either:
-	\begin{itemize}
-	\item Inside a folder (use GitHub name for the folder name) of the private repo as pull request.
-	\item As new issue in the public libelektra repo.
-	\end{itemize}
 
 	\begin{task}
 	Fix at least one issue and write some text in at least one other issue.
@@ -238,34 +232,19 @@
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}
 	\frametitle{Portability}
 	\begin{itemize}
 	\item no separators for values defined
 	\item case sensitivity problems
 	\item often many environment variables for the same purpose: TMP, TEMP, or TMPDIR
 	\item sometimes one environment variable for different purposes: PATH
-	\item if applications directly access ^environ^ multi-threaded applications have undefined behavior
 	\end{itemize}
 \end{frame}
 
 
 
 \subsection{Requirements}
-
-\begin{frame}[fragile]
-	How can we avoid the problems of ^environ^?
-
-	\vspace{1cm}
-
-	\begin{restatable}{requirement}{reqDataStructure}
-	The configuration data structure should not be directly accessible but an API should be provided.
-	\end{restatable}
-
-	\vspace{1cm}
-
-	In Elektra ^KeySet^ fulfils the requirement.
-\end{frame}
 
 \begin{frame}
 	How can we deal with the many sources?
@@ -276,10 +255,6 @@
 	A configuration library must support all three popular ways for configuration access:
 	configuration files, command-line options, and environment variables.
 	\end{restatable}
-
-	\vspace{1cm}
-
-	In Elektra cascading of namespaces fulfils the requirement.
 \end{frame}
 
 \begin{frame}
@@ -505,6 +480,291 @@
 	Configuration Specification
 	\end{exampleblock}
 \end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Configuration Specification}
+
+\subsection{Why?}
+
+\begin{frame}
+	\frametitle{Rationale}
+	\begin{itemize}
+	\item without specification you and others do not even know which settings are available
+	\item needed for any further techniques we will discuss
+	\pause
+	\item essential for \intro[no-futz computing]{no-futz computing}~\citet{holland2001nofutz}
+	\item the foundation for any advanced tooling like configuration management tools
+	\pause
+	\item needed as communication of producers and consumers of configuration
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Brainstorming: What can be part of a configuration specification?
+	\end{task}
+
+	\begin{task}
+	Advantages/Disadvantages?
+	\end{task}
+
+	\begin{task}
+	Alternatives?
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	\methodQuestion{}
+	\question{Configuration specification (e.g. XSD/JSON schemas) allows you to describe possible values and their meaning.  Why do/would you specify configuration?}
+	\ExecuteMetaData[../book/motivation.tex]{question-introduce-spec}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Limitations of Schemata designed for Data}
+	\begin{itemize}
+	\item like XSD/JSON schemas
+	\item they are already very helpful but:
+	\pause
+	\item not key-value based
+	\item not easy to introspect
+	\item designed to validate data without semantics: \\ file path vs.\ presence of file
+	\item not always possible to extend with plugins
+	\item tied to specific formats (e.g. XML/JSON)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Limitations of Zero-Configuration}
+	\begin{itemize}
+	\item e.g. gpsd\footnote{\url{www.aosabook.org/en/gpsd.html}}
+	\pause
+	\item broken hardware or protocols
+	\item auto-detection may go wrong
+	\item the configuration actually lives elsewhere \\ (e.g., in the GPS devices)
+	\end{itemize}
+\end{frame}
+
+\subsection{How?}
+
+\begin{frame}
+	\frametitle{Types of Specifications}
+	\includegraphics[scale=0.8]{specifications}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Metalevels}
+	\includegraphics{metalevels}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	What do we mean with a configuration specification?
+	\end{task}
+
+	\begin{task}
+	Which requirements do we have for a configuration specification?
+	\end{task}
+\end{assignment}
+
+
+\begin{frame}
+	\frametitle{Requirements}
+
+	\begin{itemize}
+	\item formal/informal?
+	\item complete?
+	\pause
+	\item should be extensible
+	\item should be external to application
+	\item open for introspection (for tooling)
+	\item should talk to users
+	\item should allow generation of artefacts
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Grammar}
+	\begin{grammar}
+	<configuration specifications> ::= \{ <configuration specification> \}
+
+	<configuration specification> ::= '[' <key> ']' <properties>
+
+	<properties> ::= \{ <property> \}
+
+	<property> ::= <property name> ':=' [ <property value> ]
+	\end{grammar}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Example}
+	\begin{code}[gobble=4]
+	[slapd/threads/listener]
+	default:=1
+	type:=int
+	\end{code}
+\end{frame}
+
+\subsection{Visibility}
+
+\begin{frame}
+	\frametitle{Visibility}
+	\begin{itemize}
+	\item idea: show only relevant settings for specific user group
+	\item or disallow editing: accessibility
+	\pause
+	\item requires user-feedback loops~\cite{xu2015hey}
+	\item most-used settings should be best visible (or even enforce them to be changed: against harmful defaults)
+	\item think of your users (administrators), \\ only expose what users need
+	\item write an rationale why someone needs it
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Example}
+	\begin{code}[gobble=4]
+	[slapd/threads/listener]
+	visibility:=developer
+
+	[slapd/access/#]
+	visibility:=user
+	\end{code}
+\end{frame}
+
+
+\begin{assignment}
+	\begin{task}
+	Brainstorming: Now, how do we implement such a specification?
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	\frametitle{Implementations}
+	For example:
+	\begin{itemize}
+	\item generate examples/documentation
+	\item auto-completion/syntax highlighting/IDE support
+	\item tooling (GUI, Web UI)
+	\item validate configuration files
+	\item visudo-like
+	\item plugins in configuration framework
+	\end{itemize}
+\end{frame}
+
+\subsection{Calculate Default Values}
+
+\begin{frame}
+	\begin{itemize}
+	\item idea: make default value better
+	\item is the generalization of sharing configuration values
+	\item can be combined with visibility
+	\pause
+	\item can be derived from other configuration settings
+	\item can be derived from context~\cite{raab2017introducing}
+	\item can be derived from hardware/system (problem with dependences)
+	\pause
+	\item XServer vs.\ gpsd
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Examples}
+	Sharing:
+	\begin{code}[gobble=4]
+	[slapd/threads/listener]
+	fallback/#0:=slapd/threads
+	\end{code}
+
+	\vspace{1cm}
+	Percentages
+	\\ (e.g., configured image should be additionally cropped):
+	\pause
+	\begin{code}[gobble=4]
+	[image/width]
+	type:=int
+
+	[crop]
+	type:=int
+	check/range:=0-100
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Examples}
+	Context:
+	\begin{code}[gobble=4]
+	[slapd/threads/listener]
+	context:=/slapd/threads/%cpu%/listener
+	\end{code}
+
+	\vspace{1cm}
+	Calculation with Context
+	\\ (e.g., switch off GPS if battery low):
+	\pause
+	\begin{code}[gobble=4]
+	[gps/status]
+	assign:=(battery > 'low') ? ('on') : ('off')
+	\end{code}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Architectural Decisions}
+
+\begin{frame}
+	\frametitle{Software Architecture}
+	\begin{itemize}
+	\item architecture is high-level description of the overall system
+	\item use ready-made patterns and templates for architecture
+	\pause
+	\item e.g., \url{http://arc42.org/}
+	\item architectural decisions~\cite{zdun2007patterns} essential (e.g., Chapter~9 in arc42)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Architectural Decisions}
+	\begin{itemize}
+	\item describe decisions that lead to the architecture
+	\item open decisions are high-level configuration
+	\item useful to have patterns~\cite{zdun2007patterns} and templates, too
+	\item template: problem, constraints, assumptions, considered alternatives, decision, rationale, implications, related, notes
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Why are configuration settings added? \\[1cm]
+	\pause
+	The typical reasons are:
+	\ExecuteMetaData[../book/implications.tex]{reasons-adding}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{in Configuration Specification}
+	\begin{code}[gobble=4]
+	[slapd/threads/listener]
+	description:=adjust to use more threads
+	rationale:=needed for many-core systems
+	requirement:=1234
+	visibility:=developer
+	\end{code}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conclusion}
+	\begin{itemize}
+	\item alarming trend in number and complexity of configuration settings
+	\item sharing, visibility and default value calculation often helps
+	\item needs abstraction: configuration specification
+	\item but also more courageous decisions and periodical reevaluation
+	\item different ways to reduce configuration space
+	\end{itemize}
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 

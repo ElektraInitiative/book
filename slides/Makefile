@@ -1,4 +1,4 @@
-FILE=01
+FILE=02
 
 $(FILE).pdf:$(FILE).tex setup.tex
 	latexmk $(FILE)
@@ -11,6 +11,10 @@ push:$(FILE).pdf
 .PHONY:errors
 errors:
 	grep "^.*:[0-9]*:" $(FILE).log
+
+.PHONY:view
+view:
+	okular $(FILE).pdf
 
 .PHONY:clean
 clean:
