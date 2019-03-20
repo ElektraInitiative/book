@@ -18,11 +18,11 @@
 	Lecture is every week Wednesday 09:00 - 11:00.
 
 	\begin{description}
-		\item[06.03.2019:] topic, teams
-		\item[13.03.2019:] TISS registration, initial PR
-		\item[{\color{red}20.03.2019}:] {\color{red}other registrations, Guest Lecture}
-		\item[27.03.2019:] first issue done, second assigned, \\ HS: kleiner Schiffbau
-		\item[03.04.2019:]
+		\item[06.03.2019:] {\color{gray}topic, teams}
+		\item[13.03.2019:] {\color{gray}TISS registration, initial PR}
+		\item[20.03.2019:] {\color{gray}other registrations, guest lecture}
+		\item[27.03.2019:] {\color{red}PR for first issue done, second started, \\ HS: kleiner Schiffbau}
+		\item[03.04.2019:] {\color{orange}first issue done, PR for second}
 		\item[10.04.2019:] mid-term submission of exercises
 		\item[08.05.2019:] (HS?)
 		\item[15.05.2019:]
@@ -72,23 +72,6 @@
 	\end{multicols}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Talk}
-	about anything related to configuration management.
-	\begin{itemize}
-		\item The duration must be not longer than 20 minutes (shorter is ok, content matters).
-		\item It must be about your experience.
-		\begin{itemize}
-			\item E.g., about the homework you did.
-			\item I.e., not only about study of literature.
-			\item If you extensively use some tool before, please share your experience.
-		\end{itemize}
-		\item Two persons per date.
-		\item Same topic allowed if persons coordinate their talk.
-		\item \textbf{Slides must be in repo \\ (please CC licensed and with source)}
-	\end{itemize}
-\end{frame}
-
 \begin{assignment}
 	\frametitle{Tasks for today}
 	(until 20.03.2019 23:59)
@@ -122,62 +105,15 @@
 	\end{task}
 \end{assignment}
 
-\begin{frame}
-	\hspace*{-1cm}\includegraphics[width=\paperwidth]{dot/topics}
-\end{frame}
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Command-line Arguments}
-
-\subsection{Usage and Popularity}
+\section{Environment Variables}
 
 \begin{frame}
-	\frametitle{Is there something else?}
-	\begin{itemize}
-	\item configuration files are the most researched of all configuration sources~\cite{jin2014configurations}
-	\item but it is neither the most used nor most popular~\cite{raab2017challenges}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\methodQuestion{} \question{Which configuration systems/libraries/APIs have you already used or would like to use in one of your FLOSS project(s)?}
-	\begin{itemize}
-	\item command-line arguments (\p{92}, $n=222$)
-	\item environment variables (\p{79}, $n=218$)
-	\item \methodSource{} API \texttt{getenv} is used omnipresently with 2,683 occurrences
-	\item configuration files (\p{74}, $n=218$))
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\methodQuestion{} \question{What is your experience with the following configuration systems/libraries/APIs?}
-	\begin{itemize}
-	\item \texttt{getenv} (\p{10}, $n=198$)
-	\item configuration files (\p{6}, $n=190$)
-	\item command-line options (\p{4}, $n=210$)
-	\item X/Q/GSettings (\p{41}, \p{14}, \p{35})
-	\item KConfig (\p{21})
-	\item dconf (\p{42})
-	\item plist (\p{32})
-	\item Windows Registry (\p{69})
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Which configuration source do you use most?
-	\end{task}
-
-	\begin{task}
-	Possible talk: About one of these sources.
-	\end{task}
-\end{assignment}
-
-\subsection{Semantics}
-
-\begin{frame}
+	\frametitle{Semantics of Command-line Arguments (cont.)}
 	\begin{itemize}
 	\item passed by main for a new process via \\ (\texttt{int argc, char ** argv})
 	\item visible from other processes (e.g., via \texttt{ps aux})
@@ -187,12 +123,6 @@
 	\item cannot be changed from outside (requires restart, no IPC)
 	\end{itemize}
 \end{frame}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Environment Variables}
 
 \begin{frame}
 	\frametitle{Semantics}

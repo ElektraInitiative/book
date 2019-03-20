@@ -1,4 +1,4 @@
-FILE=02
+FILE=02a
 
 $(FILE).pdf:$(FILE).tex setup.tex
 	latexmk $(FILE)
@@ -6,7 +6,7 @@ $(FILE).pdf:$(FILE).tex setup.tex
 .PHONY:push
 push:$(FILE).pdf
 	cp $(FILE).pdf /home/markus/Projekte/Elektra/repos/ftp/slides/cm
-	cd /home/markus/Projekte/Elektra/repos/ftp/slides/cm && git commit $(FILE).pdf && git push
+	cd /home/markus/Projekte/Elektra/repos/ftp/slides/cm && git add $(FILE).pdf && git commit $(FILE).pdf && git push
 
 .PHONY:errors
 errors:

@@ -19,7 +19,7 @@
 		\item[06.03.2019:] {\color{gray}topic, teams}
 		\item[13.03.2019:] {\color{gray}TISS registration, initial PR}
 		\item[20.03.2019:] {\color{red}other registrations, guest lecture}
-		\item[27.03.2019:] {\color{orange}first issue done, second assigned, \\ HS: kleiner Schiffbau}
+		\item[27.03.2019:] {\color{orange}PR for first issue done, second started, \\ HS: kleiner Schiffbau}
 		\item[03.04.2019:]
 		\item[10.04.2019:] mid-term submission of exercises
 		\item[08.05.2019:] (HS?)
@@ -70,23 +70,6 @@
 	\end{multicols}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Talk}
-	about anything related to configuration management.
-	\begin{itemize}
-		\item The duration must be not longer than 20 minutes (shorter is ok, content matters).
-		\item It must be about your experience.
-		\begin{itemize}
-			\item E.g., about the homework you did.
-			\item I.e., not only about study of literature.
-			\item If you extensively use some tool before, please share your experience.
-		\end{itemize}
-		\item Two persons per date.
-		\item Same topic allowed if persons coordinate their talk.
-		\item \textbf{Slides must be in repo \\ (please CC licensed and with source)}
-	\end{itemize}
-\end{frame}
-
 \begin{assignment}
 	\frametitle{Tasks for today}
 	(until 20.03.2019 23:59)
@@ -96,11 +79,11 @@
 	\end{task}
 
 	\begin{task}
-	Registration for talk, homework, teamwork.
+	Registration for talk, homework and teamwork \\ (including team and working title as required in private repo).
 	\end{task}
 
 	\begin{task}
-	Write text in at least one issue.
+	Write something in at least one issue (e.g.\ ask if you can have it).
 	\end{task}
 \end{assignment}
 
@@ -130,6 +113,23 @@
 
 \begin{frame}
 	\hspace*{-1cm}\includegraphics[width=\paperwidth]{dot/topics}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Talk}
+	about anything related to configuration management
+	\begin{itemize}
+		\item The duration must be not longer than 20 minutes (shorter is ok, content matters).
+		\item It must be about your experience.
+		\begin{itemize}
+			\item E.g., about the homework you did.
+			\item I.e., not only about study of literature.
+			\item If you extensively use some tool before, please share your experience.
+		\end{itemize}
+		\item Two persons per date.
+		\item Same topic allowed if persons coordinate their talk.
+		\item \textbf{Slides must be in repo. \\ (please CC licensed and with source)}
+	\end{itemize}
 \end{frame}
 
 
@@ -181,330 +181,6 @@
 	\end{task}
 \end{assignment}
 
-\subsection{Semantics}
-
-\begin{frame}
-	\begin{itemize}
-	\item passed by main for a new process via \\ (\texttt{int argc, char ** argv})
-	\item visible from other processes (e.g., via \texttt{ps aux})
-	\item could be passed along to subprocesses but hardly done
-	\item need to be parsed by process
-	\item portability: differences in parsing
-	\item cannot be changed from outside (requires restart, no IPC)
-	\end{itemize}
-\end{frame}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Environment Variables}
-
-\begin{frame}
-	\frametitle{Semantics}
-	\begin{itemize}
-	\item are also per-process (\texttt{/proc/self/environ})
-	\item are not visible from other processes
-	\item are automatically inherited by subprocesses
-	\item need to be parsed by process (\texttt{[extern] char **environ}) but API is provided (\texttt{getenv})
-	\item cannot be changed from outside (requires restart or an additional IPC mechanism)
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	What is wrong with the code in the book?
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	\frametitle{getenv}
-	\begin{itemize}
-	\item is widely standardized, including SVr4, POSIX.1-2001, 4.3BSD, C89, C99~\cite{man2017getenv},
-	\item is supported by many programming languages, and
-	\item enforces \texttt{key=value} convention.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Usage}
-	\begin{enumerate}
-	\item bypassing other configuration accesses (\methodQuestion{} \p{45})
-	\item locating configuration files
-	\item debugging and testing (\methodQuestion{} \p{55}, \methodSource{} 1,152, i.\,e. \p{43})
-	\item sharing configuration settings across applications (\methodQuestion{} \p{53}, \methodSource{} 716, i.\,e. \p{47})
-	\item for configuration settings unlikely to be changed by a user (\methodQuestion{} \p{20})
-	\item \question{even when it is used inside a loop} (\methodQuestion{} \p{2})
-	\end{enumerate}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Portability}
-	\begin{itemize}
-	\item no separators for values defined
-	\item case sensitivity problems
-	\item often many environment variables for the same purpose: TMP, TEMP, or TMPDIR
-	\item sometimes one environment variable for different purposes: PATH
-	\item if applications directly access ^environ^ multi-threaded applications have undefined behavior
-	\end{itemize}
-\end{frame}
-
-
-
-\subsection{Requirements}
-
-\begin{frame}[fragile]
-	How can we avoid the problems of ^environ^?
-
-	\vspace{1cm}
-
-	\begin{restatable}{requirement}{reqDataStructure}
-	The configuration data structure should not be directly accessible but an API should be provided.
-	\end{restatable}
-
-	\vspace{1cm}
-
-	In Elektra ^KeySet^ fulfils the requirement.
-\end{frame}
-
-\begin{frame}
-	How can we deal with the many sources?
-
-	\vspace{1cm}
-
-	\begin{restatable}{requirement}{reqEnvironment}
-	A configuration library must support all three popular ways for configuration access:
-	configuration files, command-line options, and environment variables.
-	\end{restatable}
-
-	\vspace{1cm}
-
-	In Elektra cascading of namespaces fulfils the requirement.
-\end{frame}
-
-\begin{frame}
-	\frametitle{Cascading}
-	\includegraphics{cascading}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Discuss the differences of mounting and cascading with your neighbor.
-	\end{task}
-\end{assignment}
-
-
-\subsection{Conclusion}
-
-\begin{frame}
-	\frametitle{User View}
-	\begin{itemize}
-	\item command-line for trying out configuration settings
-	\item environment variables for configuration settings within a shell
-	\item configuration files for persistent configuration settings
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Conclusion}
-	\begin{itemize}
-	\item three different configuration sources widely used
-	\item all three used for different reasons but often for the same configuration settings
-	\item many different configuration file formats
-	\item abstractions: key-value, mounting, and cascading
-	\end{itemize}
-\end{frame}
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Complexity}
-
-\subsection{Trend}
-
-\begin{frame}
-	\frametitle{Trend Firefox}
-	\includegraphics[scale=0.7]{firefox}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Trend Chromium}
-	\includegraphics[scale=0.7]{chromium}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Trend Configuration Files}
-	\includegraphics[scale=0.5]{pics/trend.png}
-	\citet{xu2015hey}
-\end{frame}
-
-\subsection{Calculation}
-
-\begin{frame}
-	\frametitle{Types of Complexity}
-	\begin{itemize}
-	\item complexity in access:
-		\begin{itemize}
-		\item many different formats
-		\item non-uniformity
-		\item transformations
-		\end{itemize}
-	\item configuration settings
-		\begin{itemize}
-		\item number of settings $s$
-		\item number of values $n$
-		\item dependences between settings
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
-\lstDeleteShortInline^
-\begin{frame}
-	\frametitle{Calculation of Complexity}
-
-	Using enumerative combinatorics:
-	\begin{itemize}
-	\item number of configurations: $n^s$
-	\item for $N$ groups of different $n$ and $s$ (i.e., $n_1 \dots n_N$ with $s_1 \dots s_N$ occurrences):  $$\prod_{i=1}^{N} n_i^{s_i}$$
-	\item more difficult to calculate (or unbounded) for dependences, module instantiations, arrays, \dots
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Calculation of Complexity}
-
-	Examples:
-	\begin{itemize}
-	\item 600 boolean settings in Apache httpd (let us assume $n=2$):
-	\pause
-	$2^{600} \approx 10^{180}$
-
-	\item 19 integer settings:
-	\pause
-	${2^{32}}^{19} = 2^{32 \cdot 19} = 2^{609} \approx 10^{183}$
-
-	\item 2000 boolean settings in Firefox~\cite{jin2014configurations}:
-	\pause
-	$2^{2000} \approx 10^{602}$
-	\end{itemize}
-\end{frame}
-
-%TODO: Firefox and LibreOffice is known, see calculation in jin2014configurations (RQ 1)
-
-\begin{frame}
-	\frametitle{Calculation of Complexity (cont.)}
-
-	Examples:
-	\begin{itemize}
-	\item for 20 boolean and 20 enums with 5 possibilities:
-	\pause
-	$$2^{20}*5^{20} = 10^{20}$$
-
-	\item MySQL has 461 settings, of which 216 are non-simple types~\cite{xu2015hey} \\ (let us assume $n=\{3,20\}$):
-	\pause
-	$3^{245} * 20^{216} \approx 10^{397}$ \\
-	(settings are explained in 5560 pages\footnote{\url{https://downloads.mysql.com/docs/refman-5.7-en.pdf}})
-
-	\item an array with $1-20$ boolean settings:
-	\pause
-	$2^{20}$
-	\end{itemize}
-\end{frame}
-\lstMakeShortInline[postbreak=,keywordstyle={},showspaces=no]^
-%XXX
-
-\begin{assignment}
-	\begin{task}
-	Calculate complexity for some tool you know.
-	\end{task}
-
-	\begin{task}
-	Possible Homework: Write tool to calculate complexity with a given configuration specification.
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	\frametitle{Decision Tree}
-	\begin{itemize}
-	\item configuration settings may depend on each other
-	\item form a decision tree~\cite{reiser2009cvm,czarnecki2012cool}
-	\item the decision tree is an instantiation of chosen configuration settings
-	\item calculation only needs to consider instantiations which make a difference: \\
-	essential configuration complexity~\cite{meinicke2016essential}
-	\end{itemize}
-\end{frame}
-
-\subsection{Usage}
-
-\begin{frame}[fragile]
-	\frametitle{Harmful Defaults~\cite{xu2015hey}}
-	\begin{itemize}
-	\item Problem: Two major data losses on a dozen machines.
-	\item Cause:
-	Stayed with the default values of the data-path settings
-	(e.g., ^dfs.name.dir^, ^dfs.data.dir^) which point to locations in ^/tmp^.
-	Thus, after the machines reboot, data losses occur.
-	``One of the common problems from users.'' (from Cloudera)
-	\item up to \p{53} of misconfigurations is due to staying at defaults
-	\item \p{17} to \p{48} of configuration issues are about difficulties in finding settings
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Unnecessary Settings~\cite{xu2015hey}}
-	\begin{itemize}
-	\item Configuration Parameter: ^dfs.namenode.tolerate.heartbeat.multiplier^
-	\item Developers' Discussion:
-	Since we are not sure what is a good choice, how about making it
-	configurable?
-	We should add a configuration option for it. Even if it's unlikely to
-	change, if someone does want to change it they'll thank us that they
-	don't have to change the code/recompile to do so.
-	\item Real-World Usage:
-	\begin{itemize}
-	\item No usage found by searching the entire mailing lists and Google.
-	\item No usage reported in a survey of 15 Hadoop users in UCSD.
-	\end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Unnecessary Settings~\cite{xu2015hey}}
-	\begin{itemize}
-	\item \p{6} to \p{17} of settings set by majority
-	\item up to \p{54} are seldom set
-	\item up to \p{47} of numeric settings have no more than five distinct values
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Reduction}
-	\methodQuestion{}
-	\question{Why do you think configuration should be reduced?}
-	\begin{itemize}
-	\item to simplify code maintenance (\p{50}),
-	\item to prevent errors and misconfiguration (\p{43}),
-	\item to provide better user experience (\p{40}),
-	\item \textbf{\question{I do not think it should be reduced} (\p{30})},
-	\item because they prefer auto-detection (\p{29}) \\ (with a possibility to override configuration settings: \p{32}),
-	\item \question{because use-cases which are rarely used should not be supported} (\p{13}),
-	\item \question{never find time for this task} (\p{9}), and
-	\item \question{because only standard use-cases should be supported} (\p{1})
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\begin{alertblock}{Question}
-	How to specify reduction strategies of configuration settings?
-	\end{alertblock}
-	\pause
-	\begin{exampleblock}{Answer}
-	Configuration Specification
-	\end{exampleblock}
-\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
