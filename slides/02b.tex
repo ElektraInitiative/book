@@ -2,7 +2,7 @@
 
 \input{setup}
 
-\date{03.04.2018}
+\date{03.04.2019}
 
 \begin{document}
 
@@ -72,21 +72,8 @@
 	\end{multicols}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Some misconfigurations}
-	\begin{itemize}
-	\item studycode is Studienkennzahl
-	\item same name twice in TALKS.xml
-	\item \dots
-	\end{itemize}
-
-	\begin{task}
-	How did these misconfigurations happened?
-	\end{task}
-\end{frame}
-
 \begin{assignment}
-	\frametitle{Tasks for next week}
+	\frametitle{Tasks for today}
 	(until 03.04.2019 23:59)
 
 	\begin{task}
@@ -103,51 +90,72 @@
 	\end{task}
 \end{assignment}
 
+\begin{assignment}
+	\frametitle{Tasks for next week}
+	(until 10.04.2019 23:59)
+
+	mid-term submission of exercises
+	
+	\begin{task}
+	Submit a first version of both teamwork and homework.
+	\end{task}
+
+	Does not need to be complete, 
+
+	\begin{task}
+	First issue done, PR for second issue and write some text in at least one other issue (if 5 issues are not yet assigned to you).
+	\end{task}
+\end{assignment}
 
 \begin{frame}
 	\frametitle{KeySet (Recapitulation)}
 
-	The common data structure between plugins:
+	\begin{alertblock}{Question}
+	Describe the common data structure in Elektra.
+	\end{alertblock}
+
 	\vspace{1cm}
+	\pause
 
 	\includegraphics{keyset}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Recapitulation}
+	\frametitle{Unnecessary Settings~\cite{xu2015hey} (Recapitulation)}
 
-	\methodQuestion{} \question{Which configuration systems/libraries/APIs have you already used or would like to use in one of your FLOSS project(s)?}
+	\begin{alertblock}{Question}
+	How many settings are actually used?
+	\end{alertblock}
+
 	\pause
+
 	\begin{itemize}
-	\item command-line arguments (\p{92}, $n=222$)
-	\item environment variables (\p{79}, $n=218$)
-	\item configuration files (\p{74}, $n=218$))
+	\item \p{6} to \p{17} of settings set by majority
+	\item up to \p{54} are seldom set
+	\item up to \p{47} of numeric settings have no more than five distinct values
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Semantics of Command-line Arguments (cont.)}
+	\begin{alertblock}{Question}
+	How can you reduce the complexity of configuration settings?
+	\end{alertblock}
+
+	\pause
+	\begin{exampleblock}{Answer}
 	\begin{itemize}
-	\item passed by main for a new process via \\ (\texttt{int argc, char ** argv})
-	\item visible from other processes (e.g., via \texttt{ps aux})
-	\item could be passed along to subprocesses but hardly done
-	\item need to be parsed by process
-	\item portability: differences in parsing
-	\item cannot be changed from outside (requires restart, no IPC)
+	\item Configuration Specification (restrictions, better design, \dots)
+	\item unify formats, semantics, \dots
+	\item avoid to have them (hard-code, better defaults, \dots)
 	\end{itemize}
+	\end{exampleblock}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Talk}
-	Miruna Orsa
-
-	Using XML in the day to day work life
-\end{frame}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Environment Variables}
+\section{Configuration Specification}
 
 \begin{assignment}
 	\begin{task}
@@ -379,6 +387,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Architectural Decisions}
+
+\subsection{}
 
 \begin{frame}
 	\frametitle{Software Architecture}
