@@ -2,7 +2,7 @@
 
 \input{setup}
 
-\date{20.3.2018}
+\date{27.3.2018}
 
 \begin{document}
 
@@ -46,7 +46,7 @@
 	\item[9] testability
 	\item[9] code-generation
 	\item[7] context-awareness
-	\item[6] specification
+	\item[6] {\color{orange} specification}
 	\item[6] misconfiguration
 	\item[6] {\color{red} complexity reduction}
 	\item[5] validation
@@ -59,9 +59,9 @@
 	\item[4] cascading
 	\item[4] architecture of access
 	\item[3] {\color{red} configuration sources}
-	\item[3] config-less systems
+	\item[3] {\color{orange} config-less systems}
 	\item[2] secure conf
-	\item[2] architectural decisions
+	\item[2] {\color{orange} architectural decisions}
 	\item[1] push vs.\ pull
 	\item[1] infrastructure as code
 	\item[1] full vs.\ partial
@@ -74,21 +74,7 @@
 
 \begin{assignment}
 	\frametitle{Tasks for today}
-	(until 20.03.2019 23:59)
-
-	\begin{task}
-	Registration for talk, homework, teamwork and
-	make sure to say which programming languages you know in STUDENTS.ini.
-	\end{task}
-
-	\begin{task}
-	Write text in at least one issue.
-	\end{task}
-\end{assignment}
-
-\begin{assignment}
-	\frametitle{Tasks for next week}
-	(until 27.03.2019 23:59, hint: to get help submit at least one day earlier)
+	(until 27.03.2019 23:59)
 
 	\begin{task}
 	Description of homework as pull request in private repo.
@@ -105,12 +91,66 @@
 	\end{task}
 \end{assignment}
 
+\begin{frame}
+	\frametitle{Slides}
+	\begin{itemize}
+	\item slide numbering: 02a is after 02
+	\item old slides in same repo: always check date
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Some misconfigurations}
+	\begin{itemize}
+	\item studycode is Studienkennzahl
+	\item same name twice in TALKS.xml
+	\item \dots
+	\end{itemize}
+
+	\begin{task}
+	How did these misconfigurations happened?
+	\end{task}
+\end{frame}
+
+\begin{assignment}
+	\frametitle{Tasks for next week}
+	(until 03.04.2019 23:59)
+
+	\begin{task}
+	Fix misconfigurations in private repo.
+	\end{task}
+
+	\begin{task}
+	Fix feedback about homework/teamwork.
+	Calculate complexity of your teamwork.
+	\end{task}
+
+	\begin{task}
+	First issue done, PR for second issue and write some text in at least one other issue (if 5 issues are not yet assigned to you).
+	\end{task}
+\end{assignment}
 
 
+\begin{frame}
+	\frametitle{KeySet (Recapitulation)}
 
+	The common data structure between plugins:
+	\vspace{1cm}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Environment Variables}
+	\includegraphics{keyset}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Recapitulation}
+
+	\methodQuestion{} \question{Which configuration systems/libraries/APIs have you already used or would like to use in one of your FLOSS project(s)?}
+	\pause
+	\begin{itemize}
+	\item command-line arguments (\p{92}, $n=222$)
+	\item environment variables (\p{79}, $n=218$)
+	\item configuration files (\p{74}, $n=218$))
+	\end{itemize}
+\end{frame}
 
 \begin{frame}
 	\frametitle{Semantics of Command-line Arguments (cont.)}
@@ -125,6 +165,18 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Talk}
+	Miruna Orsa
+
+	Using XML in the day to day work life
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Environment Variables}
+
+\begin{frame}
 	\frametitle{Semantics}
 	\begin{itemize}
 	\item are also per-process (\texttt{/proc/self/environ})
@@ -134,12 +186,6 @@
 	\item cannot be changed from outside (requires restart or an additional IPC mechanism)
 	\end{itemize}
 \end{frame}
-
-\begin{assignment}
-	\begin{task}
-	What is wrong with the code in the book?
-	\end{task}
-\end{assignment}
 
 \begin{frame}
 	\frametitle{getenv}
@@ -172,6 +218,12 @@
 	\end{itemize}
 \end{frame}
 
+\begin{assignment}
+	\begin{task}
+	What is wrong with the code in the book?
+	\end{task}
+\end{assignment}
+
 
 
 \subsection{Requirements}
@@ -185,6 +237,22 @@
 	A configuration library must support all three popular ways for configuration access:
 	configuration files, command-line options, and environment variables.
 	\end{restatable}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Example: Elektra}
+
+	\begin{itemize}
+	\item includes library libopts
+	\item which provides the function ^int elektraGetOpts (KeySet, argc, argv, environ, Key)^
+	\item which puts ^Key^s in the ^proc^ namespace
+	\item \url{https://www.libelektra.org/tutorials/command-line-options}
+	\end{itemize}
+
+	\pause
+	\vspace{1cm}
+
+	What is a namespace?
 \end{frame}
 
 \begin{frame}
@@ -297,6 +365,12 @@
 	\end{itemize}
 \end{frame}
 
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
 %TODO: Firefox and LibreOffice is known, see calculation in jin2014configurations (RQ 1)
 
 \begin{frame}
@@ -323,12 +397,10 @@
 
 \begin{assignment}
 	\begin{task}
-	Calculate complexity for some tool you know.
+	Calculate complexity of your teamwork and add to PR.
 	\end{task}
 
-	\begin{task}
-	Possible Homework: Write tool to calculate complexity with a given configuration specification.
-	\end{task}
+	See scripts/complexity.rb
 \end{assignment}
 
 \begin{frame}
@@ -457,11 +529,13 @@
 	\item like XSD/JSON schemas
 	\item they are already very helpful but:
 	\pause
+	\begin{itemize}
 	\item not key-value based
 	\item not easy to introspect
 	\item designed to validate data without semantics: \\ file path vs.\ presence of file
 	\item not always possible to extend with plugins
 	\item tied to specific formats (e.g. XML/JSON)
+	\end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -538,7 +612,22 @@
 	\end{code}
 \end{frame}
 
-\subsection{Visibility}
+\subsection{Examples}
+
+\begin{frame}[fragile]
+	\frametitle{Options}
+
+	Environment and command-line options can be considered with:
+
+	\begin{code}[morekeywords={long},gobble=4]]
+	[recursive]
+	  type:=boolean
+	  opt:=r
+	  opt/long:=recursive
+	  env:=RECURSIVE
+	  default:=0
+	\end{code}
+\end{frame}
 
 \begin{frame}
 	\frametitle{Visibility}
