@@ -3,8 +3,8 @@ FILE=02b
 $(FILE).pdf:$(FILE).tex setup.tex
 	latexmk $(FILE)
 
-.PHONY:push
-push:$(FILE).pdf
+.PHONY:publish
+publish:$(FILE).pdf
 	cp $(FILE).pdf /home/markus/Projekte/Elektra/repos/ftp/slides/cm
 	cd /home/markus/Projekte/Elektra/repos/ftp/slides/cm && git add $(FILE).pdf && git commit $(FILE).pdf && git push
 
