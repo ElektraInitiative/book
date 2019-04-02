@@ -191,6 +191,10 @@
 
 \begin{frame}
 	\frametitle{Metalevels (Recapitulation)}
+	\begin{alertblock}{Question}
+	Describe the three Metalevels in Elektra.
+	\end{alertblock}
+
 	\pause
 	\includegraphics{metalevels}
 \end{frame}
@@ -204,14 +208,7 @@
 \begin{assignment}
 	\begin{task}
 	Brainstorming: What can be part of a configuration specification?
-	\end{task}
-
-	\begin{task}
-	Advantages/Disadvantages?
-	\end{task}
-
-	\begin{task}
-	Alternatives?
+	What can they be used for?
 	\end{task}
 \end{assignment}
 
@@ -301,11 +298,11 @@
 	\begin{code}[gobble=4]
 	[slapd/threads/listener]
 	default:=1
-	type:=int
+	type:=long
 	\end{code}
 \end{frame}
 
-\subsection{Examples}
+\subsection{Example}
 
 \begin{frame}[fragile]
 	\frametitle{Options}
@@ -332,6 +329,8 @@
 	\item most-used settings should be best visible (or even enforce them to be changed: against harmful defaults)
 	\item think of your users (administrators), \\ only expose what users need
 	\item write an rationale why someone needs it
+	\pause
+	\item visibility should not be an excuse to add not-needed settings
 	\end{itemize}
 \end{frame}
 
@@ -354,15 +353,12 @@
 \end{assignment}
 
 \begin{frame}
-	\frametitle{Implementations}
-	For example:
+	\frametitle{Possible Implementations}
 	\begin{itemize}
+	\item tooling (GUI, Web UI)
 	\item generate examples/documentation
 	\item auto-completion/syntax highlighting/IDE support
-	\item tooling (GUI, Web UI)
-	\item validate configuration files
-	\item visudo-like
-	\item plugins in configuration framework
+	\item plugins in configuration framework (hide settings)
 	\end{itemize}
 \end{frame}
 
@@ -402,10 +398,10 @@
 	\pause
 	\begin{code}[gobble=4]
 	[image/width]
-	type:=int
+	type:=long
 
 	[crop]
-	type:=int
+	type:=long
 	check/range:=0-100
 	\end{code}
 \end{frame}
@@ -419,7 +415,7 @@
 	\end{code}
 
 	\vspace{1cm}
-	Calculation with Context
+	Calculation with conditionals plugin
 	\\ (e.g., switch off GPS if battery low):
 	\pause
 	\begin{code}[gobble=4]
@@ -460,6 +456,7 @@
 	What are the differences between these APIs?
 	\end{task}
 
+	\pause
 	For example:
 	\begin{itemize}[<+-| alert@+>]
 	\item ^char * getenv (const char * key)^
@@ -499,14 +496,30 @@
 \begin{frame}[fragile]
 	\frametitle{Weak Integration}
 
+	Specify already-existing configuration files:
+	\begin{code}[language=Cpp,gobble=4,showspaces=no]
+	[ntp]
+	  mountpoint:=ntp.conf
+	  infos/plugins:=ntp
+	\end{code}
+	Works well for configuration management tools.
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Medium Integration}
+
 	Having frontends that implement existing \textbf{APIs} decouple applications from each other.
 	These applications continue to use their specific configuration accesses, but \elektra{} redirects their configuration accesses to the shared key database.
 
 	Possible APIs:
 	\begin{itemize}[<+-| alert@+>]
-	\item ^getenv^
+	\item ^getenv^ (implemented in ^bindings/intercept/env^)
 	\item open/close of configuration files
 	\end{itemize}
+
+	\pause[\thebeamerpauses]
+
+	Also needs application-specific specifications.
 \end{frame}
 
 \begin{frame}[fragile]
@@ -516,12 +529,33 @@
 
 	Advantages:
 	\begin{itemize}[<+-| alert@+>]
+	\item Elektra's features always available
 	\item no semantic gaps
 	\item same types
 	\item specification is also enforced when changing configuration
+	\item no specification for binding needed
 	\item no built-in defaults: everything is introspectable
 	\end{itemize}
 \end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Strong Integration}
+
+	Different implementations strategies:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item have some application-specific API which uses ^KeySet^
+	\item use one of KeySet's language bindings
+	\item use Elektra's high-level API (currently only C)
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	What will you use for the teamwork?.
+	\end{task}
+\end{assignment}
+
 
 
 
@@ -572,11 +606,10 @@
 \begin{frame}
 	\frametitle{Conclusion}
 	\begin{itemize}
-	\item alarming trend in number and complexity of configuration settings
-	\item sharing, visibility and default value calculation often helps
-	\item needs abstraction: configuration specification
+	\item alarming trend in number and complexity of configuration
+	\item sharing, visibility and default value calculation may help
 	\item but also more courageous decisions and periodical reevaluation
-	\item different ways to reduce configuration space
+	\item both need abstraction: configuration specification
 	\end{itemize}
 \end{frame}
 
