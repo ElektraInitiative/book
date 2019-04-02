@@ -139,64 +139,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Modularity}
 
-\subsection{Definitions}
-
-\begin{frame}
-	\frametitle{Configuration Access APIs}
-
-	\Large
-	\ExecuteMetaData[../book/background.tex]{definition-api}
-
-	\ExecuteMetaData[../book/background.tex]{definition-configuration-access}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Configuration Access APIs}
-
-	\begin{task}
-	Which configuration access APIs do you know? \\
-	What are the differences between these APIs?
-	\end{task}
-
-	For example:
-	\begin{itemize}[<+-| alert@+>]
-	\item ^char * getenv (const char * key)^
-	\item ^ConfigStatus xf86HandleConfigFile(Bool autoconfig)^
-	\item ^long pathconf (const char *path, int^ ^name)^
-	\item ^long sysconf (int name)^
-	\item ^size_t confstr (int name, char *buf, size_t len)^
-	\end{itemize}
-\end{frame}
-
 %TODO: disadvantages in hard-coding configuration
 %TODO: disadvantages in having transformations
 %TODO: disadvantages in missing introspection
 
 %TODO: describe more configuration integration problem (req. etc.)
 
-\begin{frame}[fragile]
-	\frametitle{Configuration Access Points}
-	\ExecuteMetaData[../book/background.tex]{definition-configuration-access-points}
-
-	\begin{code}[language=Cpp,gobble=4,showspaces=no]
-	int main()
-	{
-		getenv ("PATH");
-	}
-	\end{code}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Configuration Libraries}
-	\ExecuteMetaData[../book/background.tex]{definition-configuration-library}
-
-	Trends:
-	\begin{itemize}[<+-| alert@+>]
-	\item flexibility to configure configuration access (e.g., \url{https://commons.apache.org/proper/commons-configuration/})
-	\item more type safety (e.g., \url{http://owner.aeonbits.org/}, code generation in next lecture)
-	\item try to unify something (UCI, Augeas, Elektra)
-	\end{itemize}
-\end{frame}
 
 \begin{frame}
 	\frametitle{Types of Modularity}
@@ -227,6 +175,7 @@
 	Furthermore, mounting enables integrating existing configuration files into the key database.
 	Configuration specifications written in \elektra{Spec} allow different applications to share their configuration files with each other in a controlled way.
 
+	%TODO: Duplicate
 	\item Having frontends that implement existing \textbf{APIs} decouple applications from each other.
 	These applications continue to use their specific configuration accesses, but \elektra{} redirects their configuration accesses to the shared key database.
 	\end{itemize}
