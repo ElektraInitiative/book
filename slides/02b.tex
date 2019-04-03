@@ -73,6 +73,16 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Pull Requests}
+
+	\begin{itemize}
+	\item build server and reviews take time
+	\item please also add test cases and documentation
+	\item put label ``ready to merge'' after build server, reviews, \dots are satisfied
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Deadlines}
 
 	\begin{itemize}
@@ -200,6 +210,14 @@
 \end{frame}
 
 
+\begin{frame}
+	\textit{learning outcome:}
+	\begin{itemize}
+		\item understand concepts of configuration specifications
+		\item compare different ways to integrate configuration specifications
+		\item remember templates to describe software architecture
+	\end{itemize}
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -424,6 +442,17 @@
 	\end{code}
 \end{frame}
 
+\begin{frame}
+	\begin{alertblock}{Question}
+	How do we get such an specification now?
+	\end{alertblock}
+
+	\pause
+	\begin{exampleblock}{Answer}
+	Elektrify: Make the application use a configuration library that has support for configuration specifications.
+	\end{exampleblock}
+\end{frame}
+
 
 
 
@@ -491,10 +520,10 @@
 	\end{itemize}
 \end{frame}
 
-\subsection{Weak vs.\ Strong}
+\subsection{Lightweight vs.\ Strong}
 
 \begin{frame}[fragile]
-	\frametitle{Weak Integration}
+	\frametitle{Lightweight Integration}
 
 	Specify already-existing configuration files:
 	\begin{code}[language=Cpp,gobble=4,showspaces=no]
@@ -530,9 +559,10 @@
 	Advantages:
 	\begin{itemize}[<+-| alert@+>]
 	\item Elektra's features always available
-	\item no semantic gaps
-	\item same types
-	\item specification is also enforced when changing configuration
+	\item more type safety
+	\item administrators can choose configuration file formats
+	\item notification and logging
+	\item only one parser involved
 	\item no specification for binding needed
 	\item no built-in defaults: everything is introspectable
 	\end{itemize}
@@ -547,12 +577,13 @@
 	\item have some application-specific API which uses ^KeySet^
 	\item use one of KeySet's language bindings
 	\item use Elektra's high-level API (currently only C)
+	\item code generation
 	\end{itemize}
 \end{frame}
 
 \begin{assignment}
 	\begin{task}
-	What will you use for the teamwork?.
+	What will you use for the teamwork?
 	\end{task}
 \end{assignment}
 
