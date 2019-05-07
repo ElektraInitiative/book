@@ -1,20 +1,3 @@
-%TODO: add cliffhanger with preview for next time
-
-%variability
-%code-generation
-%testing
-
-%modularity? + dependences (in recapituation)
-
-%TODO: argumentation/motivation for code generation:
-% - misconfiguration caused by transformation/defaults/...
-
-%TODO: disadvantages in hard-coding configuration
-%TODO: disadvantages in having transformations
-%TODO: disadvantages in missing introspection
-
-%TODO: describe more configuration integration problem (req. etc.)
-
 \input{setup}
 
 \date{08.05.2018}
@@ -239,12 +222,13 @@
 	Configuration access code usually has:
 	\pause
 	\begin{itemize}
-	\item code duplications
+	\item code duplications and unsafe APIs
 	\item hard-coded default values
-	\item unexpected transformations
-	\item no introspection facilities
+	\item unexpected transformations (e.g., truncating of values)
+	\item inconsistencies (e.g., case sensitivity)
+	\item no introspection facilities (which keys and values are allowed?)
 	\end{itemize}
-	\begin{example}
+	\begin{example}[Silent Overruling \cite{xu2013blame}]
 	\begin{code}[gobble=4,language=C++]
 	if (!strcasecmp(token, "on")) {
 		*var = 1;
@@ -442,7 +426,7 @@
 \begin{frame}[fragile]
 	\frametitle{Which Configuration Access API?}
 
-	Use hierarchy with namespaces or nasted classes:
+	Use hierarchy with namespaces or nested classes:
 	\\[1em]
 	\begin{code}[gobble=4,language=Cpp]
 	namespace slapd
@@ -468,7 +452,7 @@
 	long foo(slapd::Threads const & threads)
 	{
 		threads.listener++;
-		Context & c = threads.context (); // access context
+		Context & c = threads.context ();
 		return threads.listener;
 	}
 
@@ -485,20 +469,28 @@
 \begin{frame}[fragile]
 	\frametitle{Which Configuration Access API?}
 
-	In C, we use identifiers to be passed to the API:
+	In C, we use identifiers to be passed to the highlevel API\footnote{\url{https://www.libelektra.org/tutorials/high-level-api}}:
 	\\[2em]
 	\begin{code}[gobble=4,language=Cpp]
-	elektraGetString (elektra, ELEKTRA_TAG_X);
+	elektraGetString (elektra, ELEKTRA_TAG_MY);
 	\end{code}
-	Where ^ELEKTRA_TAG_X^ is a struct for that type.
+	Where ^ELEKTRA_TAG_MY^ is a struct for that type.
+	\\[2em]
+
+	We can also omit the type:
+	\begin{code}[gobble=4,language=Cpp]
+	elektraGetLong (elektra, ELEKTRA_TAG_THREADS);
+	elektraGet (elektra, ELEKTRA_TAG_THREADS);
+	\end{code}
 \end{frame}
 
 \begin{frame}
 	Guarantees by code generation:
 	\begin{itemize}
 	\item Every configuration setting is specified.
+	\item (Data) type of source code and configuration settings match.
 	\item Configuration access with defaults is always successful.
-	Reason: We compile in a KeySet and use it if everything else fails.
+	Reason: We use defaults if everything else fails.
 	\end{itemize}
 	\vspace{3em}
 	Missing Guarantee: Is every specified setting actually used?
