@@ -23,7 +23,7 @@
 		\item[27.03.2019:] {\color{gray}PR for first issue done, second started}
 		\item[03.04.2019:] {\color{gray}first issue done, PR for second}
 		\item[10.04.2019:] {\color{gray}mid-term submission of exercises}
-		\item[08.05.2019:] {\color{red}Different Location: Complang Libary}
+		\item[08.05.2019:] {\color{red}different location: Complang Libary}
 		\item[15.05.2019:]
 		\item[22.05.2019:] all 5 issues done
 		\item[29.05.2019:]
@@ -53,6 +53,10 @@
 
 	\begin{task}
 	Fourth PR done, PR for fifth issue created.
+	\end{task}
+
+	\begin{task}
+	Continue teamwork and homework.
 	\end{task}
 \end{assignment}
 
@@ -135,7 +139,9 @@
 
 \begin{frame}
 	\frametitle{Vertical Modularity (Recapitulation)}
-	\pause
+	\begin{alertblock}{Question}
+	Explain the content of the figure.
+	\end{alertblock}
 	\includegraphics[scale=0.7]{verticalmodularity}
 \end{frame}
 
@@ -198,25 +204,6 @@
 	\end{itemize}
 \end{frame}
 
-\begin{assignment}
-	\begin{task}
-	Brainstorming: Which artefacts can we produce with (code) generation?
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	Artefacts:
-	\begin{itemize}
-	\item examples (e.g., defaults)
-	\item documentation
-	\item auto-completion/syntax highlighting/IDE support
-	\item tooling (GUI, Web UI)
-	\item validation code
-	\item configuration management tool code
-	\item configuration access APIs
-	\end{itemize}
-\end{frame}
-
 \begin{frame}[fragile]
 	\frametitle{Current Challenges}
 	Configuration access code usually has:
@@ -236,6 +223,39 @@
 		*var = 0;
 	} /* src/cache_cf.cc from Squid */
 	\end{code}\end{example}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Real-world example}
+	PostgreSQL\footnote{\url{http://doxygen.postgresql.org/guc_8c_source.html}} has following duplications for its configuration settings:
+	\begin{itemize}
+	\item a global variable and an option record (struct)
+	\item an entry in an example (postgresql.conf.sample)
+	\item documentation in sgml
+	\item in the source code of utils (in-source dump utils, and dozens of external configuration management tools)
+	\end{itemize}
+	\pause
+	\vspace{1em}
+	Note: PostgreSQL has a clean implementation, and above list only shows limitations of systems without code generation.
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Brainstorming: Which artefacts can we produce with (code) generation?
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	Artefacts:
+	\begin{itemize}
+	\item examples (e.g., defaults)
+	\item documentation
+	\item auto-completion/syntax highlighting/IDE support
+	\item tooling (GUI, Web UI)
+	\item validation code
+	\item configuration management tool code
+	\item configuration access APIs
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
