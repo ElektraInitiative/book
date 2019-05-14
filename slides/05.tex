@@ -11,7 +11,7 @@
 
 \input{setup}
 
-\date{27.4.2018}
+\date{15.05.2018}
 
 \begin{document}
 
@@ -23,157 +23,109 @@
 	\doclicenseThis
 \end{frame}
 
+
 \begin{frame}
-	\frametitle{Organization}
-	Next dates:
+	Lecture is every week Wednesday 09:00 - 11:00.
+
 	\begin{description}
-		\item[27.4.2018:] \textbf{concepts for team exercise}
-		\item[4.5.2018:] lecture
-		\item[18.5.2018:] guest lecture
-		\item[25.5.2018:] team exercise submitted
-		\item[1.6.2018:] lecture
-		\item[8.6.2018:] lecture
-		\item[15.6.2018:] last corrections of team exercise
-		\item[22.6.2018:] test
+		\item[06.03.2019:] {\color{gray}topic, teams}
+		\item[13.03.2019:] {\color{gray}TISS registration, initial PR}
+		\item[20.03.2019:] {\color{gray}other registrations, guest lecture}
+		\item[27.03.2019:] {\color{gray}PR for first issue done, second started}
+		\item[03.04.2019:] {\color{gray}first issue done, PR for second}
+		\item[10.04.2019:] {\color{gray}mid-term submission of exercises}
+		\item[08.05.2019:] {\color{gray}different location: Complang Libary}
+		\item[15.05.2019:]
+		\item[22.05.2019:] all 5 issues done
+		\item[29.05.2019:]
+		\item[05.06.2019:] final submission of exercises
+		\item[12.06.2019:]
+		\item[19.06.2019:] last corrections of exercises
+		\item[26.06.2019:] exam
 	\end{description}
 \end{frame}
 
+\begin{assignment}
+	\frametitle{Tasks for today}
+	(until 15.05.2019 23:59)
+
+	\begin{task}
+	Fourth PR done, PR for fifth issue created.
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\frametitle{Tasks for next week}
+	(until 22.05.2019 23:59)
+
+	\begin{task}
+	All issues done.
+	\end{task}
+
+	\begin{task}
+	Continue teamwork and homework.
+	\end{task}
+\end{assignment}
 
 \begin{frame}
 	\frametitle{Popular Topics}
-	\vspace{-0.5cm}
+	\vspace{-0.55cm}
+	\setlength{\columnsep}{-1.3cm}
+	\raggedright
 	\begin{multicols}{2}
 	\begin{description}
-	\item[4] validation
+	\item[14] tools
+	\item[9] {\color{red} testability}
+	\item[9] {\color{orange} code-generation}
+	\item[7] context-awareness
+	\item[6] {\color{red} specification}
+	\item[6] misconfiguration
+	\item[6] {\color{gray} complexity reduction}
+	\item[5] validation
+	\item[5] {\color{red} points in time} % (early detection)
+	\item[5] error messages
+	\item[5] {\color{gray} auto-detection}
 	\item[4] user interface
-	\item[3] tools (benefits?)
-	\color{red}
-	\item[3] testability
-	\color{gray}
-	\item[3] complexity reduction (when conf. needed?)
-	\item[3] architectural decisions
-	\color{black}
-	\item[2] Puppet
-	\color{gray}
-	\item[2] modularity
-	\item[2] environment variables
-	\color{black}
-	\item[2] documentation
-	\color{red}
-	\item[2] configuration specification
-	\color{gray}
-	\item[2] command-line args\color{black}
-	\color{red}
-	\item[2] code generation
-	\color{black}
-	\item[1] variability
-	\item[1] self-description
-	\item[1] round-tripping
-	\color{red}
-	\item[1] early detection
-	\color{gray}
-	\item[1] introspection
-	\item[1] dependences
-	\item[1] auto-detection
-	\color{black}
-	\item[1] context-awareness
-	\item[1] administrators
+	\item[4] {\color{red} introspection}
+	\item[4] design
+	\item[4] cascading
+	\item[4] {\color{red} architecture of access}
+	\item[3] {\color{gray} configuration sources}
+	\item[3] {\color{gray} config-less systems}
+	\item[2] secure conf
+	\item[2] {\color{gray} architectural decisions}
+	\item[1] push vs.\ pull
+	\item[1] infrastructure as code
+	\item[1] full vs.\ partial
+	\item[1] convention over conf %iguration
+	\item[1] CI/CD
+	\item[0] documentation
 	\end{description}
 	\end{multicols}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Configuration Access (Recapitulation)}
-	\pause
-
-	\ExecuteMetaData[../book/background.tex]{definition-configuration-access}
-
-	\ExecuteMetaData[../book/background.tex]{definition-configuration-access-points}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Trend (Recapitulation)}
-	\pause
-
-	\begin{itemize}
-	\item alarming trend in number and complexity of configuration settings
-	\item sharing, visibility and default value calculation often helps
-	\item needs abstraction: configuration specification
-	\item but also more courageous decisions and periodical reevaluation
-	\item different ways to reduce configuration space
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{SpecElektra (Recapitulation)}
-	\pause
-
-	\fontsize{18}{0}\selectfont
-	\ExecuteMetaData[../book/approach.tex]{definition-spec}
-\end{frame}
 
 
-\begin{frame}
-	\frametitle{Modularity (Recapitulation)}
-	\pause
-	\Large
-	\ExecuteMetaData[../book/backend.tex]{definition-modularity}
-\end{frame}
 
-\begin{frame}
-	\frametitle{Vertical Modularity (Recapitulation)}
-	\begin{columns}[c]
-	\column{7cm}
-	\includegraphics[scale=0.75]{verticalmodularity}
-	\column{4cm}
-	Needed to keep applications independently.
-
-	Boxes are applications, cylinders are configuration files, F? are frontends or frontend adapters, L? are configuration libraries~\cite{raab2016improving}.
-	\end{columns}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Plugins (Recapitulation)}
-	\pause
-	\Large
-	\ExecuteMetaData[../book/approach.tex]{definition-plugins}
-\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Code Generation vs. Introspection}
+\section{Introspection}
 
 \subsection{}
 
 \begin{frame}
 	\frametitle{Introspection (Recapitulation)}
+	\begin{alertblock}{Question}
+	What can introspection offer?
+	\end{alertblock}
+
 	\pause
 	\begin{itemize}
 	\item unified get/set access to (meta*)-key/values
 	\item access via applications, CLI, GUI, web-UI, ...
 	\item access via any programming language (similar to file systems)
 	\item GUI, web-UI can semantically interpret metadata
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Rationale (Recapitulation)}
-	\begin{task}
-	How to ensure that configuration access points match with present configuration settings?
-	\end{task}
-
-	\pause
-	\vspace{1em}
-
-	\textbf{Configuration Specification}:
-	\begin{itemize}
-	\item without specification you and others do not even know which settings are available
-	\item needed for any further techniques we will discuss:
-		\begin{itemize}
-		\item code generation guarantees that configuration access points match with specification
-		\item validation guarantees that configuration settings match with specification
-		\end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -194,9 +146,9 @@
 \end{frame}
 
 \begin{frame}
-	\begin{task}
+	\begin{alertblock}{Question}
 	Why do we need an external specification?
-	\end{task}
+	\end{alertblock}
 
 	\pause
 	\vspace{1em}
@@ -223,12 +175,12 @@
 
 	\vspace{1em}
 
-	External Specification:
+	Advantages:
 	\pause
 	\begin{itemize}
-	\item are read and writable by other applications
-	\item we still can generate the internal specification
-	\item furthermore, we fulfill needs for configuration management tools
+	\item are read and writable by other applications (introspection)
+	\item we can generate the internal specification (code generation)
+	\item we fulfill needs for configuration management tools
 	\end{itemize}
 \end{frame}
 
@@ -243,7 +195,9 @@
 	\item auto-completion/syntax highlighting/IDE support
 	\item tooling (GUI, Web UI)
 	\item validation code
+	\item parsing code (e.g., command-line parsing)
 	\item configuration management tool code
+	\item configuration access APIs
 	\end{itemize}
 \end{frame}
 
@@ -255,6 +209,8 @@
 
 	\includegraphics{keyset}
 \end{frame}
+
+%HERE
 
 \begin{frame}[fragile]
 	\frametitle{KeySet Generation (Recapitulation)}
@@ -303,7 +259,8 @@
 	\pause
 	\vspace{0.5em}
 
-	\begin{description} %[leftmargin=0cm] %TODO: move left
+	\setbeamersize{description width=1cm}
+	\begin{description}
 	\item[$-$] more techniques for performance improvements with code generation
 	\item[$+$] specification can be updated live on the system without recompilation
 	\item[$+$] tooling has generic access to all specifications
@@ -317,30 +274,9 @@
 	\end{alertblock}
 \end{frame}
 
-\begin{frame}[fragile]
-	\frametitle{Conclusion (Code Generation)}
-	\begin{itemize}[<+-| alert@+>]
-	\item Challenges: duplications, transformations, ...
-	\item KeySet equivalence: settings are instantiated configuration files
-	\item Configuration access APIs with code generation
-	\item Guarantees of configuration access points
-	\item We reuse properties of SpecElektra (^type^, ^default^)
-	\item We prefer hierarchies and tags to long function names
-	\item Usually introspection preferred, except for static type safety
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Testability}
-
-%TODO: Talk about that more is unknown that known
 
 \subsection{}
 
@@ -365,16 +301,12 @@
 \begin{frame}
 	Matt Welsh from Google wrote in 2013:\footnote{What I wish systems researchers would work on. Retrieved from http://matt-welsh.blogspot.com/2013/05/what-i-wish-systems-researchers-would.html.}
 
-	\vspace{1em}
+	\vspace{2em}
 
 	\emph{``Of course we have extensive testing infrastructure, but the ‘hard’ problems always
 	come up when running in a real production environment, with real traffic and real
 	resource constraints. Even integration tests and canarying are a joke compared to
 	how complex production-scale systems are.''}
-
-	\vspace{1em}
-
-	Most of these problems are still not well understood.
 \end{frame}
 
 \lstDeleteShortInline^
@@ -426,6 +358,12 @@
 	\item Find unused configuration settings.
 	\end{itemize}
 \end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
 
 
 \begin{frame}
@@ -518,19 +456,13 @@
 \end{frame}
 
 \begin{frame}
-	As shown in \cite{xu2016early}:
+	As shown by \citet{xu2016early}:
 	\begin{itemize}[<+-| alert@+>]
 	\item \p{12} -- \p{39} configuration settings are not used at all during initialization.
 	\item Applications often have latent misconfigurations (\p{14} -- \p{93})
 	\item Latent misconfigurations are particular severe (\p{75} of high-severity misconfigurations)
 	\item Latent misconfiguration needs longer to diagnose
 	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Using code generation}
-
-	Code generation makes sure that only specified configuration settings are used.
 \end{frame}
 
 \begin{frame}
@@ -543,13 +475,13 @@
 	\end{itemize}
 
 	\pause[\thebeamerpauses]
-	Because the checks occur before the resources are actually used, the checks are subject to race conditions.
+	Because the checks occur before the resources are actually used, the checks are subject to race conditions.\footnotemark
+	\only<3->{\footnotetext[1]{For example, a path that was present during the check, can have been removed when the application tries to access it.}}
 
 	\pause
-	For example, a path that was present during the check, can have been removed when the application tries to access it.
-
-	\pause
-	In some situations facilities of the operating system help,\footnote{For example, we open the file during the check and pass \texttt{/proc/<pid>/fd/<fd>} to the application. This file cannot be unlinked, but unfortunately the file descriptor requires resources.} in others we have fundamental problems.\footnote{For example, if the host we want to reach has gone offline after validation.}
+	In some situations facilities of the operating system help\footnotemark, in others we have fundamental problems.\footnotemark
+	\only<4>{\footnotetext[2]{For example, we open the file during the check and pass \texttt{/proc/<pid>/fd/<fd>} to the application. This file cannot be unlinked, but unfortunately the file descriptor requires resources.}}
+	\only<4>{\footnotetext[3]{For example, if the host we want to reach has gone offline after validation.}}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -573,7 +505,9 @@
 	\item provide external specifications for other tooling and configuration management
 	\item use code generation to keep internal specifications consistent with external specifications
 	\item implement checkers as plugins
-	\item execute checkers as early as possible
+	\item execute checkers as early as possible,
+	also for external programs executed later
+	\item keep important resources allocated after checking
 	\end{itemize}
 
 \end{frame}
