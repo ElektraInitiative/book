@@ -1,9 +1,10 @@
 %TODO: add cliffhanger with preview for next time
 %TODO: add learning outcome slide
+%TODO: shorten team work+move earlier
 
 \input{setup}
 
-\date{4.5.2018}
+\date{22.05.2018}
 
 \begin{document}
 
@@ -16,81 +17,107 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Organization}
-	Next dates:
+	Lecture is every week Wednesday 09:00 - 11:00.
+
 	\begin{description}
-		\item[11.5.2018:] ???
-		\item[18.5.2018:] guest lecture
-		\item[25.5.2018:] \textbf{team exercise submitted} (1h earlier?)
-		\item[1.6.2018:] lecture
-		\item[8.6.2018:] lecture
-		\item[15.6.2018:] last corrections of team exercise
-		\item[22.6.2018:] test
+		\item[06.03.2019:] {\color{gray}topic, teams}
+		\item[13.03.2019:] {\color{gray}TISS registration, initial PR}
+		\item[20.03.2019:] {\color{gray}other registrations, guest lecture}
+		\item[27.03.2019:] {\color{gray}PR for first issue done, second started}
+		\item[03.04.2019:] {\color{gray}first issue done, PR for second}
+		\item[10.04.2019:] {\color{gray}mid-term submission of exercises}
+		\item[08.05.2019:] {\color{gray}different location: Complang Libary}
+		\item[15.05.2019:]
+		\item[22.05.2019:] {\color{red}all 5 issues done}
+		\item[29.05.2019:]
+		\item[05.06.2019:] final submission of exercises
+		\item[12.06.2019:]
+		\item[19.06.2019:] last corrections of exercises
+		\item[26.06.2019:] exam
 	\end{description}
 \end{frame}
 
+\begin{assignment}
+	\frametitle{Tasks for today}
+	(until 22.05.2019 23:59)
+
+	\begin{task}
+	All issues done.
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\frametitle{Tasks for today}
+	(until 22.05.2019 23:59)
+
+	\begin{task}
+	Continue teamwork and homework.
+	\end{task}
+\end{assignment}
 
 \begin{frame}
 	\frametitle{Popular Topics}
-	\vspace{-0.5cm}
+	\vspace{-0.55cm}
+	\setlength{\columnsep}{-1.3cm}
+	\raggedright
+	\definecolor{amethyst}{rgb}{0.6, 0.4, 0.8}
 	\begin{multicols}{2}
 	\begin{description}
-	\item[4] validation
+	\item[14] {\color{orange} tools}
+	\item[9] {\color{amethyst} testability}
+	\item[9] {\color{gray} code-generation}
+	\item[7] context-awareness
+	\item[6] {\color{red} specification}
+	\item[6] misconfiguration
+	\item[6] {\color{gray} complexity reduction}
+	\item[5] validation
+	\item[5] {\color{amethyst} points in time} % (early detection)
+	\item[5] error messages
+	\item[5] {\color{gray} auto-detection}
 	\item[4] user interface
-	\item[3] tools (benefits?)
-	\color{gray}
-	\item[3] testability
-	\item[3] complexity reduction (when conf. needed?)
-	\item[3] architectural decisions
-	\color{black}
-	\item[2] Puppet
-	\color{gray}
-	\item[2] modularity
-	\item[2] environment variables
-	\color{red}
-	\item[2] documentation
-	\item[2] configuration specification
-	\color{gray}
-	\item[2] command-line args\color{black}
-	\color{black}
-	\item[2] code generation
-	\item[1] variability
-	\item[1] self-description
-	\item[1] round-tripping
-	\color{gray}
-	\item[1] early detection
-	\item[1] introspection
-	\item[1] dependences
-	\item[1] auto-detection
-	\color{red}
-	\item[1] context-awareness
-	\color{black}
-	\item[1] administrators
+	\item[4] {\color{red} introspection}
+	\item[4] design
+	\item[4] cascading
+	\item[4] {\color{amethyst} architecture of access}
+	\item[3] {\color{gray} configuration sources}
+	\item[3] {\color{gray} config-less systems}
+	\item[2] secure conf
+	\item[2] {\color{gray} architectural decisions}
+	\item[1] push vs.\ pull
+	\item[1] infrastructure as code
+	\item[1] full vs.\ partial
+	\item[1] convention over conf %iguration
+	\item[1] CI/CD
+	\item[0] {\color{red} documentation}
 	\end{description}
 	\end{multicols}
 \end{frame}
 
+
+
 \begin{frame}
-	\hspace*{-1cm}\includegraphics[width=\paperwidth]{dot/topics}
+	\frametitle{Goals for today}
+	\textit{learning outcome:}
+	\begin{itemize}
+	\item remember how to use configuration specification as documentation
+	\item remember requirement for synchronization
+	\item remember example of 3-way merge
+	\item remember types of configuration
+	\end{itemize}
 \end{frame}
+
+
+
+
+
+
+
 
 \begin{frame}
 	\frametitle{Modularity (Recapitulation)}
 	\pause
 	\Large
 	\ExecuteMetaData[../book/backend.tex]{definition-modularity}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Vertical Modularity (Recapitulation)}
-	\begin{columns}[c]
-	\column{7cm}
-	\includegraphics[scale=0.75]{verticalmodularity}
-	\column{4cm}
-	Needed to keep applications independently.
-
-	Boxes are applications, cylinders are configuration files, F? are frontends or frontend adapters, L? are configuration libraries~\cite{raab2016improving}.
-	\end{columns}
 \end{frame}
 
 
@@ -116,10 +143,10 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Rationale (Recapitulation)}
-	\begin{task}
+	\frametitle{Guarantees (Recapitulation)}
+	\begin{alertblock}{Question}
 	How to ensure that configuration access points match with present configuration settings?
-	\end{task}
+	\end{alertblock}
 
 	\pause
 	\vspace{1em}
@@ -135,77 +162,12 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	Other Artefacts (Recapitulation):
-
-	\pause
-
-	\begin{itemize}
-	\item examples (e.g., defaults)
-	\item documentation
-	\item auto-completion/syntax highlighting/IDE support
-	\item tooling (GUI, Web UI)
-	\item validation code
-	\item configuration management tool code
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{KeySet (Recapitulation)}
-
-	The common data structure between plugins:
-	\vspace{1cm}
-
-	\includegraphics{keyset}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{KeySet Generation (Recapitulation)}
-	\begin{alertblock}{Question}
-	Idea: What if the configuration file format grammar describes source code?
-	\end{alertblock}
-
-	\pause
-
-	key ^spec:/slapd/threads/listener^, with the configuration value ^4^ and the property $\property{default} \mapsto 1$:
-
-	\begin{code}[gobble=4,language=Cpp]
-	ksNew (keyNew ("spec:/slapd/threads/listener",
-		       KEY_VALUE, "4",
-		       KEY_META, "default", "1",
-		       KEY_END),
-	       KS_END);
-	\end{code}
-
-	\begin{alertblock}{Finding}
-	We get source code representing the settings.
-	\end{alertblock}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Introspection vs. Code Generation? (Recapitulation)}
-
-	\pause
-
-	\setbeamersize{description width=1cm}
-	\begin{description} %[leftmargin=0cm] %TODO: move left
-	\item[$-$] more techniques for performance improvements with code generation
-	\item[$+$] specification can be updated live on the system without recompilation
-	\item[$+$] tooling has generic access to all specifications
- 	\item[$+$] new features the key database (e.g., better validation) are immediately available consistently
-	\end{description}
-
-	\vspace{0.5em}
-
-	\begin{alertblock}{Implication}
-	We generally prefer introspection, except for a very thin configuration access API.
-	\end{alertblock}
-\end{frame}
 
 \begin{frame}
 	\frametitle{Testing (Recapitulation)}
 	\begin{alertblock}{Question}
 	What do we want to test?
+	What do we ask ourselves?
 	\end{alertblock}
 
 	\pause
@@ -214,26 +176,10 @@
 	\item That settings do what they should (devs and admins)
 	\item That settings are properly validated (devs~\cite{xu2013blame})
 	\item Regression tests~\cite{qu2008configuration}
-	\pause
 	\vspace{1em}
 	\item Are all settings implemented?
 	\item Are all settings used in tests?
 	\item Are there unused settings in the code?
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Testing by developers? (Recapitulation)}
-
-	\pause
-
-	\begin{itemize}[<+-| alert@+>]
-	\item ConfErr~\cite{keller2008conferr} uses models of key board layout, psychology and linguistics.
-	Tool injects possible misconfiguration.
-	\item Spex~\cite{xu2013blame} analyzes the source code to find misconfigurations.
-	As by-product it extracts internal specifications (including transformation bugs).
-	\item External specification can be directly used to generate test cases.
-	\item Find unused configuration settings.
 	\end{itemize}
 \end{frame}
 
@@ -278,11 +224,17 @@
 	\end{alertblock}
 \end{frame}
 
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
+
+
+
+
+
+
+
+
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -348,30 +300,24 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Notification}
+\section{3-way merge}
 
 \subsection{}
 
 \begin{frame}
-	\frametitle{Notification Goals}
+	\frametitle{Synchronization}
 
-	\begin{enumerate}
-	\item transient and persistent configuration settings always in sync~\cite{jin2014configurations}
-	\item avoid polling of configuration settings
-	\item integrate in already existing mechanisms (main loops)\footnote{Is one of the main reasons why most framework already integrate configuration settings.}
-	\end{enumerate}
-
-	\ExecuteMetaData[../book/motivation.tex]{req-consistency}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Conflicts}
+	Problem: transient and persistent configuration settings might be out-of-sync~\cite{jin2014configurations}
 
 	\pause
 
+	\ExecuteMetaData[../book/motivation.tex]{req-consistency}
+
+	\pause
+
+	Solutions:
 	\begin{itemize}
-	\item If we write out configuration settings, we might conflict with settings recently written.
-	\item Notification intensifies this problem (emergent misbehavior).
+	\item Often write out configuration settings.
 	\item Many conflicts can be resolved with a semantic 3-way merge.
 	\end{itemize}
 \end{frame}
@@ -379,18 +325,18 @@
 \begin{frame}
 	\frametitle{Semantic 3-way merge}
 
-	The same problems happens when upgrading applications.
-
-	\begin{itemize}
-	\item System administrator changed the file.
-	\item Package maintainer changed the file.
-	\end{itemize}
-
 	We can resolve many conflicts automatically, if we consider:
 	\begin{itemize}
 	\item the key/value structure (vs. line-based)
 	\item the origin of both files
 	\item the type of settings
+	\end{itemize}
+
+	For example, when upgrading slapd:
+
+	\begin{itemize}
+	\item System administrator changed the file (Ours).
+	\item Package maintainer changed the file (Theirs).
 	\end{itemize}
 \end{frame}
 
@@ -419,76 +365,8 @@
 	\end{code}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Context-Awareness}
 
-\subsection{}
 
-\begin{frame}
-	If you're a baker, making bread, you're a baker. If you make the best bread in the world, you're not an artist, but if you bake the bread in the gallery, you're an artist. So the context makes the difference.\par\raggedleft--- \textup{Marina Abramovic}
-\end{frame}
-
-\begin{frame}
-	\ExecuteMetaData[../book/background.tex]{context-definition}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Types of Configuration}
-	\begin{description}
-	\ExecuteMetaData[../book/background.tex]{context-types}
-	\end{description}
-\end{frame}
-
-\begin{frame}
-	\hspace*{-1em}\includegraphics{configurations}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Viewpoints}
-	\begin{description}
-	\item[Sensors:] derive context from information sources of the system.
-	Adding new context sensors increases the context available in a system.
-	\ExecuteMetaData[../book/background.tex]{context-viewpoints}
-	\end{description}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Cascading (Recapitulation)}
-	\includegraphics{cascading}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Context-aware Lookup}
-
-	\begin{itemize}
-	\item
-	Determine threads from CPUs:
-
-	\begin{code}[gobble=4]
-	[env/layer/cpu]
-	  type:=long
-	[slapd/threads/listener]
-	  context:=/slapd/threads/%cpu%/listener
-	\end{code}
-
-	\item
-	Determine vibration from sensors:
-
-	\begin{code}[gobble=4]
-	[phone/call/vibration]
-	  type:=boolean
-	  context:=/phone/call/%inpocket%/vibration
-	\end{code}
-
-	\item
-	Determine proxy settings from network:
-
-	\begin{code}[gobble=4]
-	[env/override/http_proxy]
-	  context:=/http_proxy/%interface%/%network%
-	\end{code}
-	\end{itemize}
-\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -567,6 +445,102 @@
 	\item reuse software as much as possible but integrate them nicely
 	\end{enumerate}
 \end{frame}
+
+
+\begin{frame}
+	\frametitle{Outlook}
+
+	\begin{enumerate}
+	\item design and architecture of configuration settings
+	\item design and architecture of configuration access
+	\item design decisions (which languages, which software)
+	\item explain how to ensure smooth upgrades
+	\item provide documentation for operators (via IP)
+	\item ensure synchronized, suitable and context-aware configuration
+	\item reuse software as much as possible but integrate them nicely
+	\end{enumerate}
+\end{frame}
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Context-Awareness}
+
+\subsection{}
+
+\begin{frame}
+	If you're a baker, making bread, you're a baker. If you make the best bread in the world, you're not an artist, but if you bake the bread in the gallery, you're an artist. So the context makes the difference.\par\raggedleft--- \textup{Marina Abramovic}
+\end{frame}
+
+\begin{frame}
+	\ExecuteMetaData[../book/background.tex]{context-definition}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Types of Configuration}
+	\begin{description}
+	\ExecuteMetaData[../book/background.tex]{context-types}
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\hspace*{-1em}\includegraphics{configurations}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Viewpoints}
+	\begin{description}
+	\item[Sensors:] derive context from information sources of the system.
+	Adding new context sensors increases the context available in a system.
+	\ExecuteMetaData[../book/background.tex]{context-viewpoints}
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cascading (Recapitulation)}
+	\includegraphics{cascading}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Context-aware Lookup}
+
+	\begin{itemize}
+	\item
+	Determine threads from CPUs:
+
+	\begin{code}[gobble=4]
+	[env/layer/cpu]
+	  type:=long
+	[slapd/threads/listener]
+	  context:=/slapd/threads/%cpu%/listener
+	\end{code}
+
+	\item
+	Determine vibration from sensors:
+
+	\begin{code}[gobble=4]
+	[phone/call/vibration]
+	  type:=boolean
+	  context:=/phone/call/%inpocket%/vibration
+	\end{code}
+
+	\item
+	Determine proxy settings from network:
+
+	\begin{code}[gobble=4]
+	[env/override/http_proxy]
+	  context:=/http_proxy/%interface%/%network%
+	\end{code}
+	\end{itemize}
+\end{frame}
+
+
 
 
 
