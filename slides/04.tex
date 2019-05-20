@@ -380,7 +380,7 @@
 	\item[type] represents the type to be used in the emitted source code.
 	\item[opt] is used for short command-line options to be copied to the namespace \namespace{proc}.
 	\item[opt/long] is used for long command-line options, which differ from short command-line options by supporting strings and not only characters.
-	\item[readonly] yields compilation errors when developers assign a value to a contextual value within the program.
+	\item[restrict/write] yields compilation errors when developers assign a value to a contextual value within the program.
 	\item[default] enables us to start the application even if the backend does not work.
 	\end{description}
 \end{frame}
@@ -393,7 +393,7 @@
 	  default:=Hello
 	  type:=string
 	  opt:=b
-	  readonly:=1
+	  restrict/write:=1
 	\end{code}
 	\par
 	\elektra{Gen} gives the user read-only access to the object ^env.foo.bar^:
@@ -407,7 +407,7 @@
 	\pause
 	Line~1 prints the configuration value of ^/foo/bar^ or ^"Hello"^ (without quotes) by default.
 	When invoking the application with ^application -b "This world"^, the application would print ^"This world"^ (without quotes).
-	Line~2 leads to a compilation error because of the property \property{readonly}.
+	Line~2 leads to a compilation error because of the property \property{restrict/write}.
 \end{frame}
 
 \begin{frame}[fragile]
@@ -420,7 +420,7 @@
 		WritePolicyIs<ReadOnlyPolicy>> {
 		... keyNew ("/slapd/threads/listener",
 			    KEY_META, "type", "long",
-			    KEY_META, "readonly", "1",
+			    KEY_META, "restrict/write", "1",
 			    KEY_END) ...
 	};
 	\end{code}

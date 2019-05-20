@@ -1155,7 +1155,7 @@ Here we can choose between implementations in the frontend and backend with the 
 With the property ^opt:=p^, the configuration setting with this property can be changed by adding the command-line option ^-p^.
 \end{example}
 \item[opt/long] is used for long command-line options, which differ from short command-line options by supporting strings and not only characters.
-\item[readonly] yields compilation errors when developers assign a value to a contextual value within the program.
+\item[restrict/write] yields compilation errors when developers assign a value to a contextual value within the program.
 \item[default] enables us to start the application even if the backend does not work.
 \elektra{Gen} uses it to hard-code default values into the application.
 If the backend is available, the property \property{default} is interpreted by the backend.
@@ -1180,7 +1180,7 @@ With the specification:
   default:=Hello
   type:=string
   opt:=b
-  readonly:=1
+  restrict/write:=1
 \end{code}
 \par
 \elektra{Gen} gives the user read-only access to the object ^env.foo.bar^:
@@ -1192,7 +1192,7 @@ env.foo.bar = "Other world"; // compilation error
 \par
 Line~1 prints the configuration value of ^/foo/bar^ or ^"Hello"^ (without quotes) by default.
 When invoking the application with ^application -b "This world"^, the application would print ^"This world"^ (without quotes).
-Line~2 leads to a compilation error because of the property \property{readonly}.
+Line~2 leads to a compilation error because of the property \property{restrict/write}.
 \end{example}
 
 
@@ -2180,13 +2180,13 @@ The following policies are the most important extension points in the class ^Val
 \begin{description}
 \item[LockPolicy] determines locking behavior of the class ^Value^ to support concurrent access from several threads.
 In the default case, no locking occurs.
-\item[WritePolicy] implements the property \property{readonly}.
+\item[WritePolicy] implements the property \property{restrict/write}.
 It specifies read-only restrictions for a ^Value^.
 All operations that change the value of ^Value^ are guarded by static asserts.
 If the policy is changed to be ^ReadOnlyPolicy^, the compiler rejects source code that tries to modify contextual values.
 ^ReadOnlyPolicy^ is a trivial class defining a variable as ^true^.
 If the variable is set, the static assertions fail.
-To prohibit any changes to a particular configuration setting, users set the property \property{readonly} $\mapsto$ ^1^ (i.\,e., true) as already discussed in \secref{property-opt}.
+To prohibit any changes to a particular configuration setting, users set the property \property{restrict/write} $\mapsto$ ^1^ (i.\,e., true) as already discussed in \secref{property-opt}.
 \item[SetPolicy] defines how the cache of the class ^Value^'s instances is synchronized with the key set.
 One of the design decisions of applications is the namespace of newly-created configuration settings.
 This policy supports developers to select the namespace they prefer for their application.
@@ -2254,7 +2254,7 @@ Given the configuration specification:
 \begin{code}
 [slapd/threads/listener]
   type:=long
-  readonly:=1
+  restrict/write:=1
   default:=1
 \end{code}
 
@@ -2266,7 +2266,7 @@ class SlapdThreadsListener : public Value<long,
         WritePolicyIs<ReadOnlyPolicy>> {
 	... keyNew ("/slapd/threads/listener",
 	            KEY_META, "type", "long",
-	            KEY_META, "readonly", "1",
+	            KEY_META, "restrict/write", "1",
 	            KEY_END) ...
 };
 \end{code}
