@@ -47,8 +47,8 @@
 \end{assignment}
 
 \begin{assignment}
-	\frametitle{Tasks for today}
-	(until 22.05.2019 23:59)
+	\frametitle{Tasks for next week}
+	(until 29.05.2019 23:59)
 
 	\begin{task}
 	Continue teamwork and homework.
@@ -103,6 +103,7 @@
 	\item remember requirement for synchronization
 	\item remember example of 3-way merge
 	\item remember types of configuration
+	\item being able to design and architect a configurable software application
 	\end{itemize}
 \end{frame}
 
@@ -318,22 +319,30 @@
 	Solutions:
 	\begin{itemize}
 	\item Often write out configuration settings.
-	\item Many conflicts can be resolved with a semantic 3-way merge.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Semantic 3-way merge}
 
-	We can resolve many conflicts automatically, if we consider:
-	\begin{itemize}
+	Problem: When trying to writing out configuration settings, the configuration settings might not be as they were before. (Conflict)
+
+	\pause
+
+	Solution: Many conflicts can be resolved automatically with a semantic 3-way merge.
+
+	\pause
+
+	We can resolve many conflicts automatically if we consider:
+	\begin{itemize}[<+-| alert@+>]
 	\item the key/value structure (vs. line-based)
-	\item the origin of both files
+	\item the origin of the configuration settings
 	\item the type of settings
 	\end{itemize}
 
-	For example, when upgrading slapd:
+	\pause[\thebeamerpauses]
 
+	For example, when upgrading slapd:
 	\begin{itemize}
 	\item System administrator changed the file (Ours).
 	\item Package maintainer changed the file (Theirs).
@@ -347,21 +356,22 @@
 	\begin{code}[gobble=4,language=CfgElektra]
 	slapd/threads/listener=4
 
-	abc= \
-		def
+	slapd/threads/enable= \
+		yes # must be enabled for listener
+
 	\end{code}
 
 	\textbf{Theirs:}
 	\begin{code}[gobble=4,language=CfgElektra]
-	abc = def
-	slapd/threads/listener=8
+	slapd/threads/enable = on
+	slapd/threads/listener = 8
 	\end{code}
 
 	\pause
 	\textbf{Origin:}
 	\begin{code}[gobble=4,language=CfgElektra]
 	slapd/threads/listener=8
-	abc=def
+	slapd/threads/enable = true
 	\end{code}
 \end{frame}
 
@@ -375,30 +385,15 @@
 \subsection{}
 
 \begin{frame}
-	\frametitle{Step 1 (5 min)}
+	\frametitle{Steps}
 
-	Familiarize yourself with one of the configuration systems:
-
-	\begin{enumerate}
-	\item environment variables (Factor 12)
-	\item QSettings
-	\item Apache Commons Configurations
-	\item plist
-	\item Windows Registry
-	\item any other system you want to... (laptop)
-	\end{enumerate}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Step 2 (45 min)}
-
-	Come together in a group
 
 	\begin{enumerate}
-	\item decide who will create flip chart, moderate, and present
-	\item explain the system you looked into
-	\item explain what the system could do for the task
-	\item create together an architecture that fulfils the goals
+	\item Familiarize yourself with the description of the proposed configuration system. (5 min)
+	\item Find a group and decide who will create flip chart, moderate, and present. (1 min)
+	\item Give yourselves roles (admin, dev, user) and split the goals among them. (1 min)
+	\item Create together an architecture that fulfils the goals. (ca.~40~min)
+	\item Present that architecture. (5 min)
 	\end{enumerate}
 \end{frame}
 
@@ -408,10 +403,8 @@
 	\begin{enumerate}
 	\item configuration-management friendly
 	\item early detection of misconfiguration
-	\item smooth upgrades
 	\item transient and persistent configuration consistent
-	\item consistent documentation
-	\item suitable and context-aware configurations
+	\item correct documentation
 	\item reuse software as much as possible but integrate them nicely
 	\end{enumerate}
 \end{frame}
@@ -426,9 +419,7 @@
 	\item pluggable camera modules (lenses, image sensor, ...)
 	\item should have camera profiles for different vendors
 	\item a Web-UI that shows all configuration settings
-	\item support remote configuration protocol (Web, SNMP, CMs, ...)
-	\item time synchronization via NTP
-	\item should be easily upgradeable (with fallback if the upgrade fails)
+	\item support yet-unknown remote configuration protocol\linebreak(Web, SNMP, CMs, ...)
 	\end{enumerate}
 \end{frame}
 
@@ -436,31 +427,16 @@
 	\frametitle{Tasks}
 
 	\begin{enumerate}
-	\item design and architecture of configuration settings
-	\item design and architecture of configuration access
-	\item design decisions (which languages, which software)
-	\item explain how to ensure smooth upgrades
-	\item provide documentation for operators (via IP)
-	\item ensure synchronized, suitable and context-aware configuration
-	\item reuse software as much as possible but integrate them nicely
+	\item design the architecture of configuration settings
+	\item design the architecture of configuration access
+	\item design how the CM tools should look like
+	\item tracer bullet~\cite{hunt1999pragmatic}: explain for one configuration setting the whole way from source to destination
+	\item make decisions (which languages, which software, how to achieve the goals)
+	\item explain how to ensure smooth configuration upgrades
+	\item explain how to provide documentation for operators
+	\item explain how to reuse software
 	\end{enumerate}
 \end{frame}
-
-
-\begin{frame}
-	\frametitle{Outlook}
-
-	\begin{enumerate}
-	\item design and architecture of configuration settings
-	\item design and architecture of configuration access
-	\item design decisions (which languages, which software)
-	\item explain how to ensure smooth upgrades
-	\item provide documentation for operators (via IP)
-	\item ensure synchronized, suitable and context-aware configuration
-	\item reuse software as much as possible but integrate them nicely
-	\end{enumerate}
-\end{frame}
-
 
 
 
