@@ -208,13 +208,10 @@
 
 \begin{frame}
 	\frametitle{Types of Configuration (Recapitulation)}
+	\pause
 	\begin{description}
 	\ExecuteMetaData[../book/background.tex]{context-types}
 	\end{description}
-\end{frame}
-
-\begin{frame}
-	\hspace*{-1em}\includegraphics{configurations}
 \end{frame}
 
 \begin{frame}
@@ -549,7 +546,6 @@
 		Documentation, Customization, Reproducability
 	\item Declarative description of the system \\
 		(Infrastructure as Code~\cite{waldemar2013testing})
-	\item Auditability
 	\item Less configuration drift
 	\item Error handling
 	\item Pull/Push
@@ -560,7 +556,7 @@
 
 
 \begin{frame}
-	\frametitle{Conclusion and Outlook}
+	\frametitle{Conclusion}
 
 	\begin{itemize}[<+-| alert@+>]
 	\item Context-awareness is a goal.
@@ -568,6 +564,17 @@
 	\item Many (distributed) key databases enable us to persist configuration settings.
 	\item Definition and challenges in configuration management.
 	\item Cloning: There and back again.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Outlook}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Challenges in Configuration Management
+	\item Properties: self-describing, idempotent, round-tripping
+	\item Validation
+	\item Configuration management languages
 	\end{itemize}
 \end{frame}
 
