@@ -277,8 +277,31 @@
 	\end{task}
 \end{assignment}
 
+\begin{frame}
+	\frametitle{Types of Specifications (Recapitulation)}
+	\includegraphics[scale=0.8]{specifications}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Keys as Contextual Values}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item keys can be interpreted as contextual values~\cite{raab2016persistent,raab2017introducing}
+	\item we can make contextual values dependent on contextual values
+	\item we can also use keys to describe requirements
+	\item if we use a predefined path in Elektra for layers, we can activate context by writing to KDB
+	\item this is implemented in ``kdb elektrify-getenv''
+	\end{itemize}
+
+	\pause[\thebeamerpauses]
+
+	\begin{alertblock}{Implication}
+	The configuration can fully describe the context and the requirements.
+	\end{alertblock}
+\end{frame}
+
 \begin{frame}[fragile]
-	\frametitle{Context Specifications (Recapitulation)}
+	\frametitle{Context Specifications}
 
 	\begin{itemize}
 	\item
@@ -310,11 +333,6 @@
 	\end{itemize}
 \end{frame}
 
-
-\begin{frame}
-	\frametitle{Types of Specifications (Recapitulation)}
-	\includegraphics[scale=0.8]{specifications}
-\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
