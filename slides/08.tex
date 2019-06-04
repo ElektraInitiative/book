@@ -454,157 +454,6 @@ Configfile: /etc/testfile.conf
 \end{frame}
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{CM languages}
-
-\subsection{}
-
-\begin{frame}[fragile]
-	\frametitle{Proteus (PCL)}
-	\textsc{Proteus}~\cite{tryggeseth1995modelling} shows the tight relation between software configuration management, like Git or Svn, and configuration specification languages.
-	\textsc{Proteus} (PCL) combines both worlds in a powerful build system.
-
-	\begin{code}[basicstyle=\tiny,morekeywords={family,attributes,end,physical,default,classifications},gobble=4,language=]
-	family CalcProg
-		attributes
-			HOME : string default "/home/ask/proteus/test";
-			workspace := HOME ++ "/calc/src/"; // string concatenation
-			repository := "calc/";
-			end
-		physical
-			main => "main.C";
-			defs => "defs.h";
-			exe => "calc.x" attributes workspace := HOME ++ "/calc/bin"; end
-			classifications status := standard.derived; end;
-		end
-	end
-	\end{code}
-\end{frame}
-
-\begin{frame}
-	\frametitle{NIX}
-
-	The NIX language~\cite{dolstra2007purely} claims to be purely functional as a novel feature.
-	The main concept is the referential transparency both for the configuration specification language and for the system itself.
-
-	\textbf{Expressiveness:}
-	NIX expressions, for example functions, describe how to build software packages.
-
-	\textbf{Reasoning:}
-	Because of the referential transparency of the system itself, every solution derived from the NIX expressions should be valid, so no reasoning or conflict handling is necessary.
-
-	\textbf{Modularity:}
-	The NIX expressions are modular because they ensure absence of side effects and thus can be easily composed.
-
-	\textbf{Reusability:}
-	Derivations that describe atomic build actions are reused in other derivations.
-\end{frame}
-
-\begin{frame}
-	\frametitle{UML}
-	\citet{felfernig1999knowledge,felfernig2000uml,felfernig2002joint} describe an approach where the unified modeling language (UML) is used as notation.
-
-	\textbf{Expressiveness:}
-	All UML features, including cardinality, domain-specific stereotypes and OCL-constraints are available.
-	The basic structure of the system is specified using classes, generalization and aggregation.
-
-	\textbf{Reasoning:}
-	Customers provide additional input data and requirements for the actual variant of the product.
-
-	\textbf{Modularity:}
-	Generalization is present without multiple inheritance with disjunctive semantics, i.\,e., only one of the given subtypes will be instantiated.
-
-	\textbf{Reusability:}
-	For shared aggregation additional ports are defined for a part.
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{CFEngine}
-
-	CFEngine~\cite{burgess2003theory,burgess1995cfengine,pandey2012investigating} is a language-based system administration tool that pioneered idempotent behavior.
-
-	\textbf{Expressiveness:}
-	CFEngine allows us to declare dependences and facilitates some high-level configuration specification constructs.
-	In its initial variants it neither had validation specifications, cardinalities, nor higher-level relationships.
-
-	\textbf{Reasoning:}
-	Not supported.
-
-	\textbf{Modularity:}
-	Not supported.
-
-	\textbf{Reusability:}
-	Existing system administrator scripts can be profitably run from CFEngine.
-\end{frame}
-
-
-
-\begin{frame}
-	\frametitle{Quattor (Pan)}
-
-	\citet{cons2002pan} invented and used PAN for many machines within CERN.
-
-	\textbf{Expressiveness:}
-	The Pan language allows users to specify data types, validation with code snippets and constraints.
-	The compiler uses a 5 step process: compilation, execution, insertions-of-defaults, validation, and serialization.
-
-	\textbf{Reasoning:}
-	Pan focuses on validating configurations, it is not able to generate new configurations.
-	Pan provides type enforcement with embedded validation code.
-
-	\textbf{Modularity:}
-	The language has user-defined data types (called templates) but otherwise has only minimal support for modularity.
-
-	\textbf{Reusability:}
-	Reusability and collaboration is only possible via simple include statements and a simple inheritance mechanism of templates.
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{ConfValley (CPL)}
-
-	\citet{huang2015confvalley} introduce systematic validation for cloud services.
-	ConfValley uses a unified configuration settings representation for tens of different configuration file formats.
-
-	\textbf{Expressiveness:}
-	CPL is not able to specify dynamic and complex requirements.
-
-	\textbf{Reasoning:}
-	Constraints can be inferred by running an inference engine on configuration settings that are considered good (black-box approach).
-	Within the validation engine, however, no constraint solver is available.
-
-	\textbf{Modularity:}
-	CPL aims at easy grouping of constraints.
-	Adding language primitives need modifications in the compiler.
-
-	\textbf{Reusability:}
-	Using transformations and compositions, predicates can be reused in different contexts.
-	Also with language constructs like \texttt{let}, specifications can be reused.
-\end{frame}
-
-%TODO: distributed vs. centralized
-
-\begin{frame}
-	\frametitle{Popular CMs today}
-
-	\begin{itemize}[<+-| alert@+>]
-	\item CFengine
-	\item Bcfg2
-	\item LCFG
-	\item Config Mgmt
-	\item Quattor
-	\item Puppet
-	\item Chef
-	\item Ansible (Talk)
-	\item SaltStack
-	\item Rudder
-	\item Spacewalk
-	\end{itemize}
-\end{frame}
-
-
 \begin{frame}
 	\frametitle{Conclusion}
 
@@ -612,8 +461,17 @@ Configfile: /etc/testfile.conf
 	\item Definition and challenges in configuration management.
 	\item Properties: self-describing, idempotent, round-tripping.
 	\item Validation is combined effort of devs and admins.
-	\item Configuration management languages differ widely.
-	\item Configuration specifications are always helpful.
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Outlook}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Configuration Management Tools and Languages
+	\item Error Messages
+	\item User View of Administrators
 	\end{itemize}
 \end{frame}
 
@@ -632,5 +490,3 @@ Configfile: /etc/testfile.conf
 
 \end{document}
 
-
-%TODO: add cliffhanger with preview for next time
