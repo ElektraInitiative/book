@@ -15,112 +15,75 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Organization}
-	Schedule:
+	Lecture is every week Wednesday 09:00 - 11:00.
+
 	\begin{description}
-		\item[8.6.2018:] lecture
-		\item[15.6.2018:] last corrections of team exercise
-		\item[22.6.2018:] oral test
+		\item[06.03.2019:] {\color{gray}topic, teams}
+		\item[13.03.2019:] {\color{gray}TISS registration, initial PR}
+		\item[20.03.2019:] {\color{gray}other registrations, guest lecture}
+		\item[27.03.2019:] {\color{gray}PR for first issue done, second started}
+		\item[03.04.2019:] {\color{gray}first issue done, PR for second}
+		\item[10.04.2019:] {\color{gray}mid-term submission of exercises}
+		\item[08.05.2019:] {\color{gray}different location: Complang Libary}
+		\item[15.05.2019:]
+		\item[22.05.2019:] {\color{gray}all 5 issues done}
+		\item[29.05.2019:]
+		\item[05.06.2019:] {\color{red}final submission of exercises}
+		\item[12.06.2019:]
+		\item[19.06.2019:] last corrections of exercises
+		\item[26.06.2019:] exam
 	\end{description}
 \end{frame}
 
+\begin{assignment}
+	\frametitle{Tasks for today}
+	(until 05.06.2019 23:59)
+
+	\begin{task}
+	Submit teamwork and homework.
+	\end{task}
+\end{assignment}
 
 \begin{frame}
 	\frametitle{Popular Topics}
-	\vspace{-0.5cm}
+	\vspace{-0.55cm}
+	\setlength{\columnsep}{-1.3cm}
+	\raggedright
+	\definecolor{amethyst}{rgb}{0.6, 0.4, 0.8}
 	\begin{multicols}{2}
 	\begin{description}
-	\color{red}
-	\item[4] validation
-	\color{black}
+	\item[14] {\color{red} tools}
+	\item[9] {\color{gray} testability}
+	\item[9] {\color{gray} code-generation}
+	\item[7] {\color{amethyst} context-awareness}
+	\item[6] {\color{red} specification}
+	\item[6] {\color{gray} misconfiguration}
+	\item[6] {\color{gray} complexity reduction}
+	\item[5] {\color{red} validation}
+	\item[5] {\color{gray} points in time} % (early detection)
+	\item[5] error messages
+	\item[5] {\color{gray} auto-detection}
 	\item[4] user interface
-	\color{gray}
-	\item[3] tools (benefits?)
-	\item[3] testability
-	\item[3] complexity reduction (when conf. needed?)
-	\item[3] architectural decisions
-	\color{black}
-	\item[2] Puppet
-	\color{gray}
-	\item[2] modularity
-	\item[2] environment variables
-	\color{gray}
-	\item[2] documentation
-	\color{red}
-	\item[2] configuration specification
-	\color{gray}
-	\item[2] command-line args\color{black}
-	\color{gray}
-	\item[2] code generation
-	\item[1] variability
-	\color{red}
-	\item[1] self-description
-	\item[1] round-tripping
-	\color{gray}
-	\item[1] early detection
-	\item[1] introspection
-	\item[1] dependences
-	\item[1] auto-detection
-	\item[1] context-awareness
-	\color{black}
-	\item[1] administrators
+	\item[4] {\color{gray} introspection}
+	\item[4] {\color{amethyst} design}
+	\item[4] {\color{gray} cascading}
+	\item[4] {\color{gray} architecture of access}
+	\item[3] {\color{gray} configuration sources}
+	\item[3] {\color{gray} config-less systems}
+	\item[2] secure conf
+	\item[2] {\color{gray} architectural decisions}
+	\item[1] {\color{red} push vs.\ pull}
+	\item[1] {\color{red} infrastructure as code}
+	\item[1] full vs.\ partial
+	\item[1] convention over conf %iguration
+	\item[1] CI/CD
+	\item[0] {\color{gray} documentation}
 	\end{description}
 	\end{multicols}
 \end{frame}
 
 \begin{frame}
 	\hspace*{-1cm}\includegraphics[width=\paperwidth]{dot/topics}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Introspection (Recapitulation)}
-	\begin{task}
-	What is internal and external specification?
-	What is introspection?
-	\end{task}
-
-	\pause
-	\vspace{1em}
-
-	\begin{itemize}
-	\item \textit{internal}: within applications' source code
-	\item \textit{introspection}: unified get/set access to (meta*)-key/values
-	\item access via applications, CLI, GUI, web-UI, ...
-	\item access via any programming language (similar to file systems)
-	\item GUI, web-UI can semantically interpret metadata
-	\item assemble modular parts (validation, logging, \dots)
-	\item needed as communication between producers and consumers
-	\item essential for \intro[no-futz computing]{no-futz computing}~\citet{holland2001nofutz}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{KeySet (Recapitulation)}
-
-	The common data structure of Elektra:
-	\vspace{1cm}
-
-	\includegraphics{keyset}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Testing (Recapitulation)}
-	\begin{task}
-	What do we want to test?
-	\end{task}
-
-	\pause
-
-	\begin{itemize}
-	\item That settings do what they should (devs and admins)
-	\item That settings are properly validated (devs~\cite{xu2013blame})
-	\item Regression tests (devs~\cite{qu2008configuration})
-	\vspace{1em}
-	\item Are all settings implemented? (devs)
-	\item Are all settings used in tests? (devs)
-	\item Are there unused settings in the code? (devs)
-	\item Do the chosen settings work? (admins)
-	\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -147,24 +110,6 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Notification (Recapitulation)}
-
-	\begin{task}
-	Why do we need notification?
-	\end{task}
-
-	\pause
-
-	\begin{enumerate}
-	\item to keep transient and persistent configuration settings always in sync~\cite{jin2014configurations}
-	\item to avoid polling of configuration settings
-	\item to better integrate into already existing mechanisms (main loops)\footnote{Is one of the main reasons why most framework already integrate configuration settings.}
-	\end{enumerate}
-
-	\ExecuteMetaData[../book/motivation.tex]{req-consistency}
-\end{frame}
-
-\begin{frame}
 	\frametitle{Cascading (Recapitulation)}
 
 	\begin{task}
@@ -178,7 +123,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Contextual Values}
+	\frametitle{Contextual Values (Recapitulation)}
 
 	\begin{task}
 	What are contextual values?
@@ -199,50 +144,6 @@
 	\pause
 
 	\ExecuteMetaData[../book/background.tex]{context-definition}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Introspection vs.\ Code Generation (Recapitulation)}
-
-	\begin{task}
-	Advantages/Disadvantages of contextual values in key database?
-	\end{task}
-
-	\pause
-
-	\setbeamersize{description width=1cm}
-	\begin{description} %[leftmargin=0cm] %TODO: move left
-	\item[$+$] specification can be updated live on the system without recompilation
-	\item[$+$] tooling has generic access to all specifications
- 	\item[$+$] new features the key database (e.g., better validation) are immediately available consistently
-	\item[$-$] less techniques for performance improvements
-	\item[$-$] cannot be used if context differs within same thread
-	\end{description}
-
-	\begin{alertblock}{Implication}
-	We generally prefer introspection, except for a very thin configuration access API.
-	\end{alertblock}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Key Databases (Recapitulation)}
-
-	\pause
-
-	\methodQuestion{} \question{Which configuration systems/libraries/APIs have you already used or would like to use in one of your FLOSS project(s)?}
-
-	\begin{itemize}
-	\item Command-line arguments (\p{92}, $n=222$)
-	\item environment variables (\p{79}, $n=218$)
-	\item configuration files (\p{74}, $n=218$)
-	\item Freedesktop standards (\p{20}, $n=205$)
-	\item Windows Registry (\p{13}) ($\leq$ \p{13}, $n\geq185$) [talk later]
-	\item X/Q/GSettings (\p{4}, \p{11}, \p{9})
-	\item KConfig (\p{5})
-	\item dconf (\p{7})
-	\item plist (\p{7})
-	\end{itemize}
-
 \end{frame}
 
 \begin{frame}
