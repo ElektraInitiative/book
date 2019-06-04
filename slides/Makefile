@@ -1,4 +1,4 @@
-FILE=07
+FILE=08
 
 $(FILE).pdf:$(FILE).tex setup.tex
 	latexmk $(FILE)
@@ -11,6 +11,10 @@ publish:$(FILE).pdf
 .PHONY:errors
 errors:
 	grep "^.*:[0-9]*:" $(FILE).log
+
+.PHONY:present
+present:
+	pdf-presenter-console $(FILE).pdf
 
 .PHONY:view
 view:
