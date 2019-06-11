@@ -528,20 +528,48 @@ be outside of the allowed range (0-10).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{User View}
+
 \subsection{}
+
+\begin{frame}
+	\frametitle{User View}
+
+	Who is the user of CM?
+
+	\begin{itemize}[<+-| alert@+>]
+	\item End Users?
+	\item Developers (devs)?
+	\item System Administrators (admins)?
+	\end{itemize}
+\end{frame}
 
 \begin{frame}
 	\frametitle{System Administrator Research}
 
 	\begin{itemize}[<+-| alert@+>]
-	\item system administrators: the unsung heroes!
-	\item interest of understanding administrators emerged around 2002~\cite{anderson2002researching}.
-	\item field study also done in industry \cite{barrett2004field}.
-	\item Typical methods are surveys, diary studies, interviews and observations (ethnographic field study).
+	\item Interest of understanding administrators emerged around 2002~\cite{anderson2002researching}.
+	\item Typical methods are surveys, diary studies, interviews and observations (ethnographic field studies).
+	\item Field studies also done in industry \cite{barrett2004field}.
 	\item Barrett \cite{barrett2003system} tried to initiate a workshop at CHI 2003 to draw the attention of the HCI community towards system administration.
 	\item The workshop was already dropped in the next year.
 	\item The tenor is that ``tools ... are not well aligned''~\cite{haber2007design}.
 	\item Research mainly looks at pre-CM. Manual administration is still standard (Source: e.g., Luke Kanies).
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{CM research}
+
+	In the meanwhile at Large Installation System Administrator Conference (LISA):
+
+	\begin{itemize}[<+-| alert@+>]
+	\item began as CFengine Workshop at LISA 2001
+	\item CM workshop by Paul Anderson~\cite{anderson2002researching}
+	\item in LISA 2003 an informal poll asked about CM tools: \\
+	 	the only user of each tool in the room at the time was its author~\cite{burgess2006modeling}
+	\item it is easy to invent CM tools (and configuration file formats)
+	\item it is difficult to make it useful beyond your own goals
 	\end{itemize}
 \end{frame}
 
@@ -553,13 +581,14 @@ be outside of the allowed range (0-10).
 	\begin{itemize}[<+-| alert@+>]
 	\item keep our infrastructure running
 	\item coordinate
-	\item backup
-	\item hardware
-	\item inventory
+	\item do backups
+	\item manage hardware
+	\item do inventory
 	\item install applications
-	\item security
+	\item manage security
 	\item configure applications
 	\item troubleshoot
+	\item $\implies$ the unsung heroes!
 	\end{itemize}
 \end{frame}
 
@@ -582,7 +611,7 @@ be outside of the allowed range (0-10).
 	\begin{itemize}[<+-| alert@+>]
 	\item lost semicolon: execution of script failed due to missing semicolon, then they tried to delete a non-existent table.
 	\item crontab: onltape/ofltape confused because of discussion about offline backup (although an online backup should be performed).
-	\item crit sit: many system administrators tried to write simple script, they competed against each other. The crit sit continued for two weeks.
+	\item crit sit: many system administrators competed against each other trying to write a simple script. The crit sit continued for two weeks.
 	\end{itemize}
 \end{frame}
 
@@ -590,7 +619,7 @@ be outside of the allowed range (0-10).
 \begin{frame}
 	\frametitle{\citet{haber2007design}}
 
-	Later \citet{haber2007design} repeated a ethnographic field study.
+	Later \citet{haber2007design} repeated an ethnographic field study.
 	The stories are similar to \citet{barrett2004field}.
 	Their study was also conducted in the same company.
 	They created personas:
@@ -656,7 +685,7 @@ be outside of the allowed range (0-10).
 	\item \p{20} of the time is spent in diversions
 	\item \p{20} of the time people communicated about \emph{how to communicate}
 	\item CLIs were generally preferred
-	\item configuration and log files were scattered, poorly organized and often used inconsistent terminology
+	\item configuration and log files are scattered, poorly organized and often used inconsistent terminology
 	\end{itemize}
 \end{frame}
 
