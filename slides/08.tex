@@ -183,7 +183,6 @@
 		Documentation, Customization, Reproducability
 	\item Declarative description of the system \\
 		(Infrastructure as Code~\cite{waldemar2013testing})
-	\item Auditability
 	\item Less configuration drift
 	\item Error handling
 	\item Pull/Push
@@ -339,14 +338,13 @@
 	The record and enum types defined by CORBA are not part of this plugin but of others as explained below.
 
 	\item [check/enum] supports a list of supported values denoted by array indexes.
-	\item [check/bool] transforms specific strings, for example ``true'' and ``false'', into the canonical boolean representation, i.\,e., ``0'' and ``1''.
 	\item [check/ipaddr] checks if a string is a valid IP address.
 	\item [check/path] checks presence, permissions, and type of paths in the file system.
 	\item [check/date] supports to check date formats such as POSIX, ISO8601, and RFC2822.
+	\item [check/range] allows us to check if numerical values are within a range.
 	\item [check/validation] checks the configuration value with regular expressions.
 	\item [check/condition] checks using conditionals and comparisons.
 	\item [check/math] checks using mathematical expressions.
-	\item [check/range] allows us to check if numerical values are within a range.
 	\item [trigger/error] allows us to express unconditional failures.
 	\item [check/rgbcolor] allows us to check for RGB colors, by Philipp Gackstatter.
 	\item [check/macaddr]  (will allow us to check for MAC addresses, by Thomas Bretterbauer)
