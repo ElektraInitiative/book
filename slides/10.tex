@@ -97,6 +97,53 @@
 \subsection{}
 
 \begin{frame}
+	\frametitle{Configuration File Formats (Recapitulation)}
+	\methodQuestion{} \question{In which way have you used or contributed to the configuration system/library/API in your previously mentioned FLOSS project(s)?}~\cite{raab2017challenges}
+	\pause
+	\begin{itemize}
+	\item \p{19} persons ($n=251$) have introduced a configuration file format.
+	\item \p{29} implemented a configuration file parser.
+	\item \p{15} introduced a configuration system/library/API.
+	\item \p{34} used external configuration access APIs.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Current Situation}
+	\includegraphics[scale=0.7]{cursituation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Wanted Situation}
+	\includegraphics[scale=0.7]{wantsituation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Vertical Modularity}
+	\begin{alertblock}{Question}
+	Explain the content of the figure.
+	\end{alertblock}
+	\begin{columns}[c]
+	\column{7cm}
+	\includegraphics[scale=0.75]{verticalmodularity}
+	\column{4cm}<2>
+	Needed to keep applications independently.
+
+	Boxes are applications, cylinders are configuration files, F? are frontends or frontend adapters, L? are configuration libraries~\cite{raab2016improving}.
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Metalevels (Recapitulation)}
+	\begin{alertblock}{Question}
+	Describe the three Metalevels in Elektra.
+	\end{alertblock}
+
+	\pause
+	\includegraphics{metalevels}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Introspection (Recapitulation)}
 	\begin{task}
 	What is internal and external specification?
@@ -116,101 +163,6 @@
 	\item needed as communication between producers and consumers
 	\item essential for \intro[no-futz computing]{no-futz computing}~\citet{holland2001nofutz}
 	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{KeySet (Recapitulation)}
-
-	The common data structure of Elektra:
-	\vspace{1cm}
-
-	\includegraphics{keyset}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Testing (Recapitulation)}
-	\begin{task}
-	What do we want to test?
-	\end{task}
-
-	\pause
-
-	\begin{itemize}
-	\item That settings do what they should (devs and admins)
-	\item That settings are properly validated (devs~\cite{xu2013blame})
-	\item Regression tests (devs~\cite{qu2008configuration})
-	\vspace{1em}
-	\item Are all settings implemented? (devs)
-	\item Are all settings used in tests? (devs)
-	\item Are there unused settings in the code? (devs)
-	\item Do the chosen settings work? (admins)
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Early detection (Recapitulation)}
-	\begin{task}
-	When do we want to detect misconfiguration?
-	\end{task}
-
-	\pause
-
-	Phases when we can detect misconfigurations:
-	\begin{itemize} %[<+-| alert@+>]
-	\item Compilation stage in configuration management tool
-	\item Writing configuration settings on nodes
-	\item Starting applications (load-time)
-	\item When configuration setting is actually used (run-time)
-	\end{itemize}
-
-	\pause[\thebeamerpauses]
-
-	\begin{alertblock}{Problem}
-	Earlier versus more context.
-	\end{alertblock}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Notification (Recapitulation)}
-
-	\begin{task}
-	Why do we need notification?
-	\end{task}
-
-	\pause
-
-	\begin{enumerate}
-	\item to keep transient and persistent configuration settings always in sync~\cite{jin2014configurations}
-	\item to avoid polling of configuration settings
-	\item to better integrate into already existing mechanisms (main loops)\footnote{Is one of the main reasons why most framework already integrate configuration settings.}
-	\end{enumerate}
-
-	\ExecuteMetaData[../book/motivation.tex]{req-consistency}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Cascading (Recapitulation)}
-
-	\begin{task}
-	What is cascading configuration?
-	\end{task}
-	\vspace{1em}
-
-	\pause
-
-	\includegraphics[scale=0.7]{cascading}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Contextual Values (Recapitulation)}
-
-	\begin{task}
-	What are contextual values?
-	\end{task}
-
-	\pause
-
-	\ExecuteMetaData[../book/background.tex]{contextual-values}
 \end{frame}
 
 \begin{frame}
@@ -280,6 +232,29 @@
 	\frametitle{Types of Specifications (Recapitulation)}
 
 	\includegraphics[scale=0.8]{specifications}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Early detection (Recapitulation)}
+	\begin{task}
+	When do we want to detect misconfiguration?
+	\end{task}
+
+	\pause
+
+	Phases when we can detect misconfigurations:
+	\begin{itemize} %[<+-| alert@+>]
+	\item Compilation stage in configuration management tool
+	\item Writing configuration settings on nodes
+	\item Starting applications (load-time)
+	\item When configuration setting is actually used (run-time)
+	\end{itemize}
+
+	\pause[\thebeamerpauses]
+
+	\begin{alertblock}{Problem}
+	Earlier versus more context.
+	\end{alertblock}
 \end{frame}
 
 
@@ -433,7 +408,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Context for error messages (Recapitulation)}
+	\frametitle{Error messages (Recapitulation)}
 
 	\begin{task}
 	What should error messages contain?
@@ -452,12 +427,6 @@
 
 
 
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Configuration Management}
 
 \subsection{}
 
@@ -513,6 +482,12 @@
 	\item Elektra: set the value of a key
 	\end{itemize}
 \end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Configuration Management}
 
 \begin{frame}[fragile]
 	Key/value access in puppet-libelektra:
