@@ -86,243 +86,6 @@
 	\item systematic approaches for configuration management (in particular: configuration specification languages), examples for configuration management tools
 	\end{itemize}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-	\frametitle{CM Languages (Partly Recapitulation)}
-
-	\begin{itemize}[<+-| alert@+>]
-	\item What is the relationship to software configuration management (Proteus/PCL)?
-	\item[] Build systems may provide configuration management features.
-	\item How is it possible to provide referential transparency both for the configuration specification language and for the system itself (NIX, GNU Guix)?
-	\item[] By functional languages and file system (layouts).
-	\item Which notations for CM exist?
-	\item[] Text,  Graphical (UML), Semi-structured, Key-value, Structured
-	\end{itemize}
-\end{frame}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Configuration Management}
-
-\subsection{}
-
-\begin{frame}
-	\frametitle{Apply to CM (Recapitulation)}
-
-	What can we learn from system administration research?
-
-	\setbeamersize{description width=1cm}
-	\begin{description}[<+-| alert@+>]
-	\item[$+$] intensive review process catches errors
-	\item[$-$] collaboration ineffective
-	\item[$-$] context/situational awareness is essential
-	\item[$+$] precise editing of configuration files works well
-	\item[$+$] self-written tools are very efficient
-	\item[$-$] global optimizations difficult
-	\end{description}
-
-	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
-
-	\begin{alertblock}{Idea}
-	Replicate parts that work well, automate error-prone parts.
-	\end{alertblock}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Precise Editing (Recapitulation)}
-
-	Partial modifications (precise editing) is natural for humans. \\
-	It ensures preservations of (potentially security-relevant!) defaults. \\
-	In CM following methods are used:
-
-	\begin{itemize}[<+-| alert@+>]
-	\item embed shell commands to do the work
-	\item replace full content of configuration files
-	\item replace full content of configuration files with templates
-	\item line based manipulation (e.g., file\_line): match line and replace it
-	\item Augeas/XML: match a key with XPath and replace it
-	\item Elektra: set the value of a key
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-	Key/value access in puppet-libelektra:
-
-	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
-	kdbmount {'system/sw/samba':
-		ensure => 'present',
-		file => '/etc/samba/smb.conf',
-		plugins => 'ini'
-	}
-	kdbkey {'system/sw/samba/global/workgroup':
-		ensure => 'present',
-		value => 'MY_WORKGROUP'
-	}
-	kdbkey {'system/sw/samba/global/log level':
-		ensure => 'absent'
-	}
-	\end{code}
-
-	Uniqueness of keys is essential.
-	Ideally, applications already mount their configuration at installation.
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Apply to CM (Recapitulation)}
-
-	Elektra's goals are that it should:
-
-	\begin{itemize}[<+-| alert@+>]
-	\item be easy to develop new high-level tools
-	\item support manual workflows and scripts
-	\item support precise editing:\\ only change the configuration value as specified
-	\item provide a language for both devs and admins
-	\end{itemize}
-
-	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
-
-	Admins/devs still need to:
-
-	\begin{itemize}[<+-| alert@+>]
-	\item reduce the configuration space
-	\item intensively review and improve the specifications
-	\item test (and debug) configuration settings
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-	Key/value specifications in puppet-libelektra:
-
-	\begin{code}[morekeywords={kdbkey,ensure,value},gobble=4]
-	kdbkey {'system/sw/samba/global/log level':
-		ensure => 'present',
-		value => 'MY_WORKGROUP',
-		check => {
-			'type' => 'short',
-			'range' => '0-10',
-			'default' => '1',
-			'description' => 'Sets the amount of log/
-				debug messages that are sent to the
-				log file. 0 is none, 3 is consider-
-				able.'
-	}
-	\end{code}
-
-	Ideally, applications already specify their settings.
-\end{frame}
-
-\begin{frame}
-	\frametitle{Key/Values Revisited}
-
-	Decide about \textbf{changeability} per key:
-
-	\begin{itemize}[<+-| alert@+>]
-	\item Who is responsible (end user, packages, admin manual or CM).
-	\item In which namespaces apps search the key (cascading lookup).
-	\item Who can see it (visibility).
-	\item Who can edit it (admin, end user, both).
-	\item Which configuration values are allowed (validation).
-	\end{itemize}
-
-	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
-
-	\begin{alertblock}{Changeability}
-	Ownership of every key must be very clear and documented.
-	\end{alertblock}
-\end{frame}
-
-\begin{frame}[fragile]
-	Key/value specifications in puppet-libelektra:
-
-	\begin{code}[morekeywords={kdbkey,ensure,value},gobble=4]
-	kdbkey {'spec/xfce/pointers/Mouse/RightHanded':
-		ensure => 'present',
-		check => {
-			'namespaces/#0' => 'user',
-			'namespaces/#1' => 'system',
-			'visibility' => 'important',
-			'default' => 'false',
-			'check/type' => 'boolean'
-	}
-	\end{code}
-
-	Ideally, applications already specify their settings.
-\end{frame}
-
-\begin{frame}
-	\frametitle{Layers of Abstractions}
-
-	Recursively define useful abstractions (meta-levels):
-
-	\begin{itemize}[<+-| alert@+>]
-	\item Bits in (configuration) files and memory
-	\item Key/value view of configuration settings
-	\item Goals/specifications of settings per node and instantiations of modules
-	\vspace{1em}
-	\item CM code to instantiate settings in the whole network
-	\item Global optimization: allocation of nodes and decision regarding topology in the whole network
-	\item Global goals/specifications of the whole network
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	\frametitle{Design Rules~\cite{burgess2006modeling}}
-
-	\begin{itemize}[<+-| alert@+>]
-	\item Factor processes into containers to avoid overlaps in settings.
-	\item Maintain clear separation of ownership (for every key).
-	\item Specify replicated settings in a single source (use links and derivations).
-	\item Document all remaining overlaps (in the specification).
-	\item The manageability of settings is reduced by the number of possible configuration values.
-	\item Do not separate configuration management and monitoring.
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Open Topics}
-
-	\begin{itemize}[<+-| alert@+>]
-	\item global optimizations/self-healing
-	\item configuration integration
-	\item safe migrations of settings and data
-	\item collaboration
-	\item management (including knowledge)
-	\item centralized vs.\ distributed
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Conclusion}
-
-	\begin{itemize}[<+-| alert@+>]
-	\item create stateless transactions with key/values (get/set)
-	\item be aware of the specifications, solving CM is solving constraints
-	\item do not design around tools but design tools around you
-	\item be brave and remove all configuration settings you can
-	\item use all help you can get: e.g.\ build tools, preseeding, installer automation, virtualization, package managers, distributions
-	\item complexity in CM vs.\ complexity in applications' specification
-	\item modularity is essential for validation and legacy support
-	\item artifact generation improves consistency and type safety
-	\end{itemize}
-\end{frame}
-
 
 
 
@@ -684,6 +447,240 @@
 	\item show mountpoint (to make relative keys unique)
 	\item show file name and line number
 	\item ? show module and source code lines (for bugs)
+	\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Configuration Management}
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{CM Languages (Partly Recapitulation)}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item What is the relationship to software configuration management (Proteus/PCL)?
+	\item[] Build systems may provide configuration management features.
+	\item How is it possible to provide referential transparency both for the configuration specification language and for the system itself (NIX, GNU Guix)?
+	\item[] By functional languages and file system (layouts).
+	\item Which notations for CM exist?
+	\item[] Text,  Graphical (UML), Semi-structured, Key-value, Structured
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Apply to CM (Recapitulation)}
+
+	What can we learn from system administration research?
+
+	\setbeamersize{description width=1cm}
+	\begin{description}[<+-| alert@+>]
+	\item[$+$] intensive review process catches errors
+	\item[$-$] collaboration ineffective
+	\item[$-$] context/situational awareness is essential
+	\item[$+$] precise editing of configuration files works well
+	\item[$+$] self-written tools are very efficient
+	\item[$-$] global optimizations difficult
+	\end{description}
+
+	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
+
+	\begin{alertblock}{Idea}
+	Replicate parts that work well, automate error-prone parts.
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Precise Editing (Recapitulation)}
+
+	Partial modifications (precise editing) is natural for humans. \\
+	It ensures preservations of (potentially security-relevant!) defaults. \\
+	In CM following methods are used:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item embed shell commands to do the work
+	\item replace full content of configuration files
+	\item replace full content of configuration files with templates
+	\item line based manipulation (e.g., file\_line): match line and replace it
+	\item Augeas/XML: match a key with XPath and replace it
+	\item Elektra: set the value of a key
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	Key/value access in puppet-libelektra:
+
+	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
+	kdbmount {'system/sw/samba':
+		ensure => 'present',
+		file => '/etc/samba/smb.conf',
+		plugins => 'ini'
+	}
+	kdbkey {'system/sw/samba/global/workgroup':
+		ensure => 'present',
+		value => 'MY_WORKGROUP'
+	}
+	kdbkey {'system/sw/samba/global/log level':
+		ensure => 'absent'
+	}
+	\end{code}
+
+	Uniqueness of keys is essential.
+	Ideally, applications already mount their configuration at installation.
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Apply to CM (Recapitulation)}
+
+	Elektra's goals are that it should:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item be easy to develop new high-level tools
+	\item support manual workflows and scripts
+	\item support precise editing:\\ only change the configuration value as specified
+	\item provide a language for both devs and admins
+	\end{itemize}
+
+	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
+
+	Admins/devs still need to:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item reduce the configuration space
+	\item intensively review and improve the specifications
+	\item test (and debug) configuration settings
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	Key/value specifications in puppet-libelektra:
+
+	\begin{code}[morekeywords={kdbkey,ensure,value},gobble=4]
+	kdbkey {'system/sw/samba/global/log level':
+		ensure => 'present',
+		value => 'MY_WORKGROUP',
+		check => {
+			'type' => 'short',
+			'range' => '0-10',
+			'default' => '1',
+			'description' => 'Sets the amount of log/
+				debug messages that are sent to the
+				log file. 0 is none, 3 is consider-
+				able.'
+	}
+	\end{code}
+
+	Ideally, applications already specify their settings.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Key/Values Revisited}
+
+	Decide about \textbf{changeability} per key:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Who is responsible (end user, packages, admin manual or CM).
+	\item In which namespaces apps search the key (cascading lookup).
+	\item Who can see it (visibility).
+	\item Who can edit it (admin, end user, both).
+	\item Which configuration values are allowed (validation).
+	\end{itemize}
+
+	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
+
+	\begin{alertblock}{Changeability}
+	Ownership of every key must be very clear and documented.
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+	Key/value specifications in puppet-libelektra:
+
+	\begin{code}[morekeywords={kdbkey,ensure,value},gobble=4]
+	kdbkey {'spec/xfce/pointers/Mouse/RightHanded':
+		ensure => 'present',
+		check => {
+			'namespaces/#0' => 'user',
+			'namespaces/#1' => 'system',
+			'visibility' => 'important',
+			'default' => 'false',
+			'check/type' => 'boolean'
+	}
+	\end{code}
+
+	Ideally, applications already specify their settings.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Layers of Abstractions}
+
+	Recursively define useful abstractions (meta-levels):
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Bits in (configuration) files and memory
+	\item Key/value view of configuration settings
+	\item Goals/specifications of settings per node and instantiations of modules
+	\vspace{1em}
+	\item CM code to instantiate settings in the whole network
+	\item Global optimization: allocation of nodes and decision regarding topology in the whole network
+	\item Global goals/specifications of the whole network
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	\frametitle{Design Rules~\cite{burgess2006modeling}}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Factor processes into containers to avoid overlaps in settings.
+	\item Maintain clear separation of ownership (for every key).
+	\item Specify replicated settings in a single source (use links and derivations).
+	\item Document all remaining overlaps (in the specification).
+	\item The manageability of settings is reduced by the number of possible configuration values.
+	\item Do not separate configuration management and monitoring.
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Open Topics}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item global optimizations/self-healing
+	\item configuration integration
+	\item safe migrations of settings and data
+	\item collaboration
+	\item management (including knowledge)
+	\item centralized vs.\ distributed
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Conclusion}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item create stateless transactions with key/values (get/set)
+	\item be aware of the specifications, solving CM is solving constraints
+	\item do not design around tools but design tools around you
+	\item be brave and remove all configuration settings you can
+	\item use all help you can get: e.g.\ build tools, preseeding, installer automation, virtualization, package managers, distributions
+	\item complexity in CM vs.\ complexity in applications' specification
+	\item modularity is essential for validation and legacy support
+	\item artifact generation improves consistency and type safety
 	\end{itemize}
 \end{frame}
 
