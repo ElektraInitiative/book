@@ -229,12 +229,6 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Types of Specifications (Recapitulation)}
-
-	\includegraphics[scale=0.8]{specifications}
-\end{frame}
-
-\begin{frame}
 	\frametitle{Early detection (Recapitulation)}
 	\begin{task}
 	When do we want to detect misconfiguration?
@@ -278,32 +272,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Configuration Drift (Recapitulation)}
-
-	\begin{task}
-	What is configuration drift? What are its causes?
-	\end{task}
-
-	\pause
-
-	Are derivations of the ``Single Source of Truth'' (the CM code).
-
-	Caused by:
-
-	\begin{itemize} %[<+-| alert@+>]
-	\item manual configuration changes by administrators
-	\item manual configuration changes by end users
-	\item differences in updates (e.g., skipped or failed updates)
-	\item failed attempts to change configuration
-	\item applying different versions of CM code
-	\item \dots
-	\end{itemize}
-
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Idempotence (Recapitulation)}
+	\frametitle{Properties (Recapitulation)}
 
 	\begin{task}
 	What is idempotent, self-describing, round-tripping configuration?
@@ -331,40 +300,18 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Checking Configurations (Recapitulation)}
-
-	\begin{task}
-	Which properties of configuration settings can be checked?
-	\end{task}
-
-	\pause
-
-	\begin{itemize} %[<+-| alert@+>]
-	\item structure
-	\item values (data types)
-	\item constraints
-	\item semantic checks (e.g., IP, folder)
-	\item domain-specific checks (e.g., databases)
-	\item requirements (suitable configurations)
-	\item context (context-aware configurations)
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
 	\frametitle{Popular CMs today (Recapitulation)}
 
 	\begin{itemize} %[<+-| alert@+>]
-	\item CFengine
-	%\item Bcfg2
-	\item LCFG
-	\item Config Mgmt
-	\item Quattor
-	\item Puppet
-	\item Chef
-	\item Ansible (Talk next week)
-	\item SaltStack (Talk today)
-	\item Rudder
-	\item Spacewalk
+	\item CFengine (1993)
+	\item LCFG (1994)
+	\item Quattor (2005)
+	\item Puppet (2005)
+	\item Chef (2009)
+	\item Salt (2011)
+	\item Ansible (2012)
+	\item Mgmt (2016)
+	\item OpsMops (2019)
 	\end{itemize}
 \end{frame}
 
@@ -404,24 +351,10 @@
 	\item Precisely locate the cause (and do not report aftereffects)
 	\item Personification~\cite{lee2011personifying}
 	\item give context: providing enough information vs.\ not overwhelming the user~\cite{wrenn2017error}
-	\end{itemize}
-\end{frame}
 
-\begin{frame}
-	\frametitle{Error messages (Recapitulation)}
-
-	\begin{task}
-	What should error messages contain?
-	\end{task}
-
-	\pause
-
-	\begin{itemize} %[<+-| alert@+>]
+	%mixture from other slides:
 	\item pin-point key (which also pin-points to the specification)
-	\item repeat relevant parts of values and the specification
-	\item show mountpoint (to make relative keys unique)
-	\item show file name and line number
-	\item ? show module and source code lines (for bugs)
+	\item let specifications, e.g.\ from validation, override messages
 	\end{itemize}
 \end{frame}
 
@@ -467,6 +400,29 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Apply to Elektra (Recapitulation)}
+
+	Elektra's goals are that it should:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item be easy to develop new high-level tools
+	\item support manual workflows and scripts
+	\item support precise editing:\\ only change the configuration value as specified
+	\item provide a language for both devs and admins
+	\end{itemize}
+
+	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
+
+	Admins/devs still need to:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item reduce the configuration space
+	\item intensively review and improve the specifications
+	\item test (and debug) configuration settings
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Precise Editing (Recapitulation)}
 
 	Partial modifications (precise editing) is natural for humans. \\
@@ -490,6 +446,36 @@
 \section{Configuration Management}
 
 \begin{frame}[fragile]
+	Key/value access in Chef:
+
+	\begin{code}[morekeywords={kdbset,do,action,value,end},gobble=4]
+	kdbset 'system/sw/samba/global/workgroup' do
+		value 'MY_WORKGROUP'
+		action :create
+	end
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	Key/value access in Ansible:
+
+	\begin{code}[morekeywords={name,connection,key,value,elektra,mountpoint,file,plugins,hosts,tasks},gobble=4]
+	- name: setup samba
+	  connection: local
+	  hosts: localhost
+	  tasks:
+	  - name: set workgroup
+	    elektra:
+	      mountpoint: system/sw/samba
+	      file: /etc/samba/smb.conf
+	      plugins: ini
+	    elektra:
+	      key: 'system/sw/samba/global/workgroup'
+	      value: 'MY_WORKGROUP'
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
 	Key/value access in puppet-libelektra:
 
 	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
@@ -511,29 +497,6 @@
 	Ideally, applications already mount their configuration at installation.
 \end{frame}
 
-
-\begin{frame}
-	\frametitle{Apply to CM (Recapitulation)}
-
-	Elektra's goals are that it should:
-
-	\begin{itemize}[<+-| alert@+>]
-	\item be easy to develop new high-level tools
-	\item support manual workflows and scripts
-	\item support precise editing:\\ only change the configuration value as specified
-	\item provide a language for both devs and admins
-	\end{itemize}
-
-	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
-
-	Admins/devs still need to:
-
-	\begin{itemize}[<+-| alert@+>]
-	\item reduce the configuration space
-	\item intensively review and improve the specifications
-	\item test (and debug) configuration settings
-	\end{itemize}
-\end{frame}
 
 \begin{frame}[fragile]
 	Key/value specifications in puppet-libelektra:
@@ -648,7 +611,7 @@
 	\frametitle{Conclusion}
 
 	\begin{itemize}[<+-| alert@+>]
-	\item create stateless transactions with key/values (get/set)
+	\item have unique identifier for your configurations settings (get/set key/values)
 	\item be aware of the specifications, solving CM is solving constraints
 	\item do not design around tools but design tools around you
 	\item be brave and remove all configuration settings you can
