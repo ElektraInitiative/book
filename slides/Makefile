@@ -1,4 +1,4 @@
-FILE=10
+FILE=flexi
 
 $(FILE).pdf:$(FILE).tex setup.tex
 	latexmk $(FILE)
