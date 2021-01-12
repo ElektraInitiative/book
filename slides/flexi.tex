@@ -23,7 +23,7 @@
 	\begin{itemize} %[<+->]
 		\item   \textcolor{white}{\shadowtext{\empha[misconfiguration]{misconfigurations}~\cite{yin2011empirical,su2007autobash,attariyan2010automating,xu2015systems} are a major cause}}\\
 			\textcolor{white}{\shadowtext{of system failures~\cite{wool2004quantitative,oppenheimer2003internet,pertet2005causes}}}
-		\item   \textcolor{white}{\shadowtext{much time needed to fix misconfigurations~\cite{rabkin2011static,oppenheimer2003internet,yin2011empirical,mahajan2002bgp}}}
+		\item   \textcolor{white}{\shadowtext{much time is needed to fix misconfigurations~\cite{rabkin2011static,oppenheimer2003internet,yin2011empirical,mahajan2002bgp}}}
 		\item   \textcolor{white}{\shadowtext{configuration is a user interface for both developers}}\\
 			\textcolor{white}{\shadowtext{and system administrators}}
 	\end{itemize}
@@ -384,23 +384,21 @@
 
 	\begin{code}[morekeywords={check,type,range,math},gobble=4]
 	[t/a]
-	check/type:=long
-	restrict/null:=
+	type:=long
+	restrict/write:=
 	[t/x]
 	check/enum/#0:=a
 	check/enum/#1:=b
 	check/enum/#2:=c
-	restrict/write:=
 	\end{code}
 
 	could be rendered by a storage plugin by:
 
 	\begin{code}[language=C++,morekeywords={@NonNull,@ReadOnly,string},gobble=4]
-	class
-	{
-		@NonNull long a;
-		@ReadOnly enum class {a,b,c} x;
-	} t;
+	t {
+		@restrict/write long a;
+		enum {a,b,c} x;
+	};
 	\end{code}
 \end{frame}
 
