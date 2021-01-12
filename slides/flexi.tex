@@ -13,7 +13,7 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Problem}
+\section{Background}
 {
 \shadowcolor{black}
 \shadowoffset{0.5pt}
@@ -24,30 +24,13 @@
 		\item   \textcolor{white}{\shadowtext{\empha[misconfiguration]{misconfigurations}~\cite{yin2011empirical,su2007autobash,attariyan2010automating,xu2015systems} are a major cause}}\\
 			\textcolor{white}{\shadowtext{of system failures~\cite{wool2004quantitative,oppenheimer2003internet,pertet2005causes}}}
 		\item   \textcolor{white}{\shadowtext{much time needed to fix misconfigurations~\cite{rabkin2011static,oppenheimer2003internet,yin2011empirical,mahajan2002bgp}}}
-%		\item   \textcolor{white}{\shadowtext{configuration is a user interface for both developers}}\\
-%			\textcolor{white}{\shadowtext{and system administrators}}
-		\item   \textcolor{white}{\shadowtext{currently configuration is error-prone and under-specified}}
+		\item   \textcolor{white}{\shadowtext{configuration is a user interface for both developers}}\\
+			\textcolor{white}{\shadowtext{and system administrators}}
 	\end{itemize}
 \end{frame}
 }
-
-\section{Elektra}
-
 \begin{frame}
-	\frametitle{Elektra}
-	\begin{itemize} %[<+->]
-%		\item \citet{holland2001nofutz}~defined \empha{futzing} to denote \enquote{tinkering or fiddling experimentally}
-%		\item With \intro[no-futz computing]{no-futz computing} \citet{holland2001nofutz} mean \enquote{that futzing should be allowed, but should never be required}
-		\item \elektra{} is a framework implementing a modular \intro{configuration specification language} for configuration settings
-		%\item In \elektra{} we use properties to specify configuration settings and configuration access
-		\item \elektra{} enables \intro[no-futz computing]{no-futz computing} \cite{holland2001nofutz},
-			i.e., error-prone \enquote{tinkering or fiddling experimentally} \enquote{should be allowed, but should never be required}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Requirements of Elektra}
-
+	\frametitle{No-Futz}
 	\begin{itemize}
 	\item formal
 	\item extensible and flexible
@@ -57,7 +40,7 @@
 	\end{itemize}
 \end{frame}
 
-\subsection{Metalevels}
+\section{Elektra}
 
 \begin{frame}
 	\frametitle{Metalevels}
@@ -100,12 +83,16 @@
 
 	We apply the specifications imperatively using:
 
-	\begin{code}[language=bash,morekeywords={meta-set}]
-	kdb meta-set /slapd/threads/listener\
-		check/range 1,2,4,8,16
-	kdb meta-set /slapd/threads/listener\
-	       	default 1
-	\end{code}
+	\pause
+	\begin{itemize}
+	\item formal and informal
+	\item should strive for completeness
+	\item should be extensible
+	\item should be external to application
+	\item open for introspection (for tooling)
+	\item should talk to users
+	\item should allow generation of artefacts
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -407,8 +394,8 @@
 	\frametitle{Conclusion}
 	\begin{itemize}
 	\item make simple configuration management tasks simple
-	\item plugin development needs careful consideration of interactions
 	\item operators not always combinable
+	\item plugin development needs careful consideration of interactions
 	\end{itemize}
 \end{frame}
 
