@@ -24,8 +24,6 @@
 		\item   \textcolor{white}{\shadowtext{\empha[misconfiguration]{misconfigurations}~\cite{yin2011empirical,su2007autobash,attariyan2010automating,xu2015systems} are a major cause}}\\
 			\textcolor{white}{\shadowtext{of system failures~\cite{wool2004quantitative,oppenheimer2003internet,pertet2005causes}}}
 		\item   \textcolor{white}{\shadowtext{much time is needed to fix misconfigurations~\cite{rabkin2011static,oppenheimer2003internet,yin2011empirical,mahajan2002bgp}}}
-		\item   \textcolor{white}{\shadowtext{configuration is a user interface for both developers}}\\
-			\textcolor{white}{\shadowtext{and system administrators}}
 	\end{itemize}
 \end{frame}
 }
@@ -45,13 +43,11 @@
 \begin{frame}
 	\frametitle{Requirements of Elektra}
 
-
 	\begin{itemize}
-	\item formal
-	\item extensible and flexible
-	\item external to applications
-	\item open for introspection (for tooling)
-	\item (code) generation
+		\item formal
+		\item extensible and flexible
+		\item external to applications
+		\item open for introspection (for tooling)
 	\end{itemize}
 \end{frame}
 
@@ -98,7 +94,6 @@
 
 	We apply the specifications imperatively using:
 
-	\pause
 	\begin{code}[language=bash,morekeywords={meta-set}]
 	kdb meta-set /slapd/threads/listener\
 		check/range 1,2,4,8,16
@@ -132,11 +127,10 @@
 
 
 \begin{frame}[fragile]
-	\frametitle{KeySet Generation}
+	\frametitle{Grammar}
 	\begin{alertblock}{Idea}
 	Use configuration file format grammar to describe both configurations and (meta-)specifications
 	\end{alertblock}
-	\pause
 
 	\begin{grammar}
 	<KeySet> ::= \lq ksNew'\WhiteSpace(' \{ <Key> \lq , \LineBreak'  \}  \{ \lq\WhiteSpace' \} \lq KS\_END);'
@@ -174,19 +168,9 @@
 	\end{alertblock}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Possible Properties}
-	For example, SpecElektra has following properties:
-	\begin{description}
-	\item[type] represents the type to be used in the emitted source code.
-	\item[opt] is used for short command-line options to be copied to the namespace \namespace{proc}.
-	\item[opt/long] is used for long command-line options, which differ from short command-line options by supporting strings and not only characters.
-	\item[restrict/write] yields compilation errors when developers assign a value to a contextual value within the program.
-	\item[default] enables us to start the application even if the backend does not work.
-	\end{description}
-\end{frame}
-
 \begin{frame}[fragile]
+	\frametitle{Usage in Applications}
+
 	With the specification:
 	\par
 	\begin{code}[gobble=4]
@@ -226,10 +210,10 @@
 
 \begin{frame}
 	\begin{columns}[c]
-	\begin{column}{7cm}
+	\begin{column}{6cm}
 	\includegraphics[scale=0.8]{horizontalmodularity}
 	\end{column}
-	\begin{column}{4cm}
+	\begin{column}{5cm}
 	Cylinders are configuration files, P? are plugins~\cite{raab2016improving}.
 
 	\begin{itemize}
@@ -294,9 +278,6 @@
 		ensure => 'absent'
 	}
 	\end{code}
-
-	Uniqueness of keys is essential.
-	Ideally, applications already mount their configuration at installation.
 \end{frame}
 
 
@@ -385,7 +366,7 @@
 	\begin{code}[morekeywords={check,type,range,math},gobble=4]
 	[t/a]
 	type:=long
-	restrict/write:=
+	restrict/write:=1
 	[t/x]
 	check/enum/#0:=a
 	check/enum/#1:=b
