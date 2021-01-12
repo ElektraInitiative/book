@@ -51,7 +51,7 @@
 	\item extensible and flexible
 	\item external to applications
 	\item open for introspection (for tooling)
-	\item enables (code) generation
+	\item (code) generation
 	\end{itemize}
 \end{frame}
 
@@ -99,15 +99,12 @@
 	We apply the specifications imperatively using:
 
 	\pause
-	\begin{itemize}
-	\item formal and informal
-	\item should strive for completeness
-	\item should be extensible
-	\item should be external to application
-	\item open for introspection (for tooling)
-	\item should talk to users
-	\item should allow generation of artefacts
-	\end{itemize}
+	\begin{code}[language=bash,morekeywords={meta-set}]
+	kdb meta-set /slapd/threads/listener\
+		check/range 1,2,4,8,16
+	kdb meta-set /slapd/threads/listener\
+		default 1
+	\end{code}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -341,7 +338,7 @@
 
 	\begin{itemize}
 	\item zip must happen before encrypt
-	\item can be specified within plugins
+	\item must be specified within plugins
 	\end{itemize}
 \end{frame}
 
@@ -362,6 +359,51 @@
 	\item ordering does not help, as notification must happen at end
 	\end{itemize}
 \end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Plugins}
+
+	Or even plain contradicting, e.g. assignment:
+	\begin{code}[gobble=4]
+	[foo/bar]
+	  assign/math:=1+1
+	  assign/python:=1+2
+	  type:=long
+	\end{code}
+
+	\begin{alertblock}{Open Question}
+	How to deal with it?
+	\end{alertblock}
+\end{frame}
+
+
+\subsection{Flexible Syntax}
+
+\begin{frame}[fragile]
+	\frametitle{In C++/RelaxNG Style}
+
+	\begin{code}[morekeywords={check,type,range,math},gobble=4]
+	[t/a]
+	check/type:=long
+	restrict/null:=
+	[t/x]
+	check/enum/#0:=a
+	check/enum/#1:=b
+	check/enum/#2:=c
+	restrict/write:=
+	\end{code}
+
+	could be rendered by a storage plugin by:
+
+	\begin{code}[language=C++,morekeywords={@NonNull,@ReadOnly,string},gobble=4]
+	class
+	{
+		@NonNull long a;
+		@ReadOnly enum class {a,b,c} x;
+	} t;
+	\end{code}
+\end{frame}
+
 
 \subsection{Integration of Operators}
 
@@ -400,6 +442,10 @@
 	\item does not allow math expression to be embedded in condition
 	\item temporary variables are needed
 	\end{itemize}
+
+	\begin{alertblock}{Open Question}
+	How to deal with it?
+	\end{alertblock}
 \end{frame}
 
 
