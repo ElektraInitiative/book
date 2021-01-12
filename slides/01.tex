@@ -416,10 +416,10 @@
 
 	We apply the specifications imperatively using:
 
-	\begin{code}[language=bash,morekeywords={setmeta}]
-	kdb setmeta /slapd/threads/listener\
+	\begin{code}[language=bash,morekeywords={meta-set}]
+	kdb meta-set /slapd/threads/listener\
 		check/range 1,2,4,8,16
-	kdb setmeta /slapd/threads/listener\
+	kdb meta-set /slapd/threads/listener\
 	       	default 1
 	\end{code}
 
@@ -441,10 +441,10 @@
 
 	We apply the meta-specifications imperatively using:
 
-	\begin{code}[language=bash,morekeywords={setmeta}]
-	kdb setmeta /elektra/meta/\
+	\begin{code}[language=bash,morekeywords={meta-set}]
+	kdb meta-set /elektra/meta/\
 		visibility type enum ...
-	kdb setmeta /elektra/meta/\
+	kdb meta-set /elektra/meta/\
 		visibility description "Who ...
 	\end{code}
 
