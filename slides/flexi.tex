@@ -29,8 +29,23 @@
 	\end{itemize}
 \end{frame}
 }
+
 \begin{frame}
-	\frametitle{No-Futz}
+	\frametitle{Elektra}
+	\begin{itemize} %[<+->]
+	%	\item \citet{holland2001nofutz}~defined \empha{futzing} to denote \enquote{tinkering or fiddling experimentally}
+	%	\item With \intro[no-futz computing]{no-futz computing} \citet{holland2001nofutz} mean \enquote{that futzing should be allowed, but should never be required}
+		\item \elektra{} is a framework implementing a modular \intro{configuration specification language} for configuration settings
+	%	\item In \elektra{} we use properties to specify configuration settings and configuration access
+		\item \elektra{} enables \intro[no-futz computing]{no-futz computing} \cite{holland2001nofutz},
+			i.e., error-prone \enquote{tinkering or fiddling experimentally} \enquote{should be allowed, but should never be required}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Requirements of Elektra}
+
+
 	\begin{itemize}
 	\item formal
 	\item extensible and flexible
@@ -350,7 +365,7 @@
 
 \subsection{Integration of Operators}
 
-\begin{frame}
+\begin{frame}[fragile]
 	\frametitle{Sum Types}
 
 	\begin{code}[morekeywords={check,type,range,math},gobble=4]
@@ -370,7 +385,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 	\frametitle{Integration}
 
 	\begin{code}[morekeywords={check,type,range,math},gobble=4]
