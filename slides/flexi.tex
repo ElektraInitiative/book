@@ -221,6 +221,7 @@
 
 \begin{frame}[fragile]
 	Key/value access in Chef:
+	\vspace{0.5cm}
 
 	\begin{code}[morekeywords={kdbset,do,action,value,end},gobble=4]
 	kdbset '/slapd/threads/listener' do
@@ -232,6 +233,7 @@
 
 \begin{frame}[fragile]
 	Key/value access in Ansible:
+	\vspace{0.5cm}
 
 	\begin{code}[morekeywords={name,connection,key,value,elektra,mountpoint,file,plugins,hosts,tasks},gobble=4]
 	- name: setup LDAP
@@ -247,6 +249,7 @@
 
 \begin{frame}[fragile]
 	Key/value access in puppet-libelektra:
+	\vspace{0.5cm}
 
 	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
 	kdbkey {'/slapd/threads/listener':
@@ -392,9 +395,10 @@
 \begin{frame}
 	\frametitle{Conclusion}
 	\begin{itemize}
-	\item make simple configuration management tasks simple
-	\item operators not always combinable
+	\item Elektra makes configuration management tasks simpler
+	\item syntax flexible but limited to key/value formats
 	\item plugin development needs careful consideration of interactions
+	\item syntax of operators not always combinable
 	\end{itemize}
 \end{frame}
 
