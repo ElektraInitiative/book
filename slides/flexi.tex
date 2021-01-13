@@ -63,20 +63,18 @@
 \begin{frame}[fragile]
 	\frametitle{Configuration Settings}
 
-	A configuration file may look like:
+	A configuration file may look like (properties format):
 
 	\begin{code}[language=CfgElektra]
-	a=5
-	b=10
-	c=15
+	slapd/threads/listener=4
 	\end{code}
+
+	\vspace{1cm}
 
 	We apply these configuration settings imperatively using:
 
 	\begin{code}[language=bash]
-	kdb set /a 5
-	kdb set /b 10
-	kdb set /c 15
+	kdb set /slapd/threads/listener 4
 	\end{code}
 
 	And we list them with \lstinline[language=bash,morekeywords={ls},showspaces=no]^kdb ls /^.
@@ -90,7 +88,12 @@
 	[slapd/threads/listener]
 	  check/range:=1,2,4,8,16
 	  default:=1
+	  visibility:=advanced
+	  description:=One thread is adequate\
+		       for up to 16 CPU cores.
 	\end{code}
+
+	\vspace{0.6cm}
 
 	We apply the specifications imperatively using:
 
@@ -114,6 +117,8 @@
 	description:=Who should see this\
 	     configuration setting?
 	\end{code}
+
+	\vspace{1cm}
 
 	We apply the meta-specifications imperatively using:
 
@@ -174,41 +179,24 @@
 	With the specification:
 	\par
 	\begin{code}[gobble=4]
-	[foo/bar]
-	  default:=Hello
-	  type:=string
-	  opt:=b
+	[slapd/threads/listener]
+	  check/range:=1,2,4,8,16
+	  default:=1
+	  visibility:=advanced
 	  restrict/write:=1
 	\end{code}
 	\par
-	\elektra{Gen} gives the user read-only access to the object ^env.foo.bar^:
+	\elektra{Gen} gives the user read-only access to the object ^env.slapd.threads.listener^:
 	\par
 	\begin{code}[language=Cpp]
-	std::cout << env.foo.bar;
-	env.foo.bar = "Other world"; // comp. error
+	std::cout << env.slapd.threads.listener;
+	env.slapd.threads.listener = 3; // error
 	\end{code}
 	\par
 \end{frame}
 
-% hack: needed to render graphics properly
-\begin{frame}<0>[noframenumbering]
-	\begin{columns}[c]
-	\begin{column}{7cm}
-	\includegraphics[scale=0.8]{horizontalmodularity}
-	\end{column}
-	\begin{column}{4cm}
-	Cylinders are configuration files, P? are plugins~\cite{raab2016improving}.
-
-	Key ideas:
-	\begin{itemize}
-	\item all work is done by plugins
-	\item central data structure implements semantics
-	\end{itemize}
-	\end{column}
-	\end{columns}
-\end{frame}
-
 \begin{frame}
+	\frametitle{Implementation}
 	\begin{columns}[c]
 	\begin{column}{6cm}
 	\includegraphics[scale=0.8]{horizontalmodularity}
@@ -235,8 +223,8 @@
 	Key/value access in Chef:
 
 	\begin{code}[morekeywords={kdbset,do,action,value,end},gobble=4]
-	kdbset 'system/sw/samba/global/workgroup' do
-		value 'MY_WORKGROUP'
+	kdbset '/slapd/threads/listener' do
+		value '4'
 		action :create
 	end
 	\end{code}
@@ -246,18 +234,14 @@
 	Key/value access in Ansible:
 
 	\begin{code}[morekeywords={name,connection,key,value,elektra,mountpoint,file,plugins,hosts,tasks},gobble=4]
-	- name: setup samba
+	- name: setup LDAP
 	  connection: local
 	  hosts: localhost
 	  tasks:
-	  - name: set workgroup
+	  - name: set listening threads
 	    elektra:
-	      mountpoint: system/sw/samba
-	      file: /etc/samba/smb.conf
-	      plugins: ini
-	    elektra:
-	      key: 'system/sw/samba/global/workgroup'
-	      value: 'MY_WORKGROUP'
+	      key: '/slapd/threads/listener'
+	      value: '4'
 	\end{code}
 \end{frame}
 
@@ -265,41 +249,16 @@
 	Key/value access in puppet-libelektra:
 
 	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
-	kdbmount {'system/sw/samba':
+	kdbkey {'/slapd/threads/listener':
 		ensure => 'present',
-		file => '/etc/samba/smb.conf',
-		plugins => 'ini'
-	}
-	kdbkey {'system/sw/samba/global/workgroup':
-		ensure => 'present',
-		value => 'MY_WORKGROUP'
-	}
-	kdbkey {'system/sw/samba/global/log level':
-		ensure => 'absent'
-	}
-	\end{code}
-\end{frame}
-
-
-\begin{frame}[fragile]
-	Key/value specifications in puppet-libelektra:
-
-	\begin{code}[morekeywords={kdbkey,ensure,value},gobble=4]
-	kdbkey {'system/sw/samba/global/log level':
-		ensure => 'present',
-		value => 'MY_WORKGROUP',
+		value => '4'
 		check => {
 			'type' => 'short',
-			'range' => '0-10',
-			'default' => '1',
-			'description' => 'Sets the amount of log/
-				debug messages that are sent to the
-				log file. 0 is none, 3 is consider-
-				able.'
+			'range' => '1,2,4,8,16',
+			'default' => '1'
+		}
 	}
 	\end{code}
-
-	Ideally, applications already specify their settings.
 \end{frame}
 
 
