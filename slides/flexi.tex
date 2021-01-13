@@ -20,7 +20,7 @@
 \usebackgroundtemplate{\includegraphics[width=\paperwidth]{pics/clouds.jpg}}%
 \begin{frame}
 	\frametitle{\shadowtext{Misconfiguration}}
-	\begin{itemize} %[<+->]
+	\begin{itemize}[<+->]
 		\item   \textcolor{white}{\shadowtext{\empha[misconfiguration]{misconfigurations}~\cite{yin2011empirical,su2007autobash,attariyan2010automating,xu2015systems} are a major cause}}\\
 			\textcolor{white}{\shadowtext{of system failures~\cite{wool2004quantitative,oppenheimer2003internet,pertet2005causes}}}
 		\item   \textcolor{white}{\shadowtext{much time is needed to fix misconfigurations~\cite{rabkin2011static,oppenheimer2003internet,yin2011empirical,mahajan2002bgp}}}
@@ -29,10 +29,11 @@
 }
 
 \begin{frame}
-	\frametitle{Elektra}
-	\begin{itemize} %[<+->]
+	\frametitle{Elektra~\cite{raab2016elektra}}
+	\begin{itemize}[<+->]
 	%	\item \citet{holland2001nofutz}~defined \empha{futzing} to denote \enquote{tinkering or fiddling experimentally}
 	%	\item With \intro[no-futz computing]{no-futz computing} \citet{holland2001nofutz} mean \enquote{that futzing should be allowed, but should never be required}
+		\item \intro{configuration specification languages} mitigate misconfigurations
 		\item \elektra{} is a framework implementing a modular \intro{configuration specification language} for configuration settings
 	%	\item In \elektra{} we use properties to specify configuration settings and configuration access
 		\item \elektra{} enables \intro[no-futz computing]{no-futz computing} \cite{holland2001nofutz},
@@ -41,13 +42,12 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Requirements of Elektra}
+	\frametitle{Requirements of Elektra~\cite{raab2017challenges}}
 
 	\begin{itemize}
-		\item formal
 		\item extensible and flexible
 		\item external to applications
-		\item open for introspection (for tooling)
+		\item open for introspection
 	\end{itemize}
 \end{frame}
 
@@ -76,8 +76,6 @@
 	\begin{code}[language=bash]
 	kdb set /slapd/threads/listener 4
 	\end{code}
-
-	And we list them with \lstinline[language=bash,morekeywords={ls},showspaces=no]^kdb ls /^.
 \end{frame}
 
 \begin{frame}[fragile]
@@ -153,10 +151,10 @@
 \begin{frame}[fragile]
 	\frametitle{Example}
 	\begin{example}
-	Given the key ^spec:/slapd/threads/listener^, with the configuration value ^4^ and the property $\property{default} \mapsto 1$, \elektra{} emits:
+	Given the key ^/slapd/threads/listener^, with the configuration value ^4^ and the property $\property{default} \mapsto 1$, \elektra{} emits:
 
 	\begin{code}[gobble=4,language=Cpp]
-	ksNew (keyNew ("spec:/slapd/threads/listener",
+	ksNew (keyNew ("/slapd/threads/listener",
 		       KEY_VALUE, "4",
 		       KEY_META, "default", "1",
 		       KEY_END),
@@ -168,7 +166,7 @@
 	\pause
 	\begin{alertblock}{Finding}
 	We have source code representing the settings.
-	And if we instantiate it, we have a data structure representing the settings.
+	If we instantiate it, we get a data structure representing the settings.
 	Plugins emitting such ``configuration files'' are code generators.
 	\end{alertblock}
 \end{frame}
@@ -229,6 +227,11 @@
 		action :create
 	end
 	\end{code}
+
+	\pause
+	\begin{alertblock}{Finding}
+	We have configuration management code representing the settings.
+	\end{alertblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -248,7 +251,7 @@
 \end{frame}
 
 \begin{frame}[fragile]
-	Key/value access in puppet-libelektra:
+	Key/value access in puppet-libelektra~\cite{raab2020unified}:
 	\vspace{0.5cm}
 
 	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
@@ -266,7 +269,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Problems in Flexibility}
+\section{Problems with Flexibility}
 
 \subsection{Feature Interaction}
 
@@ -320,7 +323,7 @@
 \end{frame}
 
 
-\subsection{Flexible Syntax}
+\subsection{Integration of Operators}
 
 \begin{frame}[fragile]
 	\frametitle{In C++/RelaxNG Style}
@@ -346,10 +349,8 @@
 \end{frame}
 
 
-\subsection{Integration of Operators}
-
 \begin{frame}[fragile]
-	\frametitle{Sum Types}
+	\frametitle{Types}
 
 	\begin{code}[morekeywords={check,type,range,math},gobble=4]
 	[a]
@@ -362,10 +363,7 @@
 	  check/math:="== + a b"
 	\end{code}
 
-	\begin{itemize}
-	\item ideal to further restrict types
-	\item does not work for sum types
-	\end{itemize}
+	ideal to further restrict types
 \end{frame}
 
 \begin{frame}[fragile]
