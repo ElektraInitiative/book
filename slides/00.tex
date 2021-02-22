@@ -101,6 +101,12 @@
 	\end{task}
 \end{assignment}
 
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Content Overview}
 
@@ -147,7 +153,7 @@
 \begin{frame}
 	Topic 03: \textit{Configuration Integration}
 	\\ \vspace{1cm}
-	art and technical challenges of reusing configurations between applications
+	art and technical challenges of sharing configurations between applications
 \end{frame}
 
 
@@ -161,43 +167,14 @@
 \end{frame}
 
 \begin{frame}
-	Topic: \textit{design of configuration}
+	Topic 05: \textit{Configuration Management Tools}
 	\begin{itemize}
-		\item complexity reduction
-		\item documentation of configuration
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Topic: \textit{architecture of configuration access}
-	\begin{itemize}
-		\item architectural decisions
-		\item modularity
-		\item avoidance of dependences
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Topic: \textit{introspection vs.\ code generation}
-	\begin{itemize}
-		\item introspection
-		\item code generation
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Topic: \textit{misconfiguration detection and testing}
-	\begin{itemize}
-		\item early misconfiguration detection
-		\item testability (how much variability is tested)
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Topic: \textit{context-aware configuration}
-	\begin{itemize}
-		\item cascading configuration
-		\item context-awareness
+		\item history
+		\item Infrastructure as Code
+		\item configuration drift
+		\item push vs.\ pull
+		\item full vs.\ partial changes
+		\item examples: Puppet, Chef, Ansible, CfEngine, Nix, \dots
 	\end{itemize}
 \end{frame}
 
@@ -208,16 +185,42 @@
 \end{assignment}
 
 \begin{frame}
-	Topic: \textit{validation vs.\ auto-detection}
+	Topic 06: \textit{Strategies for Validation and Modularization}
 	\begin{itemize}
-		\item points in time for configuration access and validation
 		\item validation techniques
-		\item configuration-less systems (auto-detection)
+		\item modularity
+		\item avoidance of dependences
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	Topic: \textit{configuration as a user interface}
+	Topic 07: \textit{Strategies for Reduction of Misconfiguration}
+	\begin{itemize}
+		\item configuration-less systems (auto-detection)
+		\item context awareness
+		\item finding (un)used settings
+		\item desirable properties of configuration
+		\begin{itemize}
+			\item self-description
+			\item changeability
+			\item idempotence
+			\item round-tripping
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Topic 08: \textit{Early Detection of Misconfiguration}
+	\\ \vspace{1cm}
+	points in time for
+	\begin{itemize}
+		\item configuration access
+		\item validation
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Topic 09: \textit{Configuration as a User Interface}
 	\begin{itemize}
 		\item How system administrators work.
 		\item Which user interfaces exist.
@@ -227,24 +230,11 @@
 \end{frame}
 
 \begin{frame}
-	Topic: \textit{desirable properties of configuration}
+	Topic 10: \textit{Design of Configuration}
 	\begin{itemize}
-		\item self-description
-		\item changeability
-		\item idempotence
-		\item round-tripping
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Topic: \textit{configuration management tools}
-	\begin{itemize}
-		\item history
-		\item Infrastructure as Code
-		\item configuration drift
-		\item push vs.\ pull
-		\item full vs.\ partial changes
-		\item examples: Puppet, Chef, Ansible, CfEngine, Nix, \dots
+		\item complexity reduction
+		\item design aspects of configuration specification
+		\item documentation of configuration
 	\end{itemize}
 \end{frame}
 
