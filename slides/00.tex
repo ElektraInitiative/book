@@ -240,37 +240,44 @@
 
 
 \begin{frame}
-	\hspace*{-1cm}\includegraphics[width=\paperwidth]{dot/topics}
-\end{frame}
-
-\begin{frame}
 	\frametitle{Elektra}
 	\hfill \includegraphics[width=2cm]{../figures/logo}
 	\vspace{-1cm}
-	%Elektra is an implementation of the next generation of configuration systems:
 	\begin{itemize}
-		\item Elektra improves configuration management.
-		\item Configuration management tools can use Elektra.
-		\item Elektra implements what we discuss in this lecture.
-		\item Elektra allows applications to fulfil the requirements we will discuss.
-		\item Obviously you will also be able to apply the knowledge from this LVA without Elektra.
-		\item Developed at TU Wien (\url{https://libelektra.org}).
+		\item Elektra is one implementation of what we discuss in this lecture.
+		\item Configuration management tools use Elektra.
+		\item Elektra is developed at TU Wien (\url{https://libelektra.org}).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Possible Benefits of CM}
+
+	\begin{task}
+	What are the goals of Configuration Management?
+	\end{task}
+
+	\pause
+
+	\begin{itemize} %[<+-| alert@+>]
+	\item Documentation, Customization, Reproducability
+	\item Declarative description of the system
+	\item Less configuration drift
+	\item Better error handling
+	\item Reusability
+	\item (Resource) Abstractions
 	\end{itemize}
 \end{frame}
 
 \begin{assignment}
 	\frametitle{In which topics are you interested?}
 	\begin{task}[1]
-	Choose a partner for this task.
+	Discuss topics with your partner.
+	Can be new topics not mentioned before.
 	\end{task}
 
 	\begin{task}[2]
-	Go to stations and discuss topic with your partner.
-	\end{task}
-
-	\begin{task}[3]
-	Write down the most interesting topics.
-	(Can be topics of stations or new topics.)
+	Write down the most interesting in the shared notes.
 	\end{task}
 \end{assignment}
 
@@ -283,30 +290,30 @@
 
 \subsection{Preliminaries}
 \begin{frame}
-	Communication:
+	\frametitle{Communication}
 	\begin{itemize}
-		\item TISS (forum and news) \url{https://tiss.tuwien.ac.at/course/courseDetails.xhtml?courseNr=194030&semester=2019S}
+		\item TUWEL \url{https://tuwel.tuwien.ac.at/course/view.php?idnumber=194030-2021S}
+		\item TISS (exam) \url{https://tiss.tuwien.ac.at/course/courseDetails.xhtml?courseNr=194030&semester=2019S}
 		\item GitHub (private and public repository) \url{https://git.libelektra.org}
 		\item EMail \url{markus.raab@complang.tuwien.ac.at}
-		\item before/after/during lectures
+		\item before/after/during meetings
 	\end{itemize}
 \end{frame}
 
-\begin{assignment}
-	\begin{task}
-	Create a pull request to the public Elektra repository with ``CM'' written in the description.
-	\end{task}
-	With the account you used, you will get access to a private repository.
-
-	Deadline: 13.03.2019 23:59
-\end{assignment}
+\begin{frame}
+	\frametitle{Inverted Classroom}
+	\begin{itemize}
+		\item always read/watch the material in advance
+		\item within meetings we'll do a recapitulation
+		\item and you ask questions
+	\end{itemize}
+\end{frame}
 
 \begin{frame}
 	\frametitle{Previous Knowledge}
 	\begin{itemize}
 		\item Obviously \textit{no} prior knowledge about Configuration or Configuration Management necessary.
 		\item If you already have experience, you can use it in your talk and assignments.
-		\item Knowledge about large-scale software construction is beneficially.
 		\item You should have some understanding of software engineering and software requirements.
 		\item Programming skills is a must.
 	\end{itemize}
@@ -356,29 +363,32 @@
 	\frametitle{Talk}
 	about anything related to configuration management.
 	\begin{itemize}
-		\item The duration must be 20 minutes.
+		\item The duration must be 10--20 minutes.
 		\item It must be about your experience.
+		\item I.e., not only about study of literature.
+		\item E.g., about:
 		\begin{itemize}
-			\item E.g., about the homework you did.
-			\item I.e., not only about study of literature.
-			\item If you used some tool before, please share your experience.
+			\item the homework you did
+			\item some CM tool you played around with
+			\item some application you struggled to configure
 		\end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Homework}
-	The homework consists of three parts:
 	\begin{enumerate}
+		\item Write into the forum
+		% TODO
+		\item Choose which variant you want to do
 		\item Play around with Elektra, create a PR with anything you find.
 		For example:
 		\begin{itemize}
-			\item Improve a tutorial or write a new one (if none exists).
+			\item Improve a tutorial.
 			\item Write new examples.
 			\item Write new tests.
 			\item Fix documentation.
 		\end{itemize}
-		\item Fix five bugs (from the pool of issues, or assigned by me based on your skills)
 		\item Implement a non-trivial feature, for example:
 		\begin{itemize}
 			\item Make a configuration management tool use Elektra.
@@ -388,30 +398,19 @@
 	\end{enumerate}
 \end{frame}
 
-\begin{assignment}
-	\begin{task}
-	Think about a talk and homework till next week.
-	Write it down in the private repository (first come, first served).
-	\end{task}
-\end{assignment}
-
 \begin{frame}
 	\frametitle{Deadlines}
 
-	\begin{itemize}
-	\item gradual reduction of points for missed deadlines
-	\item if nothing was done before mid-term, only \p{50} is possible
-	\end{itemize}
-	Examples:
 
 	\begin{itemize}
-	\item If 7 PRs were done for homework but none of them was done before mid-term, you get 15 instead of 30 points.
-	\item If 7 PRs were done for homework but 2 of them were delayed, you get 22 instead of 30 points.
+	\item there are always two deadlines for homework+teamwork
+	\item only when submitting at first deadline corrections are possible
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Team Exercise}
+	% TODO
 	You can select your team (2 people) and your task related to \emph{improve} configuration management.
 	Every team member has a different task:
 
@@ -441,29 +440,18 @@
 
 \begin{assignment}
 	\begin{task}
-	Talk with someone who is not necessarily your neighbor about a potential collaboration in the team exercise.
+	Talk with someone about a potential collaboration in the team exercise.
 	\end{task}
 \end{assignment}
 
 \begin{frame}
-	Lecture is every week Wednesday 09:00 - 11:00.
+	Meeting is every week Wednesday 09:00 - 11:00 c.t.
 
-	\begin{description}
-		\item[06.03.2019:] topic, teams
-		\item[13.03.2019:] registration, initial PR
-		\item[20.03.2019:] Guest Lecture
-		\item[27.03.2019:] (HS?)
-		\item[03.04.2019:]
-		\item[08.05.2019:] (HS?)
-		\item[10.04.2019:] mid-term submission of exercises
-		\item[15.05.2019:]
-		\item[22.05.2019:]
-		\item[29.05.2019:]
-		\item[05.06.2019:] final submission of exercises
-		\item[12.06.2019:]
-		\item[19.06.2019:] last corrections of exercises
-		\item[26.06.2019:] exam
-	\end{description}
+	Important materials:
+	\begin{itemize}
+	\item Semestereinteilung
+	\item Aufgaben
+	\end{itemize}
 \end{frame}
 
 \begin{assignment}
