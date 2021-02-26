@@ -14,13 +14,13 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Background}
+%\section{Background}
 {
 \shadowcolor{black}
 \shadowoffset{0.5pt}
 \usebackgroundtemplate{\includegraphics[width=\paperwidth]{pics/clouds.jpg}}%
 \begin{frame}
-	\frametitle{\shadowtext{Misconfiguration}}
+	\frametitle{\shadowtext{Misconfiguration (Recapitulation)}}
 	\begin{itemize}[<+->]
 		\item   \textcolor{white}{\shadowtext{\empha[misconfiguration]{misconfigurations}~\cite{yin2011empirical,su2007autobash,attariyan2010automating,xu2015systems} are a major cause}}\\
 			\textcolor{white}{\shadowtext{of system failures~\cite{wool2004quantitative,oppenheimer2003internet,pertet2005causes}}}
@@ -43,16 +43,59 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Requirements of Elektra~\cite{raab2017challenges}}
-
+	\frametitle{Elektra as Virtual Filesystem}
 	\begin{itemize}
-		\item extensible and flexible
-		\item external to applications
-		\item open for introspection
+	\item configuration files are seen like ``block devices''
+	\item are mounted with respective filesystem drivers into the filesystem
+	\item many tools and APIs evolved to work with files
+	\item Idea of Elektra: establish a similar ecosystem for configuration
 	\end{itemize}
 \end{frame}
 
-\section{Elektra}
+\begin{frame}
+	\frametitle{Why is Elektra not a Filesystem then?}
+	\begin{itemize}
+	\item API semantics: key/value get/set
+	\item namespaces: based on established semantics
+	\item many features essential for misconfiguration hardening:
+		\begin{itemize}
+		\item validation
+		\item visibility
+		\item defaults
+		\item \dots (extensible specification)
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Learning Outcomes}
+	Students will be able to
+	\begin{itemize}
+	\item remember definitions of configuration settings.
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\subsection{Definitions}
+
+\begin{frame}
+	\frametitle{Basic Definitions}
+	The \intro[execution environment]{execution environment} is information outside the boundaries of each currently running process~\cite{corbato1971multics}.
+
+	Controlling the execution environment is essential for configuration management~\cite{cons2002pan,huang2015confvalley}, testing~\cite{van2010automating,wang2009context}, and security~\cite{goldberg1996secure,schreuders2012towards,perkins2009automatically,liang2003isolated}.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Configuration Setting}
+	\input{../shared/def/configurationsetting.tex}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Synonyms for Configuration Settings}
+	\ExecuteMetaData[../book/background.tex]{synonyms}
+\end{frame}
+
+\section{Metalevels}
 
 \begin{frame}
 	\frametitle{Metalevels}
@@ -129,6 +172,22 @@
 	\end{code}
 \end{frame}
 
+\section{KeySet}
+
+\begin{frame}
+	\frametitle{KeySet}
+
+	The common data structure between plugins and applications:
+	\vspace{1cm}
+
+	\includegraphics{keyset}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Is meta-data separated from or included in the data structure?
+	\end{task}
+\end{assignment}
 
 \begin{frame}[fragile]
 	\frametitle{Grammar}
@@ -216,189 +275,20 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Configuration Management}
-
 \begin{frame}[fragile]
-	Key/value access in Chef:
-	\vspace{0.5cm}
-
-	\begin{code}[morekeywords={kdbset,do,action,value,end},gobble=4]
-	kdbset '/slapd/threads/listener' do
-		value '4'
-		action :create
-	end
-	\end{code}
-
-	\pause
-	\begin{alertblock}{Finding}
-	We have CM code representing the settings.
-	\end{alertblock}
-\end{frame}
-
-\begin{frame}[fragile]
-	Key/value access in Ansible:
-	\vspace{0.5cm}
-
-	\begin{code}[morekeywords={name,connection,key,value,elektra,mountpoint,file,plugins,hosts,tasks},gobble=4]
-	- name: setup LDAP
-	  connection: local
-	  hosts: localhost
-	  tasks:
-	  - name: set listening threads
-	    elektra:
-	      key: '/slapd/threads/listener'
-	      value: '4'
-	\end{code}
-\end{frame}
-
-\begin{frame}[fragile]
-	Key/value access in puppet-libelektra~\cite{raab2020unified}:
-	\vspace{0.5cm}
-
-	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
-	kdbkey {'/slapd/threads/listener':
-		ensure => 'present',
-		value => '4'
-		check => {
-			'type' => 'short',
-			'range' => '1,2,4,8,16',
-			'default' => '1'
-		}
-	}
-	\end{code}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Problems with Flexibility}
-
-\subsection{Feature Interaction}
-
-\begin{frame}[fragile]
-	\frametitle{Fixed Order}
-
-	\begin{code}
-	[foo/bar]
-	  encrypt:=1
-	  zip:=1
-	\end{code}
-
-	\begin{itemize}
-	\item zip must happen before encrypt
-	\item must be specified within plugins
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Plugins}
-
-	Plugins that modify the KeySet can be very problematic, e.g. notification:
-	\begin{code}[gobble=4]
-	[foo/bar]
-	  rename/toupper:=1
-	  notify:=1
-	  type:=string
-	\end{code}
-
-	\begin{itemize}
-	\item expected: notify on change of key
-	\item actual: always notifies because of renaming
-	\item ordering does not help, as notification must happen at end
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Plugins}
-
-	Or even plain contradicting, e.g. assignment:
-	\begin{code}[gobble=4]
-	[foo/bar]
-	  assign/math:=1+1
-	  assign/python:=1+2
-	  type:=long
-	\end{code}
-
-	\begin{alertblock}{Open Question}
-	How to deal with it?
-	\end{alertblock}
-\end{frame}
-
-
-\subsection{Integration of Operators}
-
-\begin{frame}[fragile]
-	\frametitle{In C++/RelaxNG Style}
-
-	\begin{code}[morekeywords={check,type,range,math},gobble=4]
-	[t/a]
-	type:=long
-	restrict/write:=1
-	[t/x]
-	check/enum/#0:=a
-	check/enum/#1:=b
-	check/enum/#2:=c
-	\end{code}
-
-	could be rendered by a storage plugin by:
-
-	\begin{code}[language=C++,morekeywords={@NonNull,@ReadOnly,string},gobble=4]
-	t {
-		@restrict/write long a;
-		enum {a,b,c} x;
-	};
-	\end{code}
-\end{frame}
-
-
-\begin{frame}[fragile]
-	\frametitle{Types}
-
-	\begin{code}[morekeywords={check,type,range,math},gobble=4]
-	[a]
-	  check/type:=long
-	[b]
-	  check/type:=long
-	[c]
-	  check/type:=long
-	  check/range:=0-10
-	  check/math:="== + a b"
-	\end{code}
-
-	ideal to further restrict types
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Integration}
-
-	\begin{code}[morekeywords={check,type,range,math},gobble=4]
-	[c]
-	  check/type:=long
-	  check/range:=0-10
-	  check/math:="== + a b"
-	  check/condition:="(a == '3') ? (b == '5')"
-	\end{code}
-
-	\begin{itemize}
-	\item does not allow math expression to be embedded in condition
-	\item temporary variables are needed
-	\end{itemize}
-
-	\begin{alertblock}{Open Question}
-	How to deal with it?
-	\end{alertblock}
-\end{frame}
-
-
-\section{Conclusion}
-
-\begin{frame}
-	\frametitle{Conclusion}
-	\begin{itemize}
-	\item Elektra makes configuration management tasks simpler
-	\item syntax flexible but limited to key/value formats
-	\item plugin development needs careful consideration of interactions
-	\item syntax of operators not always combinable
-	\end{itemize}
+	\begin{description}[align=left]
+	\item[kdb.open():]
+	The first step is to bootstrap into a situation where the necessary plugins can be loaded.
+	\item[kdb.get(\texttt{KeySet}):] \index{kdb.get}
+	The application (initially) fetches and (later) updates its configuration settings as a key set of type ^KeySet^ from the execution environment by one or many calls to ^kdb.get^.
+	%If all relevant configuration files are unmodified since the last invocation, ^kdb.get^ will do nothing.
+	\item[kdb.set(\texttt{KeySet}):] \index{kdb.set}
+	When a user finishes editing configuration settings, ^kdb.set^ is in charge of writing all changes back to the key database.
+	%This function atomically persists a whole key set in involved parts of the execution environment.
+	%In the case of an error no action takes place.
+	\item[kdb.close():] \index{kdb.close}
+	The last step is to close the connection to the key database.
+	\end{description}
 \end{frame}
 
 
