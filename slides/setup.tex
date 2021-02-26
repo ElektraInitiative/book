@@ -59,6 +59,23 @@
 
 \usepackage[sort&compress,numbers]{natbib}  % to be have \citet, \citeauthor, \citeyear
 
+\makeatletter
+\AtBeginDocument{
+  \hypersetup{
+    bookmarks=true,
+%    unicode=true,
+    pdftitle = {\@title Configuration Management},
+    pdfauthor={Markus Raab},
+    pdfkeywords={Semestereinteilung} {Homework} {Teamwork},
+    pdfnewwindow=true,
+    linkbordercolor=bblue, % color of internal links
+    citebordercolor=bblue, % color of links to bibliography
+    filebordercolor=bblue, % color of file links
+    urlbordercolor=bblue% color of external links
+  }
+}
+\makeatother
+
 \MakePerPage{footnote}
 
 \tikzstyle{o}=[r,ppBlue]
