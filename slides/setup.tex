@@ -60,6 +60,7 @@
 
 \makeatletter
 \AtBeginDocument{
+  \renewcommand{\enquote}[1]{\emph{``#1''}} % Cannot be done earlier
   \hypersetup{
     bookmarks=true,
 %    unicode=true,
