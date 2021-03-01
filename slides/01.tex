@@ -4,28 +4,14 @@
 \date{10.03.2021}
 
 \begin{document}
-\section{Background}
-{
-\shadowcolor{black}
-\shadowoffset{0.5pt}
-\usebackgroundtemplate{\includegraphics[width=\paperwidth]{pics/clouds.jpg}}%
-\begin{frame}
-	\frametitle{\shadowtext{Misconfiguration (Recapitulation)}}
-	\begin{itemize}[<+->]
-		\item   \textcolor{white}{\shadowtext{\empha[misconfiguration]{misconfigurations}~\cite{yin2011empirical,su2007autobash,attariyan2010automating,xu2015systems} are a major cause}}\\
-			\textcolor{white}{\shadowtext{of system failures~\cite{wool2004quantitative,oppenheimer2003internet,pertet2005causes}}}
-		\item   \textcolor{white}{\shadowtext{much time is needed to fix misconfigurations~\cite{rabkin2011static,oppenheimer2003internet,yin2011empirical,mahajan2002bgp}}}
-	\end{itemize}
-\end{frame}
-}
-
+\section{Elektra}
 \begin{frame}
 	\frametitle{Elektra~\cite{raab2016elektra}}
 	\begin{itemize}[<+->]
 	%	\item \citet{holland2001nofutz}~defined \empha{futzing} to denote \enquote{tinkering or fiddling experimentally}
 	%	\item With \intro[no-futz computing]{no-futz computing} \citet{holland2001nofutz} mean \enquote{that futzing should be allowed, but should never be required}
-		\item \intro{configuration specification languages} mitigate misconfigurations
 		\item \elektra{} is a framework implementing a modular \intro{configuration specification language} for configuration settings
+		\item \intro{configuration specification languages} mitigate misconfigurations
 	%	\item In \elektra{} we use properties to specify configuration settings and configuration access
 		\item \elektra{} enables \intro[no-futz computing]{no-futz computing} \cite{holland2001nofutz},
 			i.e., error-prone \enquote{tinkering or fiddling experimentally} \enquote{should be allowed, but should never be required}
@@ -57,6 +43,9 @@
 	\end{itemize}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Definitions}
+
 \begin{frame}
 	\frametitle{Learning Outcomes}
 	Students will be able to
@@ -64,9 +53,6 @@
 	\item remember definitions of configuration settings.
 	\end{itemize}
 \end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\subsection{Definitions}
 
 \begin{frame}
 	\frametitle{Basic Definitions}
@@ -178,12 +164,6 @@
 	\includegraphics{keyset}
 \end{frame}
 
-\begin{assignment}
-	\begin{task}
-	Is meta-data separated from or included in the data structure?
-	\end{task}
-\end{assignment}
-
 \begin{frame}[fragile]
 	\frametitle{Grammar}
 	\begin{alertblock}{Idea}
@@ -285,6 +265,27 @@
 	The last step is to close the connection to the key database.
 	\end{description}
 \end{frame}
+
+\section{Meeting}
+{
+\shadowcolor{black}
+\shadowoffset{0.5pt}
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{pics/clouds.jpg}}%
+\begin{frame}
+	\frametitle{\shadowtext{Misconfiguration (Recapitulation)}}
+	\begin{itemize}[<+->]
+		\item   \textcolor{white}{\shadowtext{\empha[misconfiguration]{misconfigurations}~\cite{yin2011empirical,su2007autobash,attariyan2010automating,xu2015systems} are a major cause}}\\
+			\textcolor{white}{\shadowtext{of system failures~\cite{wool2004quantitative,oppenheimer2003internet,pertet2005causes}}}
+		\item   \textcolor{white}{\shadowtext{much time is needed to fix misconfigurations~\cite{rabkin2011static,oppenheimer2003internet,yin2011empirical,mahajan2002bgp}}}
+	\end{itemize}
+\end{frame}
+}
+
+\begin{assignment}
+	\begin{task}
+	Is meta-data separated from or included in the data structure KeySet?
+	\end{task}
+\end{assignment}
 
 
 
