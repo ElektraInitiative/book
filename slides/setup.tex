@@ -215,7 +215,16 @@
 
 \pgfplotsset{compat=1.14}
 
-\author[Markus Raab \insertframenumber/\inserttotalframenumber]{Markus Raab}
+\author[Markus Raab]{Markus Raab}
+
+\expandafter\def\expandafter\insertshorttitle\expandafter{%
+  \insertshorttitle\hfill%
+  S\ifnum\value{framenumber}<10 0\fi\arabic{framenumber}} % \insertframenumber
+
+
+%\setbeamertemplate{footline}[frame number]
+
+% /\inserttotalframenumber
 
 %\title[Elektra \hspace{25mm} \insertframenumber/\inserttotalframenumber]{Elektra}
 %\title[Configuration Management \hspace{15mm} \insertframenumber/\inserttotalframenumber]{Configuration Management}
