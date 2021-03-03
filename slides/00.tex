@@ -20,6 +20,7 @@
 
 \begin{frame}
 	\frametitle{Language}
+	Materials are in English:
 	\begin{itemize}
 		\item Slides are in English
 		\item Papers are in English
@@ -35,6 +36,32 @@
 	\item[A] English
 	\item[B] German
 	\item[C] Don't care
+	\end{description}
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\frametitle{Video}
+	I am trying to keep meetings short with many breaks. \\
+	You are allowed to:
+	\begin{itemize}
+		\item stretch
+		\item move
+		\item eat
+		\item look somewhere else
+		\item leave your place
+	\end{itemize}
+	\begin{task}
+	But please turn video on.
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\frametitle{Recording ok?}
+	\begin{task}
+	\begin{description}
+	\item[A] Yes
+	\item[B] No
 	\end{description}
 	\end{task}
 \end{assignment}
@@ -120,14 +147,20 @@
 	\end{itemize}
 \end{frame}
 
-\subsection{Terminology}
 \begin{frame}
 	\frametitle{Terminology}
 	\input{../shared/def/configurationsetting.tex}
 \end{frame}
 
+\begin{frame}[fragile]
+	\frametitle{Example}
+
+	\begin{code}[language=CfgElektra]
+	slapd/threads/listener=4
+	\end{code}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%TODO: add examples for configuration settings here!
 \begin{assignment}
 	\frametitle{Configuration Settings}
 	\begin{task}
@@ -152,7 +185,7 @@
 
 
 \begin{frame}
-	Topic 04: \textit{sources of configuration}
+	Topic 04: \textit{Sources of Configuration}
 	\begin{itemize}
 		\item configuration file formats
 		\item command-line arguments
@@ -238,7 +271,7 @@
 	\hfill \includegraphics[width=2cm]{../figures/logo}
 	\vspace{-1cm}
 	\begin{itemize}
-		\item Elektra is one implementation of what we discuss in this lecture.
+		\item Elektra is one implementation of what we \\ discuss in this lecture.
 		\item Configuration management tools use Elektra.
 		\item Elektra is developed at TU Wien (\url{https://libelektra.org}).
 	\end{itemize}
@@ -288,7 +321,7 @@
 	\begin{itemize}
 		\item TUWEL \url{https://tuwel.tuwien.ac.at/course/view.php?idnumber=194030-2021S}
 		\item TISS (exam) \url{https://tiss.tuwien.ac.at/course/courseDetails.xhtml?courseNr=194030&semester=2019S}
-		\item GitHub (private and public repository) \url{https://git.libelektra.org}
+		\item GitHub (private and public repository) \\ public: \url{https://git.libelektra.org}
 		\item EMail \url{markus.raab@complang.tuwien.ac.at}
 		\item before/after/during meetings
 	\end{itemize}
@@ -296,10 +329,13 @@
 
 \begin{frame}
 	\frametitle{Inverted Classroom}
+	Meeting is every week Wednesday 09:00 - 11:00 c.t.
+
 	\begin{itemize}
 		\item always read/watch the material in advance
 		\item within meetings we'll do a recapitulation
 		\item and you ask questions
+		\item we start off with many materials
 	\end{itemize}
 \end{frame}
 
@@ -322,6 +358,7 @@
 		\item Java
 		\item Rust
 		\item Python
+		\item Go
 		\item Lua
 		\item Ruby
 	\end{itemize}
@@ -355,14 +392,14 @@
 \subsection{Assignments}
 \begin{frame}
 	\frametitle{Talk}
-	about anything related to configuration management.
 	\begin{itemize}
+		\item About anything related to configuration management.
 		\item The duration must be 10--20 minutes.
 		\item It must be about your experience.
 		\item I.e., not only about study of literature.
 		\item E.g., about:
 		\begin{itemize}
-			\item the homework you did
+			\item homework you did (e.g. H1 or T1)
 			\item some CM tool you played around with
 			\item some application you struggled to configure
 		\end{itemize}
@@ -372,43 +409,16 @@
 \begin{frame}
 	\frametitle{Deadlines}
 
-	there are always two deadlines for each homework+teamwork:
-
 	\begin{itemize}
-	\item regular deadline (first submission)
-	\item deadline for corrections based on the feedback of first submission
+	\item if you make submissions earlier, you get feedback earlier
+	\item dates are both in ``semester schedule.pdf'' and calender of TUWEL
 	\end{itemize}
 
-	if you make submissions earlier, you get feedback earlier
-\end{frame}
+	There are always two deadlines for each homework+teamwork:
 
-\begin{frame}
-	\frametitle{Team Exercise}
-	% TODO
-	You can select your team (2 people) and your task related to \emph{improve} configuration management.
-	Every team member has a different task:
-
-	\begin{enumerate}
-		\item Elektrify some application.
-		\item Configure the application using Configuration Management.
-	\end{enumerate}
-
-	\vspace{0.5cm}
-	And then swap roles and start again with different task.
-
-	\vspace{0.5cm}
-	If possible, you should use the parts developed in the homework.
-\end{frame}
-
-\begin{frame}
-	\frametitle{Team Work}
-
-
-	Clarifications needed:
 	\begin{itemize}
-	\item Who does what?
-	\item either one more complex or two more simple applications
-	\item one needs to write instructions and specification for the other
+	\item regular deadline (submission)
+	\item deadline for corrections (based on the feedback of submission but you can also extend the submission)
 	\end{itemize}
 \end{frame}
 
@@ -418,20 +428,10 @@
 	\end{task}
 \end{assignment}
 
-\begin{frame}
-	Meeting is every week Wednesday 09:00 - 11:00 c.t.
-
-	Important materials:
-	\begin{itemize}
-	\item Semestereinteilung
-	\item Aufgaben
-	\end{itemize}
-\end{frame}
-
 \begin{assignment}
 	\frametitle{Questions?}
 	\begin{task}
-	Please register for the course and start playing with Elektra.
+	Please register for the course by doing H0.
 	\end{task}
 
 	\begin{task}
