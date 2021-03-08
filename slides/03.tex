@@ -1,0 +1,177 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Elektrify}
+
+%TODO: disadvantages in hard-coding configuration
+%TODO: disadvantages in having transformations
+%TODO: disadvantages in missing introspection
+
+%TODO: describe more configuration integration problem (req. etc.)
+
+\subsection{Definitions}
+
+\begin{frame}
+	\frametitle{Configuration Access APIs}
+
+	\Large
+	\ExecuteMetaData[../book/background.tex]{definition-api}
+
+	\ExecuteMetaData[../book/background.tex]{definition-configuration-access}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Configuration Access APIs}
+
+	\begin{task}
+	Which configuration access APIs do you know? \\
+	What are the differences between these APIs?
+	\end{task}
+
+	\pause
+	For example:
+	\begin{itemize}[<+-| alert@+>]
+	\item ^char * getenv (const char * key)^
+	\item ^ConfigStatus xf86HandleConfigFile(Bool autoconfig)^
+	\item ^long pathconf (const char *path, int^ ^name)^
+	\item ^long sysconf (int name)^
+	\item ^size_t confstr (int name, char *buf, size_t len)^
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Configuration Access Points}
+	\ExecuteMetaData[../book/background.tex]{definition-configuration-access-points}
+
+	\begin{code}[language=Cpp,gobble=4,showspaces=no]
+	int main()
+	{
+		getenv ("PATH");
+	}
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Configuration Libraries}
+	\ExecuteMetaData[../book/background.tex]{definition-configuration-library}
+
+	Trends:
+	\begin{itemize}[<+-| alert@+>]
+	\item flexibility to configure configuration access (e.g., \url{https://commons.apache.org/proper/commons-configuration/})
+	\item more type safety (e.g., \url{http://owner.aeonbits.org/}, code generation in next lecture)
+	\item try to unify something (UCI, Augeas, Elektra)
+	\end{itemize}
+\end{frame}
+
+\subsection{Lightweight vs.\ Strong}
+
+\begin{frame}[fragile]
+	\frametitle{Lightweight Integration}
+
+	Specify already-existing configuration files:
+	\begin{code}[language=Cpp,gobble=4,showspaces=no]
+	[ntp]
+	  mountpoint:=ntp.conf
+	  infos/plugins:=ntp
+	\end{code}
+	Works well for configuration management tools.
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Medium Integration}
+
+	Having frontends that implement existing \textbf{APIs} decouple applications from each other.
+	These applications continue to use their specific configuration accesses, but \elektra{} redirects their configuration accesses to the shared key database.
+
+	Possible APIs:
+	\begin{itemize}[<+-| alert@+>]
+	\item ^getenv^ (implemented in ^bindings/intercept/env^)
+	\item open/close of configuration files
+	\end{itemize}
+
+	\pause[\thebeamerpauses]
+
+	Also needs application-specific specifications.
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Strong Integration}
+
+	Change the application so that it directly uses Elektra.
+
+	Advantages:
+	\begin{itemize}[<+-| alert@+>]
+	\item Elektra's features always available
+	\item more type safety
+	\item administrators can choose configuration file formats
+	\item notification and logging
+	\item only one parser involved
+	\item no specification for binding needed
+	\item no built-in defaults: everything is introspectable
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Strong Integration}
+
+	Different implementations strategies:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item have some application-specific API which uses ^KeySet^
+	\item use one of KeySet's language bindings
+	\item use Elektra's high-level API (currently only C)
+	\item code generation
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	What will you use for the teamwork?
+	\end{task}
+\end{assignment}
+
+
+\subsection{Sharing Configuration}
+
+\begin{frame}
+	\begin{itemize}
+	\item idea: make default value better
+	\item is the generalization of sharing configuration values
+	\item can be combined with visibility
+	\pause
+	\item can be derived from other configuration settings
+	\item can be derived from context~\cite{raab2017introducing}
+	\item can be derived from hardware/system (problem with dependences)
+	\pause
+	\item XServer vs.\ gpsd
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Examples}
+	Context:
+	\begin{code}[gobble=4]
+	[slapd/threads/listener]
+	context:=/slapd/threads/%cpu%/listener
+	\end{code}
+
+	\vspace{1cm}
+	Calculation with conditionals plugin
+	\\ (e.g., switch off GPS if battery low):
+	\pause
+	\begin{code}[gobble=4]
+	[gps/status]
+	assign:=(battery > 'low') ? ('on') : ('off')
+	\end{code}
+\end{frame}
+
+\begin{frame}
+	\begin{alertblock}{Question}
+	How do we get such an specification now?
+	\end{alertblock}
+
+	\pause
+	\begin{exampleblock}{Answer}
+	Elektrify: Make the application use a configuration library that has support for configuration specifications.
+	\end{exampleblock}
+\end{frame}
+

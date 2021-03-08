@@ -1,234 +1,25 @@
-%TODO: add cliffhanger with preview for next time
-
 \input{setup}
 
-\date{10.05.2021}
+\title{L02 Configuration Specification Languages}
+\date{17.03.2021}
 
 \begin{document}
 
-\renewcommand{\enquote}[1]{\emph{``#1''}} % Cannot be done earlier
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-	\titlepage
-	\doclicenseThis
-\end{frame}
-
-\begin{frame}
-	Lecture is every week Wednesday 09:00 - 11:00.
-
-	\begin{description}
-		\item[06.03.2019:] {\color{gray}topic, teams}
-		\item[13.03.2019:] {\color{gray}TISS registration, initial PR}
-		\item[20.03.2019:] {\color{gray}other registrations, guest lecture}
-		\item[27.03.2019:] {\color{gray}PR for first issue done, second started}
-		\item[03.04.2019:] {\color{red}first issue done, PR for second}
-		\item[10.04.2019:] {\color{orange}mid-term submission of exercises}
-		\item[08.05.2019:] (HS?)
-		\item[15.05.2019:]
-		\item[22.05.2019:]
-		\item[29.05.2019:]
-		\item[05.06.2019:] final submission of exercises
-		\item[12.06.2019:]
-		\item[19.06.2019:] last corrections of exercises
-		\item[26.06.2019:] exam
-	\end{description}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Popular Topics}
-	\vspace{-0.55cm}
-	\setlength{\columnsep}{-1.3cm}
-	\raggedright
-	\begin{multicols}{2}
-	\begin{description}
-	\item[14] tools
-	\item[9] testability
-	\item[9] code-generation
-	\item[7] context-awareness
-	\item[6] {\color{red} specification}
-	\item[6] misconfiguration
-	\item[6] {\color{gray} complexity reduction}
-	\item[5] validation
-	\item[5] points in time % (early detection)
-	\item[5] error messages
-	\item[5] {\color{red} auto-detection}
-	\item[4] user interface
-	\item[4] introspection
-	\item[4] design
-	\item[4] cascading
-	\item[4] architecture of access
-	\item[3] {\color{gray} configuration sources}
-	\item[3] {\color{red} config-less systems}
-	\item[2] secure conf
-	\item[2] {\color{red} architectural decisions}
-	\item[1] push vs.\ pull
-	\item[1] infrastructure as code
-	\item[1] full vs.\ partial
-	\item[1] convention over conf %iguration
-	\item[1] CI/CD
-	\item[0] documentation
-	\end{description}
-	\end{multicols}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Pull Requests}
-
-	\begin{itemize}
-	\item build server and reviews take time
-	\item please also add test cases and documentation
-	\item put label ``ready to merge'' after build server, reviews, \dots are satisfied
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Deadlines}
-
-	\begin{itemize}
-	\item gradual reduction of points for missed deadlines
-	\item if nothing was done before mid-term, only \p{50} is possible
-	\end{itemize}
-	Examples:
-
-	\begin{itemize}
-	\item If 7 PRs were done for homework but none of them was done before mid-term, you get 15 instead of 30 points.
-	\item If 7 PRs were done for homework but 2 of them were delayed, you get 22 instead of 30 points.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Team Work}
-
-
-	Clarifications needed:
-	\begin{itemize}
-	\item Who does what?
-	\item either one more complex or two more simple applications
-	\item one needs to write instructions and specification for the other
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\frametitle{Tasks for today}
-	(until 03.04.2019 23:59)
-
-	\begin{task}
-	Fix misconfigurations in private repo.
-	\end{task}
-	\pause
-
-	\begin{task}
-	Add clarifications and fix feedback about homework/teamwork.
-	Calculate complexity of your teamwork.
-	\end{task}
-	\pause
-
-	\begin{task}
-	First issue done, PR for second issue and write some text in at least one other issue (if 5 issues are not yet assigned to you).
-	\end{task}
-\end{assignment}
-
-\begin{assignment}
-	\frametitle{Tasks for next week}
-	(until 10.04.2019 23:59)
-
-	mid-term submission of exercises
-	
-	\begin{task}
-	Submit a first version of both teamwork and homework.
-	\end{task}
-
-	Does not need to be complete, important is that you get started.
-	\pause
-
-	\begin{task}
-	Second PR done, PR for third issue created and write some text in at least one other issue (if 5 issues are not yet assigned to you).
-	\end{task}
-	\pause
-
-	\begin{task}
-	Write one architectural decision for your teamwork or Elektra.
-	\end{task}
-\end{assignment}
-
-
-
-
-\begin{frame}
-	\frametitle{KeySet (Recapitulation)}
-
-	\begin{alertblock}{Question}
-	Describe the common data structure in Elektra.
-	\end{alertblock}
-
-	\vspace{1cm}
-	\pause
-
-	\includegraphics{keyset}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Unnecessary Settings~\cite{xu2015hey} (Recapitulation)}
-
-	\begin{alertblock}{Question}
-	How many settings are actually used?
-	\end{alertblock}
-
-	\pause
-
-	\begin{itemize}
-	\item \p{6} to \p{17} of settings set by majority
-	\item up to \p{54} are seldom set
-	\item up to \p{47} of numeric settings have no more than five distinct values
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\begin{alertblock}{Question}
-	How can you reduce the complexity of configuration settings?
-	\end{alertblock}
-
-	\pause
-	\begin{exampleblock}{Answer}
-	\begin{itemize}
-	\item Configuration Specification (restrictions, better design, \dots)
-	\item unify formats, semantics, \dots
-	\item avoid to have them (hard-code, better defaults, \dots)
-	\end{itemize}
-	\end{exampleblock}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Metalevels (Recapitulation)}
-	\begin{alertblock}{Question}
-	Describe the three Metalevels in Elektra.
-	\end{alertblock}
-
-	\pause
-	\includegraphics{metalevels}
-\end{frame}
-
-
-\begin{frame}
-	\textit{learning outcome:}
-	\begin{itemize}
-		\item understand concepts of configuration specifications
-		\item compare different ways to integrate configuration specifications
-		\item remember templates to describe software architecture
-	\end{itemize}
-\end{frame}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Configuration Specification}
+\section{Theory}
 
-\begin{assignment}
-	\begin{task}
-	Brainstorming: What can be part of a configuration specification?
-	What can they be used for?
-	\end{task}
-\end{assignment}
+\begin{frame}
+	\frametitle{Rationale}
+	\begin{itemize}
+	\item without specification you and others do not even know which settings are available
+	\item needed for any further techniques we will discuss
+	\pause
+	\item essential for \intro[no-futz computing]{no-futz computing}~\citet{holland2001nofutz}
+	\item the foundation for any advanced tooling like configuration management tools
+	\pause
+	\item needed as communication of producers and consumers of configuration
+	\end{itemize}
+\end{frame}
 
 \begin{frame}
 	\methodQuestion{}
@@ -239,7 +30,7 @@
 \begin{frame}
 	\frametitle{Limitations of Schemata designed for Data}
 	\begin{itemize}
-	\item like XSD/JSON schemas
+	\item e.g.\ XSD/JSON schemas
 	\item they are already very helpful but:
 	\pause
 	\begin{itemize}
@@ -253,32 +44,9 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Limitations of Zero-Configuration}
-	\begin{itemize}
-	\item e.g. gpsd\footnote{\url{www.aosabook.org/en/gpsd.html}}
-	\pause
-	\item broken hardware or protocols
-	\item auto-detection may go wrong
-	\item the configuration actually lives elsewhere \\ (e.g., in the GPS devices)
-	\end{itemize}
-\end{frame}
-
-\subsection{How?}
-
-\begin{frame}
 	\frametitle{Types of Specifications}
 	\includegraphics[scale=0.8]{specifications}
 \end{frame}
-
-\begin{assignment}
-	\begin{task}
-	What do we mean with a configuration specification?
-	\end{task}
-
-	\begin{task}
-	Which requirements do we have for a configuration specification?
-	\end{task}
-\end{assignment}
 
 
 \begin{frame}
@@ -308,11 +76,9 @@
 
 	<property> ::= <property name> ':=' [ <property value> ]
 	\end{grammar}
-\end{frame}
 
-
-\begin{frame}[fragile]
-	\frametitle{Example}
+	\vspace{1cm}
+	Example:
 	\begin{code}[gobble=4]
 	[slapd/threads/listener]
 	default:=1
@@ -320,20 +86,45 @@
 	\end{code}
 \end{frame}
 
-\subsection{Example}
+
+\section{Practise}
 
 \begin{frame}[fragile]
 	\frametitle{Options}
 
 	Environment and command-line options can be considered with:
 
-	\begin{code}[morekeywords={long},gobble=4]]
+	\begin{code}[morekeywords={long,env},gobble=4]]
 	[recursive]
 	  type:=boolean
 	  opt:=r
 	  opt/long:=recursive
 	  env:=RECURSIVE
 	  default:=0
+	\end{code}
+\end{frame}
+
+%TODO: currency
+
+\begin{frame}[fragile]
+	\frametitle{Examples}
+	Sharing:
+	\begin{code}[gobble=4]
+	[slapd/threads/listener]
+	fallback/#0:=slapd/threads
+	\end{code}
+
+	\vspace{1cm}
+	Percentages
+	\\ (e.g., configured image should be additionally cropped):
+	\pause
+	\begin{code}[gobble=4]
+	[image/width]
+	type:=long
+
+	[crop]
+	type:=long
+	check/range:=0-100
 	\end{code}
 \end{frame}
 
@@ -380,269 +171,36 @@
 	\end{itemize}
 \end{frame}
 
+
+
+
+\section{Meeting}
+%TODO: add cliffhanger with preview for next time
+
+\begin{assignment}
+	\begin{task}
+	Brainstorming: What can be part of a configuration specification?
+	What can they be used for?
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\begin{task}
+	What do we mean with a configuration specification?
+	\end{task}
+
+	\begin{task}
+	Which requirements do we have for a configuration specification?
+	\end{task}
+\end{assignment}
+
 \begin{assignment}
 	\begin{task}
 	Break.
 	\end{task}
 \end{assignment}
 
-\subsection{Calculate Default Values}
 
-\begin{frame}
-	\begin{itemize}
-	\item idea: make default value better
-	\item is the generalization of sharing configuration values
-	\item can be combined with visibility
-	\pause
-	\item can be derived from other configuration settings
-	\item can be derived from context~\cite{raab2017introducing}
-	\item can be derived from hardware/system (problem with dependences)
-	\pause
-	\item XServer vs.\ gpsd
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Examples}
-	Sharing:
-	\begin{code}[gobble=4]
-	[slapd/threads/listener]
-	fallback/#0:=slapd/threads
-	\end{code}
-
-	\vspace{1cm}
-	Percentages
-	\\ (e.g., configured image should be additionally cropped):
-	\pause
-	\begin{code}[gobble=4]
-	[image/width]
-	type:=long
-
-	[crop]
-	type:=long
-	check/range:=0-100
-	\end{code}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Examples}
-	Context:
-	\begin{code}[gobble=4]
-	[slapd/threads/listener]
-	context:=/slapd/threads/%cpu%/listener
-	\end{code}
-
-	\vspace{1cm}
-	Calculation with conditionals plugin
-	\\ (e.g., switch off GPS if battery low):
-	\pause
-	\begin{code}[gobble=4]
-	[gps/status]
-	assign:=(battery > 'low') ? ('on') : ('off')
-	\end{code}
-\end{frame}
-
-\begin{frame}
-	\begin{alertblock}{Question}
-	How do we get such an specification now?
-	\end{alertblock}
-
-	\pause
-	\begin{exampleblock}{Answer}
-	Elektrify: Make the application use a configuration library that has support for configuration specifications.
-	\end{exampleblock}
-\end{frame}
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Elektrify}
-
-%TODO: disadvantages in hard-coding configuration
-%TODO: disadvantages in having transformations
-%TODO: disadvantages in missing introspection
-
-%TODO: describe more configuration integration problem (req. etc.)
-
-\subsection{Definitions}
-
-\begin{frame}
-	\frametitle{Configuration Access APIs}
-
-	\Large
-	\ExecuteMetaData[../book/background.tex]{definition-api}
-
-	\ExecuteMetaData[../book/background.tex]{definition-configuration-access}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Configuration Access APIs}
-
-	\begin{task}
-	Which configuration access APIs do you know? \\
-	What are the differences between these APIs?
-	\end{task}
-
-	\pause
-	For example:
-	\begin{itemize}[<+-| alert@+>]
-	\item ^char * getenv (const char * key)^
-	\item ^ConfigStatus xf86HandleConfigFile(Bool autoconfig)^
-	\item ^long pathconf (const char *path, int^ ^name)^
-	\item ^long sysconf (int name)^
-	\item ^size_t confstr (int name, char *buf, size_t len)^
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Configuration Access Points}
-	\ExecuteMetaData[../book/background.tex]{definition-configuration-access-points}
-
-	\begin{code}[language=Cpp,gobble=4,showspaces=no]
-	int main()
-	{
-		getenv ("PATH");
-	}
-	\end{code}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Configuration Libraries}
-	\ExecuteMetaData[../book/background.tex]{definition-configuration-library}
-
-	Trends:
-	\begin{itemize}[<+-| alert@+>]
-	\item flexibility to configure configuration access (e.g., \url{https://commons.apache.org/proper/commons-configuration/})
-	\item more type safety (e.g., \url{http://owner.aeonbits.org/}, code generation in next lecture)
-	\item try to unify something (UCI, Augeas, Elektra)
-	\end{itemize}
-\end{frame}
-
-\subsection{Lightweight vs.\ Strong}
-
-\begin{frame}[fragile]
-	\frametitle{Lightweight Integration}
-
-	Specify already-existing configuration files:
-	\begin{code}[language=Cpp,gobble=4,showspaces=no]
-	[ntp]
-	  mountpoint:=ntp.conf
-	  infos/plugins:=ntp
-	\end{code}
-	Works well for configuration management tools.
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Medium Integration}
-
-	Having frontends that implement existing \textbf{APIs} decouple applications from each other.
-	These applications continue to use their specific configuration accesses, but \elektra{} redirects their configuration accesses to the shared key database.
-
-	Possible APIs:
-	\begin{itemize}[<+-| alert@+>]
-	\item ^getenv^ (implemented in ^bindings/intercept/env^)
-	\item open/close of configuration files
-	\end{itemize}
-
-	\pause[\thebeamerpauses]
-
-	Also needs application-specific specifications.
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Strong Integration}
-
-	Change the application so that it directly uses Elektra.
-
-	Advantages:
-	\begin{itemize}[<+-| alert@+>]
-	\item Elektra's features always available
-	\item more type safety
-	\item administrators can choose configuration file formats
-	\item notification and logging
-	\item only one parser involved
-	\item no specification for binding needed
-	\item no built-in defaults: everything is introspectable
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Strong Integration}
-
-	Different implementations strategies:
-
-	\begin{itemize}[<+-| alert@+>]
-	\item have some application-specific API which uses ^KeySet^
-	\item use one of KeySet's language bindings
-	\item use Elektra's high-level API (currently only C)
-	\item code generation
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	What will you use for the teamwork?
-	\end{task}
-\end{assignment}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Architectural Decisions}
-
-\subsection{}
-
-\begin{frame}
-	\frametitle{Software Architecture}
-	\begin{itemize}
-	\item architecture is high-level description of the overall system
-	\item use ready-made patterns and templates for architecture
-	\pause
-	\item e.g., \url{http://arc42.org/}
-	\item architectural decisions~\cite{zdun2007patterns} essential (e.g., Chapter~9 in arc42)
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Architectural Decisions}
-	\begin{itemize}
-	\item describe decisions that lead to the architecture
-	\item open decisions are high-level configuration
-	\item useful to have patterns~\cite{zdun2007patterns} and templates, too
-	\item template: problem, constraints, assumptions, considered alternatives, decision, rationale, implications, related, notes
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Why are configuration settings added? \\[1cm]
-	\pause
-	The typical reasons are:
-	\ExecuteMetaData[../book/implications.tex]{reasons-adding}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{in Configuration Specification}
-	\begin{code}[gobble=4]
-	[slapd/threads/listener]
-	description:=adjust to use more threads
-	rationale:=needed for many-core systems
-	requirement:=1234
-	visibility:=developer
-	\end{code}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Conclusion}
-	\begin{itemize}
-	\item alarming trend in number and complexity of configuration
-	\item sharing, visibility and default value calculation may help
-	\item but also more courageous decisions and periodical reevaluation
-	\item both need abstraction: configuration specification
-	\end{itemize}
-\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
