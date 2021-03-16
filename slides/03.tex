@@ -1,14 +1,12 @@
+\input{setup}
+
+\title{L03 Configuration Integration}
+\date{24.03.2021}
+
+\begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Elektrify}
-
-%TODO: disadvantages in hard-coding configuration
-%TODO: disadvantages in having transformations
-%TODO: disadvantages in missing introspection
-
-%TODO: describe more configuration integration problem (req. etc.)
-
-\subsection{Definitions}
+\section{Configuration Libraries}
 
 \begin{frame}
 	\frametitle{Configuration Access APIs}
@@ -22,16 +20,9 @@
 \begin{frame}[fragile]
 	\frametitle{Configuration Access APIs}
 
-	\begin{task}
-	Which configuration access APIs do you know? \\
-	What are the differences between these APIs?
-	\end{task}
-
-	\pause
-	For example:
 	\begin{itemize}[<+-| alert@+>]
 	\item ^char * getenv (const char * key)^
-	\item ^ConfigStatus xf86HandleConfigFile(Bool autoconfig)^
+	\item ^ConfigStatus xf86HandleConfigFile(Bool autoconf)^
 	\item ^long pathconf (const char *path, int^ ^name)^
 	\item ^long sysconf (int name)^
 	\item ^size_t confstr (int name, char *buf, size_t len)^
@@ -57,12 +48,25 @@
 	Trends:
 	\begin{itemize}[<+-| alert@+>]
 	\item flexibility to configure configuration access (e.g., \url{https://commons.apache.org/proper/commons-configuration/})
-	\item more type safety (e.g., \url{http://owner.aeonbits.org/}, code generation in next lecture)
-	\item try to unify something (UCI, Augeas, Elektra)
+	\item more type safety (e.g., \url{http://owner.aeonbits.org/}, code generation)
+	\item specifications and introspection (gsettings, XML/JSON, Elektra)
+	\item configuration integration (UCI, Augeas, Elektra)
 	\end{itemize}
 \end{frame}
 
-\subsection{Lightweight vs.\ Strong}
+\begin{frame}
+	\frametitle{Current Situation}
+	\includegraphics[scale=0.7]{cursituation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Wanted Situation}
+	\includegraphics[scale=0.7]{wantsituation}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Lightweight to Strong Integration}
 
 \begin{frame}[fragile]
 	\frametitle{Lightweight Integration}
@@ -73,6 +77,8 @@
 	  mountpoint:=ntp.conf
 	  infos/plugins:=ntp
 	\end{code}
+
+	\vspace{1cm}
 	Works well for configuration management tools.
 \end{frame}
 
@@ -84,11 +90,12 @@
 
 	Possible APIs:
 	\begin{itemize}[<+-| alert@+>]
-	\item ^getenv^ (implemented in ^bindings/intercept/env^)
+	\item ^getenv^
 	\item open/close of configuration files
 	\end{itemize}
 
 	\pause[\thebeamerpauses]
+	\vspace{1cm}
 
 	Also needs application-specific specifications.
 \end{frame}
@@ -119,29 +126,40 @@
 	\item have some application-specific API which uses ^KeySet^
 	\item use one of KeySet's language bindings
 	\item use Elektra's high-level API (currently only C)
-	\item code generation
+	\item use code generation
 	\end{itemize}
 \end{frame}
 
-\begin{assignment}
-	\begin{task}
-	What will you use for the teamwork?
-	\end{task}
-\end{assignment}
+\begin{frame}[fragile]
+	\frametitle{Strong Integration}
+	Examples:
+	\begin{itemize}
+	\item LCDproc
+	\item Oyranos
+	\item for GNOME: ^gsettings^
+	\item for KDE: ^kconfig^
+	\end{itemize}
+\end{frame}
 
 
-\subsection{Sharing Configuration}
+
+\section{Sharing Configuration}
 
 \begin{frame}
 	\begin{itemize}
-	\item idea: make default value better
-	\item is the generalization of sharing configuration values
-	\item can be combined with visibility
+	\item idea: make default values better
+	\item generalization of sharing configuration values
+	\item examples: language settings, default printer, \dots
+	\end{itemize}
 	\pause
-	\item can be derived from other configuration settings
-	\item can be derived from context~\cite{raab2017introducing}
-	\item can be derived from hardware/system (problem with dependences)
+	\vspace{1cm}
+	Can be derived from:
+	\begin{itemize}
+	\item other configuration settings (override/fallback)
+	\item context~\cite{raab2017introducing}
+	\item hardware/system (problem with dependences)
 	\pause
+	\vspace{1cm}
 	\item XServer vs.\ gpsd
 	\end{itemize}
 \end{frame}
@@ -154,15 +172,17 @@
 	context:=/slapd/threads/%cpu%/listener
 	\end{code}
 
+	\pause
 	\vspace{1cm}
 	Calculation with conditionals plugin
 	\\ (e.g., switch off GPS if battery low):
-	\pause
 	\begin{code}[gobble=4]
 	[gps/status]
 	assign:=(battery > 'low') ? ('on') : ('off')
 	\end{code}
 \end{frame}
+
+\section{Meeting}
 
 \begin{frame}
 	\begin{alertblock}{Question}
@@ -175,3 +195,19 @@
 	\end{exampleblock}
 \end{frame}
 
+\begin{frame}
+	\begin{task}
+	Which configuration access APIs do you know? \\
+	What are the differences between these APIs?
+	\end{task}
+\end{frame}
+
+\appendix
+
+\begin{frame}[allowframebreaks]
+	\bibliographystyle{plainnat}
+	\bibliography{../shared/elektra.bib}
+\end{frame}
+
+
+\end{document}

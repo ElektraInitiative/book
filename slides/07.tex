@@ -10,3 +10,32 @@
 	\item the configuration actually lives elsewhere \\ (e.g., in the GPS devices)
 	\end{itemize}
 \end{frame}
+
+
+%TODO: maybe move to 10
+\begin{frame}
+	\frametitle{Visibility}
+	\begin{itemize}
+	\item idea: show only relevant settings for specific user group
+	\item or disallow editing: accessibility
+	\pause
+	\item requires user-feedback loops~\cite{xu2015hey}
+	\item most-used settings should be best visible (or even enforce them to be changed: against harmful defaults)
+	\item think of your users (administrators), \\ only expose what users need
+	\item write an rationale why someone needs it
+	\pause
+	\item visibility should not be an excuse to add not-needed settings
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Example}
+	\begin{code}[gobble=4]
+	[slapd/threads/listener]
+	visibility:=developer
+
+	[slapd/access/#]
+	visibility:=user
+	\end{code}
+\end{frame}
+

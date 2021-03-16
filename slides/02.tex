@@ -89,8 +89,217 @@
 
 \section{Practise}
 
+\begin{frame}
+	\frametitle{Learning Outcomes}
+	Students will be able to
+	\begin{itemize}
+	\item use configuration specification languages.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Metalevels (Recapitulation)}
+	\includegraphics{metalevels}
+
+	We will now walk through metalevels bottom-up.
+\end{frame}
+
 \begin{frame}[fragile]
-	\frametitle{Options}
+	\frametitle{Configuration Settings (Recapitulation)}
+
+	A configuration file may look like:
+
+	\begin{code}[language=CfgElektra]
+	a=5
+	b=10
+	c=15
+	\end{code}
+
+	We apply these configuration settings imperatively using:
+
+	\begin{code}[language=bash]
+	kdb set /a 5
+	kdb set /b 10
+	kdb set /c 15
+	\end{code}
+
+	And we list them with \lstinline[language=bash,morekeywords={ls},showspaces=no]^kdb ls /^.
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Specifications (Recapitulation)}
+	For specifications such as:
+
+	\begin{code}
+	[slapd/threads/listener]
+	  type:=short
+	  default:=1
+	\end{code}
+
+	We apply the specifications imperatively using:
+
+	\begin{code}[language=bash,morekeywords={meta,set,default}]
+	kdb meta-set /slapd/threads/listener\
+		type short
+	kdb meta-set /slapd/threads/listener\
+		default 1
+	\end{code}
+
+	(automatically uses ^spec:^ namespace)
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Meta-Specifications (Recapitulation)}
+	For meta-specifications such as:
+
+	\small
+	\begin{code}[gobble=4]
+	[type]
+	type:=enum short unsigned_short long \
+		float double char boolean any string ...
+	description:=Defines the type of the value, \
+		 as specified in CORBA
+	\end{code}
+
+	We apply the meta-specifications imperatively using:
+
+	\begin{code}[language=bash,morekeywords={meta,set},gobble=4]
+	kdb meta-set system:/info/elektra/metadata/type/#0 \
+		type "enum short ..."
+	kdb meta-set system:/info/elektra/metadata/type/#0 \
+		description "Defines ..."
+	\end{code}
+
+	\large
+	see ^doc/METADATA.ini^
+\end{frame}
+
+\begin{frame}
+	\frametitle{SpecElektra}
+
+	\begin{itemize}
+	\item we use it to demonstrate configuration specification languages
+	\item a modular \intro{specification language} for configuration settings
+	\item we use properties to specify configuration settings and configuration access
+	\item \elektra{Spec} specifies the behavior of \elektra{}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Mountpoint}
+
+	The root of each configuration specification, e.g. in ni syntax:
+
+	\begin{code}[morekeywords={mountpoint,infos,plugins},gobble=4]]
+	[]
+	mountpoint = vlc.ini
+	infos/plugins = ni
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hierarchy}
+
+	Always prefer hierarchy separator (^/^) as only separator:
+
+	\begin{code}[gobble=4]
+	[server/ip]
+	\end{code}
+
+	\vspace{1cm}
+
+	Avoid other separators:
+
+	\begin{code}[gobble=4]
+	[server_ip]
+	[server-ip]
+	[server.ip]
+	\end{code}
+
+	Because they limit extensibility
+	as they do not create sections in configuration files.
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Types}
+
+	Presence alone indicates availability of a configuration setting:
+
+	\begin{code}[gobble=4]
+	[server/port]
+	\end{code}
+
+	Equivalent to ^type:=any^.
+
+	\vspace{1cm}
+
+	Properties give restrictions:
+
+	\begin{code}[gobble=4]
+	[server/port]
+	type:=short
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Require vs. Default}
+	Prefer default values:
+	\begin{code}[gobble=4]
+	[server/ip]
+	default:=127.0.0.1
+	\end{code}
+
+	Note that defaults must be sane and secure.
+
+	\pause
+	\vspace{1cm}
+
+	Avoid require:
+
+	\begin{code}[gobble=4]
+	[server/ip]
+	require:=
+	\end{code}
+
+	Because this forces the user to take action.
+	\pause
+
+	\begin{warn}
+	\texttt{require and default} do not make sense together.
+	\end{warn}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{IP Addresses}
+	\begin{code}[morekeywords={ipaddr,example},gobble=4]
+	[server/ip]
+	check/ipaddr:=ipv4
+	example:=0.0.0.0
+	default:=127.0.0.1
+	\end{code}
+
+	Two plugins provide ^check/ipaddr^: ipaddr and network
+
+	Will be automatically selected.
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Arrays}
+	\begin{code}[gobble=4]
+	[servers]
+	array:=
+
+	[servers/#/ip]
+	check/ipaddr:=ipv4
+
+	[servers/#/port]
+	type:=short
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Command-line Options}
 
 	Environment and command-line options can be considered with:
 
@@ -104,70 +313,39 @@
 	\end{code}
 \end{frame}
 
-%TODO: currency
+\begin{frame}[fragile]
+	\frametitle{Dates}
+	\small
+	\begin{code}[morekeywords={type,date,format,example},gobble=4]
+	[mydate]
+	example:=2021-03-01
+	type:=string
+	check/date:=ISO8601
+	check/date/format:=calendardate complete extended
+	\end{code}
+\end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{Examples}
-	Sharing:
-	\begin{code}[gobble=4]
-	[slapd/threads/listener]
-	fallback/#0:=slapd/threads
-	\end{code}
-
-	\vspace{1cm}
+	\frametitle{Design Considerations}
 	Percentages
 	\\ (e.g., configured image should be additionally cropped):
-	\pause
 	\begin{code}[gobble=4]
 	[image/width]
 	type:=long
 
-	[crop]
+	[crop/width]
 	type:=long
 	check/range:=0-100
 	\end{code}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Visibility}
+	\frametitle{Artefacts}
 	\begin{itemize}
-	\item idea: show only relevant settings for specific user group
-	\item or disallow editing: accessibility
-	\pause
-	\item requires user-feedback loops~\cite{xu2015hey}
-	\item most-used settings should be best visible (or even enforce them to be changed: against harmful defaults)
-	\item think of your users (administrators), \\ only expose what users need
-	\item write an rationale why someone needs it
-	\pause
-	\item visibility should not be an excuse to add not-needed settings
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Example}
-	\begin{code}[gobble=4]
-	[slapd/threads/listener]
-	visibility:=developer
-
-	[slapd/access/#]
-	visibility:=user
-	\end{code}
-\end{frame}
-
-
-\begin{assignment}
-	\begin{task}
-	Brainstorming: Now, how do we implement such a specification?
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	\frametitle{Possible Implementations}
-	\begin{itemize}
+	\item plugins in configuration framework (e.g. validate settings)
 	\item tooling (GUI, Web UI)
 	\item generate examples/documentation
 	\item auto-completion/syntax highlighting/IDE support
-	\item plugins in configuration framework (hide settings)
 	\end{itemize}
 \end{frame}
 
@@ -191,6 +369,12 @@
 
 	\begin{task}
 	Which requirements do we have for a configuration specification?
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\begin{task}
+	Brainstorming: Now, how do we implement such a specification?
 	\end{task}
 \end{assignment}
 
