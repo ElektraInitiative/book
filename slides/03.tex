@@ -8,6 +8,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Configuration Libraries}
 
+%TODO: add learning outcome
+
 \begin{frame}
 	\frametitle{Configuration Access APIs}
 
@@ -182,11 +184,27 @@
 	\end{code}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Meeting}
+
+\subsection{Recapitulation}
+
+\begin{frame}
+	\begin{task}
+	Do you have any questions?
+	\end{task}
+\end{frame}
+
+\begin{frame}
+	\begin{task}
+	Which configuration access APIs do you know? \\
+	What are the differences between these APIs?
+	\end{task}
+\end{frame}
 
 \begin{frame}
 	\begin{alertblock}{Question}
-	How do we get such an specification now?
+	How can we make applications to honor the configuration specification?
 	\end{alertblock}
 
 	\pause
@@ -196,10 +214,107 @@
 \end{frame}
 
 \begin{frame}
+	\begin{alertblock}{Question}
+	Which forms of configuration integration exist?
+	\end{alertblock}
+
+	\pause
+	\begin{exampleblock}{Answer}
+	\begin{itemize}
+	\item Lightweight Integration: Mount existing configuration files for configuration management tools
+	\item Medium Integration: Specify how to access via existing APIs
+	\item Strong Integration: Modify the application.
+	\end{itemize}
+	\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+	\begin{alertblock}{Question}
+	After we integrated some application, how can we share configuration settings?
+	\end{alertblock}
+
+	\pause
+	\begin{exampleblock}{Answer}
+	\begin{itemize}
+	\item Override/fallback links.
+	\item Calculate/transform values.
+	\item Mount context/hardware/system information.
+	\end{itemize}
+	\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}
 	\begin{task}
-	Which configuration access APIs do you know? \\
-	What are the differences between these APIs?
+	Explain mounting.
 	\end{task}
+\end{frame}
+
+\subsection{Assignments}
+
+\begin{frame}
+	\frametitle{Develop with Elektra}
+
+	\begin{task}
+	Can you already compile software using Elektra?
+	\end{task}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Teams}
+
+	\begin{task}
+	All teams formed?
+	\end{task}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Issues}
+
+	\begin{task}
+	Did you find suitable issues?
+	\end{task}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Reformatting}
+
+	\begin{task}
+	Can you reformat the code?
+	\end{task}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Running Tests}
+
+	\begin{task}
+	Can you run all the tests?
+	\end{task}
+\end{frame}
+
+
+\subsection{Preview}
+
+\begin{frame}
+	\frametitle{Feedback}
+	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+	\vspace{-1cm}
+	\begin{itemize}
+		\item Videos?
+		\item More or less materials?
+		\item Do you use semester schedule?
+		\item Any suggestions for improvements?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{L04: Sources of Configuration}
+
+	\begin{itemize}
+	\item Configuration file formats
+	\item Environment variables
+	\item Command-line arguments
+	\end{itemize}
 \end{frame}
 
 \appendix
