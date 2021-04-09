@@ -5,19 +5,21 @@
 
 \begin{document}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{History of Configuration Management}
+
 \begin{frame}
 	\frametitle{Learning Outcomes}
 	Students will be able to
 	\begin{itemize}
-	\item connect needs of CM tools with configuration specifications.
-	\item remember differences between CM languages.
-	\item contextualize CM languages with the view point of administrators.
+	%\item remember the history of configuration management.
+	\item remember differences between CM languages and historical approaches.
+	\item write simple configuration management scripts.
+	%\item connect needs of CM tools with configuration specifications.
+	%\item contextualize CM languages with the view point of administrators.
 	\end{itemize}
 \end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{History of Configuration Management}
 
 \begin{frame}
 	\frametitle{Definition}
@@ -27,7 +29,7 @@
 	\begin{itemize}
 	\item is a discipline in which configuration (in the broader sense) is administered.
 	\item makes sure computers are assembled from desired parts and the correct applications are installed.
-	\item ensures that the execution environment of installed applications is as required.%
+	\item ensures that the execution environment of installed applications is as required.
 	\end{itemize}
 \end{frame}
 
@@ -35,7 +37,7 @@
 \begin{frame}
 	\frametitle{Definition}
 
-	\intro[configuration management tool]{Configuration management tools}:
+	\intro[configuration management tool]{Configuration Management Tools}:
 
 	\pause
 
@@ -59,7 +61,7 @@
 	\item installing packages
 	\item monitoring
 	\item add/replace machines
-	\item maintaining files/databases/\dots
+	\item maintaining files/databases
 	\item \intro{configuration file manipulation}
 	\end{itemize}
 \end{frame}
@@ -81,7 +83,7 @@
 
 	\setbeamersize{description width=1cm}
 	\begin{description}
-	\item[$+$] works very good for many identical stateless machines
+	\item[$+$] works good for many identical stateless machines
 	\item[$-$] fails if differences between machines are too big
 	\end{description}
 \end{frame}
@@ -106,15 +108,22 @@
 
 	\begin{itemize}
 	\item by hostname, information EEPROM, manual selection, \dots
-	\item can be activated as context:
+	\item can be activated via the ^profile^ plugin:
 	\end{itemize}
 
 	\begin{code}[morekeywords={long},gobble=4]]
-	[%application%/profile]
+	[application/profile]
 	  type:=string
 	  opt:=p
 	  opt/long:=profile
-	  default:=
+	  default:=current
+	\end{code}
+
+	with a config like:
+	\begin{code}[gobble=4,language=CfgElektra]
+	application/current/key = "current"
+	application/myprofile/key = "myprofile"
+	application/%/key = "default"
 	\end{code}
 \end{frame}
 
@@ -141,16 +150,6 @@
 	\item (Resource) Abstractions
 	\end{itemize}
 \end{frame}
-
-\begin{frame}
-	\frametitle{Conclusion}
-
-	\begin{itemize}[<+-| alert@+>]
-	\item Definition and challenges in configuration management.
-	\item Cloning: There and back again.
-	\end{itemize}
-\end{frame}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
