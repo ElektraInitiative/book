@@ -1,0 +1,571 @@
+\input{setup}
+
+\title{L05 Configuration Sources}
+\date{21.04.2021}
+
+\begin{document}
+
+\begin{frame}
+	\frametitle{Learning Outcomes}
+	Students will be able to
+	\begin{itemize}
+	\item connect needs of CM tools with configuration specifications.
+	\item remember differences between CM languages.
+	\item contextualize CM languages with the view point of administrators.
+	\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{History of Configuration Management}
+
+\begin{frame}
+	\frametitle{Definition}
+
+	\intro[configuration management]{Configuration Management}:
+
+	\begin{itemize}
+	\item is a discipline in which configuration (in the broader sense) is administered.
+	\item makes sure computers are assembled from desired parts and the correct applications are installed.
+	\item ensures that the execution environment of installed applications is as required.%
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Definition}
+
+	\intro[configuration management tool]{Configuration management tools}:
+
+	\pause
+
+	\begin{itemize}
+	\item help people involved in configuration management.
+	\item have means to describe the desired configuration of the whole managed system.
+	\item try to converge the actual configuration to the desired one~\cite{burgess1995cfengine}.
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{}
+
+	Challenging tasks in configuration management:
+
+	\pause
+
+	\begin{itemize}
+	\item inventory list
+	\item installing packages
+	\item monitoring
+	\item add/replace machines
+	\item maintaining files/databases/\dots
+	\item \intro{configuration file manipulation}
+	\end{itemize}
+\end{frame}
+
+%TODO: add more examples!
+
+
+\begin{frame}
+	\frametitle{Cloning}
+
+	It all started with:
+
+	\begin{itemize}
+	\item clone all files with dd, rdist, rsync or unison (``golden image'')
+	\item then do necessary modifications with scripts or profiles
+	\end{itemize}
+
+	\pause
+
+	\setbeamersize{description width=1cm}
+	\begin{description}
+	\item[$+$] works very good for many identical stateless machines
+	\item[$-$] fails if differences between machines are too big
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Scripts}
+
+	First improvement: have a script to create the ``golden image''.
+	Possible benefits:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Documentation
+	\item Customization (using configuration settings)
+	\item \textbf{Reproducability}: Reproduce creation using different operating system versions
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Profiles}
+
+	\intro[profile]{Profiles} are groups of configuration settings between which the user can easily switch.
+
+	\begin{itemize}
+	\item by hostname, information EEPROM, manual selection, \dots
+	\item can be activated as context:
+	\end{itemize}
+
+	\begin{code}[morekeywords={long},gobble=4]]
+	[%application%/profile]
+	  type:=string
+	  opt:=p
+	  opt/long:=profile
+	  default:=
+	\end{code}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{First four configuration management tools}
+	Cloning, and then NIS/NFS, was state of the art for a long time, until in 1994 when \enquote{the community nearly exploded with four new configuration systems}~\cite{evard1997analysis}:
+
+	\ExecuteMetaData[../book/background.tex]{configuration-management-first-four}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Possible Benefits}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item All advantages scripts have: \\
+		Documentation, Customization, Reproducability
+	\item Declarative description of the system \\
+		(Infrastructure as Code~\cite{waldemar2013testing})
+	\item Less configuration drift
+	\item Error handling
+	\item Pull/Push
+	\item Reusability
+	\item (Resource) Abstractions
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conclusion}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Definition and challenges in configuration management.
+	\item Cloning: There and back again.
+	\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{CM Languages}
+
+\subsection{}
+
+\begin{frame}[fragile]
+	\frametitle{Proteus (PCL)}
+	\textsc{Proteus}~\cite{tryggeseth1995modelling} shows the tight relation between software configuration management, like Git or Svn, and configuration specification languages.
+	\textsc{Proteus} (PCL) combines both worlds in a powerful build system.
+
+	\begin{code}[basicstyle=\tiny,morekeywords={family,attributes,end,physical,default,classifications},gobble=4,language=]
+	family CalcProg
+		attributes
+			HOME : string default "/home/ask/proteus/test";
+			workspace := HOME ++ "/calc/src/"; // string concatenation
+			repository := "calc/";
+			end
+		physical
+			main => "main.C";
+			defs => "defs.h";
+			exe => "calc.x" attributes workspace := HOME ++ "/calc/bin"; end
+			classifications status := standard.derived; end;
+		end
+	end
+	\end{code}
+\end{frame}
+
+\begin{frame}
+	\frametitle{NIX}
+
+	The NIX language~\cite{dolstra2007purely} claims to be purely functional as a novel feature.
+	The main concept is the referential transparency both for the configuration specification language and for the system itself.
+
+	\textbf{Expressiveness:}
+	NIX expressions, for example functions, describe how to build software packages.
+
+	\textbf{Reasoning:}
+	Because of the referential transparency of the system itself, every solution derived from the NIX expressions should be valid, so no reasoning or conflict handling is necessary.
+
+	\textbf{Modularity:}
+	The NIX expressions are modular because they ensure absence of side effects and thus can be easily composed.
+
+	\textbf{Reusability:}
+	Derivations that describe atomic build actions are reused in other derivations.
+\end{frame}
+
+\begin{frame}
+	\frametitle{UML}
+	\citet{felfernig1999knowledge,felfernig2000uml,felfernig2002joint} describe an approach where the unified modeling language (UML) is used as notation.
+
+	\textbf{Expressiveness:}
+	All UML features, including cardinality, domain-specific stereotypes and OCL-constraints are available.
+	The basic structure of the system is specified using classes, generalization and aggregation.
+
+	\textbf{Reasoning:}
+	Customers provide additional input data and requirements for the actual variant of the product.
+
+	\textbf{Modularity:}
+	Generalization is present without multiple inheritance with disjunctive semantics, i.\,e., only one of the given subtypes will be instantiated.
+
+	\textbf{Reusability:}
+	For shared aggregation additional ports are defined for a part.
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{CFEngine}
+
+	CFEngine~\cite{burgess2003theory,burgess1995cfengine,pandey2012investigating} is a language-based system administration tool that pioneered idempotent behavior.
+
+	\textbf{Expressiveness:}
+	CFEngine allows us to declare dependences and facilitates some high-level configuration specification constructs.
+	In its initial variants it neither had validation specifications, cardinalities, nor higher-level relationships.
+
+	\textbf{Reasoning:}
+	Not supported.
+
+	\textbf{Modularity:}
+	Not supported.
+
+	\textbf{Reusability:}
+	Existing system administrator scripts can be profitably run from CFEngine.
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Quattor (Pan)}
+
+	\citet{cons2002pan} invented and used PAN for many machines within CERN.
+
+	\textbf{Expressiveness:}
+	The Pan language allows users to specify data types, validation with code snippets and constraints.
+	The compiler uses a 5 step process: compilation, execution, insertions-of-defaults, validation, and serialization.
+
+	\textbf{Reasoning:}
+	Pan focuses on validating configurations, it is not able to generate new configurations.
+	Pan provides type enforcement with embedded validation code.
+
+	\textbf{Modularity:}
+	The language has user-defined data types (called templates) but otherwise has only minimal support for modularity.
+
+	\textbf{Reusability:}
+	Reusability and collaboration is only possible via simple include statements and a simple inheritance mechanism of templates.
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{ConfValley (CPL)}
+
+	\citet{huang2015confvalley} introduce systematic validation for cloud services.
+	ConfValley uses a unified configuration settings representation for tens of different configuration file formats.
+
+	\textbf{Expressiveness:}
+	CPL is not able to specify dynamic and complex requirements.
+
+	\textbf{Reasoning:}
+	Constraints can be inferred by running an inference engine on configuration settings that are considered good (black-box approach).
+	Within the validation engine, however, no constraint solver is available.
+
+	\textbf{Modularity:}
+	CPL aims at easy grouping of constraints.
+	Adding language primitives need modifications in the compiler.
+
+	\textbf{Reusability:}
+	Using transformations and compositions, predicates can be reused in different contexts.
+	Also with language constructs like \texttt{let}, specifications can be reused.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Popular CMs today}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item CFengine (1993)
+	\item LCFG (1994)
+	\item Quattor (2005)
+	\item Puppet (2005)
+	\item Chef (2009)
+	\item Salt (2011)
+	\item Ansible (2012)
+	\item Itamae (2014)
+	\item OpsMops (2019)
+	% TODO: something new?
+	\end{itemize}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Configuration Management Tools}
+
+\begin{frame}[fragile]
+	Key/value access in Chef:
+
+	\begin{code}[morekeywords={kdbset,do,action,value,end},gobble=4]
+	kdbset 'system/sw/samba/global/workgroup' do
+		value 'MY_WORKGROUP'
+		action :create
+	end
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	Key/value access in Chef:
+	\vspace{0.5cm}
+
+	\begin{code}[morekeywords={kdbset,do,action,value,end},gobble=4]
+	kdbset '/slapd/threads/listener' do
+		value '4'
+		action :create
+	end
+	\end{code}
+
+	\pause
+	\begin{alertblock}{Finding}
+	We have CM code representing the settings.
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+	Key/value access in Ansible:
+	\vspace{0.5cm}
+
+	\begin{code}[morekeywords={name,connection,key,value,elektra,mountpoint,file,plugins,hosts,tasks},gobble=4]
+	- name: setup LDAP
+	  connection: local
+	  hosts: localhost
+	  tasks:
+	  - name: set listening threads
+	    elektra:
+	      key: '/slapd/threads/listener'
+	      value: '4'
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	Key/value access in puppet-libelektra~\cite{raab2020unified}:
+	\vspace{0.5cm}
+
+	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
+	kdbkey {'/slapd/threads/listener':
+		ensure => 'present',
+		value => '4'
+		check => {
+			'type' => 'short',
+			'range' => '1,2,4,8,16',
+			'default' => '1'
+		}
+	}
+	\end{code}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	Key/value access in Ansible:
+
+	\begin{code}[morekeywords={name,connection,key,value,elektra,mountpoint,file,plugins,hosts,tasks},gobble=4]
+	- name: setup samba
+	  connection: local
+	  hosts: localhost
+	  tasks:
+	  - name: set workgroup
+	    elektra:
+	      mountpoint: system/sw/samba
+	      file: /etc/samba/smb.conf
+	      plugins: ini
+	    elektra:
+	      key: 'system/sw/samba/global/workgroup'
+	      value: 'MY_WORKGROUP'
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	Key/value access in puppet-libelektra:
+
+	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
+	kdbmount {'system/sw/samba':
+		ensure => 'present',
+		file => '/etc/samba/smb.conf',
+		plugins => 'ini'
+	}
+	kdbkey {'system/sw/samba/global/workgroup':
+		ensure => 'present',
+		value => 'MY_WORKGROUP'
+	}
+	kdbkey {'system/sw/samba/global/log level':
+		ensure => 'absent'
+	}
+	\end{code}
+
+	Uniqueness of keys is essential.
+	Ideally, applications already mount their configuration at installation.
+\end{frame}
+
+
+\begin{frame}[fragile]
+	Key/value specifications in puppet-libelektra:
+
+	\begin{code}[morekeywords={kdbkey,ensure,value},gobble=4]
+	kdbkey {'system/sw/samba/global/log level':
+		ensure => 'present',
+		value => 'MY_WORKGROUP',
+		check => {
+			'type' => 'short',
+			'range' => '0-10',
+			'default' => '1',
+			'description' => 'Sets the amount of log/
+				debug messages that are sent to the
+				log file. 0 is none, 3 is consider-
+				able.'
+	}
+	\end{code}
+
+	Ideally, applications already specify their settings.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Key/Values Revisited}
+
+	Decide about \textbf{changeability} per key:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Who is responsible (end user, packages, admin manual or CM).
+	\item In which namespaces apps search the key (cascading lookup).
+	\item Who can see it (visibility).
+	\item Who can edit it (admin, end user, both).
+	\item Which configuration values are allowed (validation).
+	\end{itemize}
+
+	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
+
+	\begin{alertblock}{Changeability}
+	Ownership of every key must be very clear and documented.
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+	Key/value specifications in puppet-libelektra:
+
+	\begin{code}[morekeywords={kdbkey,ensure,value},gobble=4]
+	kdbkey {'spec/xfce/pointers/Mouse/RightHanded':
+		ensure => 'present',
+		check => {
+			'namespaces/#0' => 'user',
+			'namespaces/#1' => 'system',
+			'visibility' => 'important',
+			'default' => 'false',
+			'check/type' => 'boolean'
+	}
+	\end{code}
+
+	Ideally, applications already specify their settings.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Layers of Abstractions}
+
+	Recursively define useful abstractions (meta-levels):
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Bits in (configuration) files and memory
+	\item Key/value view of configuration settings
+	\item Goals/specifications of settings per node and instantiations of modules
+	\vspace{1em}
+	\item CM code to instantiate settings in the whole network
+	\item Global optimization: allocation of nodes and decision regarding topology in the whole network
+	\item Global goals/specifications of the whole network
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Design Rules~\cite{burgess2006modeling}}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Factor processes into containers to avoid overlaps in settings.
+	\item Maintain clear separation of ownership (for every key).
+	\item Specify replicated settings in a single source (use links and derivations).
+	\item Document all remaining overlaps (in the specification).
+	\item The manageability of settings is reduced by the number of possible configuration values.
+	\item Do not separate configuration management and monitoring. % TODO: rethink
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Open Topics}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item global optimizations/self-healing
+	\item configuration integration
+	\item safe migrations of settings and data
+	\item collaboration
+	\item management (including knowledge)
+	\item centralized vs.\ distributed
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Conclusion}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item have unique identifier for your configurations settings (get/set key/values)
+	\item be aware of the specifications, solving CM is solving constraints
+	\item do not design around tools but design tools around you
+	\item be brave and remove all configuration settings you can
+	\item use all help you can get: e.g.\ build tools, preseeding, installer automation, virtualization, package managers, distributions
+	\item complexity in CM vs.\ complexity in applications' specification
+	\item modularity is essential for validation and legacy support
+	\item artifact generation improves consistency and type safety
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Feedback.
+	\end{task}
+\end{assignment}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Meeting}
+
+%\begin{frame}
+%	\frametitle{CM Languages (Partly Recapitulation)}
+%
+%	\begin{itemize}[<+-| alert@+>]
+%	\item What is the relationship to software configuration management (Proteus/PCL)?
+%	\item[] Build systems may provide configuration management features.
+%	\item How is it possible to provide referential transparency both for the configuration specification language and for the system itself (NIX, GNU Guix)?
+%	\item[] By functional languages and file system (layouts).
+%	\item Which notations for CM exist?
+%	\item[] Text,  Graphical (UML), Semi-structured, Key-value, Structured
+%	\end{itemize}
+%\end{frame}
+%
+%\begin{assignment}
+%	\begin{task}
+%	Break.
+%	\end{task}
+%\end{assignment}
+
+
+
+\appendix
+
+\begin{frame}[allowframebreaks]
+	\bibliographystyle{plainnat}
+	\bibliography{../shared/elektra.bib}
+\end{frame}
+
+
+\end{document}
