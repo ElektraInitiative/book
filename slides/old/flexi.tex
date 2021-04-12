@@ -214,59 +214,6 @@
 	\end{columns}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Configuration Management}
-
-\begin{frame}[fragile]
-	Key/value access in Chef:
-	\vspace{0.5cm}
-
-	\begin{code}[morekeywords={kdbset,do,action,value,end},gobble=4]
-	kdbset '/slapd/threads/listener' do
-		value '4'
-		action :create
-	end
-	\end{code}
-
-	\pause
-	\begin{alertblock}{Finding}
-	We have CM code representing the settings.
-	\end{alertblock}
-\end{frame}
-
-\begin{frame}[fragile]
-	Key/value access in Ansible:
-	\vspace{0.5cm}
-
-	\begin{code}[morekeywords={name,connection,key,value,elektra,mountpoint,file,plugins,hosts,tasks},gobble=4]
-	- name: setup LDAP
-	  connection: local
-	  hosts: localhost
-	  tasks:
-	  - name: set listening threads
-	    elektra:
-	      key: '/slapd/threads/listener'
-	      value: '4'
-	\end{code}
-\end{frame}
-
-\begin{frame}[fragile]
-	Key/value access in puppet-libelektra~\cite{raab2020unified}:
-	\vspace{0.5cm}
-
-	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
-	kdbkey {'/slapd/threads/listener':
-		ensure => 'present',
-		value => '4'
-		check => {
-			'type' => 'short',
-			'range' => '1,2,4,8,16',
-			'default' => '1'
-		}
-	}
-	\end{code}
-\end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problems with Flexibility}

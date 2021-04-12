@@ -101,7 +101,6 @@
 	\begin{itemize}
 	\item remember basics of context-awareness.
 	\item remember basic characteristics of key databases.
-	\item remember the history of configuration management.
 	\end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -334,6 +333,19 @@
 \end{frame}
 
 
+\begin{frame}
+	\frametitle{Conclusion}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Context-awareness is a goal.
+	\item Contextual values is a way to implement it.
+	\item Many (distributed) key databases enable us to persist configuration settings.
+	\item Definition and challenges in configuration management.
+	\item Cloning: There and back again.
+	\end{itemize}
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Key Databases}
@@ -441,158 +453,6 @@
 	\item is library based (no single point of failure, no distributed coordination needed)
 	\item supports transactions (persisting whole KeySets at once)
 	\item supports integration of existing configuration
-	\end{itemize}
-\end{frame}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{History of Configuration Management}
-
-\begin{frame}
-	\frametitle{Definition}
-
-	\intro[configuration management]{Configuration Management}:
-
-	\begin{itemize}
-	\item is a discipline in which configuration (in the broader sense) is administered.
-	\item makes sure computers are assembled from desired parts and the correct applications are installed.
-	\item ensures that the execution environment of installed applications is as required.%
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Definition}
-
-	\intro[configuration management tool]{Configuration management tools}:
-
-	\pause
-
-	\begin{itemize}
-	\item help people involved in configuration management.
-	\item have means to describe the desired configuration of the whole managed system.
-	\item try to converge the actual configuration to the desired one~\cite{burgess1995cfengine}.
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{}
-
-	Challenging tasks in configuration management:
-
-	\pause
-
-	\begin{itemize}
-	\item inventory list
-	\item installing packages
-	\item monitoring
-	\item add/replace machines
-	\item maintaining files/databases/\dots
-	\item \intro{configuration file manipulation}
-	\end{itemize}
-\end{frame}
-
-%TODO: add more examples!
-
-
-\begin{frame}
-	\frametitle{Cloning}
-
-	It all started with:
-
-	\begin{itemize}
-	\item clone all files with dd, rdist, rsync or unison (``golden image'')
-	\item then do necessary modifications with scripts or profiles
-	\end{itemize}
-
-	\pause
-
-	\setbeamersize{description width=1cm}
-	\begin{description}
-	\item[$+$] works very good for many identical stateless machines
-	\item[$-$] fails if differences between machines are too big
-	\end{description}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Scripts}
-
-	First improvement: have a script to create the ``golden image''.
-	Possible benefits:
-
-	\begin{itemize}[<+-| alert@+>]
-	\item Documentation
-	\item Customization (using configuration settings)
-	\item \textbf{Reproducability}: Reproduce creation using different operating system versions
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Profiles}
-
-	\intro[profile]{Profiles} are groups of configuration settings between which the user can easily switch.
-
-	\begin{itemize}
-	\item by hostname, information EEPROM, manual selection, \dots
-	\item can be activated as context:
-	\end{itemize}
-
-	\begin{code}[morekeywords={long},gobble=4]]
-	[%application%/profile]
-	  type:=string
-	  opt:=p
-	  opt/long:=profile
-	  default:=
-	\end{code}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{First four configuration management tools}
-	Cloning, and then NIS/NFS, was state of the art for a long time, until in 1994 when \enquote{the community nearly exploded with four new configuration systems}~\cite{evard1997analysis}:
-
-	\ExecuteMetaData[../book/background.tex]{configuration-management-first-four}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Possible Benefits}
-
-	\begin{itemize}[<+-| alert@+>]
-	\item All advantages scripts have: \\
-		Documentation, Customization, Reproducability
-	\item Declarative description of the system \\
-		(Infrastructure as Code~\cite{waldemar2013testing})
-	\item Less configuration drift
-	\item Error handling
-	\item Pull/Push
-	\item Reusability
-	\item (Resource) Abstractions
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Conclusion}
-
-	\begin{itemize}[<+-| alert@+>]
-	\item Context-awareness is a goal.
-	\item Contextual values is a way to implement it.
-	\item Many (distributed) key databases enable us to persist configuration settings.
-	\item Definition and challenges in configuration management.
-	\item Cloning: There and back again.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Outlook}
-
-	\begin{itemize}[<+-| alert@+>]
-	\item Challenges in Configuration Management
-	\item Properties: self-describing, idempotent, round-tripping
-	\item Validation
-	\item Configuration management languages
 	\end{itemize}
 \end{frame}
 
