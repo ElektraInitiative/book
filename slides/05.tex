@@ -182,7 +182,7 @@
 \begin{frame}
 	\frametitle{NIX}
 
-	The NIX language~\cite{dolstra2007purely} claims to be purely functional as a novel feature.
+	The NIX language~\cite{dolstra2007purely} is purely functional as a novel feature.
 	The main concept is the referential transparency both for the configuration specification language and for the system itself.
 
 	\textbf{Expressiveness:}
@@ -281,8 +281,14 @@
 	Also with language constructs like \texttt{let}, specifications can be reused.
 \end{frame}
 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Configuration Management Tools}
+
 \begin{frame}
-	\frametitle{Popular CMs today}
+	\frametitle{List of CM tools}
 
 	\begin{itemize}[<+-| alert@+>]
 	\item CFengine (1993)
@@ -298,11 +304,82 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+	Key/value access in puppet-libelektra~\cite{raab2020unified}:
+	\vspace{0.5cm}
+
+	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
+	kdbkey {'/slapd/threads/listener':
+		ensure => 'present',
+		value => '4'
+		check => {
+			'type' => 'short',
+			'range' => '1,2,4,8,16',
+			'default' => '1'
+		}
+	}
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	Key/value access in puppet-libelektra:
+
+	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
+	kdbmount {'system/sw/samba':
+		ensure => 'present',
+		file => '/etc/samba/smb.conf',
+		plugins => 'ini'
+	}
+	kdbkey {'system/sw/samba/global/workgroup':
+		ensure => 'present',
+		value => 'MY_WORKGROUP'
+	}
+	kdbkey {'system/sw/samba/global/log level':
+		ensure => 'absent'
+	}
+	\end{code}
+
+	Uniqueness of keys is essential.
+	Ideally, applications already mount their configuration at installation.
+\end{frame}
 
 
+\begin{frame}[fragile]
+	Key/value specifications in puppet-libelektra:
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Configuration Management Tools}
+	\begin{code}[morekeywords={kdbkey,ensure,value},gobble=4]
+	kdbkey {'system/sw/samba/global/log level':
+		ensure => 'present',
+		value => 'MY_WORKGROUP',
+		check => {
+			'type' => 'short',
+			'range' => '0-10',
+			'default' => '1',
+			'description' => 'Sets the amount of log/
+				debug messages that are sent to the
+				log file. 0 is none, 3 is consider-
+				able.'
+	}
+	\end{code}
+\end{frame}
+
+\begin{frame}[fragile]
+	Key/value specifications in puppet-libelektra:
+
+	\begin{code}[morekeywords={kdbkey,ensure,value},gobble=4]
+	kdbkey {'spec/xfce/pointers/Mouse/RightHanded':
+		ensure => 'present',
+		check => {
+			'namespaces/#0' => 'user',
+			'namespaces/#1' => 'system',
+			'visibility' => 'important',
+			'default' => 'false',
+			'check/type' => 'boolean'
+	}
+	\end{code}
+
+	Ideally, applications already specify their settings.
+\end{frame}
 
 \begin{frame}[fragile]
 	Key/value access in Chef:
@@ -348,23 +425,6 @@
 	\end{code}
 \end{frame}
 
-\begin{frame}[fragile]
-	Key/value access in puppet-libelektra~\cite{raab2020unified}:
-	\vspace{0.5cm}
-
-	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
-	kdbkey {'/slapd/threads/listener':
-		ensure => 'present',
-		value => '4'
-		check => {
-			'type' => 'short',
-			'range' => '1,2,4,8,16',
-			'default' => '1'
-		}
-	}
-	\end{code}
-\end{frame}
-
 
 \begin{frame}[fragile]
 	Key/value access in Ansible:
@@ -385,50 +445,6 @@
 	\end{code}
 \end{frame}
 
-\begin{frame}[fragile]
-	Key/value access in puppet-libelektra:
-
-	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
-	kdbmount {'system/sw/samba':
-		ensure => 'present',
-		file => '/etc/samba/smb.conf',
-		plugins => 'ini'
-	}
-	kdbkey {'system/sw/samba/global/workgroup':
-		ensure => 'present',
-		value => 'MY_WORKGROUP'
-	}
-	kdbkey {'system/sw/samba/global/log level':
-		ensure => 'absent'
-	}
-	\end{code}
-
-	Uniqueness of keys is essential.
-	Ideally, applications already mount their configuration at installation.
-\end{frame}
-
-
-\begin{frame}[fragile]
-	Key/value specifications in puppet-libelektra:
-
-	\begin{code}[morekeywords={kdbkey,ensure,value},gobble=4]
-	kdbkey {'system/sw/samba/global/log level':
-		ensure => 'present',
-		value => 'MY_WORKGROUP',
-		check => {
-			'type' => 'short',
-			'range' => '0-10',
-			'default' => '1',
-			'description' => 'Sets the amount of log/
-				debug messages that are sent to the
-				log file. 0 is none, 3 is consider-
-				able.'
-	}
-	\end{code}
-
-	Ideally, applications already specify their settings.
-\end{frame}
-
 \begin{frame}
 	\frametitle{Key/Values Revisited}
 
@@ -447,24 +463,6 @@
 	\begin{alertblock}{Changeability}
 	Ownership of every key must be very clear and documented.
 	\end{alertblock}
-\end{frame}
-
-\begin{frame}[fragile]
-	Key/value specifications in puppet-libelektra:
-
-	\begin{code}[morekeywords={kdbkey,ensure,value},gobble=4]
-	kdbkey {'spec/xfce/pointers/Mouse/RightHanded':
-		ensure => 'present',
-		check => {
-			'namespaces/#0' => 'user',
-			'namespaces/#1' => 'system',
-			'visibility' => 'important',
-			'default' => 'false',
-			'check/type' => 'boolean'
-	}
-	\end{code}
-
-	Ideally, applications already specify their settings.
 \end{frame}
 
 \begin{frame}
@@ -492,7 +490,6 @@
 	\item Specify replicated settings in a single source (use links and derivations).
 	\item Document all remaining overlaps (in the specification).
 	\item The manageability of settings is reduced by the number of possible configuration values.
-	\item Do not separate configuration management and monitoring. % TODO: rethink
 	\end{itemize}
 \end{frame}
 
@@ -515,23 +512,16 @@
 	\frametitle{Conclusion}
 
 	\begin{itemize}[<+-| alert@+>]
-	\item have unique identifier for your configurations settings (get/set key/values)
-	\item be aware of the specifications, solving CM is solving constraints
+	\item have unique identifier for your configurations settings \\ $\rightarrow$ allows to get/set configurations and specifications
+	\item solving CM is solving constraints \\ $\rightarrow$ be aware of the specifications
 	\item do not design around tools but design tools around you
 	\item be brave and remove all configuration settings you can
 	\item use all help you can get: e.g.\ build tools, preseeding, installer automation, virtualization, package managers, distributions
 	\item complexity in CM vs.\ complexity in applications' specification
-	\item modularity is essential for validation and legacy support
-	\item artifact generation improves consistency and type safety
+%	\item modularity is essential for validation and legacy support
+%	\item artifact generation improves consistency and type safety
 	\end{itemize}
 \end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Feedback.
-	\end{task}
-\end{assignment}
-
 
 
 
