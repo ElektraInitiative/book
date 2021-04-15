@@ -18,17 +18,17 @@
 
 \textit{Configuration specification language}
 is a relatively vaguely defined term---it is a language where some kind of configuration is specified.
-In this section, we will investigate different kinds of configuration specification languages.
+In this reading text for the lecture ``Configuration Management'', we will investigate different kinds of configuration specification languages.
 
 We investigated who already created configuration specification languages to improve configuration access, answering the following research question:
 \begin{restatable}{RQ}{rqBackgroundSpecificationLanguages}
  \label{rq:background-specification-languages}
- Which configuration specification languages are suitable to improve configuration access of FLOSS applications?
+ Which configuration specification languages are suitable to improve configuration integration for FLOSS applications?
 \end{restatable}
 %\rqBackgroundSpecificationLanguages*
 
 \begin{hypothesis}[RQ~\ref{rq:background-specification-languages}]
-We expect to find a large variety of configuration specification languages that already solve some parts of the configuration integration problem.
+We expect to find a large variety of configuration specification languages that already improve configuration integration for FLOSS applications.
 \end{hypothesis}
 
 \section{Method}
@@ -58,35 +58,11 @@ We scanned through the titles of all papers---or if this was not enough, we read
 In particular, we removed all articles that describe general purpose languages, behavioral descriptions, or that are domain-specific.
 After this process, we grouped papers that described the same configuration specification language.
 As result, we found 92 configuration specification languages.
-Due to lack of time, we only further processed the ones that are at least remotely related to \elektra{Spec} and are of interest for this book.
+Due to lack of time, we only further processed the ones that are at least remotely related to \elektra{Spec} and are of interest for this reading text.
 In this step, we excluded about \sfrac{3}{4} of the configuration specification languages.
 
 In the rest of the section, we will describe four selected properties, i.\,e.\ expressiveness, reasoning, modularity, and reusability, for some configuration specification languages.
 Others are mentioned in ``Others''.
-
-\section{UML}
-
-\citet{felfernig1999knowledge,felfernig2000uml,felfernig2002joint} describe an approach where the unified modeling language (UML) is used as notation to simplify the construction of a logic-based description.
-The papers formally describe the semantics. Tools are available and experimental results show feasibility.
-
-\paragraph*{Expressiveness:}
-All UML features, including cardinality, domain-specific stereotypes and OCL-constraints are available.
-The basic structure of the system is specified using classes, generalization and aggregation.
-Resources impose additional constraints on the possible system structure.
-Finally, the require-relation and incompatible-relation allow us to limit valid configurations.
-
-\paragraph*{Reasoning:}
-Customers provide additional input data and requirements for the actual variant of the product.
-The logical sentences are range-restricted first-order-logic with a set extension and interpreted function symbols.
-For decidability, the term-depth is limited to a fixed number.
-It is possible to show that the configuration is consistent or that no solution exists.
-
-\paragraph*{Modularity:}
-Generalization is present without multiple inheritance with disjunctive semantics, i.\,e., only one of the given subtypes will be instantiated.
-
-\paragraph*{Reusability:}
-For shared aggregation additional ports are defined for a part.
-
 
 
 
@@ -133,33 +109,6 @@ Import and inherit features are used to create packages, improving reusability.
 
 
 
-\section{Pan}
-
-\citet{cons2002pan} invented and used PAN for many machines within CERN.
-Furthermore, the language is still used by Quattor.
-The configuration database in Pan comprises high-level and low-level descriptions.
-The low-level descriptions are in XML syntax.
-Here we focus on the declarative, high-level description.
-
-\paragraph*{Expressiveness:}
-The Pan language allows users to specify data types, validation with code snippets and constraints.
-It only supports lists but no configurable cardinality nor is-a/part-of relationships.
-The compiler uses a 5 step process: compilation, execution, insertions-of-defaults, validation, and serialization.
-
-\paragraph*{Reasoning:}
-Pan focuses on validating configurations, it is not able to generate new configurations.
-Pan provides type enforcement with embedded validation code.
-
-\paragraph*{Modularity:}
-The language has user-defined data types (called templates) but otherwise has only minimal support for modularity.
-In particular, side effects and assignments hinder modularity of validation code.
-
-\paragraph*{Reusability:}
-Reusability and collaboration is only possible via simple include statements and a simple inheritance mechanism of templates.
-
-
-
-
 
 \section{ConfValley}
 
@@ -186,6 +135,57 @@ The authors claim, however, that these changes can be done in a straightforward 
 \paragraph*{Reusability:}
 Using transformations and compositions, predicates can be reused in different contexts.
 Also with language constructs like ^let^, specifications can be reused.
+
+
+
+
+\section{Pan}
+
+\citet{cons2002pan} invented and used PAN for many machines within CERN.
+Furthermore, the language is still used by Quattor.
+The configuration database in Pan comprises high-level and low-level descriptions.
+The low-level descriptions are in XML syntax.
+Here we focus on the declarative, high-level description.
+
+\paragraph*{Expressiveness:}
+The Pan language allows users to specify data types, validation with code snippets and constraints.
+It only supports lists but no configurable cardinality nor is-a/part-of relationships.
+The compiler uses a 5 step process: compilation, execution, insertions-of-defaults, validation, and serialization.
+
+\paragraph*{Reasoning:}
+Pan focuses on validating configurations, it is not able to generate new configurations.
+Pan provides type enforcement with embedded validation code.
+
+\paragraph*{Modularity:}
+The language has user-defined data types (called templates) but otherwise has only minimal support for modularity.
+In particular, side effects and assignments hinder modularity of validation code.
+
+\paragraph*{Reusability:}
+Reusability and collaboration is only possible via simple include statements and a simple inheritance mechanism of templates.
+
+
+\section{UML}
+
+\citet{felfernig1999knowledge,felfernig2000uml,felfernig2002joint} describe an approach where the unified modeling language (UML) is used as notation to simplify the construction of a logic-based description.
+The papers formally describe the semantics. Tools are available and experimental results show feasibility.
+
+\paragraph*{Expressiveness:}
+All UML features, including cardinality, domain-specific stereotypes and OCL-constraints are available.
+The basic structure of the system is specified using classes, generalization and aggregation.
+Resources impose additional constraints on the possible system structure.
+Finally, the require-relation and incompatible-relation allow us to limit valid configurations.
+
+\paragraph*{Reasoning:}
+Customers provide additional input data and requirements for the actual variant of the product.
+The logical sentences are range-restricted first-order-logic with a set extension and interpreted function symbols.
+For decidability, the term-depth is limited to a fixed number.
+It is possible to show that the configuration is consistent or that no solution exists.
+
+\paragraph*{Modularity:}
+Generalization is present without multiple inheritance with disjunctive semantics, i.\,e., only one of the given subtypes will be instantiated.
+
+\paragraph*{Reusability:}
+For shared aggregation additional ports are defined for a part.
 
 
 \section{Others}
