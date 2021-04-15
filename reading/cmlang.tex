@@ -1,0 +1,238 @@
+\input{../book/setup}
+\input{../shared/setup}
+\input{../book/commandsetup}
+
+\setcounter{chapter}{1} % chapters start with 0
+
+
+\title{Configuration Specification Languages}
+\author{Markus Raab}
+
+
+\begin{document}
+
+\begin{titlingpage}
+\maketitle
+\doclicenseThis
+\end{titlingpage}
+
+\textit{Configuration specification language}
+is a relatively vaguely defined term---it is a language where some kind of configuration is specified.
+In this section, we will investigate different kinds of configuration specification languages.
+
+We investigated who already created configuration specification languages to improve configuration access, answering the following research question:
+\begin{restatable}{RQ}{rqBackgroundSpecificationLanguages}
+ \label{rq:background-specification-languages}
+ Which configuration specification languages are suitable to improve configuration access of FLOSS applications?
+\end{restatable}
+%\rqBackgroundSpecificationLanguages*
+
+\begin{hypothesis}[RQ~\ref{rq:background-specification-languages}]
+We expect to find a large variety of configuration specification languages that already solve some parts of the configuration integration problem.
+\end{hypothesis}
+
+\section{Method}
+
+We did a survey of all configuration specification languages as revealed by Google Scholar with the search term:
+\begin{verbatim}
+language
+"configuration specification" OR
+"configuration description" OR
+"configuration definition" OR
+"configuration declaration"
+\end{verbatim}
+
+This search yielded several thousand articles.
+We grouped them by dates because of download limits:
+\begin{verbatim}
+1950-1998     946 articles
+1999-2004     919 articles
+2005-2007     786 articles
+2008-2010     872 articles
+2011-2012     723 articles
+2013-2016     810+ articles
+\end{verbatim}
+
+The ^+^ sign means that we subscribed to the search term to keep track of new incoming articles.
+We scanned through the titles of all papers---or if this was not enough, we read the abstract---to filter off-topic papers.
+In particular, we removed all articles that describe general purpose languages, behavioral descriptions, or that are domain-specific.
+After this process, we grouped papers that described the same configuration specification language.
+As result, we found 92 configuration specification languages.
+Due to lack of time, we only further processed the ones that are at least remotely related to \elektra{Spec} and are of interest for this book.
+In this step, we excluded about \sfrac{3}{4} of the configuration specification languages.
+
+In the rest of the section, we will describe four selected properties, i.\,e.\ expressiveness, reasoning, modularity, and reusability, for some configuration specification languages.
+Others are mentioned in ``Others''.
+
+\section{UML}
+
+\citet{felfernig1999knowledge,felfernig2000uml,felfernig2002joint} describe an approach where the unified modeling language (UML) is used as notation to simplify the construction of a logic-based description.
+The papers formally describe the semantics. Tools are available and experimental results show feasibility.
+
+\paragraph*{Expressiveness:}
+All UML features, including cardinality, domain-specific stereotypes and OCL-constraints are available.
+The basic structure of the system is specified using classes, generalization and aggregation.
+Resources impose additional constraints on the possible system structure.
+Finally, the require-relation and incompatible-relation allow us to limit valid configurations.
+
+\paragraph*{Reasoning:}
+Customers provide additional input data and requirements for the actual variant of the product.
+The logical sentences are range-restricted first-order-logic with a set extension and interpreted function symbols.
+For decidability, the term-depth is limited to a fixed number.
+It is possible to show that the configuration is consistent or that no solution exists.
+
+\paragraph*{Modularity:}
+Generalization is present without multiple inheritance with disjunctive semantics, i.\,e., only one of the given subtypes will be instantiated.
+
+\paragraph*{Reusability:}
+For shared aggregation additional ports are defined for a part.
+
+
+
+
+\section{CFEngine}
+
+CFEngine~\cite{burgess1995cfengine,pandey2012investigating} is a language-based system administration tool that pioneered idempotent behavior.
+It uses declarative class-based decision structures.
+\citet{burgess2003theory}~introduces theory behind it.
+
+\paragraph*{Expressiveness:}
+CFEngine allows us to declare dependences and facilitates some high-level configuration specification constructs.
+In its initial variants it neither had validation specifications, cardinalities, nor higher-level relationships.
+\paragraph*{Reasoning:}
+\notsupported{}
+\paragraph*{Modularity:}
+\notsupported{}
+
+\paragraph*{Reusability:}
+Existing system administrator scripts can be profitably run from CFEngine.
+
+
+\section{NIX}
+
+The NIX language~\cite{dolstra2007purely} claims to be purely functional as a novel feature.
+The main concept is the referential transparency both for the configuration specification language and for the system itself.
+A large-scale deployment shows that the approach is feasible and practical.
+
+\paragraph*{Expressiveness:}
+NIX expressions, for example functions, describe how to build software packages.
+The unit of variability is a package.
+Additionally, a hierarchical set of properties describes the configuration specification.
+Otherwise, the expressiveness is low, NIX describes neither cardinalities nor relationships.
+
+\paragraph*{Reasoning:}
+Because of the referential transparency of the system itself, every solution derived from the NIX expressions should be valid, so no reasoning or conflict handling is necessary.
+Some operations, however, might lead to a completely new system.
+
+\paragraph*{Modularity:}
+The NIX expressions are modular because they ensure absence of side effects and thus can be easily composed.
+
+\paragraph*{Reusability:}
+Derivations that describe atomic build actions are reused in other derivations.
+Import and inherit features are used to create packages, improving reusability.
+
+
+
+\section{Pan}
+
+\citet{cons2002pan} invented and used PAN for many machines within CERN.
+Furthermore, the language is still used by Quattor.
+The configuration database in Pan comprises high-level and low-level descriptions.
+The low-level descriptions are in XML syntax.
+Here we focus on the declarative, high-level description.
+
+\paragraph*{Expressiveness:}
+The Pan language allows users to specify data types, validation with code snippets and constraints.
+It only supports lists but no configurable cardinality nor is-a/part-of relationships.
+The compiler uses a 5 step process: compilation, execution, insertions-of-defaults, validation, and serialization.
+
+\paragraph*{Reasoning:}
+Pan focuses on validating configurations, it is not able to generate new configurations.
+Pan provides type enforcement with embedded validation code.
+
+\paragraph*{Modularity:}
+The language has user-defined data types (called templates) but otherwise has only minimal support for modularity.
+In particular, side effects and assignments hinder modularity of validation code.
+
+\paragraph*{Reusability:}
+Reusability and collaboration is only possible via simple include statements and a simple inheritance mechanism of templates.
+
+
+
+
+
+\section{ConfValley}
+
+\citet{huang2015confvalley} introduce systematic validation for cloud services.
+ConfValley uses a unified configuration settings representation for tens of different configuration file formats.
+Its configuration specification language, called CPL, does not aim to be a type-safe configuration specification language.
+It enables, however, system administrators of cloud services to write declarative specifications of properties with correctness constraints.
+
+\paragraph*{Expressiveness:}
+CPL introduces many concepts and has non-trivial language features.
+Its most expressive elements are first-order quantifiers.
+CPL is not able to specify dynamic and complex requirements.
+
+\paragraph*{Reasoning:}
+Constraints can be inferred by running an inference engine on configuration settings that are considered good (black-box approach).
+Within the validation engine, however, no constraint solver is available.
+
+\paragraph*{Modularity:}
+CPL aims at easy grouping of constraints.
+Its extensibility has limitations, for example, adding language primitives need modifications in the compiler.
+The authors claim, however, that these changes can be done in a straightforward way---at least for predicates.%
+{\parfillskip=0pt plus .7\textwidth \emergencystretch=.5\textwidth \par}
+
+\paragraph*{Reusability:}
+Using transformations and compositions, predicates can be reused in different contexts.
+Also with language constructs like ^let^, specifications can be reused.
+
+
+\section{Others}
+
+\citet{lock2005strider} invented Strider that supports modeling and analysis of complex systems.
+
+\textsc{Proteus}~\cite{tryggeseth1995modelling} shows the tight relation between software configuration management, like Git or Svn, and configuration specification languages.
+\textsc{Proteus} combines both worlds in a powerful build system.
+
+ConfSolve~\cite{hewson2011modelling,hewson2012declarative} is a configuration specification language that is translated to a standard constraint programming language called MiniZinc.
+Their focus is in finding configurations for machines and not to compute configuration settings.
+ConfSolve generates Puppet code for deployment.
+
+Many other configuration specification languages have been found during the survey~\cite{roll2003towards,pandey2012investigating,hill2011modeling,anderson2002lcfg,deliverable1996tina,lujak2015orcas,sommerville1992configuration,giese2012industrial,huang2007system%
+,novak2005automatic%Puppet, Quattor,..
+,gunther2012software,berger2013survey,magableh2010primitive,friedrich1999consistency}, but they do not provide configuration access specifications for FLOSS applications.
+
+\section{Result}
+
+The result of the survey was that we could not find a configuration specification language to be used as basis.
+Instead all configuration specification languages we investigated had a different focus, which leads us to our answer of:
+\rqBackgroundSpecificationLanguages*
+
+\begin{finding}
+We have to reject our hypothesis for \rqref{background-specification-languages}:
+We did not find any configuration specification language that supports our goal of solving the configuration integration problem.
+Instead earlier work had at least one of the following two assumptions:
+\begin{itemize}
+\item Configuration access in applications needs to be used as given.
+Configuration management tools have this assumption.
+\item Applications need to be reimplemented using new development methods.
+Architecture description languages, software product lines, and similar approaches have this assumption.
+\end{itemize}
+\end{finding}
+\par
+Both assumptions hinder progress in fixing the configuration integration problem.
+
+\bibliographystyle{plainnat}
+
+\begingroup
+\sloppy
+\makeatletter
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\makeatother
+\bibliography{../shared/elektra.bib}
+\endgroup
+
+
+
+\end{document}
