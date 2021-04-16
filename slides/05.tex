@@ -204,16 +204,16 @@
 	Key/value access in puppet-libelektra:
 
 	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
-	kdbmount {'system/sw/samba':
+	kdbmount {'system:/sw/samba':
 		ensure => 'present',
 		file => '/etc/samba/smb.conf',
 		plugins => 'ini'
 	}
-	kdbkey {'system/sw/samba/global/workgroup':
+	kdbkey {'system:/sw/samba/global/workgroup':
 		ensure => 'present',
 		value => 'MY_WORKGROUP'
 	}
-	kdbkey {'system/sw/samba/global/log level':
+	kdbkey {'system:/sw/samba/global/log level':
 		ensure => 'absent'
 	}
 	\end{code}
@@ -225,9 +225,10 @@
 
 \begin{frame}[fragile]
 	Key/value specifications in puppet-libelektra:
+	%TODO: make more clear that this is an error
 
 	\begin{code}[morekeywords={kdbkey,ensure,value},gobble=4]
-	kdbkey {'system/sw/samba/global/log level':
+	kdbkey {'system:/sw/samba/global/log level':
 		ensure => 'present',
 		value => 'MY_WORKGROUP',
 		check => {
@@ -246,7 +247,7 @@
 	Key/value specifications in puppet-libelektra:
 
 	\begin{code}[morekeywords={kdbkey,ensure,value},gobble=4]
-	kdbkey {'spec/xfce/pointers/Mouse/RightHanded':
+	kdbkey {'spec:/xfce/pointers/Mouse/RightHanded':
 		ensure => 'present',
 		check => {
 			'namespaces/#0' => 'user',
@@ -264,7 +265,7 @@
 	Key/value access in Chef:
 
 	\begin{code}[morekeywords={kdbset,do,action,value,end},gobble=4]
-	kdbset 'system/sw/samba/global/workgroup' do
+	kdbset 'system:/sw/samba/global/workgroup' do
 		value 'MY_WORKGROUP'
 		action :create
 	end
@@ -315,11 +316,11 @@
 	  tasks:
 	  - name: set workgroup
 	    elektra:
-	      mountpoint: system/sw/samba
+	      mountpoint: system:/sw/samba
 	      file: /etc/samba/smb.conf
 	      plugins: ini
 	    elektra:
-	      key: 'system/sw/samba/global/workgroup'
+	      key: 'system:/sw/samba/global/workgroup'
 	      value: 'MY_WORKGROUP'
 	\end{code}
 \end{frame}
