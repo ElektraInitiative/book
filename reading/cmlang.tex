@@ -5,7 +5,7 @@
 \setcounter{chapter}{1} % chapters start with 0
 
 
-\title{Configuration Specification Languages}
+\title{Configuration Management Languages}
 \author{Markus Raab}
 
 
@@ -16,19 +16,19 @@
 \doclicenseThis
 \end{titlingpage}
 
-\textit{Configuration specification language}
+\paragraph{Configuration management language}
 is a relatively vaguely defined term---it is a language where some kind of configuration is specified.
-In this reading text for the lecture ``Configuration Management'', we will investigate different kinds of configuration specification languages.
+In this reading text for the lecture Configuration Management, we will investigate different kinds of configuration management languages.
 
-We investigated who already created configuration specification languages to improve configuration access, answering the following research question:
+We investigated who already created configuration specification languages to improve configuration access for configuration management tools, i.e. configuration management language, answering the following research question:
 \begin{restatable}{RQ}{rqBackgroundSpecificationLanguages}
  \label{rq:background-specification-languages}
- Which configuration specification languages are suitable to improve configuration integration for FLOSS applications?
+ Which configuration specification languages are suitable to improve configuration access for configuration management tools?
 \end{restatable}
 %\rqBackgroundSpecificationLanguages*
 
 \begin{hypothesis}[RQ~\ref{rq:background-specification-languages}]
-We expect to find a large variety of configuration specification languages that already improve configuration integration for FLOSS applications.
+We expect to find a large variety of configuration specification languages that already improve configuration access for configuration management tools.
 \end{hypothesis}
 
 \section{Method}
@@ -58,7 +58,7 @@ We scanned through the titles of all papers---or if this was not enough, we read
 In particular, we removed all articles that describe general purpose languages, behavioral descriptions, or that are domain-specific.
 After this process, we grouped papers that described the same configuration specification language.
 As result, we found 92 configuration specification languages.
-Due to lack of time, we only further processed the ones that are at least remotely related to \elektra{Spec} and are of interest for this reading text.
+Due to lack of time, we only further processed the ones that are at least remotely related to \elektra{Spec}, the specification language of \elektra{}, and are of interest for this reading text.
 In this step, we excluded about \sfrac{3}{4} of the configuration specification languages.
 
 In the rest of the section, we will describe four selected properties, i.\,e.\ expressiveness, reasoning, modularity, and reusability, for some configuration specification languages.
@@ -90,6 +90,8 @@ The NIX language~\cite{dolstra2007purely} claims to be purely functional as a no
 The main concept is the referential transparency both for the configuration specification language and for the system itself.
 A large-scale deployment shows that the approach is feasible and practical.
 
+Read \url{https://nixos.org/} for more information.
+
 \paragraph*{Expressiveness:}
 NIX expressions, for example functions, describe how to build software packages.
 The unit of variability is a package.
@@ -110,7 +112,7 @@ Import and inherit features are used to create packages, improving reusability.
 
 
 
-\section{ConfValley}
+\section{ConfValley (CPL)}
 
 \citet{huang2015confvalley} introduce systematic validation for cloud services.
 ConfValley uses a unified configuration settings representation for tens of different configuration file formats.
@@ -139,7 +141,7 @@ Also with language constructs like ^let^, specifications can be reused.
 
 
 
-\section{Pan}
+\section{Quattor (Pan)}
 
 \citet{cons2002pan} invented and used PAN for many machines within CERN.
 Furthermore, the language is still used by Quattor.
@@ -190,10 +192,27 @@ For shared aggregation additional ports are defined for a part.
 
 \section{Others}
 
-\citet{lock2005strider} invented Strider that supports modeling and analysis of complex systems.
-
 \textsc{Proteus}~\cite{tryggeseth1995modelling} shows the tight relation between software configuration management, like Git or Svn, and configuration specification languages.
 \textsc{Proteus} combines both worlds in a powerful build system.
+For example:
+
+\begin{code}[basicstyle=\tiny,morekeywords={family,attributes,end,physical,default,classifications},gobble=4,language=]
+family CalcProg
+	attributes
+		HOME : string default "/home/ask/proteus/test";
+		workspace := HOME ++ "/calc/src/"; // string concatenation
+		repository := "calc/";
+		end
+	physical
+		main => "main.C";
+		defs => "defs.h";
+		exe => "calc.x" attributes workspace := HOME ++ "/calc/bin"; end
+		classifications status := standard.derived; end;
+	end
+end
+\end{code}
+
+\citet{lock2005strider} invented Strider that supports modeling and analysis of complex systems.
 
 ConfSolve~\cite{hewson2011modelling,hewson2012declarative} is a configuration specification language that is translated to a standard constraint programming language called MiniZinc.
 Their focus is in finding configurations for machines and not to compute configuration settings.
@@ -205,23 +224,22 @@ Many other configuration specification languages have been found during the surv
 
 \section{Result}
 
-The result of the survey was that we could not find a configuration specification language to be used as basis.
+The result of the survey was that we could not find a configuration specification language to be used as basis for \elektra{Spec}.
 Instead all configuration specification languages we investigated had a different focus, which leads us to our answer of:
 \rqBackgroundSpecificationLanguages*
 
 \begin{finding}
 We have to reject our hypothesis for \rqref{background-specification-languages}:
-We did not find any configuration specification language that supports our goal of solving the configuration integration problem.
+We did not find any configuration specification language that supports our goal of improving configuration access for configuration management tools.
 Instead earlier work had at least one of the following two assumptions:
 \begin{itemize}
-\item Configuration access in applications needs to be used as given.
-Configuration management tools have this assumption.
+\item Configuration files need to be generated instead of directly accessing configuration settings.
 \item Applications need to be reimplemented using new development methods.
 Architecture description languages, software product lines, and similar approaches have this assumption.
 \end{itemize}
 \end{finding}
 \par
-Both assumptions hinder progress in fixing the configuration integration problem.
+Both assumptions hinder progress in improvements of configuration access for configuration management tools.
 
 \bibliographystyle{plainnat}
 
