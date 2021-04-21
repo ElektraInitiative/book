@@ -408,26 +408,139 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Meeting}
 
-%\begin{frame}
-%	\frametitle{CM Languages (Partly Recapitulation)}
-%
-%	\begin{itemize}[<+-| alert@+>]
-%	\item What is the relationship to software configuration management (Proteus/PCL)?
-%	\item[] Build systems may provide configuration management features.
-%	\item How is it possible to provide referential transparency both for the configuration specification language and for the system itself (NIX, GNU Guix)?
-%	\item[] By functional languages and file system (layouts).
-%	\item Which notations for CM exist?
-%	\item[] Text,  Graphical (UML), Semi-structured, Key-value, Structured
-%	\end{itemize}
-%\end{frame}
-%
-%\begin{assignment}
-%	\begin{task}
-%	Break.
-%	\end{task}
-%\end{assignment}
+\subsection{Recapitulation}
 
-% Ask which CM language they want to use for T2
+\begin{frame}
+	\begin{alertblock}{Question}
+	How can we reuse the same configuration setting for different applications?
+	\end{alertblock}
+
+	\pause
+	\begin{exampleblock}{Answer}
+	\begin{itemize}
+	\item Use CM code to copy the settings to all places as needed.
+	\item Implement support directly in application to fetch setting from central location.
+	\item Override/fallback links in specification.
+	\item Calculate/transform values in specification.
+	\end{itemize}
+	\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Definition}
+
+	\intro[configuration management]{Configuration Management}:
+
+	\pause
+
+	\begin{itemize}
+	\item is a discipline in which configuration (in the broader sense) is administered.
+	\item makes sure computers are assembled from desired parts and the correct applications are installed.
+	\item ensures that the execution environment of installed applications is as required.
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Definition}
+
+	\intro[configuration management tool]{Configuration Management Tools}:
+
+	\pause
+
+	\begin{itemize}
+	\item help people involved in configuration management.
+	\item have means to describe the desired configuration of the whole managed system.
+	\item try to converge the actual configuration to the desired one~\cite{burgess1995cfengine}.
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	\frametitle{Possible Benefits of CM}
+
+	\pause
+
+	\begin{itemize} % [<+-| alert@+>]
+	\item All advantages scripts have: \\
+		Documentation, Customization, Reproducability
+	\item Declarative description of the system \\
+		(Infrastructure as Code~\cite{waldemar2013testing})
+	\item Less configuration drift
+	\item Error handling
+	\item Pull/Push
+	\item Reusability
+	\item (Resource) Abstractions
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Design Rules of CM~\cite{burgess2006modeling}}
+
+	\pause
+
+	\begin{itemize} %[<+-| alert@+>]
+	\item Factor processes into containers to avoid overlaps in settings.
+	\item Maintain clear separation of ownership (for every key).
+	\item Specify replicated settings in a single source (use links and derivations).
+	\item Document all remaining overlaps (in the specification).
+	\item The manageability of settings is reduced by the number of possible configuration values.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{CM Languages}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item What is the relationship to software configuration management (Proteus/PCL)?
+	\item[] Build systems may provide configuration management features.
+	\item How is it possible to provide referential transparency both for the configuration specification language and for the system itself (NIX, GNU Guix)?
+	\item[] By functional languages and file system (layouts).
+	\item Which notations for CM exist?
+	\item[] Text,  Graphical (UML), Semi-structured, Key-value, Structured
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
+\subsection{Assignments}
+
+\begin{assignment}
+	Today: T1/H1 corrections
+\end{assignment}
+
+\begin{assignment}
+	Please add slides for talk in private git repo at least one week in advance.
+\end{assignment}
+
+\begin{assignment}
+	Task for H3?
+\end{assignment}
+
+\begin{assignment}
+	Which CM language do you want to use for T3?
+\end{assignment}
+
+\subsection{Preview}
+
+\begin{frame}
+	\frametitle{Outlook}
+
+	Will be online soon:
+	\begin{itemize}[<+-| alert@+>]
+	\item validation techniques
+	\item writing plugins
+	\end{itemize}
+\end{frame}
 
 
 
