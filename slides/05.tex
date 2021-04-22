@@ -300,8 +300,10 @@
 	  tasks:
 	  - name: set listening threads
 	    elektra:
-	      key: '/slapd/threads/listener'
-	      value: '4'
+	      mountpoint: /slapd
+	      keys:
+	        threads:
+	          listener: 4
 	\end{code}
 \end{frame}
 
@@ -317,11 +319,9 @@
 	  - name: set workgroup
 	    elektra:
 	      mountpoint: system:/sw/samba
-	      file: /etc/samba/smb.conf
-	      plugins: ini
-	    elektra:
-	      key: 'system:/sw/samba/global/workgroup'
-	      value: 'MY_WORKGROUP'
+	      keys:
+	        global:
+	          workgroup: MY_WORKGROUP
 	\end{code}
 \end{frame}
 
