@@ -48,33 +48,6 @@
 	\end{description}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Checking Specifications}
-
-	The goals of checking \elektra{Spec} are:
-
-	\begin{itemize}[<+-| alert@+>]
-	\item Defaults must be present for safe lookups.
-	This goal also implies that there must be at least one valid configuration setting.
-	\item Types of default values must be compatible with the types of the keys.
-	\item Every contextual interpretation of a key must yield a compatible type.
-	\item Links must not refer to each other in cycles.
-	\item Every link and the pointee must have compatible types.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Example}
-
-	\begin{code}[morekeywords={override},gobble=4]
-	[sw/org/abc/has_true_arg]
-	  type:=boolean
-	  default:=0
-	  override/#0:=/sw/org/abc/arg0
-	  override/#1:=/sw/org/abc/arg1
-	\end{code}
-\end{frame}
-
 \begin{frame}[fragile]
 	\frametitle{Logfile Example}
 
@@ -93,6 +66,33 @@
 	  check/validation:=^/var/log/
 	  check/validation/message:=Policy violation:
 	    log files must be below /var/log
+	\end{code}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Checking Specifications}
+
+	The goals of checking \elektra{Spec} are:
+
+	\begin{itemize} %[<+-| alert@+>]
+	\item Defaults must be present for safe lookups.
+	This goal also implies that there must be at least one valid configuration setting.
+	\item Types of default values must be compatible with the types of the keys.
+	\item Every contextual interpretation of a key must yield a compatible type.
+	\item Links must not refer to each other in cycles.
+	\item Every link and the pointee must have compatible types.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Example}
+
+	\begin{code}[morekeywords={override},gobble=4]
+	[sw/org/abc/has_true_arg]
+	  type:=boolean
+	  default:=0
+	  override/#0:=/sw/org/abc/arg0
+	  override/#1:=/sw/org/abc/arg1
 	\end{code}
 \end{frame}
 
@@ -155,9 +155,18 @@ Configfile: /etc/testfile.conf
 
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Modularity}
 
+
+\begin{frame}
+	\frametitle{Types of Modularity}
+	\Large
+	\ExecuteMetaData[../book/backend.tex]{definition-modularity}
+\end{frame}
+
+\subsection{Vertical}
 
 \begin{frame}
 	\frametitle{Status Quo in Free Systems}
@@ -178,16 +187,6 @@ Configfile: /etc/testfile.conf
 	\item very low modularity
 	\end{itemize}
 \end{frame}
-
-
-
-\begin{frame}
-	\frametitle{Types of Modularity}
-	\Large
-	\ExecuteMetaData[../book/backend.tex]{definition-modularity}
-\end{frame}
-
-\subsection{Vertical}
 
 \begin{frame}[fragile]
 	\frametitle{Vertical Modularity \cite{raab2016improving}}
@@ -248,11 +247,6 @@ Configfile: /etc/testfile.conf
 	\end{columns}
 \end{frame}
 
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
 
 
 \subsection{Horizontal}
@@ -262,27 +256,6 @@ Configfile: /etc/testfile.conf
 
 	\intro[Modularity!horizontal]{Horizontal modularity} is ``the degree of separation in configuration access code''~\cite{raab2016improving}. 
 	A higher degree of horizontal modularity allows us to better separate configuration access code and plug the code together as needed.
-\end{frame}
-
-\begin{frame}
-	\label{slide:horizontal-modularity}
-	Three factors of \elektra{Spec} improve horizontal modularity:
-	\begin{enumerate}
-	\item
-	Using \elektra{Spec}, applications are completely decoupled from configuration specifications.
-
-	\item
-	Specifications and their implementation are decoupled.
-
-	\item
-	Abstract dependences within the implementation of specifications.
-	\end{enumerate}
-
-	\begin{task}
-	This is very vague.
-
-	Can you describe a system that would (not) fulfil this?
-	\end{task}
 \end{frame}
 
 \begin{frame}
@@ -305,26 +278,12 @@ Configfile: /etc/testfile.conf
 
 \subsection{Why?}
 
-\begin{frame}[fragile]
-	\frametitle{Acceptable Effort}
-
-	\methodQuestion{} \question{Which effort do you think is worthwhile for providing better configuration experience?}
-
-	\begin{itemize}
-	\item \p{44} would use other configuration access APIs next to ^getenv^.
-	\item \p{30} would use OS-specific sources.
-	\item \p{21} would use dedicated libraries.
-	\item \p{19} would read other application's configuration settings,
-	\item \p{16} would use external configuration access APIs that add new dependences.
-	\end{itemize}
-\end{frame}
-
 
 \begin{frame}
 	\frametitle{Why?}
 	\begin{finding}
 	\methodQuestion{}
-	Most developers have concerns adding dependences for more validation~(\p{84}) but consider good defaults important (\p{80}).
+	Most developers have concerns adding dependences for more validation~(\p{84}).
 	\end{finding}
 
 	\begin{restatable}{requirement}{reqDependences}
@@ -334,18 +293,15 @@ Configfile: /etc/testfile.conf
 \end{frame}
 
 \begin{frame}
-	\frametitle{Rationale}
-	Why is it difficult to have good defaults?
+	\frametitle{Further Requirements}
 	\begin{itemize}[<+->]
 	\item \textbf{Modularity:} diverse and conflicting requirements between applications.
 	Especially in validation, for example, \linebreak
-	constraint solvers vs. type systems vs. model checkers.
-	\item \textbf{System-level:} specification must always be enforced. Examples:
+	constraint solvers vs. type systems.
+	\item \textbf{System-level:} specification must be enforced. Examples:
 	\begin{itemize}[<+-| alert@+>]
 	\item which desktop is the application started in?
 	\item how many CPUs does the system have?
-	\item get the correct proxy of the system.
-	\item get available network bandwidth.
 	\item is the filesystem local?
 	\end{itemize}
 	\end{itemize}
@@ -365,6 +321,12 @@ Configfile: /etc/testfile.conf
 	\vspace{1cm}
 
 	\includegraphics{keyset}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Metadata}
+
+	\includegraphics{metadata}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -392,31 +354,7 @@ Configfile: /etc/testfile.conf
 	\begin{itemize}[<+->]
 	\item By extending the specification, new plugins are being injected into the system.
 	\item The \empha{provider} abstractions in the dependences between the plugins abstract over concrete implementations of configuration access code.
-	\item We have a modular implementation of SpecElektra.
 	\end{itemize}
-
-	\onslide<+->{
-	\begin{task}
-	Which kind of modularity does \empha{provider} improve?
-	\end{task}
-	}
-
-	\onslide<+->{
-	\begin{answer}
-	3\textsuperscript{rd} point of horizontal modularity on Slide~\ref{slide:horizontal-modularity}
-	\end{answer}
-	}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Examples}
-	calculation with context:
-	\begin{code}[gobble=4]
-	[gps/status]
-	assign:=(battery > 'low') ? ('on') : ('off')
-	[battery]
-	plugins:=battery
-	\end{code}
 \end{frame}
 
 \begin{frame}[fragile]
