@@ -131,27 +131,6 @@
 \end{assignment}
 
 
-\begin{frame}
-	\frametitle{Recapitulation}
-
-	\methodQuestion{} \question{Which configuration systems/libraries/APIs have you already used or would like to use in one of your FLOSS project(s)?}
-	\pause
-	\begin{itemize}
-	\item command-line arguments (\p{92}, $n=222$)
-	\item environment variables (\p{79}, $n=218$)
-	\item configuration files (\p{74}, $n=218$))
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Talk}
-	Miruna Orsa
-
-	Using XML in the day to day work life
-\end{frame}
-
-
-
 
 
 
@@ -168,75 +147,6 @@
 	\item calculation only needs to consider instantiations which make a difference: \\
 	essential configuration complexity~\cite{meinicke2016essential}
 	\end{itemize}
-\end{frame}
-
-\subsection{Usage}
-
-\begin{frame}[fragile]
-	\frametitle{Harmful Defaults~\cite{xu2015hey}}
-	\begin{itemize}
-	\item Problem: Two major data losses on a dozen machines.
-	\item Cause:
-	Stayed with the default values of the data-path settings
-	(e.g., ^dfs.name.dir^, ^dfs.data.dir^) which point to locations in ^/tmp^.
-	Thus, after the machines reboot, data losses occur.
-	``One of the common problems from users.'' (from Cloudera)
-	\item up to \p{53} of misconfigurations is due to staying at defaults
-	\item \p{17} to \p{48} of configuration issues are about difficulties in finding settings
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Unnecessary Settings~\cite{xu2015hey}}
-	\begin{itemize}
-	\item Configuration Parameter: ^dfs.namenode.tolerate.heartbeat.multiplier^
-	\item Developers' Discussion:
-	Since we are not sure what is a good choice, how about making it
-	configurable?
-	We should add a configuration option for it. Even if it's unlikely to
-	change, if someone does want to change it they'll thank us that they
-	don't have to change the code/recompile to do so.
-	\item Real-World Usage:
-	\begin{itemize}
-	\item No usage found by searching the entire mailing lists and Google.
-	\item No usage reported in a survey of 15 Hadoop users in UCSD.
-	\end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Unnecessary Settings~\cite{xu2015hey}}
-	\begin{itemize}
-	\item \p{6} to \p{17} of settings set by majority
-	\item up to \p{54} are seldom set
-	\item up to \p{47} of numeric settings have no more than five distinct values
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Reduction}
-	\methodQuestion{}
-	\question{Why do you think configuration should be reduced?}
-	\begin{itemize}
-	\item to simplify code maintenance (\p{50}),
-	\item to prevent errors and misconfiguration (\p{43}),
-	\item to provide better user experience (\p{40}),
-	\item \textbf{\question{I do not think it should be reduced} (\p{30})},
-	\item because they prefer auto-detection (\p{29}) \\ (with a possibility to override configuration settings: \p{32}),
-	\item \question{because use-cases which are rarely used should not be supported} (\p{13}),
-	\item \question{never find time for this task} (\p{9}), and
-	\item \question{because only standard use-cases should be supported} (\p{1})
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\begin{alertblock}{Question}
-	How to specify reduction strategies of configuration settings?
-	\end{alertblock}
-	\pause
-	\begin{exampleblock}{Answer}
-	Configuration Specification
-	\end{exampleblock}
 \end{frame}
 
 

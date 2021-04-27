@@ -161,56 +161,6 @@
 	\end{itemize}
 \end{frame}
 
-
-\begin{frame}
-	\frametitle{Properties (Recapitulation)}
-
-	\begin{task}
-	What is idempotent, self-describing, round-tripping configuration?
-	\end{task}
-
-	\pause
-
-
-	\begin{description}
-	\item[Idempotent]
-	yield the same configuration with any number of applications from CM code ($n\ge1$)~\cite{waldemar2013testing}:
-	\[
-		f(f(x))=f(x)
-	\]
-	needed to guarantee repeatability
-
-	\item[Self-describing]
-	means that from the configuration file alone we are able to derive the correct data structure~\cite{wadler2003xml}.
-
-	\item[Round-tripping]
-	means that if a data structure is serialized and then parsed again, we end up with an identical data structure~\cite{wadler2003xml}.
-	\end{description}
-
-	The data structure could be a KeySet.
-\end{frame}
-
-\begin{frame}
-	\frametitle{Examples}
-
-	XML has neither of the last two properties~\citet{wadler2003xml}:
-
-	\begin{itemize}[<+-| alert@+>]
-	\item internal representation crucially depends on XML schema
-	\item union of integer and strings
-	\end{itemize}
-
-	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
-
-	\citet{waldemar2013testing} tested 298 Chef scripts, of which 92 were non-idempotent:
-
-	\begin{itemize}[<+-| alert@+>]
-	\item \texttt{/etc/timezone} rewritten by package tzdata
-	\item tomcat6: files copied by user if \texttt{/etc/tomcat6/tomcat6.conf} does not exist but copy fails because later step creates \texttt{/etc/tomcat6/logging.properties} as root.
-	\item mongodb: if installation fails, the group ``mongodb'' does not exist, failing at later tasks creating directories using this group
-	\end{itemize}
-\end{frame}
-
 \begin{frame}
 	\frametitle{Checking Configurations (Recapitulation)}
 
