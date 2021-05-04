@@ -1,0 +1,86 @@
+\input{../book/setup}
+\input{../shared/setup}
+\input{../book/commandsetup}
+
+\setcounter{chapter}{1} % chapters start with 0
+
+
+\title{Team Work}
+\author{Markus Raab}
+
+
+\begin{document}
+
+%\begin{titlingpage}
+\maketitle
+\doclicenseThis
+%\end{titlingpage}
+
+\section{Preparation}
+
+\begin{enumerate}
+	\item Read this text in advance.
+	\item Look through materials to familiarize yourself with the concepts.
+\end{enumerate}
+
+
+\section{Steps}
+
+\begin{enumerate}
+	\item Find a group and decide who will create flip chart, moderate, and present. (5 min)
+	\item Give yourselves roles (leader, admin, dev, user) and split the goals among them. (5 min)
+	\item Create together an architecture that fulfils the goals. (ca.~30~min)
+	\item Present that architecture. (5 min)
+\end{enumerate}
+
+\section{Goals}
+
+
+\begin{enumerate}
+	\item configuration-management friendly
+	\item transient and persistent configuration consistent
+	\item correct documentation
+	\item reuse software as much as possible but integrate them nicely
+\end{enumerate}
+
+\section{Requirements}
+
+Design a camera system:
+
+\begin{enumerate}
+	\item that is able to take single pictures and streams
+	\item pluggable camera modules (lenses, image sensor, ...)
+	\item should have camera profiles for different vendors
+	\item a Web-UI that shows all configuration settings
+	\item support yet-unknown remote configuration protocol (Web, SNMP, CMs, ...)
+\end{enumerate}
+
+\section{Tasks}
+
+\begin{enumerate}
+	\item design the architecture of configuration settings
+	\item design the architecture of configuration access
+	\item design how the CM tools should look like
+	\item tracer bullet~\cite{hunt1999pragmatic}: explain for one configuration setting the whole way from source to destination
+	\item make decisions (which languages, which software, how to achieve the goals)
+	\item explain how to ensure smooth configuration upgrades
+	\item explain how to provide documentation for operators
+	\item explain how to reuse software
+\end{enumerate}
+
+\bibliographystyle{plainnat}
+
+\begingroup
+\sloppy
+\makeatletter
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\makeatother
+\bibliography{../shared/elektra.bib}
+\endgroup
+
+
+
+
+\end{document}
+
+
