@@ -5,6 +5,7 @@
 \setcounter{chapter}{1} % chapters start with 0
 
 
+
 \title{Team Work}
 \author{Markus Raab}
 
@@ -18,41 +19,45 @@
 
 \section{Preparation}
 
-\begin{enumerate}
-	\item Read this text in advance.
-	\item Look through materials to familiarize yourself with the concepts.
-\end{enumerate}
+Before LTW meeting on 12.05.2021:
 
+\begin{enumerate}
+	\item Read this text.
+	\item Think about what your role represents and what would be important for you.
+	\item Look through materials relevant for the LTW meeting to familiarize yourself with the concepts.
+	\item Search the Internet which technologies relevant for the LTW meeting are available.
+\end{enumerate}
 
 \section{Steps}
 
 \begin{enumerate}
-	\item Find a group and decide who will create flip chart, moderate, and present. (5 min)
-	\item Give yourselves roles (leader, admin, dev, user) and split the goals among them. (5 min)
-	\item Create together an architecture that fulfils the goals. (ca.~30~min)
-	\item Present that architecture. (5 min)
+	\item Already done in the meeting before (if you missed the meeting write an email to \url{markus.raab@complang.tuwien.ac.at}):
+	Give yourselves roles (leader, admin, dev, user) and split the goals and tasks among them.
+	\item Before the LTW meeting: do the preparation as described in this document.
+	\item In the LTW meeting: Create together an architecture that fulfils the goals and present some part of that architecture.
 \end{enumerate}
 
 \section{Goals}
 
+We want to design the software architecture of a camera system that:
 
 \begin{enumerate}
-	\item configuration-management friendly
-	\item transient and persistent configuration consistent
-	\item correct documentation
-	\item reuse software as much as possible but integrate them nicely
+	\item is configuration-management friendly
+	\item has transient and persistent configuration consistent
+	\item has correct documentation
+	\item reuses software as much as possible but integrate them nicely
 \end{enumerate}
 
 \section{Requirements}
 
-Design a camera system:
+The product manager wants a camera that:
 
 \begin{enumerate}
-	\item that is able to take single pictures and streams
-	\item pluggable camera modules (lenses, image sensor, ...)
-	\item should have camera profiles for different vendors
-	\item a Web-UI that shows all configuration settings
-	\item support yet-unknown remote configuration protocol (Web, SNMP, CMs, ...)
+	\item should be able to take single pictures and streams
+	\item should have pluggable camera modules (lenses, image sensor, ...)
+	\item should have camera profiles for modules of different vendors
+	\item should have a Web-UI that shows all configuration settings
+	\item should support a remote configuration protocol (Web, SNMP, CMs, ...)
 \end{enumerate}
 
 \section{Tasks}
