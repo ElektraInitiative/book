@@ -1,0 +1,163 @@
+\input{setup}
+
+\title{L08 Early Detection of Misconfiguration}
+\date{19.05.2021}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Points in Time}
+
+\begin{frame}
+	\frametitle{Learning Outcomes}
+	Students will be able to
+	\begin{itemize}
+	\item recall points of time relevant in configuration management.
+	\item remind some arguments about pull vs.\ push.
+	\item remember various strategies for earlier reduction of misconfiguration.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{When are settings used?}
+	From the application's perspective:
+	\vspace{1em}
+
+	\begin{description}[<+-| alert@+>]
+	\item[Implementation-time:] Configuration accesses \index{implementation-time}
+	are hard-coded in the sou\-rce code.
+	For example, architectural decisions~\cite{zdun2007patterns} lead to impl\-ementation-time settings.
+
+	\item[Compile-time:] Configuration accesses \index{compile-time}
+	are resolved by the build system while compiling.
+
+	\item[Deployment-time:] Configuration accesses \index{deployment-time}
+	are while the software is installed.
+
+	\item[Load-time:] Configuration accesses \index{load-time}
+	are during the start of applications.
+
+	\item[Run-time:] Configuration accesses \index{run-time}
+	are during execution after the startup procedure.
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Detection of Misconfiguration}
+
+	\begin{alertblock}{Viewpoint}
+	Different viewpoint: now from configuration management perspective.
+	\end{alertblock}
+
+	Phases when we can detect misconfigurations:
+	\begin{itemize}[<+-| alert@+>]
+	\item Compilation stage in configuration management tool
+	\item Writing configuration settings on nodes
+	\item Starting applications (load-time)
+	\item When configuration setting is actually used (run-time) \\
+		$\rightarrow$ Latent Misconfiguration
+	\end{itemize}
+
+	\pause[\thebeamerpauses]
+
+	\begin{alertblock}{Problem}
+	Earlier versus more context.
+	\end{alertblock}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Push vs.\ Pull}
+
+\begin{frame}
+	\frametitle{Push vs.\ Pull}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Push is more interactive.
+	\item Push cannot do its job if nodes are not reachable.
+	\item Push needs additional techniques to scale with many nodes.
+	\item Push demands access to servers from a single server.
+	\item Pull needs additional monitoring to know when a patch has been applied.
+	\item Pull needs resources even if nothing is to do.
+	\end{itemize}
+
+	\pause[\thebeamerpauses]
+
+	\begin{task}
+	Do you prefer push or pull?
+	What does your CM tool of choice use?
+	\end{task}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Early Detection}
+
+\begin{frame}
+	As shown by \citet{xu2016early}:
+	\begin{itemize}[<+-| alert@+>]
+	\item \p{12} -- \p{39} configuration settings are not used at all during the application's startup procedure.
+	\item Applications often have latent misconfigurations (\p{14} -- \p{93}).
+	\item Latent misconfigurations are particular severe (\p{75} of high-severity misconfigurations).
+	\item Latent misconfiguration needs longer to diagnose.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Checkers as plugins}
+
+	Using checkers as plugins exclude whole classes of errors such as:
+	\begin{itemize}[<+-| alert@+>]
+	\item Invalid file paths using the plugin \plugin{path}.
+	\item Invalid IP addresses or host names using the plugins \plugin{network} or \plugin{ipaddr}.
+	\end{itemize}
+
+	\pause[\thebeamerpauses]
+	Because the checks occur before the resources are actually used, the checks are subject to race conditions.\footnotemark
+	\only<3->{\footnotetext[1]{For example, a path that was present during the check, can have been removed when the application tries to access it.}}
+
+	\pause
+	In some situations facilities of the operating system help\footnotemark, in others we have fundamental problems.\footnotemark
+	\only<4>{\footnotetext[2]{For example, we open the file during the check and pass \texttt{/proc/<pid>/fd/<fd>} to the application. This file cannot be unlinked, but unfortunately the file descriptor requires resources.}}
+	\only<4>{\footnotetext[3]{For example, if the host we want to reach has gone offline after validation.}}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Example~\cite{xu2016early}}
+
+	Squid uses ^diskd_program^ but not before requests are served.
+	Latent misconfiguration caused 7h downtime and 48h diagnosis effort.
+
+	\pause
+
+	\begin{alertblock}{Finding}
+	Configuration from all externals programs need to be checked, too.
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conclusion}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item provide external specifications for other tooling and configuration management
+	\item use code generation to keep internal specifications consistent with external specifications (e.g. for refactoring)
+	\item implement checkers as plugins
+	\item execute checkers as early as possible,
+	also for external programs executed later
+	\item keep important resources allocated after checking
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Meeting}
+
+
+
+\appendix
+
+\begin{frame}[allowframebreaks]
+	\bibliographystyle{plainnat}
+	\bibliography{../shared/elektra.bib}
+\end{frame}
+
+
+
+\end{document}
