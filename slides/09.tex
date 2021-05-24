@@ -1,196 +1,98 @@
-%TODO: more didactics (team work, ..)
-
 \input{setup}
 
+\title{L09 Configuration as a User Interface}
 \date{09.06.2021}
 
 \begin{document}
 
-\begin{frame}
-	Lecture is every week Wednesday 09:00 - 11:00.
-
-	\begin{description}
-		\item[06.03.2019:] {\color{gray}topic, teams}
-		\item[13.03.2019:] {\color{gray}TISS registration, initial PR}
-		\item[20.03.2019:] {\color{gray}other registrations, guest lecture}
-		\item[27.03.2019:] {\color{gray}PR for first issue done, second started}
-		\item[03.04.2019:] {\color{gray}first issue done, PR for second}
-		\item[10.04.2019:] {\color{gray}mid-term submission of exercises}
-		\item[08.05.2019:] {\color{gray}different location: Complang Libary}
-		\item[15.05.2019:]
-		\item[22.05.2019:] {\color{gray}all 5 issues done}
-		\item[29.05.2019:]
-		\item[05.06.2019:] {\color{gray}final submission of exercises}
-		\item[12.06.2019:]
-		\item[19.06.2019:] last corrections of exercises and register for exam
-		\item[26.06.2019:] exam
-	\end{description}
-\end{frame}
-
-\begin{assignment}
-	\frametitle{Tasks}
-
-	\begin{task}
-	\begin{itemize}[<+-| alert@+>]
-	\item personal feedback about me in TISS Stimmungszettel (anonym) or by email (markus.raab@complang.tuwien.ac.at).
-	\end{itemize}
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	\frametitle{Popular Topics}
-	\vspace{-0.55cm}
-	\setlength{\columnsep}{-1.3cm}
-	\raggedright
-	\definecolor{amethyst}{rgb}{0.6, 0.4, 0.8}
-	\begin{multicols}{2}
-	\begin{description}
-	\item[14] {\color{red} tools}
-	\item[9] {\color{gray} testability}
-	\item[9] {\color{gray} code-generation}
-	\item[7] {\color{gray} context-awareness}
-	\item[6] {\color{red} specification}
-	\item[6] {\color{gray} misconfiguration}
-	\item[6] {\color{gray} complexity reduction}
-	\item[5] {\color{amethyst} validation}
-	\item[5] {\color{gray} points in time} % (early detection)
-	\item[5] {\color{red} error messages}
-	\item[5] {\color{gray} auto-detection}
-	\item[4] {\color{red} user interface}
-	\item[4] {\color{gray} introspection}
-	\item[4] {\color{gray} design}
-	\item[4] {\color{gray} cascading}
-	\item[4] {\color{gray} architecture of access}
-	\item[3] {\color{gray} configuration sources}
-	\item[3] {\color{gray} config-less systems}
-	\item[2] secure conf
-	\item[2] {\color{gray} architectural decisions}
-	\item[1] {\color{amethyst} push vs.\ pull}
-	\item[1] {\color{amethyst} infrastructure as code}
-	\item[1] {\color{red} full vs.\ partial}
-	\item[1] convention over conf %iguration
-	\item[1] CI/CD
-	\item[0] {\color{gray} documentation}
-	\end{description}
-	\end{multicols}
-\end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Recapitulation}
+\section{3-way merge}
 
-\subsection{}
 
 \begin{frame}
-	\frametitle{Types of Specifications (Recapitulation)}
-
-	\includegraphics[scale=0.8]{specifications}
+	\frametitle{Learning Outcomes}
+	Students will be able to
+	\begin{itemize}
+	\item recall a method of avoiding errors
+	\item apply some principles of good error messages
+	\item remind some basics of system administrator research
+	\end{itemize}
 \end{frame}
 
 
 \begin{frame}
-	\frametitle{Configuration Specification (Partly Recapitulation)}
+	\frametitle{Synchronization}
 
-	\begin{task}
-	How can we combine configuration specifications and configuration management?
-	(Think, Pair, Share)
-	\end{task}
+	Problem: transient and persistent configuration settings might be out-of-sync~\cite{jin2014configurations}
 
 	\pause
 
+	\ExecuteMetaData[../book/motivation.tex]{req-consistency}
+
+	\pause
+
+	Solutions:
+	\begin{itemize}
+	\item Often write out configuration settings.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Semantic 3-way merge}
+
+	Problem: When trying to writing out configuration settings, the configuration settings might not be as they were before. (Conflict)
+
+	\pause
+
+	Solution: Many conflicts can be resolved automatically with a semantic 3-way merge.
+
+	\pause
+
+	We can resolve many conflicts automatically if we consider:
 	\begin{itemize}[<+-| alert@+>]
-	\item Configuration settings are an instantiation of the configuration specifications. \\
-		Code describing the instantiation is \textbf{CM code}.
-	\item Configuration design is explicit (like transformations and default values) and can help while writing CM code.
-	\item CM code can even be generated from the specification.
-	\item Access specifications make access trivial via uniform interface.
-	\item Visibility and similar techniques may help dealing with complexity.
+	\item the key/value structure (vs. line-based)
+	\item the origin of the configuration settings
+	\item the type of settings
+	\end{itemize}
+
+	\pause[\thebeamerpauses]
+
+	For example, when upgrading slapd:
+	\begin{itemize}
+	\item System administrator changed the file (Ours).
+	\item Package maintainer changed the file (Theirs).
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Configuration Drift (Recapitulation)}
+\begin{frame}[fragile]
+	\frametitle{Conflicts Example}
 
-	\begin{task}
-	What is configuration drift? What are its causes?
-	\end{task}
+	\textbf{Ours:}
+	\begin{code}[gobble=4,language=CfgElektra]
+	slapd/threads/listener=4
+
+	slapd/threads/enable= \
+		yes # must be enabled for listener
+
+	\end{code}
+
+	\textbf{Theirs:}
+	\begin{code}[gobble=4,language=CfgElektra]
+	slapd/threads/enable = on
+	slapd/threads/listener = 8
+	\end{code}
 
 	\pause
-
-	Are derivations of the ``Single Source of Truth'' (the CM code).
-
-	Caused by:
-
-	\begin{itemize} %[<+-| alert@+>]
-	\item manual configuration changes by administrators
-	\item manual configuration changes by end users
-	\item differences in updates (e.g., skipped or failed updates)
-	\item failed attempts to change configuration
-	\item applying different versions of CM code
-	\item \dots
-	\end{itemize}
-
-
+	\textbf{Origin:}
+	\begin{code}[gobble=4,language=CfgElektra]
+	slapd/threads/listener=8
+	slapd/threads/enable = true
+	\end{code}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Push vs.\ Pull (Recapitulation)}
 
-	\begin{task}
-	Explain the Push and the Pull Model.
-	What are their (dis)advantages?
-	\end{task}
 
-	\pause
-
-	\begin{itemize} %[<+-| alert@+>]
-	\item Push is more interactive.
-	\item Push cannot do its job if nodes are not reachable.
-	\item Push needs additional techniques to scale with many nodes.
-	\item Push demands access to servers from a single server.
-	\item Pull needs additional monitoring to know when a patch has been applied.
-	\item Pull needs resources even if nothing is to do.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Checking Configurations (Recapitulation)}
-
-	\begin{task}
-	Which properties of configuration settings can be checked?
-	\end{task}
-
-	\pause
-
-	\begin{itemize} %[<+-| alert@+>]
-	\item structure
-	\item values (data types)
-	\item constraints
-	\item semantic checks (e.g., IP, folder)
-	\item domain-specific checks (e.g., databases)
-	\item requirements (suitable configurations)
-	\item context (context-aware configurations)
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Checking Specifications (Recapitulation)}
-
-	\begin{task}
-	What are the goals of checking \elektra{Spec}?
-	\end{task}
-
-	\pause
-
-	\begin{itemize} %[<+-| alert@+>]
-	\item Defaults must be present for safe lookups.
-	This goal also implies that there must be at least one valid configuration setting.
-	\item Types of default values must be compatible with the types of the keys.
-	\item Every contextual interpretation of a key must yield a compatible type.
-	\item Links must not refer to each other in cycles.
-	\item Every link and the pointee must have compatible types.
-	\end{itemize}
-\end{frame}
 
 
 
@@ -320,7 +222,7 @@ be outside of the allowed range (0-10).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{User View}
+\section{System Administrator Research}
 
 \subsection{}
 
@@ -590,10 +492,25 @@ be outside of the allowed range (0-10).
 	\item Configuration management languages differ widely.
 	\item Configuration specifications are helpful in different ways.
 	\item Do not design around tools but design tools around you.
-	\item Outlook: Go more in-depth into CM languages, contextualize with our topics
 	\end{itemize}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Meeting}
+
+%TODO: more didactics (team work, ..)
+
+\begin{assignment}
+	\frametitle{Tasks}
+
+	\begin{task}
+	\begin{itemize}[<+-| alert@+>]
+	\item personal feedback about me in TISS Stimmungszettel (anonym) or by email (markus.raab@complang.tuwien.ac.at).
+	\end{itemize}
+	\end{task}
+\end{assignment}
+
+%TODO: add cliffhanger with preview for 10.tex
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -608,5 +525,3 @@ be outside of the allowed range (0-10).
 
 \end{document}
 
-
-%TODO: add cliffhanger with preview for next time
