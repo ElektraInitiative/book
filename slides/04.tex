@@ -546,7 +546,7 @@ For configuration as program you need to execute them first.
 	\pause
 	\begin{itemize}
 	\item passed by main for a new process via \\ (\texttt{int argc, char ** argv})
-	\item visible from other processes (e.g., via \texttt{ps aux})
+	\item visible for anyone: \texttt{/proc/self/cmdline}, e.g., via \texttt{ps aux}
 	\item could be passed along to subprocesses but hardly done
 	\item need to be parsed by process
 	\item portability: differences in parsing
@@ -559,9 +559,10 @@ For configuration as program you need to execute them first.
 
 	\pause
 	\begin{itemize}
-	\item are also per-process (\texttt{/proc/self/environ})
+	\item are per-process
+	\item only static view by owner in \texttt{/proc/self/environ}
 	\item are not visible from other processes
-	\item are automatically inherited by subprocesses
+	\item subprocesses inherit by default
 	\item need to be parsed by process (\texttt{[extern] char **environ}) but API is provided (\texttt{getenv})
 	\item cannot be changed from outside (requires restart or an additional IPC mechanism)
 	\end{itemize}
