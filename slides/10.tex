@@ -70,12 +70,10 @@
 	How to avoid duplication between description text and other parts?
 	\end{alertblock}
 
-	\pause
-
 	\begin{itemize}
 	\item Render type and defaults into the documentation
-	\item Render requirements and rationale into the documentation
 	\item Render any other semantics into the documentation
+	\item Render requirements and rationale into the documentation
 	\end{itemize}
 \end{frame}
 
@@ -89,7 +87,6 @@
 	  description:=adjust to use more threads
 	  rationale:=needed for many-core systems
 	  requirement:=1234
-	  visibility:=user
 	\end{code}
 \end{frame}
 
@@ -100,7 +97,7 @@
 
 	\begin{code}[gobble=4]
 	[app/log/file]
-	  description:=path to file for logs
+	  description:=path to file
 	\end{code}
 
 	Instead use:
@@ -135,7 +132,7 @@
 	\item Which configuration file format? (irrelevant due to key/values)
 	\item Split up into multiple configuration files? (irrelevant due to 3-way merging)
 	\item Where are the configuration files? (irrelevant due to mounting and resolver)
-	\item Important: Introspection, Validation, Modularity, Specifications, API, Guarantees, Docu \dots
+	\item Important: Validation, Modularity, Specifications, API, Guarantees, Docu, Introspection, Code Generation, Context-Awareness  \dots
 	\end{itemize}
 \end{frame}
 
@@ -220,53 +217,15 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	Other artefacts:
-
-	\begin{itemize}
-	\item examples (e.g., defaults)
-	\item documentation
-	\item auto-completion/syntax highlighting/IDE support
-	\item tooling (GUI, Web UI)
-	\item validation code
-	\item parsing code (e.g., command-line parsing)
-	\item CM code
-	\item configuration access APIs
-	\end{itemize}
-\end{frame}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Code Generation}
 
-\begin{assignment}
-	\begin{task}
-	How to ensure that configuration access points match with present configuration settings?
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	\frametitle{Rationale (Partly Recapitulation)}
-	Configuration Specification:
-	\begin{itemize}
-	\item without specification you and others do not even know which settings are available
-	\item needed for any further techniques we will discuss:
-		\begin{itemize}
-		\color{red}
-		\item code generation guarantees that configuration access points match with specification
-		\item validation guarantees that configuration settings match with specification
-		\end{itemize}
-	\item essential for \intro[no-futz computing]{no-futz computing}~\citet{holland2001nofutz}
-	\item the foundation for any advanced tooling like configuration management tools
-	\item needed as communication of producers and consumers of configuration
-	\end{itemize}
-\end{frame}
-
 \begin{frame}[fragile]
 	\frametitle{Current Challenges}
-	Configuration access code usually has:
-	\pause
+	Configuration access code (internal specification) usually has:
+
 	\begin{itemize}
 	\item code duplications and unsafe APIs
 	\item hard-coded default values
@@ -312,28 +271,6 @@
 	\end{restatable}
 \end{frame}
 
-
-%\subsection{How?}
-
-\begin{frame}
-	\frametitle{Code Generation}
-
-	\ExecuteMetaData[../book/approach.tex]{code-generation}
-
-	\pause
-	\vspace{2em}
-	But how?
-\end{frame}
-
-\begin{frame}
-	\frametitle{KeySet (Recapitulation)}
-
-	The common data structure between plugins:
-	\vspace{1cm}
-
-	\includegraphics{keyset}
-\end{frame}
-
 \begin{frame}[fragile]
 	\frametitle{KeySet Generation}
 	\begin{alertblock}{Question}
@@ -352,18 +289,6 @@
 
 	<property> ::=  \lq KEY\_META, \WhiteSpace " ' <property name> \lq "  , \WhiteSpace " ' <property value> \lq " '
 	\end{grammar}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Possible Properties}
-
-	For example, SpecElektra has following properties:
-	\begin{description}
-	\item[type] represents the type to be used in the emitted source code.
-	\item[opt] is used for short command-line options to be copied to the namespace \namespace{proc}.
-	\item[opt/long] is used for long command-line options, which differ from short command-line options by supporting strings and not only characters.
-	\item[default] enables us to start the application even if the backend does not work.
-	\end{description}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -422,88 +347,8 @@
 \end{frame}
 
 \begin{frame}[fragile]
-	With the specification:
-	\par
-	\begin{code}[gobble=4]
-	[foo/bar]
-	  default:=Hello
-	  type:=string
-	  opt:=b
-	  restrict/write:=1
-	\end{code}
-	\par
-	\elektra{Gen} gives the user read-only access to the object ^env.foo.bar^:
-	\par
-	\begin{code}[language=Cpp]
-	std::cout << env.foo.bar;
-	env.foo.bar = "Other world"; // comp. error
-	\end{code}
-	\par
-	\small
-	\pause
-	Line~1 prints the configuration value of ^/foo/bar^ or ^"Hello"^ (without quotes) by default.
-	When invoking the application with ^application -b "This world"^, the application would print ^"This world"^ (without quotes).
-	Line~2 leads to a compilation error because of the property \property{restrict/write}.
-\end{frame}
-
-\begin{frame}[fragile]
 	\frametitle{Which Configuration Access API?}
 
-	First approach, one class (or function) per configuration setting:
-	\\[1em]
-	\begin{code}[gobble=4,language=Cpp]
-	class SlapdThreadsListener : public Value<long,
-		WritePolicyIs<ReadOnlyPolicy>> {
-		... keyNew ("/slapd/threads/listener",
-			    KEY_META, "type", "long",
-			    KEY_META, "restrict/write", "1",
-			    KEY_END) ...
-	};
-	\end{code}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Which Configuration Access API?}
-
-	Bad idea, manual instantiation and long names necessary:
-	\\[1em]
-	\begin{code}[gobble=4,language=Cpp]
-	KeySet config;
-	Context c;
-	long foo ()
-	{
-		SlapdThreadsListener slapdThreadsListener (config, c);
-		slapdThreadsListener++;
-		return slapdThreadsListener;
-	}
-	\end{code}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Which Configuration Access API?}
-
-	Use hierarchy with namespaces or nested classes:
-	\\[1em]
-	\begin{code}[gobble=4,language=Cpp]
-	namespace slapd
-	{
-	namespace threads
-	{
-	class Listener : public Value<long> {};
-	}  // <continues on the next page>
-	class Threads : public Value<none_t>
-	{threads::Listener listener;};
-	}  // end namespace slapd
-	class Slapd : public Value<none_t>
-	{slapd::Threads threads;};
-	class Environment {Slapd slapd;};
-	\end{code}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Which Configuration Access API?}
-
-	Much easier to use:
 	\begin{code}[gobble=4,language=Cpp]
 	long foo(slapd::Threads const & threads)
 	{
@@ -526,22 +371,27 @@
 	\frametitle{Which Configuration Access API?}
 
 	In C, we use identifiers to be passed to the high-level API\footnote{\url{https://www.libelektra.org/tutorials/high-level-api}}:
-	\\[2em]
-	\begin{code}[gobble=4,language=Cpp]
-	elektraGetString (elektra, ELEKTRA_TAG_MY);
-	\end{code}
-	Where ^ELEKTRA_TAG_MY^ is a struct for that type.
-	\\[2em]
-
-	We can also omit the type:
 	\begin{code}[gobble=4,language=Cpp]
 	elektraGetLong (elektra, ELEKTRA_TAG_THREADS);
-	elektraGet (elektra, ELEKTRA_TAG_THREADS);
 	\end{code}
 \end{frame}
 
 \begin{frame}
+	Other artefacts:
+
+	\begin{itemize}
+	\item APIs for type-safe CM code
+	\item examples (e.g., defaults)
+	\item documentation
+	\item auto-completion/syntax highlighting/IDE support
+	\item tooling (GUI, Web UI)
+	\item parsing code (e.g., command-line parsing)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
 	Guarantees by code generation:
+
 	\begin{itemize}
 	\item Every configuration setting is specified (essential for refactoring).
 	\item (Data) type of source code and configuration settings match.
@@ -549,7 +399,10 @@
 	Reason: We use defaults if everything else fails.
 	\end{itemize}
 	\vspace{3em}
-	Missing Guarantee: Is every specified setting actually used?
+
+	\begin{alertblock}{Finding}
+	Guarantees for both CM and application code.
+	\end{alertblock}
 \end{frame}
 
 
