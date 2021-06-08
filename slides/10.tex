@@ -220,8 +220,6 @@
 \begin{frame}
 	Other artefacts:
 
-	\pause
-
 	\begin{itemize}
 	\item examples (e.g., defaults)
 	\item documentation
@@ -232,68 +230,6 @@
 	\item CM code
 	\item configuration access APIs
 	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{KeySet (Recapitulation)}
-
-	The common data structure between plugins:
-	\vspace{1cm}
-
-	\includegraphics{keyset}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{KeySet Generation}
-	\begin{alertblock}{Question}
-	Idea: What if the configuration file format grammar describes source code?
-	\end{alertblock}
-
-	\pause
-
-	key ^spec:/slapd/threads/listener^, with the configuration value ^4^ and the property $\property{default} \mapsto 1$:
-
-	\begin{code}[gobble=4,language=Cpp]
-	ksNew (keyNew ("spec:/slapd/threads/listener",
-		       KEY_VALUE, "4",
-		       KEY_META, "default", "1",
-		       KEY_END),
-	       KS_END);
-	\end{code}
-
-	\begin{alertblock}{Finding}
-	We get source code representing the settings.
-	\end{alertblock}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Possible Properties (Recapitulation)}
-
-	For example, SpecElektra has following properties:
-	\begin{description}
-	\item[type] represents the type to be used in the emitted source code.
-	\item[opt] is used for short command-line options to be copied to the namespace \namespace{proc}.
-	\item[opt/long] is used for long command-line options, which differ from short command-line options by supporting strings and not only characters.
-	\item[default] enables us to start the application even if the backend does not work.
-	\end{description}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Introspection vs. Code Generation}
-
-	\setbeamersize{description width=1cm}
-	\begin{description}
-	\item[$-$] more techniques for performance improvements with code generation
-	\item[$+$] specification can be updated live on the system without recompilation
-	\item[$+$] tooling has generic access to all specifications
- 	\item[$+$] new features the key database (e.g., better validation) are immediately available consistently
-	\end{description}
-
-	\vspace{0.5em}
-
-	\begin{alertblock}{Implication}
-	We generally prefer introspection, except for a very thin configuration access API.
-	\end{alertblock}
 \end{frame}
 
 
@@ -361,31 +297,14 @@
 	Note: PostgreSQL has a clean implementation, and above list only shows limitations of systems without code generation.
 \end{frame}
 
-\begin{assignment}
-	\begin{task}
-	Brainstorming: Which artefacts can we produce with (code) generation?
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	Artefacts:
-	\begin{itemize}
-	\item examples (e.g., defaults)
-	\item documentation
-	\item auto-completion/syntax highlighting/IDE support
-	\item tooling (GUI, Web UI)
-	\item validation code
-	\item CM code
-	\item configuration access APIs
-	\end{itemize}
-\end{frame}
-
 \begin{frame}
 	\frametitle{Goal}
 
 	\begin{goal}
 	Configuration settings should adhere the specification from source to destination.
 	\end{goal}
+
+	For both applications and CM tools we want:
 
 	\begin{restatable}{requirement}{reqGeneration}
 	The specification must enable code generation and inconsistencies must be ruled out during compilation.
@@ -434,11 +353,17 @@
 	\end{grammar}
 \end{frame}
 
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
+\begin{frame}
+	\frametitle{Possible Properties}
+
+	For example, SpecElektra has following properties:
+	\begin{description}
+	\item[type] represents the type to be used in the emitted source code.
+	\item[opt] is used for short command-line options to be copied to the namespace \namespace{proc}.
+	\item[opt/long] is used for long command-line options, which differ from short command-line options by supporting strings and not only characters.
+	\item[default] enables us to start the application even if the backend does not work.
+	\end{description}
+\end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{Example}
@@ -493,18 +418,6 @@
 	}
 	\end{code}
 	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Possible Properties}
-	For example, SpecElektra has following properties:
-	\begin{description}
-	\item[type] represents the type to be used in the emitted source code.
-	\item[opt] is used for short command-line options to be copied to the namespace \namespace{proc}.
-	\item[opt/long] is used for long command-line options, which differ from short command-line options by supporting strings and not only characters.
-	\item[restrict/write] yields compilation errors when developers assign a value to a contextual value within the program.
-	\item[default] enables us to start the application even if the backend does not work.
-	\end{description}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -611,7 +524,7 @@
 \begin{frame}[fragile]
 	\frametitle{Which Configuration Access API?}
 
-	In C, we use identifiers to be passed to the highlevel API\footnote{\url{https://www.libelektra.org/tutorials/high-level-api}}:
+	In C, we use identifiers to be passed to the high-level API\footnote{\url{https://www.libelektra.org/tutorials/high-level-api}}:
 	\\[2em]
 	\begin{code}[gobble=4,language=Cpp]
 	elektraGetString (elektra, ELEKTRA_TAG_MY);
@@ -691,6 +604,25 @@
 	Configuration settings and specifications must be introspectable.%
 	\end{restatable}
 \end{frame}
+
+\begin{frame}
+	\frametitle{Introspection vs. Code Generation}
+
+	\setbeamersize{description width=1cm}
+	\begin{description}
+	\item[$-$] more techniques for performance improvements with code generation
+	\item[$+$] specification can be updated live on the system without recompilation
+	\item[$+$] tooling has generic access to all specifications
+ 	\item[$+$] new features the key database (e.g., better validation) are immediately available consistently
+	\end{description}
+
+	\vspace{0.5em}
+
+	\begin{alertblock}{Implication}
+	We generally prefer introspection, except for a very thin configuration access API.
+	\end{alertblock}
+\end{frame}
+
 
 \begin{frame}
 	\frametitle{Use Cases of Elektra}
