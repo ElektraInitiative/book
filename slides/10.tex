@@ -410,14 +410,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Introspection vs. Generation}
 
-%\subsection{}
-
-\begin{frame}
-	\begin{alertblock}{Question}
-	Introspection vs. Code Generation?
-	\end{alertblock}
-\end{frame}
-
 \begin{frame}
 	Limitations of introspection:
 	\begin{itemize}
@@ -440,28 +432,6 @@
 	But: \pause
 	Configuration access points within loops might be a bottleneck.
 \end{frame}
-
-\begin{frame}
-	\frametitle{Introspection vs. Code Generation}
-	
-	Advantages of introspection:
-
-	\setbeamersize{description width=1cm}
-	\begin{description}
-	\item[$+$] specification can be updated live on the system without recompilation
-	\item[$+$] tooling has generic access to all specifications
- 	\item[$+$] new features the key database (e.g., better validation) are immediately available consistently
-	\item[$-$] more techniques for performance improvements with code generation
-	\item[$-$] code generation needed if context differs within same thread
-	\end{description}
-
-	\vspace{0.5em}
-
-	\begin{alertblock}{Implication}
-	We generally prefer introspection, except for a very thin configuration access API.
-	\end{alertblock}
-\end{frame}
-
 
 \begin{frame}
 	\frametitle{Use Cases of Elektra}
@@ -490,20 +460,24 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Conclusion}
-	\begin{itemize}
-	\item goals:
-		\begin{itemize}
-		\item make simple configuration management tasks simple
-		\item improve robustness
-		\item improve extensibility (reusable plugins operating on key/value)
-		\item improve performance
-		\item good defaults
-		\item system-wide introspection
-		\item system-level dependency injection
-		\end{itemize}
-	\item \elektra{} has no dependence to other libraries but only concrete plugins introduce dependences.
-	\end{itemize}
+	\frametitle{Introspection vs. Code Generation}
+	
+	Advantages of introspection:
+
+	\setbeamersize{description width=1cm}
+	\begin{description}
+	\item[$+$] specification can be updated live on the system without recompilation
+	\item[$+$] tooling has generic access to all specifications
+ 	\item[$+$] new features the key database (e.g., better validation) are immediately available consistently
+	\item[$-$] more techniques for performance improvements with code generation
+	\item[$-$] code generation needed if context differs within same thread
+	\end{description}
+
+	\vspace{0.5em}
+
+	\begin{alertblock}{Implication}
+	We generally prefer introspection, except for a very thin configuration access API.
+	\end{alertblock}
 \end{frame}
 
 
