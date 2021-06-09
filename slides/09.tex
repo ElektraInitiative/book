@@ -498,26 +498,132 @@ be outside of the allowed range (0-10).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Meeting}
 
-%TODO: more didactics (team work, ..)
+\subsection{Recapitulation}
 
-\begin{assignment}
-	\frametitle{Tasks}
-
-	\begin{task}
-	\begin{itemize}[<+-| alert@+>]
-	\item personal feedback about me in TISS Stimmungszettel (anonym) or by email (markus.raab@complang.tuwien.ac.at).
+\begin{frame}
+	\frametitle{Learning Outcomes}
+	Students will be able to
+	\begin{itemize}
+	\item recall a method of avoiding errors
+	\item apply some principles of good error messages
+	\item remind some basics of system administrator research
 	\end{itemize}
-	\end{task}
-\end{assignment}
+\end{frame}
 
-%TODO: add cliffhanger with preview for 10.tex
-% Teaser: how everything in CM connects
+\begin{frame}[fragile]
+	\frametitle{Conflicts Example}
+	How can you avoid errors when merging these configuration settings?
+
+	\textbf{Ours:}
+	\begin{code}[gobble=4,language=CfgElektra]
+	slapd/threads/listener=4
+
+	slapd/threads/enable= \
+		yes # must be enabled for listener
+
+	\end{code}
+
+	\textbf{Theirs:}
+	\begin{code}[gobble=4,language=CfgElektra]
+	slapd/threads/enable = on
+	slapd/threads/listener = 8
+	\end{code}
+
+	\textbf{Origin:}
+	\begin{code}[gobble=4,language=CfgElektra]
+	slapd/threads/listener=8
+	slapd/threads/enable = true
+	\end{code}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Context for error messages}
+
+	Error messages should contain:
+
+	\pause
+
+	\begin{itemize} %[<+-| alert@+>]
+	\item pin-point key (which also pin-points to the specification)
+	\item repeat relevant parts of values and the specification
+	\item show mountpoint (to make relative keys unique)
+	\item show file name and line number
+	\item for reporting bugs: show source code lines
+	\end{itemize}
+\end{frame}
 
 \begin{assignment}
 	\begin{task}
 	Break.
 	\end{task}
 \end{assignment}
+
+\begin{frame}
+	\frametitle{Tasks}
+
+	What do system administrators do?
+
+	\pause
+
+	\begin{itemize} %[<+-| alert@+>]
+	\item keep our infrastructure running
+	\item coordinate
+	\item do backups
+	\item manage hardware
+	\item do inventory
+	\item install applications
+	\item manage security
+	\item configure applications
+	\item troubleshoot
+	\item $\implies$ the unsung heroes!
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Tell a story about system administrators.
+	\end{task}
+\end{assignment}
+
+\subsection{Assignments}
+
+\begin{assignment}
+	Finalize all PRs:
+
+	\begin{itemize} %[<+-| alert@+>]
+	\item Rebase PRs (+1P).
+	\item Make CI happy.
+	\item Correction for H3 (for JNI: only with tests, no mounting).
+	\item Correction for T3.
+	\end{itemize}
+\end{assignment}
+
+\begin{frame}
+	\frametitle{Feedback}
+	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+	\vspace{-1cm}
+	\begin{itemize}
+		\item ECTS breakdown realistic?
+		\item Feedback Talk
+		\item TISS Feedback from 16.06.2021 00:00 to 14.07.2021 23:59
+	\end{itemize}
+\end{frame}
+
+\subsection{Preview}
+
+\begin{frame}
+	\frametitle{Outlook}
+
+	How ``everything'' in CM connects:
+	\begin{itemize} %[<+-| alert@+>]
+	\item documentation
+	\item introspection
+	\item (code) generation
+	\item context awareness
+	\end{itemize}
+	Best topics at last.
+\end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
