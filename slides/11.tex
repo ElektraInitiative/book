@@ -1,0 +1,443 @@
+\input{setup}
+
+\title{LRE Recapitulation}
+\date{23.06.2021}
+
+\begin{document}
+
+
+\begin{frame}
+	\frametitle{Recapitulation}
+
+	How ``everything'' in CM connects.
+	(Slides will not be shared.)
+\end{frame}
+
+\begin{frame}
+	\frametitle{Learning Outcomes}
+	Students will be able to
+
+	\begin{itemize}
+	\item design and document configuration settings and specifications
+	\item evaluate a configuration system and decide about use of
+	\begin{itemize}
+	\item code generation
+	\item introspection
+	\item context-awareness
+	\end{itemize}
+	\item remember connections between the many different topics within CM
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Schummelzettel}
+
+	Write your own Schummelzettel, maybe similar to Fachlandschaft, of how everything connects.
+
+	Can be used during exam.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Popular Topics}
+	\vspace{-0.55cm}
+	\setlength{\columnsep}{-1.3cm}
+	\raggedright
+	\definecolor{amethyst}{rgb}{0.6, 0.4, 0.8}
+	\begin{multicols}{2}
+	\begin{description}
+	\item[14] {\color{red} tools}
+	\item[9] {\color{gray} testability}
+	\item[9] {\color{gray} code-generation}
+	\item[7] {\color{gray} context-awareness}
+	\item[6] {\color{red} specification}
+	\item[6] {\color{gray} misconfiguration}
+	\item[6] {\color{gray} complexity reduction}
+	\item[5] {\color{gray} validation}
+	\item[5] {\color{gray} points in time} % (early detection)
+	\item[5] {\color{amethyst} error messages}
+	\item[5] {\color{gray} auto-detection}
+	\item[4] {\color{amethyst} user interface}
+	\item[4] {\color{gray} introspection}
+	\item[4] {\color{gray} design}
+	\item[4] {\color{gray} cascading}
+	\item[4] {\color{gray} architecture of access}
+	\item[3] {\color{gray} configuration sources}
+	\item[3] {\color{gray} config-less systems}
+	\item[2] {\color{lightgray} secure conf} %not done
+	\item[2] {\color{gray} architectural decisions}
+	\item[1] {\color{gray} push vs.\ pull}
+	\item[1] {\color{gray} infrastructure as code}
+	\item[1] {\color{amethyst} full vs.\ partial}
+	\item[1] {\color{lightgray} convention over conf} %iguration % not done
+	\item[1] {\color{lightgray} CI/CD} %only uebung
+	\item[0] {\color{gray} documentation}
+	\end{description}
+	\end{multicols}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Recapitulation}
+
+\subsection{}
+
+\begin{frame}
+	\frametitle{Configuration File Formats (Recapitulation)}
+	\methodQuestion{} \question{In which way have you used or contributed to the configuration system/library/API in your previously mentioned FLOSS project(s)?}~\cite{raab2017challenges}
+	\pause
+	\begin{itemize}
+	\item \p{19} persons ($n=251$) have introduced a configuration file format.
+	\item \p{29} implemented a configuration file parser.
+	\item \p{15} introduced a configuration system/library/API.
+	\item \p{34} used external configuration access APIs.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Current Situation}
+	\includegraphics[scale=0.7]{cursituation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Wanted Situation}
+	\includegraphics[scale=0.7]{wantsituation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Vertical Modularity}
+	\begin{alertblock}{Question}
+	Explain the content of the figure.
+	\end{alertblock}
+	\begin{columns}[c]
+	\column{7cm}
+	\includegraphics[scale=0.75]{verticalmodularity}
+	\column{4cm}<2>
+	Needed to keep applications independently.
+
+	Boxes are applications, cylinders are configuration files, F? are frontends or frontend adapters, L? are configuration libraries~\cite{raab2016improving}.
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Metalevels (Recapitulation)}
+	\begin{alertblock}{Question}
+	Describe the three Metalevels in Elektra.
+	\end{alertblock}
+
+	\pause
+	\includegraphics{metalevels}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Introspection (Recapitulation)}
+	\begin{task}
+	What is internal and external specification?
+	What is introspection?
+	\end{task}
+
+	\pause
+	\vspace{1em}
+
+	\begin{itemize}
+	\item \textit{internal}: within applications' source code
+	\item \textit{introspection}: unified get/set access to (meta*)-key/values
+	\item access via applications, CLI, GUI, web-UI, ...
+	\item access via any programming language (similar to file systems)
+	\item GUI, web-UI can semantically interpret metadata
+	\item assemble modular parts (validation, logging, \dots)
+	\item needed as communication between producers and consumers
+	\item essential for \intro[no-futz computing]{no-futz computing}~\citet{holland2001nofutz}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Introspection vs.\ Code Generation (Recapitulation)}
+
+	\begin{task}
+	Advantages/Disadvantages of key database (vs.\ code generation)?
+	\end{task}
+
+	\pause
+
+	\setbeamersize{description width=1cm}
+	\begin{description}
+	\item[$+$] specification can be updated live on the system without recompilation
+	\item[$+$] tooling has generic access to all specifications
+ 	\item[$+$] new features the key database (e.g., better validation) are immediately available consistently
+	\item[$-$] less techniques for performance improvements
+	\item[$-$] contextual values cannot be used if context differs within same thread
+	\end{description}
+
+	\begin{alertblock}{Implication}
+	We generally prefer introspection, except for a very thin configuration access API.
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Definition Configuration Management (Recapitulation)}
+
+	\begin{task}
+	What is Configuration Management?
+	\end{task}
+
+	\pause
+
+	\begin{itemize}
+	\item is a discipline in which configuration (in the broader sense) is administered.
+	\item makes sure computers are assembled from desired parts and the correct applications are installed.
+	\item has means to describe the desired configuration of the whole managed system.
+	\item ensures that the execution environment of installed applications is as required.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Possible Benefits of CM (Recapitulation)}
+
+	\begin{task}
+	What are the goals of Configuration Management?
+	\end{task}
+
+	\pause
+
+	\begin{itemize} %[<+-| alert@+>]
+	\item The same goals scripts have: \\
+		Documentation, Customization, Reproducability
+	\item Declarative description of the system \\
+		Single Source of Truth 
+		(Infrastructure as Code~\cite{waldemar2013testing})
+	\item Less configuration drift
+	\item Error handling
+	\item Pull vs.\ Push
+	\item Reusability
+	%\item (Resource) Abstractions
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Early detection (Recapitulation)}
+	\begin{task}
+	When do we want to detect misconfiguration?
+	\end{task}
+
+	\pause
+
+	Phases when we can detect misconfigurations:
+	\begin{itemize} %[<+-| alert@+>]
+	\item Compilation stage in configuration management tool
+	\item Writing configuration settings on nodes
+	\item Starting applications (load-time)
+	\item When configuration setting is actually used (run-time)
+	\end{itemize}
+
+	\pause[\thebeamerpauses]
+
+	\begin{alertblock}{Problem}
+	Earlier versus more context.
+	\end{alertblock}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Configuration Specification (Recapitulation)}
+
+	\begin{task}
+	How can we combine configuration specifications and configuration management?
+	\end{task}
+
+	\pause
+
+	\begin{itemize} %[<+-| alert@+>]
+	\item configuration settings are simply an instantiation of the configuration specifications.
+		Code describing the instantiation is \textbf{CM code}.
+	\item configuration design is explicit (like transformations and default values) and can help while writing CM code.
+	\item CM code can even be generated from the specification.
+	\item access specifications make access trivial via uniform interface.
+	\item visibility and similar techniques may help dealing with complexity.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Properties (Recapitulation)}
+
+	\begin{task}
+	What is idempotent, self-describing, round-tripping configuration?
+	\end{task}
+
+	\pause
+
+
+	\begin{description}
+	\item[Idempotent]
+	yield the same configuration with any number of applications from CM code ($n\ge1$)~\cite{waldemar2013testing}:
+	\[
+		f(f(x))=f(x)
+	\]
+	needed to guarantee repeatability
+
+	\item[Self-describing]
+	means that from the configuration file alone we are able to derive the correct data structure~\cite{wadler2003xml}.
+
+	\item[Round-tripping]
+	means that if a data structure is serialized and then parsed again, we end up with an identical data structure~\cite{wadler2003xml}.
+	\end{description}
+
+	The data structure could be a KeySet.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Popular CMs today (Recapitulation)}
+
+	\begin{itemize} %[<+-| alert@+>]
+	\item CFengine (1993)
+	\item LCFG (1994)
+	\item Quattor (2005)
+	\item Puppet (2005)
+	\item Chef (2009)
+	\item Salt (2011)
+	\item Ansible (2012)
+	\item Itamae (2014)
+	\item OpsMops (2019)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Elektra (Recapitulation)}
+
+	\begin{task}
+	What is Elektra?
+	\end{task}
+
+	\pause
+
+	\begin{itemize}
+	\item is not only a key database but a specification language to describe a key database
+	\item plugins implement the specification (could be distributed but focus is configuration files)
+	\item is library based (no single point of failure, no distributed coordination needed)
+	\item supports transactions (persisting whole KeySets at once)
+	\item supports integration of existing configuration settings
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Error Messages (Recapitulation)}
+
+	\begin{task}
+	What needs to be considered when designing error messages?
+	\end{task}
+
+	\pause
+
+	\begin{itemize} %[<+-| alert@+>]
+	\item error messages are often the sole data source for admins
+	\item configuration design first: avoid errors if possible
+	\item error messages should not leak internals~\cite{brown1983error}
+	\item ``edit here mentality'': do not point to correct statements~\cite{marceau2011mind}
+	\item Precisely locate the cause (and do not report aftereffects)
+	\item Personification~\cite{lee2011personifying}
+	\item give context: providing enough information vs.\ not overwhelming the user~\cite{wrenn2017error}
+
+	%mixture from other slides:
+	\item pin-point key (which also pin-points to the specification)
+	\item let specifications, e.g.\ from validation, override messages
+	\end{itemize}
+\end{frame}
+
+
+
+
+\subsection{}
+
+
+\begin{frame}
+	\frametitle{Apply to CM (Recapitulation)}
+
+	What can we learn from system administration research?
+
+	\setbeamersize{description width=1cm}
+	\begin{description}[<+-| alert@+>]
+	\item[$+$] intensive review process catches errors
+	\item[$-$] collaboration ineffective
+	\item[$-$] context/situational awareness is essential
+	\item[$+$] precise editing of configuration files works well
+	\item[$+$] self-written tools are very efficient
+	\item[$-$] global optimizations difficult
+	\end{description}
+
+	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
+
+	\begin{alertblock}{Idea}
+	Replicate parts that work well, automate error-prone parts.
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Apply to Elektra (Recapitulation)}
+
+	Elektra's goals are that it should:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item be easy to develop new high-level tools
+	\item support manual workflows and scripts
+	\item support precise editing:\\ only change the configuration value as specified
+	\item provide a language for both devs and admins
+	\end{itemize}
+
+	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
+
+	Admins/devs still need to:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item reduce the configuration space
+	\item intensively review and improve the specifications
+	\item test (and debug) configuration settings
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Precise Editing (Recapitulation)}
+
+	Partial modifications (precise editing) is natural for humans. \\
+	It ensures preservations of (potentially security-relevant!) defaults. \\
+	In CM following methods are used:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item embed shell commands to do the work
+	\item replace full content of configuration files
+	\item replace full content of configuration files with templates
+	\item line based manipulation (e.g., file\_line): match line and replace it
+	\item Augeas/XML: match a key with XPath and replace it
+	\item Elektra: set the value of a key
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Feedback}
+	Exercises finished for this term.
+
+	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+	\vspace{-1cm}
+	\begin{itemize}
+		\item ECTS breakdown realistic?
+		\item Feedback Talk
+		\item TISS Feedback from 16.06.2021 00:00 to 14.07.2021 23:59
+		\item TODO: Personal Feedback
+	\end{itemize}
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\nocite{raab2017introducing}
+
+\appendix
+
+\begin{frame}[allowframebreaks]
+	\bibliographystyle{plainnat}
+	\bibliography{../shared/elektra.bib}
+\end{frame}
+
+\end{document}
+
