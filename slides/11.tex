@@ -6,76 +6,6 @@
 \begin{document}
 
 
-\begin{frame}
-	\frametitle{Recapitulation}
-
-	How ``everything'' in CM connects.
-	(Slides will not be shared.)
-\end{frame}
-
-\begin{frame}
-	\frametitle{Learning Outcomes}
-	Students will be able to
-
-	\begin{itemize}
-	\item design and document configuration settings and specifications
-	\item evaluate a configuration system and decide about use of
-	\begin{itemize}
-	\item code generation
-	\item introspection
-	\item context-awareness
-	\end{itemize}
-	\item remember connections between the many different topics within CM
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Schummelzettel}
-
-	Write your own Schummelzettel, maybe similar to Fachlandschaft, of how everything connects.
-
-	Can be used during exam.
-\end{frame}
-
-\begin{frame}
-	\frametitle{Popular Topics}
-	\vspace{-0.55cm}
-	\setlength{\columnsep}{-1.3cm}
-	\raggedright
-	\definecolor{amethyst}{rgb}{0.6, 0.4, 0.8}
-	\begin{multicols}{2}
-	\begin{description}
-	\item[14] {\color{red} tools}
-	\item[9] {\color{gray} testability}
-	\item[9] {\color{gray} code-generation}
-	\item[7] {\color{gray} context-awareness}
-	\item[6] {\color{red} specification}
-	\item[6] {\color{gray} misconfiguration}
-	\item[6] {\color{gray} complexity reduction}
-	\item[5] {\color{gray} validation}
-	\item[5] {\color{gray} points in time} % (early detection)
-	\item[5] {\color{amethyst} error messages}
-	\item[5] {\color{gray} auto-detection}
-	\item[4] {\color{amethyst} user interface}
-	\item[4] {\color{gray} introspection}
-	\item[4] {\color{gray} design}
-	\item[4] {\color{gray} cascading}
-	\item[4] {\color{gray} architecture of access}
-	\item[3] {\color{gray} configuration sources}
-	\item[3] {\color{gray} config-less systems}
-	\item[2] {\color{lightgray} secure conf} %not done
-	\item[2] {\color{gray} architectural decisions}
-	\item[1] {\color{gray} push vs.\ pull}
-	\item[1] {\color{gray} infrastructure as code}
-	\item[1] {\color{amethyst} full vs.\ partial}
-	\item[1] {\color{lightgray} convention over conf} %iguration % not done
-	\item[1] {\color{lightgray} CI/CD} %only uebung
-	\item[0] {\color{gray} documentation}
-	\end{description}
-	\end{multicols}
-\end{frame}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Recapitulation}
 
@@ -285,7 +215,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Popular CMs today (Recapitulation)}
+	\frametitle{Popular CMs today}
 
 	\begin{itemize} %[<+-| alert@+>]
 	\item CFengine (1993)
@@ -371,16 +301,16 @@
 	\end{alertblock}
 \end{frame}
 
+%OK
 \begin{frame}
 	\frametitle{Apply to Elektra (Recapitulation)}
 
-	Elektra's goals are that it should:
+	Elektra's goals are:
 
 	\begin{itemize}[<+-| alert@+>]
-	\item be easy to develop new high-level tools
-	\item support manual workflows and scripts
+	\item being easy to develop new high-level tools
 	\item support precise editing:\\ only change the configuration value as specified
-	\item provide a language for both devs and admins
+	\item provide a common language for both devs and admins
 	\end{itemize}
 
 	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
@@ -388,7 +318,7 @@
 	Admins/devs still need to:
 
 	\begin{itemize}[<+-| alert@+>]
-	\item reduce the configuration space
+	\item reduce the configuration complexity
 	\item intensively review and improve the specifications
 	\item test (and debug) configuration settings
 	\end{itemize}
@@ -413,7 +343,7 @@
 
 \begin{frame}
 	\frametitle{Feedback}
-	Exercises finished for this term.
+	Only exam left.
 
 	\hfill \includegraphics[width=2cm]{pics/feedback.png}
 	\vspace{-1cm}
@@ -421,10 +351,139 @@
 		\item ECTS breakdown realistic?
 		\item Feedback Talk
 		\item TISS Feedback from 16.06.2021 00:00 to 14.07.2021 23:59
-		\item TODO: Personal Feedback
+		\item \tiny \url{https://nextcloud.markus-raab.org/nextcloud/index.php/apps/forms/rp7eJizdecTEAk5g}
 	\end{itemize}
 \end{frame}
 
+\section{Conclusion}
+
+\begin{frame}
+	\frametitle{Popular Topics 2019S}
+	\vspace{-0.55cm}
+	\setlength{\columnsep}{-1.3cm}
+	\raggedright
+	\definecolor{amethyst}{rgb}{0.6, 0.4, 0.8}
+	\begin{multicols}{2}
+	\begin{description}
+	\item[14] {\color{amethyst} tools}
+	\item[9] {\color{amethyst} testability}
+	\item[9] {\color{amethyst} code-generation}
+	\item[7] {\color{amethyst} context-awareness}
+	\item[6] {\color{amethyst} specification}
+	\item[6] {\color{amethyst} misconfiguration}
+	\item[6] {\color{amethyst} complexity reduction}
+	\item[5] {\color{amethyst} validation}
+	\item[5] {\color{amethyst} points in time} % (early detection)
+	\item[5] {\color{amethyst} error messages}
+	\item[5] {\color{amethyst} auto-detection}
+	\item[4] {\color{amethyst} user interface}
+	\item[4] {\color{amethyst} introspection}
+	\item[4] {\color{amethyst} design}
+	\item[4] {\color{amethyst} cascading}
+	\item[4] {\color{amethyst} architecture of access}
+	\item[3] {\color{amethyst} configuration sources}
+	\item[3] {\color{gray} config-less systems}
+	\item[2] {\color{gray} secure conf} %not done
+	\item[2] {\color{gray} architectural decisions}
+	\item[1] {\color{amethyst} push vs.\ pull}
+	\item[1] {\color{amethyst} infrastructure as code}
+	\item[1] {\color{amethyst} full vs.\ partial}
+	\item[1] {\color{gray} convention over conf} %iguration % not done
+	\item[1] {\color{gray} CI/CD} %only uebung
+	\item[0] {\color{amethyst} documentation}
+	\end{description}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Wished-For-Topics 2021S}
+	\begin{itemize}
+	\item Design of Configuration 
+	\item Configuration Integration (Distributed Systems)
+	\item Configuration Management Tools
+	\item Schemata
+	\item Configuration Integration (how to share Configuration between Applications)
+	\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Learning Outcomes (TISS)}
+	Students will be able to
+
+	\begin{itemize}
+	% Technical and Methodological Knowledge
+	\item support configuration management during software engineering,
+	\item describe systematic approaches for configuration management and exemplary configuration management tools.
+	%Cognitive and Practical Skills
+	\item use configuration specification languages,
+	\item implement such specified variability during program construction,
+	\item apply techniques of quality assurance in configurable applications.
+	% Social and Personal Skills
+	\item communicate variability with system administrators.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\tiny
+	\frametitle{Learning Outcomes}
+	Students will be able to
+
+	\begin{itemize}
+	% L01
+	\item remember definitions of configuration settings.
+
+	% L02
+	\item use configuration specification languages.
+
+	% L04
+	\item differentiate between configuration sources
+	\item unify configuration sources via specifications
+
+	% L05
+	\item remember differences between CM languages and historical approaches.
+	\item write simple configuration management scripts.
+
+	% L07
+	\item remember terms of properties of CM.
+	\item remember various strategies for reduction of misconfiguration.
+	\item find unused settings.
+
+	% L08
+	\item recall points of time relevant in configuration management.
+	\item remind some arguments about pull vs.\ push.
+	\item remember various strategies for earlier reduction of misconfiguration.
+
+	% L09
+	\item recall a method of avoiding errors
+	\item apply some principles of good error messages
+	\item remind some basics of system administrator research
+
+	% L10
+	\item design and document configuration settings and specifications
+	\item evaluate a configuration system and decide about use of
+	\begin{itemize}
+	\tiny
+	\item code generation
+	\item introspection
+	\item context-awareness
+	\end{itemize}
+	\item remember connections between the many different topics within CM
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Map}
+
+	\includegraphics[width=8cm,angle=-90]{pics/map.pdf}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cheat Sheet}
+
+	Write your own cheat sheet, maybe similar to map, to be used during exam.
+\end{frame}
 
 
 
