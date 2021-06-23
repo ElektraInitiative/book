@@ -48,6 +48,13 @@
 	\end{columns}
 \end{frame}
 
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
+
 \begin{frame}
 	\frametitle{Metalevels (Recapitulation)}
 	\begin{alertblock}{Question}
@@ -102,6 +109,13 @@
 	We generally prefer introspection, except for a very thin configuration access API.
 	\end{alertblock}
 \end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
 
 \begin{frame}
 	\frametitle{Definition Configuration Management (Recapitulation)}
@@ -185,6 +199,13 @@
 	\item visibility and similar techniques may help dealing with complexity.
 	\end{itemize}
 \end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
 
 \begin{frame}
 	\frametitle{Properties (Recapitulation)}
@@ -275,8 +296,12 @@
 
 
 
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
 
-\subsection{}
 
 
 \begin{frame}
@@ -324,36 +349,11 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Precise Editing (Recapitulation)}
-
-	Partial modifications (precise editing) is natural for humans. \\
-	It ensures preservations of (potentially security-relevant!) defaults. \\
-	In CM following methods are used:
-
-	\begin{itemize}[<+-| alert@+>]
-	\item embed shell commands to do the work
-	\item replace full content of configuration files
-	\item replace full content of configuration files with templates
-	\item line based manipulation (e.g., file\_line): match line and replace it
-	\item Augeas/XML: match a key with XPath and replace it
-	\item Elektra: set the value of a key
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Feedback}
-	Only exam left.
-
-	\hfill \includegraphics[width=2cm]{pics/feedback.png}
-	\vspace{-1cm}
-	\begin{itemize}
-		\item ECTS breakdown realistic?
-		\item Feedback Talk
-		\item TISS Feedback from 16.06.2021 00:00 to 14.07.2021 23:59
-		\item \tiny \url{https://nextcloud.markus-raab.org/nextcloud/index.php/apps/forms/rp7eJizdecTEAk5g}
-	\end{itemize}
-\end{frame}
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
 
 \section{Conclusion}
 
@@ -399,10 +399,14 @@
 	\frametitle{Wished-For-Topics 2021S}
 	\begin{itemize}
 	\item Design of Configuration 
-	\item Configuration Integration (Distributed Systems)
+	\item Configuration Integration
+	\begin{itemize}
+	\item Distributed Systems
+	\item How to share Configuration between Applications
+	\end{itemize}
 	\item Configuration Management Tools
 	\item Schemata
-	\item Configuration Integration (how to share Configuration between Applications)
+	\item Configuration Integration
 	\end{itemize}
 \end{frame}
 
@@ -412,7 +416,7 @@
 	\frametitle{Learning Outcomes (TISS)}
 	Students will be able to
 
-	\begin{itemize}
+	\begin{enumerate}
 	% Technical and Methodological Knowledge
 	\item support configuration management during software engineering,
 	\item describe systematic approaches for configuration management and exemplary configuration management tools.
@@ -422,67 +426,114 @@
 	\item apply techniques of quality assurance in configurable applications.
 	% Social and Personal Skills
 	\item communicate variability with system administrators.
-	\end{itemize}
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}
-	\tiny
+	\footnotesize
 	\frametitle{Learning Outcomes}
 	Students will be able to
 
 	\begin{itemize}
 	% L01
 	\item remember definitions of configuration settings.
+	($\rightarrow$ TISS 2)
 
 	% L02
 	\item use configuration specification languages.
+	(= TISS 3)
+
+	% L03
+	\item remember strategies for configuration integration.
+	($\rightarrow$ TISS 1)
 
 	% L04
-	\item differentiate between configuration sources
-	\item unify configuration sources via specifications
+	\item differentiate between configuration sources.
+	($\rightarrow$ TISS 1)
+	\item unify configuration sources via specifications.
+	($\rightarrow$ TISS 1)
 
 	% L05
-	\item remember differences between CM languages and historical approaches.
-	\item write simple configuration management scripts.
+	\item {\color{gray} write simple configuration management scripts.}
+	($\rightarrow$ TISS 2)
+
+	% L06
+	\item {\color{gray} write simple checker plugins.}
+	($\rightarrow$ TISS 4)
 
 	% L07
 	\item remember terms of properties of CM.
+	($\rightarrow$ TISS 2)
 	\item remember various strategies for reduction of misconfiguration.
-	\item find unused settings.
+	%\item find unused settings.
+	($\rightarrow$ TISS 2)
+	($\rightarrow$ TISS 5)
 
 	% L08
 	\item recall points of time relevant in configuration management.
-	\item remind some arguments about pull vs.\ push.
-	\item remember various strategies for earlier reduction of misconfiguration.
+	%\item remind some arguments about pull vs.\ push.
+	%\item remember various strategies for earlier reduction of misconfiguration.
+	($\rightarrow$ TISS 5)
 
 	% L09
-	\item recall a method of avoiding errors
-	\item apply some principles of good error messages
-	\item remind some basics of system administrator research
+	%\item recall a method of avoiding errors.
+	\item apply some principles of good error messages.
+	($\rightarrow$ TISS 5)
+	\item remind some basics of system administrator research.
+	($\rightarrow$ TISS 6)
 
 	% L10
-	\item design and document configuration settings and specifications
+	\item design and document configuration settings and specifications.
+	($\rightarrow$ TISS 1)
 	\item evaluate a configuration system and decide about use of
+	($\rightarrow$ TISS 5)
 	\begin{itemize}
 	\tiny
-	\item code generation
-	\item introspection
-	\item context-awareness
+	\item code generation.
+	\item introspection.
+	% \item context-awareness.
 	\end{itemize}
-	\item remember connections between the many different topics within CM
+
+	% L11
+	\item remember connections between the many different topics within CM.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Map}
 
+	\vspace{-0.5cm}
 	\includegraphics[width=8cm,angle=-90]{pics/map.pdf}
 \end{frame}
 
-\begin{frame}
+\begin{assignment}
 	\frametitle{Cheat Sheet}
-
+	\begin{task}
 	Write your own cheat sheet, maybe similar to map, to be used during exam.
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	\frametitle{Feedback}
+	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+	\vspace{-1cm}
+	\begin{itemize}
+		\item TUWEL Feedback \linebreak
+		{\scriptsize \url{https://tuwel.tuwien.ac.at/mod/feedback/view.php?id=1259052}}
+		\vspace{0.2cm}
+		\item TISS Feedback \linebreak
+		{\small from 16.06.2021 00:00 to 14.07.2021 23:59
+		\scriptsize \url{https://tiss.tuwien.ac.at/survey/surveyForm.xhtml?courseNumber=194030&semesterCode=2021S}}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conclusion}
+
+	Doing CM is easy if the applications support it.
+	\vspace{1cm}
+
+	I hope the lecture helped you to know how to write such applications.
 \end{frame}
 
 
