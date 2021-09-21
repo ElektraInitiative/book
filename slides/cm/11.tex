@@ -101,8 +101,9 @@
 	\item[$+$] specification can be updated live on the system without recompilation
 	\item[$+$] tooling has generic access to all specifications
  	\item[$+$] new features the key database (e.g., better validation) are immediately available consistently
+	\item[$-$] more run-time errors due to missing no type safety
 	\item[$-$] less techniques for performance improvements
-	\item[$-$] contextual values cannot be used if context differs within same thread
+	%\item[$-$] contextual values cannot be used if context differs within same thread
 	\end{description}
 
 	\begin{alertblock}{Implication}
@@ -138,7 +139,7 @@
 	\frametitle{Possible Benefits of CM (Recapitulation)}
 
 	\begin{task}
-	What are the goals of Configuration Management?
+	What are the goals of Configuration Management Tools like Ansible?
 	\end{task}
 
 	\pause
@@ -217,7 +218,7 @@
 	\pause
 
 
-	\begin{description}
+	\begin{description}[labelsep=3cm,align=right]
 	\item[Idempotent]
 	yield the same configuration with any number of applications from CM code ($n\ge1$)~\cite{waldemar2013testing}:
 	\[
@@ -284,8 +285,8 @@
 	\item configuration design first: avoid errors if possible
 	\item error messages should not leak internals~\cite{brown1983error}
 	\item ``edit here mentality'': do not point to correct statements~\cite{marceau2011mind}
-	\item Precisely locate the cause (and do not report aftereffects)
-	\item Personification~\cite{lee2011personifying}
+	\item precisely locate the cause (and do not report aftereffects)
+	\item personification~\cite{lee2011personifying}
 	\item give context: providing enough information vs.\ not overwhelming the user~\cite{wrenn2017error}
 
 	%mixture from other slides:
@@ -355,6 +356,37 @@
 	\end{task}
 \end{assignment}
 
+\begin{frame}
+	\frametitle{Semantics of Configuration Sources}
+	\begin{alertblock}{Question}
+	What are the semantics of configuration files, environment variables and command-line arguments?
+	\end{alertblock}
+
+	\pause
+	\begin{itemize}
+	\item configuration files: the only one with full IPC capabilities
+	\item commandline-arguments:
+	\begin{itemize}
+	\item passed by main for a new process via \\ (\texttt{int argc, char ** argv})
+	\item visible for anyone: \texttt{/proc/self/cmdline}, e.g., via \texttt{ps aux}
+%	\item could be passed along to subprocesses but hardly done
+	\item need to be parsed by process
+	\item portability: differences in parsing
+%	\item cannot be changed from outside (requires restart, no IPC)
+	\end{itemize}
+
+	\item Environment Variables:
+	\begin{itemize}
+	\item are per-process
+	\item only static view by owner in \texttt{/proc/self/environ}
+	\item are not visible from other processes
+	\item subprocesses inherit by default
+	\item need to be parsed by process (\texttt{[extern] char **environ}) %but API is provided (\texttt{getenv})
+%	\item cannot be changed from outside (requires restart or an additional IPC mechanism)
+	\end{itemize}
+	\end{itemize}
+\end{frame}
+
 \section{Conclusion}
 
 \begin{frame}
@@ -406,7 +438,6 @@
 	\end{itemize}
 	\item Configuration Management Tools
 	\item Schemata
-	\item Configuration Integration
 	\end{itemize}
 \end{frame}
 
@@ -503,7 +534,7 @@
 	\frametitle{Map}
 
 	\vspace{-0.5cm}
-	\includegraphics[width=8cm,angle=-90]{pics/map.pdf}
+	\includegraphics[width=8cm]{pics/map.pdf}
 \end{frame}
 
 \begin{assignment}
