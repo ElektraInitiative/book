@@ -4,6 +4,8 @@
 \date{6.10.2021}
 
 \begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Preliminaries}
 
 \begin{frame}
@@ -59,53 +61,38 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Motivation}
 \subsection{}
-{
-\shadowcolor{black}
-\shadowoffset{0.5pt}
-\usebackgroundtemplate{\includegraphics[width=\paperwidth]{../pics/clouds.jpg}}%
 \begin{frame}
-	\frametitle{\shadowtext{Misconfiguration}}
-	\begin{itemize}
-		\item   \textcolor{white}{\shadowtext{\empha[misconfiguration]{misconfigurations}~\cite{yin2011empirical,su2007autobash,attariyan2010automating,xu2015systems} are a major cause}}\\
-			\textcolor{white}{\shadowtext{of system failures~\cite{wool2004quantitative,oppenheimer2003internet,pertet2005causes}}}
-		\item   \textcolor{white}{\shadowtext{much time is needed to fix misconfigurations~\cite{rabkin2011static,oppenheimer2003internet,yin2011empirical,mahajan2002bgp}}}
-		\item   \textcolor{white}{\shadowtext{configuration is a user interface for both developers}}\\
-			\textcolor{white}{\shadowtext{and system administrators}}
-	\end{itemize}
+	\frametitle{FLOSS}
+	\floss{} allows you to:
+	\begin{enumerate}
+		\setcounter{enumi}{-1}
+		\item Use
+		\item Share
+		\item Study.
+		\item Improve
+	\end{enumerate}
+	the software (binary and source) for any purpose without restrictions.
+
+	See \url{https://fsfe.org/freesoftware/freesoftware.en.html}
 \end{frame}
-%https://www.fiercehealthcare.com/tech/uw-medicine-reports-data-error-exposed-1m-patients-data
-%https://www.bankinfosecurity.com/misconfiguration-leads-to-major-health-data-breach-a-12042
-%https://www.technologydecisions.com.au/content/cloud-and-virtualisation/news/misconfigured-cloud-storage-a-goldmine-for-attackers-1043741482
-%https://www.infosecurity-magazine.com/news/apache-misconfig-leaks-data-120/
-%https://threatpost.com/millions-of-records-exposed-in-veeam-misconfigured-server/137361/
-%https://www.scmagazine.com/home/security-news/exposed/
-%https://jaxenter.com/learning-devops-nightmares-155577.html
+
 \begin{frame}
-	\frametitle{No-Futz}
-	\begin{itemize}
-		\item   \textcolor{white}{\shadowtext{\citet{holland2001nofutz}~defined \empha{futzing} to denote}}
-			\textcolor{white}{\shadowtext{\enquote{tinkering or fiddling experimentally}}}
-		\item   \textcolor{white}{\shadowtext{with \intro[no-futz computing]{no-futz computing} \citet{holland2001nofutz} mean}}
-			\textcolor{white}{\shadowtext{\enquote{that futzing should be allowed, but should never be required}}}
-		\item   \textcolor{white}{\shadowtext{currently configuration is error-prone and under-specified,}}
-			\textcolor{white}{\shadowtext{\empha{futzing} is often required}}
-	\end{itemize}
+	\frametitle{Implications}
+
+	There are countless implications\footnote{many of which we will discuss in the course}:
+	\begin{enumerate}
+		\item none of your knowledge becomes irrelevant after changing employee
+		\item people can give you money so that you improve FLOSS for them
+		\item you can do research on FLOSS without any restriction
+		\item you can modify FLOSS as you see fit
+	\end{enumerate}
 \end{frame}
-\begin{frame}
-	\frametitle{Examples}
-	Not every misconfiguration involves big companies, cloud, and huge amounts of money:
-	\begin{itemize}
-		\item No internet access because resolv.conf symlink broken.
-		\item KDE crash because of ulimit setting.
-		\item Out-of-service of computers during exam.
-	\end{itemize}
-\end{frame}
-}
+
 \begin{assignment}
 	\frametitle{First Assignment}
 	\begin{itemize}
-		\item Have you already experienced misconfiguration?
-		\item Did you read about misconfiguration in the news?
+		\item Have you already used FLOSS?
+		\item Did you already participate in FLOSS?
 	\end{itemize}
 	\begin{task}
 	Discuss in breakout room and tell your partner's story.
@@ -124,136 +111,21 @@
 \begin{frame}
 	\textit{learning outcome:}
 	\begin{itemize}
-		\item remember the topics of configuration management
+		\item remember learning outcomes
+		\item remember the topics
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	Topic 01: \textit{Configuration Settings}
+	\textit{learning outcome:}
 	\begin{itemize}
-		\item definitions
-		\item architecture of configuration access
-		\item Elektra
+		\item participate in FLOSS initiatives,
+		\item found new FLOSS initiatives,
+		\item use FLOSS methods in your business context.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Terminology}
-	\input{../shared/def/configurationsetting.tex}
-\end{frame}
 
-\begin{frame}[fragile]
-	\frametitle{Example}
-
-	\begin{code}[language=CfgElektra]
-	slapd/threads/listener=4
-	\end{code}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\begin{assignment}
-	\frametitle{Configuration Settings}
-	\begin{task}
-	Discuss about configuration settings you already changed.
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	Topic 02: \textit{Configuration Specification Languages}
-	\begin{itemize}
-		\item specify possible configuration specifications
-	\end{itemize}
-	\vspace{0.5cm}
-	\includegraphics{metalevels}
-\end{frame}
-
-\begin{frame}
-	Topic 03: \textit{Configuration Integration}
-	\\ \vspace{1cm}
-	art and technical challenges of sharing configurations between applications
-\end{frame}
-
-
-\begin{frame}
-	Topic 04: \textit{Sources of Configuration}
-	\begin{itemize}
-		\item configuration file formats
-		\item command-line arguments
-		\item environment variables
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Topic 05: \textit{Configuration Management Tools}
-	\begin{itemize}
-		\item history
-		\item Infrastructure as Code
-		\item configuration drift
-		\item push vs.\ pull
-		\item full vs.\ partial changes
-		\item examples: Puppet, Chef, Ansible, CfEngine, Nix, \dots
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	Topic 06: \textit{Strategies for Validation and Modularization}
-	\begin{itemize}
-		\item validation techniques
-		\item modularity
-		\item avoidance of dependences
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Topic 07: \textit{Strategies for Reduction of Misconfiguration}
-	\begin{itemize}
-		\item configuration-less systems (auto-detection)
-		\item context awareness
-		\item finding (un)used settings
-		\item desirable properties of configuration
-		\begin{itemize}
-			\item self-description
-			\item changeability
-			\item idempotence
-			\item round-tripping
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Topic 08: \textit{Early Detection of Misconfiguration}
-	\\ \vspace{1cm}
-	points in time for
-	\begin{itemize}
-		\item configuration access
-		\item validation
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Topic 09: \textit{Configuration as a User Interface}
-	\begin{itemize}
-		\item How system administrators work.
-		\item Which user interfaces exist.
-		\item How to specify configuration.
-		\item How to design error messages.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Topic 10: \textit{Design of Configuration}
-	\begin{itemize}
-		\item complexity reduction
-		\item design aspects of configuration specification
-		\item documentation of configuration
-	\end{itemize}
-\end{frame}
 
 
 \begin{frame}
@@ -261,28 +133,8 @@
 	\hfill \includegraphics[width=2cm]{../figures/logo}
 	\vspace{-1cm}
 	\begin{itemize}
-		\item Elektra is one implementation of what we \\ discuss in this lecture.
-		\item Configuration management tools use Elektra.
+		\item Elektra is one FLOSS initiative of what we \\ discuss in this lecture.
 		\item Elektra is developed at TU Wien (\url{https://libelektra.org}).
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Possible Benefits of CM}
-
-	\begin{task}
-	What are the goals of Configuration Management?
-	\end{task}
-
-	\pause
-
-	\begin{itemize} %[<+-| alert@+>]
-	\item Documentation, Customization, Reproducability
-	\item Declarative description of the system
-	\item Less configuration drift
-	\item Better error handling
-	\item Reusability
-	\item (Resource) Abstractions
 	\end{itemize}
 \end{frame}
 
@@ -309,9 +161,9 @@
 \begin{frame}
 	\frametitle{Communication}
 	\begin{itemize}
-		\item TUWEL \url{https://tuwel.tuwien.ac.at/course/view.php?idnumber=194030-2021S}
-		\item TISS (exam) \url{https://tiss.tuwien.ac.at/course/courseDetails.xhtml?courseNr=194030&semester=2019S}
-		\item GitHub (private and public repository) \\ public: \url{https://git.libelektra.org}
+		\item TUWEL \url{https://tuwel.tuwien.ac.at/course/view.php?idnumber=194114-2021W}
+		\item TISS \url{https://tiss.tuwien.ac.at/course/courseDetails.xhtml?courseNr=194114&semester=2021W}
+		\item GitHub \url{https://git.libelektra.org}
 		\item EMail \url{markus.raab@complang.tuwien.ac.at}
 		\item before/after/during meetings
 	\end{itemize}
@@ -319,20 +171,19 @@
 
 \begin{frame}
 	\frametitle{Inverted Classroom}
-	Meeting is every week Wednesday 09:00 - 11:00 c.t.
+	Meetings are most Wednesday 09:00 c.t. - 11:00 (max.)
 
 	\begin{itemize}
 		\item always read/watch the material in advance
-		\item within meetings we'll do a recapitulation
-		\item and you ask questions
-		\item we start off with many materials
+		\item TUWEL already contains materials for L01
+		\item within meetings we will do recapitulations, discussions, etc.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Previous Knowledge}
 	\begin{itemize}
-		\item Obviously \textit{no} prior knowledge about Configuration or Configuration Management necessary.
+		\item Obviously \textit{no} prior knowledge about FLOSS necessary.
 		\item If you already have experience, you can use it in your talk and assignments.
 		\item You should have some understanding of software engineering and software requirements.
 		\item Programming skills is a must.
@@ -346,11 +197,11 @@
 		\item C
 		\item C++
 		\item Java
-		\item Rust
 		\item Python
-		\item Go
-		\item Lua
-		\item Ruby
+		\item Rust\footnote{no support on problems with the programming language by the lecturer}
+		\item Go\footnotemark[1]
+		\item Lua\footnotemark[1]
+		\item Ruby\footnotemark[1]
 	\end{itemize}
 	You can use either of these languages.
 \end{frame}
@@ -358,7 +209,7 @@
 \subsection{Grades}
 
 \begin{frame}
-	You will get a grade once you submitted a PR with ``CM'' in the description.
+	You will get a grade once you did the registration H0.
 	\vspace{1cm}
 
 	To get a positive grade:
@@ -372,9 +223,9 @@
 	Grade is calculated from:
 	\begin{description}
 	\item[30\,\%:] homework
-	\item[30\,\%:] team exercise
-	\item[10\,\%:] talk
-	\item[30\,\%:] test
+	\item[30\,\%:] teamwork
+	\item[30\,\%:] project
+	\item[10\,\%:] presentation
 	\item[+:] extrapoints
 	\end{description}
 \end{frame}
@@ -383,15 +234,14 @@
 \begin{frame}
 	\frametitle{Talk}
 	\begin{itemize}
-		\item About anything related to configuration management.
+		\item About anything related to FLOSS.
 		\item The duration must be 10--20 minutes.
 		\item It must be about your experience.
 		\item I.e., not only about study of literature.
 		\item E.g., about:
 		\begin{itemize}
 			\item homework you did (e.g. H1 or T1)
-			\item some CM tool you played around with
-			\item some application you struggled to configure
+			\item some FLOSS tool or application you developed
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -404,11 +254,12 @@
 	\item dates are both in ``semester schedule.pdf'' and calender of TUWEL
 	\end{itemize}
 
-	There are always two deadlines for each homework+teamwork:
+	There are up to three deadlines for each homework, teamwork or project:
 
 	\begin{itemize}
-	\item regular deadline (submission)
-	\item deadline for corrections (based on the feedback of submission but you can also extend the submission)
+	\item deadline for submission of the work
+	\item deadline for review (review the submission of others)
+	\item deadline for corrections (based on the feedback of submission)
 	\end{itemize}
 \end{frame}
 

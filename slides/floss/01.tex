@@ -1,0 +1,317 @@
+\input{setup}
+
+\title{L01 Issue Tracking}
+\date{}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Issue Tracking}
+
+\begin{frame}
+	\frametitle{Learning Outcomes}
+	After successful completion of L01 and H1 \\
+	students will be able to
+
+	\begin{itemize}
+	\item remember terms and characteristics of issue tracking systems.
+	\item report bugs.
+	\item triage bugs.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Issue}
+
+	``Issue'' is a very general term, it could be nearly anything:
+
+	\begin{itemize}
+		\item a problem or bug
+		\item a proposal
+		\item a question
+		\item a feature request
+		\item a task
+		\item a TODO list entry
+		\item \dots
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Issue Tracking}
+
+	Allows to:
+
+	\begin{itemize}
+		\item track the latest status of issues: open, resolved, \dots
+		\item discuss the issue (\verb+@mention+)
+		\item add semantics (metadata): tags, project, milestone, relationships, priorities, \dots
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Queries}
+	Based on full text and/or semantic queries, issues on \url{https://issues.libelektra.org}:
+
+	\begin{itemize}
+		\item I created: \\
+			\verb+is:open is:issue author:@me+
+		\item I am assigned to: \\
+			\verb+is:open is:issue assignee:@me+
+		\item that do not have an assignee: \\
+			\verb+is:open is:issue no:assignee+
+		\item not updated this year: \\
+			\verb+is:open is:issue updated:<2021+
+		\item that have a label: \\
+			\verb+is:open is:issue label:floss2021W+
+		\item to be fixed before 1.0: \\
+			\verb+is:open is:issue milestone:0.9.*+
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Issue Tracking Systems}
+
+	\begin{itemize}
+		\item text files with metadata in git
+		\item conversationally-rich: Debbugs, GitLab or GitHub issues
+		\item semantically-rich: e.g. Bugzilla
+		\item broader scope: Redmine, Trac
+		\item specialization: misconfiguration tracker
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Unsuitable ``Issue Tracking Systems''}
+
+	\begin{itemize}
+		\item EMail
+		\item Forums
+		\item text files
+		\item TODO markers
+		\item \dots
+	\end{itemize}
+
+	if without metadata or not in version control.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Interfaces}
+
+	\begin{itemize}
+		\item REST
+		\item EMail
+		\item Web
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Elektra has}
+	\begin{itemize}
+		\item TODO files in doc/todo (12 files)
+		\item TODO markers in source code (138 markers)
+		\item \url{https://issues.libelektra.org} (217 open issues)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Automatic Closing of Issues}
+
+	Ideally only fixed bugs would be closed but:
+	\begin{itemize}
+	\item issues become irrelevant
+	\item maintainers disappear
+	\item systems depreciate
+	\item focus shifts
+	\end{itemize}
+	\vspace{1cm}
+
+	In Elektra issues close after 365+14 days automatically, see
+	\verb+.github/stale.yml+.
+
+	\vspace{1cm}
+	The 196 issues still can be found via \verb+is:closed is:issue label:stale+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Netiquette}
+
+	\begin{itemize}
+		\item Never forget that you are talking to human beings.
+		\item Be as careful, respectful and gentle as possible.
+		\item Expect as little as possible.
+		\item Only judge on technical issues, never on persons.
+		\item There are no golden rules, cultures can disagree on everything.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Quoting}
+
+	\begin{itemize}
+	\item hands up if you only want to agree to a statement (usually no reply necessary)
+	\item if you want to reply to several points:
+		\begin{code}[gobble=8]
+		@ghost wrote:
+		> I wrote something
+		The answer
+		\end{code}
+	\item if you reply to a statement given somewhere else:
+		\begin{code}[gobble=8]
+		@ghost wrote in [link to comment]:
+		> I wrote something
+		The answer
+		\end{code}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Best Practices}
+	\begin{itemize}
+		\item First read attentively, then write.
+		\item Be thankful to work done by others.
+		\item If in doubt: start a new issue.
+		\item Split up issues that discuss several issues.
+		\item Prefer methods of automatic closing of issues.
+		\item Fix issues you are assigned, ask for help or unassign if you give up.
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Bug Reporting}
+
+\begin{frame}
+	\frametitle{Which Bug Tracker?}
+	\begin{itemize}
+		\item Specific vs.\ General, e.g.\ glibc vs.\ Debian
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Steps to Reproduce the Problem}
+	\begin{itemize}
+		\item 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Expected Result}
+	\begin{itemize}
+		\item 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Actual Result}
+	\begin{itemize}
+		\item 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{System Information}
+	\begin{itemize}
+		\item Elektra Version: master
+		\item Operating System or Docker Container?
+		\item Versions of other relevant software?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Best Practices}
+	\begin{itemize}
+		\item 
+	\end{itemize}
+\end{frame}
+
+\section{Bug Triage}
+
+\begin{frame}
+	\frametitle{Reproduce the Problem}
+	Try to do what is described in the issue, possible problems:
+	\begin{itemize}
+		\item There is an error in the description, e.g. a wrong command.
+		\item The description is missing essential steps to do.
+		\item The issue is already fixed our otherwise outdated.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Locate Problem in Source Code}
+	\begin{itemize}
+		\item via error messages: \verb+-vd+ (verbose\&debug)
+		\item via debugger
+		\begin{itemize}
+			\item Additionally install `-dbgsym` packages.
+			\item Even better compile with: \verb+ENABLE_DEBUG+ (assertions\&more).
+		\end{itemize}
+		\item via logger
+		\begin{itemize}
+			\item Compile with \verb+ENABLE_LOGGER+.
+			\item Modify \verb+src/libs/elektra/log.c+ as needed.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{System Information}
+	\begin{itemize}
+		\item Add information about your system: gives hints about further affected systems?
+		\item 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Best Practices}
+	\begin{itemize}
+		\item 
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Meeting}
+
+\subsection{Recapitulation}
+
+\begin{frame}
+	\frametitle{Recapitulation.}
+	\begin{itemize}
+		\item 
+	\end{itemize}
+\end{frame}
+
+\subsection{Assignments}
+
+\begin{frame}
+	\frametitle{Feedback}
+	Exercises finished for this term.
+
+	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+	\vspace{-1cm}
+	\begin{itemize}
+		\item ECTS breakdown realistic?
+		\item Feedback Talk
+		\item TISS Feedback from 16.06.2021 00:00 to 14.07.2021 23:59
+	\end{itemize}
+\end{frame}
+
+\subsection{Preview}
+
+\begin{frame}
+	\frametitle{L02 Source Code Management}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\nocite{raab2017introducing}
+
+\appendix
+
+\begin{frame}[allowframebreaks]
+	\bibliographystyle{plainnat}
+	\bibliography{../shared/elektra.bib}
+\end{frame}
+
+\end{document}
+
+
