@@ -14,8 +14,8 @@
 	students will be able to
 
 	\begin{itemize}
-	\item remember terms and characteristics of issue tracking systems.
-	\item report bugs.
+	\item remember terms and characteristics of issue tracking systems,
+	\item report bugs,
 	\item triage bugs.
 	\end{itemize}
 \end{frame}
@@ -23,7 +23,7 @@
 \begin{frame}
 	\frametitle{Issue}
 
-	``Issue'' is a very general term, it could be nearly anything:
+	``Issue'' is a very general term, it means nearly anything:
 
 	\begin{itemize}
 		\item a problem or bug
@@ -86,6 +86,7 @@
 	\begin{itemize}
 		\item EMail
 		\item Forums
+		\item chats like IRC
 		\item text files
 		\item TODO markers
 		\item \dots
@@ -98,9 +99,11 @@
 	\frametitle{Interfaces}
 
 	\begin{itemize}
-		\item REST
-		\item EMail
 		\item Web
+		\item EMail
+		\item REST
+		\item CLI tools, e.g. reportbug
+		\item \dots
 	\end{itemize}
 \end{frame}
 
@@ -118,10 +121,11 @@
 
 	Ideally only fixed bugs would be closed but:
 	\begin{itemize}
-	\item issues become irrelevant
-	\item maintainers disappear
-	\item systems depreciate
-	\item focus shifts
+		\item issues become irrelevant
+		\item maintainers disappear
+		\item systems depreciate
+		\item focus shifts
+		\item \dots
 	\end{itemize}
 	\vspace{1cm}
 
@@ -148,19 +152,19 @@
 	\frametitle{Quoting}
 
 	\begin{itemize}
-	\item hands up if you only want to agree to a statement (usually no reply necessary)
-	\item if you want to reply to several points:
+	\item If you want to reply to several points:
 		\begin{code}[gobble=8]
 		@ghost wrote:
 		> I wrote something
 		The answer
 		\end{code}
-	\item if you reply to a statement given somewhere else:
+	\item If you reply to a statement given somewhere else:
 		\begin{code}[gobble=8]
 		@ghost wrote in [link to comment]:
 		> I wrote something
 		The answer
 		\end{code}
+	\item Often no reply necessary if you only want to (dis)agree.
 	\end{itemize}
 \end{frame}
 
@@ -168,9 +172,8 @@
 	\frametitle{Best Practices}
 	\begin{itemize}
 		\item First read attentively, then write.
-		\item Be thankful to work done by others.
 		\item If in doubt: start a new issue.
-		\item Split up issues that discuss several issues.
+		\item Split up issues that discuss unrelated problems.
 		\item Prefer methods of automatic closing of issues.
 		\item Fix issues you are assigned, ask for help or unassign if you give up.
 	\end{itemize}
@@ -179,50 +182,69 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Bug Reporting}
 
+
 \begin{frame}
-	\frametitle{Which Bug Tracker?}
+	\frametitle{First steps}
+	Make sure that:
 	\begin{itemize}
-		\item Specific vs.\ General, e.g.\ glibc vs.\ Debian
+		\item You use the correct issue tracker.
+		\item You read about how to use that issue tracker.
+		\item Use specialized helper programs, if available, like reportbug.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Steps to Reproduce the Problem}
 	\begin{itemize}
-		\item 
+		\item be precise
+		\item be clear
+		\item be complete
+		\item ideally syntax of tests
+	\end{itemize}
+	\vspace{1cm}
+	$\rightarrow$ verify yourself
+\end{frame}
+
+\begin{frame}
+	\frametitle{Actual Result}
+	\begin{itemize}
+		\item describe the symptoms
+		\item avoid opinions or conclusions here
+		\item describe what you see
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Expected Result}
 	\begin{itemize}
-		\item 
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Actual Result}
-	\begin{itemize}
-		\item 
+		\item how you would like the software to behave
+		\item suggestions how to solve the problem
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{System Information}
 	\begin{itemize}
-		\item Elektra Version: master
-		\item Operating System or Docker Container?
-		\item Versions of other relevant software?
+		\item version or sha of commit
+		\item include errors, logs, etc.
+		\item operating system or docker container
+		\item versions of other relevant software
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Best Practices}
 	\begin{itemize}
-		\item 
+		\item learn about the community in guidelines
+		\item always include symptoms, separate diagnosis
+		\item reproduce using your own report
+		\item sometimes an incomplete report can be better than no report
+		\item reply to further questions
 	\end{itemize}
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Bug Triage}
 
 \begin{frame}
@@ -231,20 +253,24 @@
 	\begin{itemize}
 		\item There is an error in the description, e.g. a wrong command.
 		\item The description is missing essential steps to do.
-		\item The issue is already fixed our otherwise outdated.
+		\item The issue is already fixed or otherwise outdated.
 	\end{itemize}
+	\vspace{1cm}
+	$\rightarrow$ Fix such problems in the issue description!
 \end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{Locate Problem in Source Code}
 	\begin{itemize}
-		\item via error messages: \verb+-vd+ (verbose\&debug)
-		\item via debugger
+		\item Via error messages: \verb+kdb -vd+
+
+		\item Via debugger or backtrace:
 		\begin{itemize}
-			\item Additionally install `-dbgsym` packages.
-			\item Even better compile with: \verb+ENABLE_DEBUG+ (assertions\&more).
+			\item Additionally install \verb+-dbgsym+ packages.
+			\item Even better compile with: \verb+ENABLE_DEBUG+.
 		\end{itemize}
-		\item via logger
+
+		\item Via logger:
 		\begin{itemize}
 			\item Compile with \verb+ENABLE_LOGGER+.
 			\item Modify \verb+src/libs/elektra/log.c+ as needed.
@@ -254,16 +280,24 @@
 
 \begin{frame}
 	\frametitle{System Information}
+	Hints about further affected systems, e.g.,
 	\begin{itemize}
-		\item Add information about your system: gives hints about further affected systems?
-		\item 
+		\item information about your system
+		\item version information
+		\item programming language
 	\end{itemize}
+	might further triage the bug, i.e., help the person working on it.
 \end{frame}
 
 \begin{frame}
 	\frametitle{Best Practices}
+
+	Bug triage
 	\begin{itemize}
-		\item 
+		\item makes fixing bugs easier.
+		\item can help to find the right person to fix a task.
+		\item is needed for imprecise unclear or incomplete issues \\
+			$\rightarrow$ avoid this in the first place
 	\end{itemize}
 \end{frame}
 
