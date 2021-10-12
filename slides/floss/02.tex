@@ -1,0 +1,266 @@
+\input{setup}
+
+\title{L02 Source Code Management}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Local}
+
+\begin{frame}
+	\frametitle{Learning Outcomes}
+	After successful completion of L02 \\
+	students will be able to
+
+	\begin{itemize}
+	\item use source code management in FLOSS context
+	\item review source code in FLOSS context
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Git}
+
+	\begin{itemize}
+		\item initiated by Linus Torvalds
+		\item content-addressable filesystem or object store
+		\item low-level tools allow to build object graph
+		\item porcelain commands for source code management on top
+	\end{itemize}
+	\vspace{1cm}
+
+	\begin{quote}
+	``Smart data structures and dumb code works a lot better than the other way around.''
+
+	-- Eric S. Raymond
+	\end{quote}
+	\vspace{1cm}
+
+	Elektra has KeySet as datastructure.
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Tool Suite Git}
+
+	\begin{itemize}
+		\item common functionality, e.g., ^--help^ opens man pages
+		\item ^git^ is a wrapper calling other subcommands
+		\item e.g., ^/usr/lib/git-core/git-bisect^ is a shellscript
+	\end{itemize}
+	\vspace{1cm}
+
+	As in Elektra's kdb tool suite.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Rebase vs. Merge}
+
+	\begin{itemize}
+		\item rebase rewrites commits
+		\item rebase to be avoided if others already pulled
+		\item merge creates merge commit
+		\item merge is more often conflict-free
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Daily Work}
+
+	\begin{itemize}
+		\item stash
+		\item write your own git subcommands
+		\item aliases via config
+		\item ssh keys
+	\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Decentralized}
+
+\begin{frame}
+	\frametitle{Workflows}
+
+	\begin{itemize}
+		\item patches by email
+		\item create your fork and do pull requests via web
+	\end{itemize}
+
+	\begin{finding}
+	Decide for one standard workflow for your FLOSS initiative.
+	\end{finding}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Issue Tracker Integration}
+
+	\begin{itemize}
+		\item \verb+@mention+
+		\item closes/fixes \verb+#issue+
+	\end{itemize}
+
+	\begin{finding}
+	Prefer having all information directly in source code or git history.
+	\end{finding}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Before Pull Requests}
+
+	\begin{itemize}
+		\item Rebase to current master.
+		\item If preferred by you: Squash unnecessary commits.
+		\item Write a line in release notes
+		\item Look through commit message.
+		\item Look at what your Pull Request would change
+	\end{itemize}
+
+	\begin{finding}
+	Prefer having all information directly in source code or git history.
+	\end{finding}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Signing}
+
+	GPG-sign vs.\ signoff:
+	\begin{itemize}
+		\item Commits
+		\item Tags
+	\end{itemize}
+
+	\begin{finding}
+	sign commits or tags of releases
+	\end{finding}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Best Practices}
+	\begin{itemize}
+		\item always work on branches in your own fork
+		\item separate different things in different commits
+		\item always pull before working
+		\item avoid \verb+--force+ push, never \verb+--force+ push on master
+		\item \verb+--rebase --autostash+
+		\item rebase+squash only before pushing
+	\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Reviews}
+
+\begin{frame}
+	\frametitle{Introduction}
+
+	\begin{quote}
+	``Given a large enough beta-tester and co-developer base, almost every problem will be characterized quickly and the fix obvious to someone.''
+
+	-- Eric S. Raymond
+	\end{quote}
+
+	\pause
+	\vspace{2cm}
+
+	Linus's law:
+	\begin{quote}
+	``given enough eyeballs, all bugs are shallow''
+	\end{quote}
+
+	\vspace{1cm}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Who?}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item experienced programmers
+	\item maintainers
+	\item ``extern programmers''
+	\item everyone who has time and concentration
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{How?}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item reading the code
+	\item as little review criteria as possible
+	\item standard criteria in \verb+.github/PULL_REQUEST_TEMPLATE.md+
+	\item only important comments (avoid nitpicking)
+	\item if automated, check if the check was running
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Goals}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Testing with source-code awareness.
+	\item Review everything.
+	\item Have enough ``core developers'' and reviewers.
+	\item Netiquette same as in issue tracker.
+	\end{itemize}
+\end{frame}
+
+%\begin{frame}[fragile]
+%	\frametitle{Demo}
+%
+%	\begin{itemize}
+%	\item Create PR
+%	\item Rebase PR
+%	\item Review PR
+%	\item PRs I reviewed: \verb+is:open reviewed-by:@me+
+%	\begin{itemize}
+%\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Meeting}
+
+\subsection{Recapitulation}
+
+\begin{frame}
+	\frametitle{Recapitulation.}
+	\begin{itemize}
+		\item 
+	\end{itemize}
+\end{frame}
+
+\subsection{Assignments}
+
+\begin{frame}
+	\frametitle{Feedback}
+%	Exercises finished for this term.
+
+	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+	\vspace{-1cm}
+	\begin{itemize}
+		\item Feedback Talk
+%		\item ECTS breakdown realistic?
+%		\item TISS Feedback from 16.06.2021 00:00 to 14.07.2021 23:59
+	\end{itemize}
+\end{frame}
+
+\subsection{Preview}
+
+\begin{frame}
+	\frametitle{L03 Build Tools}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\nocite{raab2017introducing}
+
+\appendix
+
+\begin{frame}[allowframebreaks]
+	\bibliographystyle{plainnat}
+	\bibliography{../shared/elektra.bib}
+\end{frame}
+
+\end{document}
+
+
