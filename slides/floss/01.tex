@@ -7,7 +7,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Issue Tracking}
 
-\begin{frame}
+\begin{frame}[label=learning outcome]
 	\frametitle{Learning Outcomes}
 	After successful completion of L01 and H1 \\
 	students will be able to
@@ -19,9 +19,10 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Issue}
+\begin{frame}<2>[label=issue]
+	\frametitle{Term: Issue}
 
+	\only<2->{
 	``Issue'' is a very general term, it means nearly anything:
 
 	\begin{itemize}
@@ -33,18 +34,21 @@
 		\item a TODO list entry
 		\item \dots
 	\end{itemize}
+	}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}<2>[label=issue tracking]
 	\frametitle{Issue Tracking}
 
+	\only<2->{
 	Allows to:
 
 	\begin{itemize}
 		\item track the latest status of issues: open, resolved, \dots
-		\item discuss the issue (\verb+@mention+)
+		\item discuss the issue (\texttt{@mention})
 		\item add semantics (metadata): tags, project, milestone, relationships, priorities, \dots
 	\end{itemize}
+	}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -135,7 +139,7 @@
 	The 196 issues still can be found via \verb+is:closed is:issue label:stale+
 \end{frame}
 
-\begin{frame}
+\begin{frame}<1>[label=netiquette]
 	\frametitle{Netiquette}
 
 	\begin{itemize}
@@ -145,6 +149,13 @@
 		\item Only judge on technical issues, never on persons.
 		\item There are no golden rules, cultures can disagree on everything.
 	\end{itemize}
+
+	\only<2>{
+	\begin{task}
+	Do you agree with that list?
+	Discuss your experiences.
+	\end{task}
+	}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -182,14 +193,17 @@
 \section{Bug Reporting}
 
 
-\begin{frame}
-	\frametitle{First steps}
+\begin{frame}<2>[label=first steps]
+	\frametitle{First Steps in Bug Reports}
 	Make sure that:
+
+	\only<2->{
 	\begin{itemize}
 		\item You use the correct issue tracker.
 		\item You read about how to use that issue tracker.
 		\item Use specialized helper programs, if available, like reportbug.
 	\end{itemize}
+	}
 \end{frame}
 
 \begin{frame}
@@ -303,16 +317,151 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Meeting}
 
+\subsection{Organisation}
+
+\begin{frame}
+	\frametitle{BigBlueButton}
+	\begin{itemize}
+%		\item used for weekly virtual meetings
+%		\item is FLOSS
+		\item use ``Real Name @GitHubName'' as your name
+		\item raise the hand immediately on any issues
+%		\item you can connect several times, e.g., phone and laptop
+		\item on technical problems, try another browser, e.g., recent Firefox or Chromium
+%		\item on technical problems use the chat
+	\end{itemize}
+
+	\begin{task}
+	Rename to ``Real Name @GitHubName''.
+	\end{task}
+\end{frame}
+
+\begin{assignment}
+	\frametitle{Video}
+	I am trying to keep meetings short with many breaks. \\
+	You are allowed to:
+	\begin{itemize}
+		\item stretch
+		\item move
+		\item eat
+		\item look somewhere else
+		\item leave your place
+	\end{itemize}
+
+	\begin{task}
+	But please turn video on.
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	\frametitle{Inverted Classroom}
+	Meetings are most Wednesday 09:00 c.t. - 11:00 (max.)
+
+	\begin{itemize}
+		\item always read/watch the material in advance
+		\item TUWEL already contains materials for L02
+		\item within meetings we will do recapitulations, discussions, etc.
+	\end{itemize}
+
+	\begin{task}
+	Did you watch the video of L01?
+	\end{task}
+\end{frame}
+
+
 \subsection{Recapitulation}
 
 \begin{frame}
-	\frametitle{Recapitulation.}
-	\begin{itemize}
-		\item 
+	\frametitle{FLOSS}
+
+	\floss{} allows you to:
+	\pause
+	\vspace{1em}
+	\begin{enumerate}
+		\setcounter{enumi}{-1}
+		\item Use
+		\item Share
+		\item Study
+		\item Improve
+	\end{enumerate}
+	\vspace{1em}
+	the software (binary and source) for any purpose without restrictions.
+\end{frame}
+
+\begin{frame}
+	\includegraphics[width=12cm]{Overview}
+\end{frame}
+
+\againframe<2>{learning outcome}
+
+\againframe<1,3>{issue}
+
+\againframe<1,3>{issue tracking}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
+\againframe<2>{netiquette}
+
+\againframe<1,3>{first steps}
+
+\begin{frame}
+	\frametitle{Conclusions vs. Observations}
+
+	What are observations?
+
+	\begin{itemize}[<+-| alert@+>]
+		\item back strace
+		\item assignment to wrong variable
+		\item program output
+		\item missing assertion
+		\item wrongly taken branch
+		\item no log output
 	\end{itemize}
 \end{frame}
 
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
 \subsection{Assignments}
+
+\begin{assignment}
+	\frametitle{Team}
+	Teamsize: 1-3
+
+	\begin{task}
+	Discuss potential collaboration.
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\frametitle{H1}
+
+	\begin{task}
+	Did you find suitable issues?
+	What kind of issues are missing?
+	\end{task}
+
+	\begin{task}
+	Close your issues if questions were answered.
+	\end{task}
+
+	\url{https://issues.libelektra.org/4092}
+\end{assignment}
+
+\begin{assignment}
+	\frametitle{P1}
+
+	\begin{task}
+	What are your current thoughts on the project?
+	\end{task}
+\end{assignment}
 
 \begin{frame}
 	\frametitle{Feedback}
@@ -322,8 +471,9 @@
 	\vspace{-1cm}
 	\begin{itemize}
 		\item Feedback Talk
-%		\item ECTS breakdown realistic?
-%		\item TISS Feedback from 16.06.2021 00:00 to 14.07.2021 23:59
+		\item ECTS breakdown realistic?
+		\item Git Demo?
+		\item Videos?
 	\end{itemize}
 \end{frame}
 
