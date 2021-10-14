@@ -1,0 +1,214 @@
+\input{setup}
+
+\title{L03 Build Tools}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Scripts}
+
+\begin{frame}
+	\frametitle{Learning Outcomes}
+	After successful completion of L03 \\
+	students will be able to
+
+	\begin{itemize}
+	\item make small modifications in (build) scripts
+	\item remember basics of testing in FLOSS
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Portable Shell Scripts}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item can use \verb+#!/bin/sh+ as shebang
+	\item use another shell as shebang if they are not portable
+	\item use a minimal subset of bash, zsh, ...
+	\item can be checked with \verb+make run_shellcheck+
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Reformatting (1)}
+
+	Serial variant of scripts/dev/reformat-all
+
+	\begin{lstlisting}[language=sh]
+#!/bin/sh
+#
+# @author Klemens
+# @brief Calls all other reformat scripts
+# @date 29.03.2019
+# @tags reformat
+
+DEV_SCRIPTS_DIR=$(dirname "$0")
+. "${DEV_SCRIPTS_DIR}/include-common"
+
+cd "$SOURCE"
+
+reformat() {
+	reformat=$1
+	shift
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Reformatting (2)}
+
+	\begin{lstlisting}[language=sh]
+	echo "starting $reformat ..."
+	"$reformat" "$@"
+	echo "finished $reformat"
+}
+
+IFS='
+'
+for reformat in $(ls "$DEV_SCRIPTS_DIR"/reformat-*); do
+	[ "$(basename "$reformat")" = "reformat-all" ] && continue
+	reformat "$reformat" "$@"
+done\end{lstlisting}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Build Scripts}
+
+\begin{frame}
+	\frametitle{Goals}
+
+	Build tools:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item (cross-)compile the software
+	\item generate documentation or other files
+	\item run tests or build server scripts
+	\item create packages
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Generation}
+
+	How build tools typically work:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item e.g.\ automake generates \texttt{./configure} shell scripts, which generates Makefiles
+	\item e.g.\ CMake generates Makefiles, Ninja or project files of various IDEs
+	\item other build tools directly invoke the compiler
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{CMake}
+
+	Elektra used automake and later switched to CMake.
+
+	\vspace{1cm}
+
+	CMake
+
+	\begin{itemize}[<+-| alert@+>]
+	\item cross-platform
+	\item supports various programming languages
+	\item has extensive modules for finding many tools and libraries
+	\item see \texttt{scripts/cmake} of Elektra's repo
+	\item \texttt{ctest} as test runner
+	\item \texttt{cpack} for creating packages
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Different Configurations}
+
+	Common variants of how to run cmake are in \texttt{scripts/dev/configure-*}
+
+	\begin{lstlisting}[language=sh]
+cmake \
+	-DPLUGINS="ALL" \
+	-DTOOLS="ALL" \
+	-DENABLE_DEBUG="OFF" \
+	-DENABLE_LOGGER="OFF" \
+	.\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Example: Elektra Plugins}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item only \texttt{add_plugin}\footnote{implemented and documented in scripts/cmake/Modules/LibAddPlugin.cmake} needed in CMakeLists.txt
+	\item README.md contains instructions when to add a plugin by looking at infos/provides and also infos/status
+	\item \texttt{cmake -DPLUGINS="ALL;-EXPERIMENTAL"} excludes plugins which have EXPERIMENTAL in infos/status
+	\item README.md also gets included in the plugin's code
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Test Tools}
+
+\begin{frame}
+	\frametitle{Test Runner}
+
+	using ctest:
+
+	\begin{itemize}
+	\item valgrind
+	\item ASAN
+	\item AFL
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Environment}
+
+	Run Elektra from the build folder via \texttt{scripts/dev/run_env}.
+	Basically does:
+
+	\begin{lstlisting}[language=sh]
+# common configure script
+export SCRIPTS_DIR="${ELEKTRA_DIR}/scripts/dev"
+. "${SCRIPTS_DIR}/include-common"
+
+export PATH="$BUILD/bin:$SCRIPTS_DIR:$PATH"
+export KDB_EXEC_PATH="$COMMON_PATH:$KDB_EXEC_PATH"
+export LD_LIBRARY_PATH="$BUILD/lib:$LD_LIBRARY_PATH"
+export MANPATH="$SOURCE/doc/man:$MANPATH"
+export CLASSPATH="$CLASSPATH:$BUILD/lib/libelektra.jar"
+
+export PS1="[DEV] $PS1"\end{lstlisting}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Meeting}
+
+\subsection{Recapitulation}
+
+\begin{frame}
+	\frametitle{Recapitulation.}
+	\begin{itemize}
+		\item 
+	\end{itemize}
+\end{frame}
+
+\subsection{Assignments}
+
+\begin{frame}
+	\frametitle{Feedback}
+%	Exercises finished for this term.
+
+	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+	\vspace{-1cm}
+	\begin{itemize}
+		\item Feedback Talk
+%		\item ECTS breakdown realistic?
+%		\item TISS Feedback from 16.06.2021 00:00 to 14.07.2021 23:59
+	\end{itemize}
+\end{frame}
+
+\subsection{Preview}
+
+\begin{frame}
+	\frametitle{L04 Continuous Integration}
+\end{frame}
+
+
+\end{document}
