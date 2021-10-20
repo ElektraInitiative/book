@@ -7,7 +7,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Local}
 
-\begin{frame}
+\begin{frame}[label=learning outcome]
 	\frametitle{Learning Outcomes}
 	After successful completion of L02 \\
 	students will be able to
@@ -52,8 +52,10 @@
 	As in Elektra's kdb tool suite.
 \end{frame}
 
-\begin{frame}
+\begin{frame}<2>[label=rebase]
 	\frametitle{Rebase vs. Merge}
+
+	\pause
 
 	\begin{itemize}
 		\item rebase rewrites commits
@@ -63,7 +65,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<1>[label=daily]
 	\frametitle{Daily Work}
 
 	\begin{itemize}
@@ -72,6 +74,13 @@
 		\item aliases via config
 		\item ssh keys
 	\end{itemize}
+
+	\pause \pause
+
+	\begin{task}
+	Do you agree with that list?
+	Discuss your experiences.
+	\end{task}
 \end{frame}
 
 
@@ -104,8 +113,10 @@
 	\end{finding}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<2>[label=before]
 	\frametitle{Before Pull Requests}
+
+	\pause
 
 	\begin{itemize}
 		\item Rebase to current master.
@@ -134,7 +145,7 @@
 	\end{finding}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}<1>[fragile,label=branches]
 	\frametitle{Best Practices}
 	\begin{itemize}
 		\item always work on branches in your own fork
@@ -144,6 +155,13 @@
 		\item \verb+--rebase --autostash+
 		\item rebase+squash only before pushing
 	\end{itemize}
+
+	\pause
+
+	\begin{task}
+	Do you agree with that list?
+	Discuss your experiences.
+	\end{task}
 \end{frame}
 
 
@@ -170,8 +188,10 @@
 	\vspace{1cm}
 \end{frame}
 
-\begin{frame}[fragile]
-	\frametitle{Who?}
+\begin{frame}<2>[fragile,label=who]
+	\frametitle{Who Reviews?}
+
+	\pause
 
 	\begin{itemize}[<+-| alert@+>]
 	\item experienced programmers
@@ -181,8 +201,10 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-	\frametitle{How?}
+\begin{frame}<2>[fragile,label=how]
+	\frametitle{How to Review?}
+
+	\pause
 
 	\begin{itemize}[<+-| alert@+>]
 	\item reading the code
@@ -221,14 +243,56 @@
 
 \subsection{Recapitulation}
 
-\begin{frame}
-	\frametitle{Recapitulation.}
-	\begin{itemize}
-		\item 
-	\end{itemize}
-\end{frame}
+\againframe<2>{learning outcome}
+
+\againframe<3>{daily}
+
+\againframe<1,3>{rebase}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
+\againframe<1,3>{before}
+\againframe<2>{branches}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
+\againframe{who}
+\againframe{how}
 
 \subsection{Assignments}
+
+\begin{assignment}
+	\frametitle{Team}
+	Teamsize: 1-3
+
+	\begin{task}
+	All teams settled?
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\frametitle{H1}
+
+	\begin{task}
+	Problems on specific issues?
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\frametitle{P1}
+
+	\begin{task}
+	Last questions?
+	\end{task}
+\end{assignment}
 
 \begin{frame}
 	\frametitle{Feedback}
@@ -238,8 +302,9 @@
 	\vspace{-1cm}
 	\begin{itemize}
 		\item Feedback Talk
-%		\item ECTS breakdown realistic?
-%		\item TISS Feedback from 16.06.2021 00:00 to 14.07.2021 23:59
+		\item ECTS breakdown realistic?
+		\item Git Demo?
+		\item Videos?
 	\end{itemize}
 \end{frame}
 
@@ -247,6 +312,11 @@
 
 \begin{frame}
 	\frametitle{L03 Build Tools}
+
+	\begin{warn}
+	Next lecture in two weeks! \\
+	Next week only P1 review but start early with H2.
+	\end{warn}
 \end{frame}
 
 
