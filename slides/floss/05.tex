@@ -1,0 +1,242 @@
+\input{setup}
+
+\title{L05 Documentation}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Introduction}
+
+\begin{frame}
+	\frametitle{Learning Outcomes}
+	After successful completion of L05 \\
+	students will be able to
+	use techniques to
+
+	\begin{itemize}
+	\item remember basics
+	\item generate documentation
+	\item verify documentation
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Correctness}
+
+	Documentation tends to be:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item outdated
+	\item incorrect
+	\item not helpful
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Make Sure That}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item documentation gets reviewed
+	\item documentation is in source code management
+	\item small distance to code
+	\item avoid redundant information
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Different Types of Documentation}
+
+	\begin{description}[<+-| alert@+>]
+	\item[tutorials] for learning
+	\item[how-to] solving a problem
+	\item[reference] searching for details \\ e.g. man pages, API docu
+	\item[explanations] in \texttt{doc/dev} ``How?''
+	\item[decisions] for background information ``Why?''
+	\item[examples] for copy\&paste
+	\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Different People}
+
+	\begin{description}[<+-| alert@+>]
+	\item[beginners] never forget everybody starts as beginner
+	\item[advanced] understanding how to improve
+	\item[expert] learn how to teach others, \\
+		improve upon what the software is doing
+	\end{description}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Generate}
+
+\begin{frame}[fragile]
+	\frametitle{Markdown}
+
+	Minimal formatting abilities but implemented by many tools
+
+	\begin{itemize}[<+-| alert@+>]
+	\item \texttt{[Link](/linktarget)} or \texttt{[Link](relative/link)}
+	\item \textit{*italics*} and \textbf{**bold**}
+	\item \verb+`inline code`+ or \verb+```+ code fences
+	\item \begin{verbatim}- item
+- item
+- item\end{verbatim}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Views}
+
+	The same (markdown) file can be viewed via:
+	
+	\begin{itemize}[<+-| alert@+>]
+	\item directly viewing the source \texttt{doc/help/kdb.md}
+	\item website \url{https://www.libelektra.org/manpages/kdb} (rendered by marked)
+	\item API docu \url{https://doc.libelektra.org/api/master/html/doc_help_kdb_md.html} (rendered by doxygen)
+	\item \texttt{man kdb} (rendered by ronn)
+	\item \texttt{kdb --help} or \texttt{kdb help <command>}
+	\item GitHub \texttt{https://master.libelektra.org/doc/help/kdb.md}
+	\item From qt-gui (rendered by discount)
+	\end{itemize}
+
+	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
+
+	$\rightarrow$ 5 different markdown renderer involved
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Plugins}
+
+	For plugins, documentation even changes the build process:
+	\begin{lstlisting}[keywords={infos,author,license,provides,needs,recommends,placements,status,metadata}]
+- infos = Information about the toml plugin is in keys below
+- infos/author = Jakob Fischer <jakobfischer93@gmail.com>
+- infos/licence = BSD
+- infos/provides = storage/toml
+- infos/needs = base64
+- infos/recommends = type
+- infos/placements = getstorage setstorage
+- infos/status = experimental unfinished
+- infos/metadata = order comment/# comment/#/start comment/#/space type tomltype origvalue
+- infos/description = This storage plugin reads and writes TOML files using Flex and Bison.\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conclusion}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item reuse of documentation by generation
+	\item avoids duplication and errors
+	\item avoids CI checks for inconsistencies
+	\item generation by CI
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Verify}
+
+\begin{frame}
+	\frametitle{Goals}
+
+	Not every documentation-related task can be generated:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item in the text we want to refer to the behavior
+	\item we want to verify if given examples are correct
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problems with Unit Tests}
+
+	\begin{enumerate}[<+-| alert@+>]
+	\item difficult to read
+	\item code cannot be directly copied (asserts)
+	\item cannot be easily integrated in tutorials
+	\end{enumerate}
+
+	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
+
+	$\rightarrow$ specialized verification language for documentation
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Verification of Tutorials}
+
+	\begin{lstlisting}
+	```sh
+	kdb set user:/tests/something
+	# RET: 0
+
+	kdb get user:/tests/something
+	```
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Syntax}
+
+	\begin{enumerate}[<+-| alert@+>]
+	\item starts with \verb+```sh+
+	\item comments introduce checks
+	\item otherwise is shell code to be executed
+	\item \verb+#>+ verifies stdout output
+	\item \verb+# RET:+ verifies return code (if not 0)
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Conventions}
+
+	\begin{enumerate}[<+-| alert@+>]
+	\item Test data in \verb+/tests+.
+	\item Generate temporary files if needed or use HERE.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conclusions}
+
+	\begin{enumerate}[<+-| alert@+>]
+	\item If possible, generate.
+	\item Otherwise, verify.
+	\item Keep user and purpose in mind.
+	\end{enumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %
+\section{Meeting}
+
+\subsection{Recapitulation}
+
+\begin{frame}
+	\frametitle{Recapitulation.}
+	\begin{itemize}
+		\item 
+	\end{itemize}
+\end{frame}
+
+\subsection{Assignments}
+
+\begin{frame}
+	\frametitle{Feedback}
+%	Exercises finished for this term.
+
+	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+	\vspace{-1cm}
+	\begin{itemize}
+		\item Feedback Talk
+%		\item ECTS breakdown realistic?
+%		\item TISS Feedback from 16.06.2021 00:00 to 14.07.2021 23:59
+	\end{itemize}
+\end{frame}
+
+\subsection{Preview}
+
+\begin{frame}
+	\frametitle{L05 Documentation}
+\end{frame}
+
+
+\end{document}
