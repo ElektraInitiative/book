@@ -1,0 +1,362 @@
+\input{setup}
+
+\title{L04 Continuous Integration}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Use}
+
+\begin{frame}
+	\frametitle{Learning Outcomes}
+	After successful completion of L04 \\
+	students will be able to
+
+	\begin{itemize}
+	\item use continuous integration
+	\item remember basics of reproducibility
+	\item improve continuous integration
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Workload}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item maintainers of FLOSS usually have high workload
+	\item review focus on difficult aspects
+	\item use CI to answer trivial questions
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Check If}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item the code compiles without warnings (with different compilers)
+	\item all test suites run successfully (on different systems)
+	\item release notes are written
+	\item code is correctly formatted
+	\item consistency rules are fulfilled
+	\item ABI/API is compatible
+	\item all content has a license
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Artifacts}
+
+	The build server gives us:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item documentation
+	\item executables
+	\item reports of
+	\begin{itemize}
+	\item test runs
+	\item memory leaks
+	\item code coverage
+	\end{itemize}
+	\item website, \dots
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Trigger Build}
+
+	In Elektra:
+	\begin{itemize}[<+-| alert@+>]
+	\item Build server runs on every push in every branch
+	\item nightly/monthly/\dots builds
+	\item Jenkins is the main CI
+	\item Sometimes CI problems need to be reported and fixed
+	\item Maintenance reports in issues.libelektra.org/160
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conclusion}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Start of build server automatically
+	\item Reading of build server results manually
+	\item Set label ``ready to merge'' iff build server passes
+	\item Make sure that new test cases are executed
+	\item CI handled like other code
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Reproducibility}
+
+\begin{frame}
+	\frametitle{Goals}
+
+	\begin{enumerate}[<+-| alert@+>]
+
+	\item get identical behavior from tools, e.g.: \\ same error messages or reformatting of source code
+	\item get same failures when running tests
+	\item (re)create identical binaries
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Goal 1: Compilation}
+
+	For identical results installation of exactly the same tools is needed.
+
+	\pause
+
+	\begin{problem}
+	Different distributions offer different tool chains, compiled differently.
+	\end{problem}
+
+	\vspace{1cm}
+	\pause
+
+	\begin{solution}[Possible Solution]
+	Install tools with identical version manually.
+	\end{solution}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Goal 2: Tests}
+
+	\begin{problem}
+	For identical results the whole execution environment need to be replicated.
+	\end{problem}
+
+	\vspace{1cm}
+	\pause
+
+	\begin{solution}[Possible Solution]
+	Virtualization but even then with limitations.
+	\end{solution}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Dockerfile}
+
+	\begin{itemize}[<+-| alert@+>]
+
+	\item allows to define an image to be used for the build server
+	\item FROM defines a base image
+	\item RUN are commands to be executed that modify the image
+	\end{itemize}
+
+	\vspace{1cm}
+
+	Alternatives: NixOS, Guix
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Example}
+
+	\verb+scripts/docker/debian/bullseye/Dockerfile+:
+
+	\begin{lstlisting}[language=docker]
+FROM debian:bullseye
+
+ENV LC_ALL C.UTF-8
+
+RUN apt-get update && apt-get -y install \
+    build-essential
+RUN ldconfig
+
+RUN useradd jenkins
+USER ${JENKINS_USERID}
+RUN git config --global user.email 'Jenkins <autobuilder@libelektra.org>' \
+    && git config --global user.name 'Jenkins' \end{lstlisting}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Goal 3: Binaries}
+
+	\begin{problem}
+	\begin{itemize}[<+-| alert@+>]
+
+	\item Different distributions offer different tool chains.
+	\item Tool chained can be compiled or configured differently.
+	\item Any current dates or build paths influence binaries.
+	\item Any input from outside the source code (e.g. Internet) is volatile.
+	\end{itemize}
+	\end{problem}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Solutions}
+
+	\begin{itemize}[<+-| alert@+>]
+
+	\item Virtualization of build environment
+	\item Recording of build environment (e.g. buildinfo files)
+	\item Let build process ignore the environment \\
+		$\rightarrow$ reduce problem to Goal~1
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Reproducible Builds}
+
+	\begin{itemize}[<+-| alert@+>]
+
+	\item verifiable path from source to binary
+	\item reproducible by default (without virtualization)
+	\item reduces influence of build environment
+	\item make build system deterministic
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Limitations}
+
+	Build system and macros enable/disable code depending on:
+
+	\begin{itemize}
+	\item compiler
+	\item operating system
+	\item installed dependencies
+	\end{itemize}
+
+	E.g. in Elektra plugins get disabled depending on missing dependencies.
+
+	\pause
+	\vspace{1cm}
+
+	\begin{solution}
+	In practice a combination of recording and ignoring the environment is used.
+	\end{solution}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Improve}
+
+\begin{frame}
+	\frametitle{Jenkins}
+
+	\begin{itemize}[<+-| alert@+>]
+
+	\item cron on steroids
+	\item many plugins
+	\item implemented in Java
+	\item Jenkinsfiles directly in source code
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Jenkinsfile}
+
+	for Elektra in scripts/jenkins/Jenkinsfile
+
+	\begin{itemize}[<+-| alert@+>]
+
+	\item either declarativ or in Groovy
+	\item enables review of CI
+	\item different CI for different PRs
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Jenkinsfile Example}
+
+	Run one script:
+	\begin{lstlisting}[language=Java]
+  def tasks = [:]
+  tasks.failFast = false
+  tasks << buildIcheck()
+\end{lstlisting}
+
+	\begin{lstlisting}[language=Java]
+def buildIcheck() {
+  def stageName = "icheck"
+  return [(stageName): {
+    stage(stageName) {
+      withDockerEnv(DOCKER_IMAGES.bullseye) {
+        sh "scripts/build/run_icheck"
+        deleteDir()
+      }
+    }
+  }]
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Useful Tests}
+
+	\begin{problem}
+	CI must be fast enough.
+	\end{problem}
+
+	\begin{itemize}[<+-| alert@+>]
+
+	\item Verify a fact everyone agreed on is actually the case.
+	\item Unit or integration tests run with different compilers and operating systems.
+	\item Verify that a bug is fixed (regression).
+	\item ABI/API tests: that behavior for customers is unchanged.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Order is Important}
+
+	\begin{itemize}[<+-| alert@+>]
+
+	\item first check locally
+	\item them implement automatic check
+	\item then add automatic check to CI
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Definition of Done}
+
+	Continuous improvements:
+
+	\begin{itemize}
+	\item underlying issue for discussion
+	\item updated documentation
+	\item added tests
+	\item improved code comments
+	\item review done
+	\item QA (valgrind, ASAN, \dots)
+	\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Meeting}
+
+\subsection{Recapitulation}
+
+\begin{frame}
+	\frametitle{Recapitulation.}
+	\begin{itemize}
+		\item 
+	\end{itemize}
+\end{frame}
+
+\subsection{Assignments}
+
+\begin{frame}
+	\frametitle{Feedback}
+%	Exercises finished for this term.
+
+	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+	\vspace{-1cm}
+	\begin{itemize}
+		\item Feedback Talk
+%		\item ECTS breakdown realistic?
+%		\item TISS Feedback from 16.06.2021 00:00 to 14.07.2021 23:59
+	\end{itemize}
+\end{frame}
+
+\subsection{Preview}
+
+\begin{frame}
+	\frametitle{L05 Documentation}
+\end{frame}
+
+
+\end{document}
