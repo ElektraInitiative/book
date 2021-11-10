@@ -7,7 +7,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Use}
 
-\begin{frame}
+\begin{frame}<1>[label=learning outcomes]
 	\frametitle{Learning Outcomes}
 	After successful completion of L04 \\
 	students will be able to
@@ -61,7 +61,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[label=trigger build]
 	\frametitle{Trigger Build}
 
 	In Elektra:
@@ -90,7 +90,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Reproducibility}
 
-\begin{frame}
+\begin{frame}<1>[label=reproducibility]
 	\frametitle{Goals}
 
 	\begin{enumerate}[<+-| alert@+>]
@@ -197,7 +197,7 @@ RUN git config --global user.email 'Jenkins <autobuilder@libelektra.org>' \
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<1>[label=reproducible builds]
 	\frametitle{Reproducible Builds}
 
 	\begin{itemize}[<+-| alert@+>]
@@ -283,7 +283,7 @@ def buildIcheck() {
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<1>[label=useful tests]
 	\frametitle{Useful Tests}
 
 	\begin{problem}
@@ -299,7 +299,7 @@ def buildIcheck() {
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<1>[label=order]
 	\frametitle{Order is Important}
 
 	\begin{itemize}[<+-| alert@+>]
@@ -310,7 +310,7 @@ def buildIcheck() {
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<1>[label=dod]
 	\frametitle{Definition of Done}
 
 	Continuous improvements:
@@ -332,13 +332,121 @@ def buildIcheck() {
 \subsection{Recapitulation}
 
 \begin{frame}
-	\frametitle{Recapitulation.}
-	\begin{itemize}
-		\item 
+	\includegraphics[width=12cm]{Overview}
+\end{frame}
+
+\againframe<10>{learning outcomes}
+
+\begin{frame}
+	\frametitle{Brainstorming: What can CI check for us?}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Trigger Build}
+
+	\begin{task}
+	How can you trigger a build? \\
+	How to report CI problems?
+	\end{task}
+\end{frame}
+
+\againframe<10>{trigger build}
+
+\breakframe
+
+\begin{frame}
+	\frametitle{Brainstorming: Which artifacts can CI produce for us?}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Goals}
+
+	\begin{task}
+	What are the three goals of reproducibility?
+	\end{task}
+\end{frame}
+
+\againframe<10>{reproducibility}
+
+\begin{frame}
+	\frametitle{Docker}
+
+	Goal~2:
+	\begin{task}
+	Insofar can docker improve reproducibility when running tests?
+	\end{task}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Docker}
+
+	\begin{itemize} %[<+-| alert@+>]
+	\item use the same base image
+	\item modify the image in the same way
+	\item use the same user
+	\item get the same environment (LC\_ALL, \dots)
 	\end{itemize}
 \end{frame}
 
+\breakframe
+
+\begin{frame}
+	\frametitle{Reproducible Builds}
+
+	\begin{task}
+	What are the goals of reproducible builds?
+	\end{task}
+\end{frame}
+
+\againframe<10>{reproducible builds}
+
+\begin{frame}
+	\frametitle{Useful Tests}
+
+	\begin{task}
+	What do you need careful about when adding tests? \\
+	Which tests are particularly useful?
+	\end{task}
+\end{frame}
+
+\againframe<10>{useful tests}
+
+\begin{frame}
+	\frametitle{Order is Important}
+
+	\begin{task}
+	Which steps do you usually do before creating an PR to fix a problem?
+	\end{task}
+\end{frame}
+
+\againframe<10>{order}
+
+\begin{frame}
+	\frametitle{Definition of Done}
+
+	\begin{task}
+	When is a PR done?
+	\end{task}
+\end{frame}
+
+\againframe<10>{dod}
+
+\breakframe
+
+
+
+
+
 \subsection{Assignments}
+
+\begin{assignment}
+	\frametitle{H2: Reviews}
+
+	\begin{task}
+	Which reviews did you find useful?
+	\end{task}
+\end{assignment}
 
 \begin{frame}
 	\frametitle{Feedback}
