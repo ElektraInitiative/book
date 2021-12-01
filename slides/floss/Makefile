@@ -24,3 +24,7 @@ view:
 clean:
 	latexmk -c $(FILE)
 	rm -f $(FILE).pdf
+
+.PHONY:pvc
+pvc:
+	latexmk -pvc $(FILE)
