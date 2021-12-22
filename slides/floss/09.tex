@@ -1,0 +1,261 @@
+\input{setup}
+
+\title{L09 Architecture}
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Directory Structure}
+
+\begin{frame}
+	\frametitle{Learning Outcomes}
+	After successful completion of \inserttitle \\
+	students will be able to
+
+	\begin{itemize}
+	\item reproduce chosen FLOSS software architectures.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\includegraphics[width=12cm]{Overview}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Overviewability}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item complementary to traceability \\ (i.e.\ trace from requirements/documentation/issues to affected code and back)
+	\item measurement how long a newcomer needs to find her/his way
+	\item answers: ``Where to add new functionality?''
+	\item in FLOSS directory structure in repository essential (= physical view)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Grouping of Files}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item by programming language
+	\item by topics (tests, src, doc)
+	\item by modules/plugins
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Metadata of Files and Directories}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item README.md
+	\item file name endings
+	\item LICENSES and \texttt{.license}
+	\item \texttt{scripts} vs.\ \texttt{src} (executable bits)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Cleanup}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item top-level
+	\item main folders
+	\item file names
+	\item automatic formatting (encodings and line endings)
+	\item reduce dependencies between folders
+	\end{itemize}
+
+	\vspace{1cm}
+
+	But also stop worrying if needed by convention.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Logical Views}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Documentation Generators (``Files'' in Doxygen is physical view)
+	\item Building Block View (may be identical to physical)
+	\item Runtime View
+	\item Deployment View
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Software Architecture}
+
+\begin{frame}
+	\frametitle{Software Architecture}
+	\begin{itemize}[<+-| alert@+>]
+	\item architecture is a high-level description of the overall system
+	\item use ready-made patterns and templates for architecture
+	\item e.g., \url{http://arc42.org/}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Arc42}
+	\begin{enumerate}[<+-| alert@+>]
+	\item Introduction and Goals
+	\item Constraints
+	\item Context and Scope
+	\item Solution Strategy
+	\item Building Block View
+	\item Runtime View
+	\item Deployment View
+	\item Crosscutting Concepts
+	\item Architectural Decisions~\cite{zdun2007patterns}
+	\item Quality Requirements
+	\item Risks and Technical Debt
+	\item Glossary
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Example}
+
+	Crosscutting concept ``configuration settings'':
+
+	\begin{itemize}
+	\item are stored in configuration files
+	\item in data structure KeySet
+	\item modified by configuration management tool using KeySet
+	\end{itemize}
+
+	more about it in course ``configuration management''
+\end{frame}
+
+\begin{frame}
+	\frametitle{Roles}
+
+	In FLOSS usually nobody is project manager
+
+	\pause
+
+	$\rightarrow$ but everyone is software architect
+\end{frame}
+
+\begin{frame}
+	\frametitle{Goals}
+
+	The most important tasks of software architects are
+
+	\begin{itemize}[<+-| alert@+>]
+	\item to pursue the right goals
+	\item to have good documentation (e.g.\ with arc42)
+	\item to keep everything as simple as possible
+	\item to communicate the architecture
+	\item maintain community and quality
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Refactoring}
+
+	\begin{itemize}
+	\item build what community needs at the moment
+	\item change according to current needs
+	\item avoid over-engineering, refactor to KISS
+	\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Architectural Decisions}
+
+\begin{frame}
+	\frametitle{Architectural Decisions}
+	\begin{itemize}[<+-| alert@+>]
+	\item describe decisions that lead to the architecture
+	\item decisions are high-level configuration
+	\item patterns/templates are useful~\cite{zdun2007patterns}, e.g.:
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Template}
+	\begin{enumerate}[<+-| alert@+>]
+	\item problem
+	\item constraints
+	\item assumptions
+	\item considered alternatives
+	\item decision
+	\item rationale
+	\item implications
+	\item related
+	\item notes
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Example: API Design}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item future-proof
+	\item hard to use it wrong vs.\ easy to use
+	\item consistent concepts, e.g.\ for resources
+	\item minimal vs.\ comfort
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Example: Libraries vs.\ Daemons}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item both foster reuse of code
+	\item daemon better if there is dynamic state
+	\item but: daemon creates a single point of failure (KISS)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Dangers}
+
+	\begin{quote}
+	Insanity in individuals is something rare -- but in groups, parties, nations, and epochs, it is the rule.
+	-- Friedrich Nietzsche
+	\end{quote}
+
+	In groups you get confronted with the whole spectrum of psychology:
+
+	\pause
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Groupthink (conformity)
+	\item Group polarization
+	\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Meeting}
+
+\subsection{Recapitulation}
+\subsection{Assignments}
+
+\begin{frame}
+	\frametitle{Feedback}
+%	Exercises finished for this term.
+
+	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+	\vspace{-1cm}
+	\begin{itemize}
+		\item Feedback Talk
+%		\item ECTS breakdown realistic?
+%		\item TISS Feedback from 16.06.2021 00:00 to 14.07.2021 23:59
+	\end{itemize}
+\end{frame}
+
+\subsection{Preview}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\appendix
+
+\begin{frame}[allowframebreaks]
+	\bibliographystyle{plainnat}
+	\bibliography{../shared/elektra.bib}
+\end{frame}
+
+
+\end{document}
