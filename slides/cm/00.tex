@@ -1,5 +1,8 @@
 \input{setup}
 
+% TODO: add complexity intro again?
+% TODO: Reduce more to learning outcome
+
 \title{L00 Preliminary Talk}
 \date{3.3.2021}
 
@@ -12,9 +15,9 @@
 		\item used for weekly virtual meetings
 		\item set status (e.g. raise the hand) immediately on any issues
 		\item use ``Real Name @GitHubName'' as your name
-		\item on technical problems use the chat
-		\item you can connect several times (e.g. phone+laptop)
-		\item on issues, try another browser (recent Firefox+Chromium)
+		\item on technical problems say it in the chat
+		and try another browser, \\ e.g., recent Firefox or Chromium
+		\item you can connect several times, e.g., phone and laptop
 	\end{itemize}
 \end{frame}
 
@@ -34,8 +37,11 @@
 	\begin{task}
 	\begin{description}
 	\item[A] English
-	\item[B] German
-	\item[C] Don't care
+	\item[B] Slightly Prefer English
+	\item[C] Both are fine
+	\item[D] Slightly Prefer German
+	\item[E] German
+	\item[F] Don't care
 	\end{description}
 	\end{task}
 \end{assignment}
@@ -57,12 +63,8 @@
 \end{assignment}
 
 \begin{assignment}
-	\frametitle{Recording ok?}
 	\begin{task}
-	\begin{description}
-	\item[A] Yes
-	\item[B] No
-	\end{description}
+	Break.
 	\end{task}
 \end{assignment}
 
@@ -138,12 +140,13 @@
 	\end{itemize}
 \end{frame}
 
+
 \begin{frame}
 	Topic 01: \textit{Configuration Settings}
 	\begin{itemize}
 		\item definitions
-		\item architecture of configuration access
-		\item Elektra
+		\item metalevels
+		\item data structures
 	\end{itemize}
 \end{frame}
 
@@ -171,6 +174,7 @@
 \begin{frame}
 	Topic 02: \textit{Configuration Specification Languages}
 	\begin{itemize}
+		\item theory \& practice
 		\item specify possible configuration specifications
 	\end{itemize}
 	\vspace{0.5cm}
@@ -190,17 +194,21 @@
 		\item configuration file formats
 		\item command-line arguments
 		\item environment variables
+		\item abstractions
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	Topic 05: \textit{Configuration Management Tools}
 	\begin{itemize}
-		\item history
-		\item Infrastructure as Code
-		\item configuration drift
-		\item push vs.\ pull
-		\item full vs.\ partial changes
+		\item infrastructure as code
+		\item desirable properties of configuration
+		\begin{itemize}
+			\item self-description
+			\item changeability
+			\item idempotence
+			\item round-tripping
+		\end{itemize}
 		\item examples: Puppet, Chef, Ansible, CfEngine, Nix, \dots
 	\end{itemize}
 \end{frame}
@@ -214,9 +222,9 @@
 \begin{frame}
 	Topic 06: \textit{Strategies for Validation and Modularization}
 	\begin{itemize}
-		\item validation techniques
+		\item validation
 		\item modularity
-		\item avoidance of dependences
+		\item plugins
 	\end{itemize}
 \end{frame}
 
@@ -224,15 +232,8 @@
 	Topic 07: \textit{Strategies for Reduction of Misconfiguration}
 	\begin{itemize}
 		\item configuration-less systems (auto-detection)
-		\item context awareness
+		\item pitfalls
 		\item finding (un)used settings
-		\item desirable properties of configuration
-		\begin{itemize}
-			\item self-description
-			\item changeability
-			\item idempotence
-			\item round-tripping
-		\end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -243,25 +244,27 @@
 	\begin{itemize}
 		\item configuration access
 		\item validation
+		\item configuration management (push vs.\ pull)
+		\item misconfiguration
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	Topic 09: \textit{Configuration as a User Interface}
 	\begin{itemize}
-		\item How system administrators work.
 		\item Which user interfaces exist.
-		\item How to specify configuration.
+		\item How to avoid errors.
 		\item How to design error messages.
+		\item How system administrators work.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	Topic 10: \textit{Design of Configuration}
 	\begin{itemize}
-		\item complexity reduction
-		\item design aspects of configuration specification
-		\item documentation of configuration
+		\item documentation
+		\item introspection vs\. code generation
+		\item context awareness
 	\end{itemize}
 \end{frame}
 
@@ -294,6 +297,12 @@
 	\item Reusability
 	\item (Resource) Abstractions
 	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Map}
+
+	\includegraphics[width=11cm]{pics/map.pdf}
 \end{frame}
 
 \begin{assignment}
@@ -391,7 +400,7 @@
 
 \subsection{Assignments}
 \begin{frame}
-	\frametitle{Talk}
+	\frametitle{Presentation}
 	\begin{itemize}
 		\item About anything related to configuration management.
 		\item The duration must be 10--20 minutes.
