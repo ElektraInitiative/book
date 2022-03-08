@@ -80,12 +80,11 @@
 	\begin{itemize}
 		\item   \textcolor{white}{\shadowtext{\empha[misconfiguration]{misconfigurations}~\cite{yin2011empirical,su2007autobash,attariyan2010automating,xu2015systems} are a major cause}}\\
 			\textcolor{white}{\shadowtext{of system failures~\cite{wool2004quantitative,oppenheimer2003internet,pertet2005causes}}}
+		\item  \textcolor{white}{\shadowtext{2022 Cloud Security Report: ``Misconfiguration was}}
+			\textcolor{white}{\shadowtext{the number one cause of cloud-security incidents in 2021''}}\footnote{\url{https://cloudcomputing-news.net/news/2022/mar/04/misconfiguration-was-the-number-one-cause-of-cloud-security-incidents-in-2021/}}
 		\item   \textcolor{white}{\shadowtext{much time is needed to fix misconfigurations~\cite{rabkin2011static,oppenheimer2003internet,yin2011empirical,mahajan2002bgp}}}
-		\item   \textcolor{white}{\shadowtext{configuration is a user interface for both developers}}\\
-			\textcolor{white}{\shadowtext{and system administrators}}
 	\end{itemize}
 \end{frame}
-%https://www.fiercehealthcare.com/tech/uw-medicine-reports-data-error-exposed-1m-patients-data
 %https://www.bankinfosecurity.com/misconfiguration-leads-to-major-health-data-breach-a-12042
 %https://www.technologydecisions.com.au/content/cloud-and-virtualisation/news/misconfigured-cloud-storage-a-goldmine-for-attackers-1043741482
 %https://www.infosecurity-magazine.com/news/apache-misconfig-leaks-data-120/
@@ -101,15 +100,17 @@
 			\textcolor{white}{\shadowtext{\enquote{that futzing should be allowed, but should never be required}}}
 		\item   \textcolor{white}{\shadowtext{currently configuration is error-prone and under-specified,}}
 			\textcolor{white}{\shadowtext{\empha{futzing} is often required}}
+%		\item   \textcolor{white}{\shadowtext{configuration is a user interface for both developers}}\\
+%			\textcolor{white}{\shadowtext{and system administrators}}
 	\end{itemize}
 \end{frame}
 \begin{frame}
 	\frametitle{Examples}
-	Not every misconfiguration involves big companies, cloud, and huge amounts of money:
+	\textcolor{white}{\shadowtext{Not every misconfiguration involves big companies and huge amounts of money:}}
 	\begin{itemize}
-		\item No internet access because resolv.conf symlink broken.
-		\item KDE crash because of ulimit setting.
-		\item Out-of-service of computers during exam.
+		\item \textcolor{white}{\shadowtext{No internet access because resolv.conf symlink broken.}}
+		\item \textcolor{white}{\shadowtext{KDE crash because of ulimit setting.}}
+		\item \textcolor{white}{\shadowtext{Out-of-service of computers during exam.}}
 	\end{itemize}
 \end{frame}
 }
@@ -263,7 +264,7 @@
 	Topic 10: \textit{Design of Configuration}
 	\begin{itemize}
 		\item documentation
-		\item introspection vs\. code generation
+		\item introspection vs.\ code generation
 		\item context awareness
 	\end{itemize}
 \end{frame}
@@ -277,6 +278,32 @@
 		\item Elektra is one implementation of what we \\ discuss in this lecture.
 		\item Configuration management tools use Elektra.
 		\item Elektra is developed at TU Wien (\url{https://libelektra.org}).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Use Cases of Elektra}
+	\begin{itemize}[<+->]
+	\item Embedded systems (Sources of Configuration)
+	\begin{itemize}
+	\item OpenWRT (distribution)
+	\item Broadcom (blue-ray devices)
+	\item Kapsch (cameras)
+	\item Toshiba (TVs)
+	\end{itemize}
+	\item Desktop (Configuration Integration)
+	\begin{itemize}
+	\item Oyranos
+	\item Redshift
+	\item LCDproc
+	\item KDE
+	\item GNOME
+	\end{itemize}
+	\item Server (Configuration Management)
+	\begin{itemize}
+	\item Allianz (insurance)
+	\item TU Wien and other universities
+	\end{itemize}
 	\end{itemize}
 \end{frame}
 
@@ -332,19 +359,20 @@
 		\item TISS (exam) \url{https://tiss.tuwien.ac.at/course/courseDetails.xhtml?courseNr=194030&semester=2019S}
 		\item GitHub (private and public repository) \\ public: \url{https://git.libelektra.org}
 		\item EMail \url{markus.raab@complang.tuwien.ac.at}
-		\item before/after/during meetings
+		\item Meetings Wednesday 9:00 c.t.--11:00
+		\item Consulting Hour with Klemens Böswirth Wednesday 13:00-14:00
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Inverted Classroom}
-	Meeting is every week Wednesday 09:00 - 11:00 c.t.
+	Meeting is every week Wednesday 09:00 c.t.--11:00 (max.)
 
 	\begin{itemize}
 		\item always read/watch the material in advance
 		\item within meetings we'll do a recapitulation
 		\item and you ask questions
-		\item we start off with many materials
+		\item we start off with many materials, going slower after L05
 	\end{itemize}
 \end{frame}
 
@@ -353,7 +381,7 @@
 	\begin{itemize}
 		\item Obviously \textit{no} prior knowledge about Configuration or Configuration Management necessary.
 		\item If you already have experience, you can use it in your talk and assignments.
-		\item You should have some understanding of software engineering and software requirements.
+		\item You should have some understanding of FLOSS.
 		\item Programming skills is a must.
 	\end{itemize}
 \end{frame}
@@ -365,11 +393,11 @@
 		\item C
 		\item C++
 		\item Java
-		\item Rust
 		\item Python
-		\item Go
-		\item Lua
-		\item Ruby
+		\item (Rust)
+		\item (Go)
+		\item (Lua)
+		\item (Ruby)
 	\end{itemize}
 	You can use either of these languages.
 \end{frame}
@@ -391,27 +419,20 @@
 	Grade is calculated from:
 	\begin{description}
 	\item[30\,\%:] homework
-	\item[30\,\%:] team exercise
+	\item[30\,\%:] teamwork
+	\item[30\,\%:] project
 	\item[10\,\%:] talk
-	\item[30\,\%:] test
-	\item[+:] extrapoints
+	\item[+:] extrapoints in meetings
 	\end{description}
 \end{frame}
 
 \subsection{Assignments}
 \begin{frame}
-	\frametitle{Presentation}
+	\frametitle{Assignments}
 	\begin{itemize}
-		\item About anything related to configuration management.
-		\item The duration must be 10--20 minutes.
-		\item It must be about your experience.
-		\item I.e., not only about study of literature.
-		\item E.g., about:
-		\begin{itemize}
-			\item homework you did (e.g. H1 or T1)
-			\item some CM tool you played around with
-			\item some application you struggled to configure
-		\end{itemize}
+		\item Are described in detail in a separate document.
+		\item The document contains everything you'll need to do besides the meeting (preparation).
+		\item Very transparent but might look shocking to you at first.
 	\end{itemize}
 \end{frame}
 
@@ -420,20 +441,20 @@
 
 	\begin{itemize}
 	\item if you make submissions earlier, you get feedback earlier
-	\item dates are both in ``semester schedule.pdf'' and calender of TUWEL
+	\item dates are both in ``schedule.pdf'' and calender of TUWEL
 	\end{itemize}
 
-	There are always two deadlines for each homework+teamwork:
+	There are often two deadlines for each homework/teamwork/project:
 
 	\begin{itemize}
-	\item regular deadline (submission)
-	\item deadline for corrections (based on the feedback of submission but you can also extend the submission)
+	\item regular deadline: the submission as described in the document (definition of done)
+	\item deadline for correction: based on the feedback from CI and from review you get after the deadline
 	\end{itemize}
 \end{frame}
 
 \begin{assignment}
 	\begin{task}
-	Talk with someone about a potential collaboration in the team exercise.
+	Talk with someone about a potential collaboration in the team exercise/project.
 	\end{task}
 \end{assignment}
 
