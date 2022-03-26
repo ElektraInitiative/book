@@ -3,7 +3,6 @@
 % TODO: move/split complexity calculations to L10 and/or make clearly optional
 
 \title{L04 Sources of Configuration}
-\date{14.04.2021}
 
 \begin{document}
 
@@ -168,6 +167,7 @@
 	\frametitle{Semantics}
 	\begin{itemize}
 	\item passed by main for a new process via \\ (\texttt{int argc, char ** argv})
+	\item argc might be 0
 	\item visible from other processes (e.g., via \texttt{ps aux})
 	\item could be passed along to subprocesses but hardly done
 	\item need to be parsed by process
@@ -450,181 +450,181 @@ For configuration as program you need to execute them first.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Meeting}
 
-\subsection{Recapitulation}
-
-\begin{frame}
-	\begin{task}
-	Do you have any questions?
-	\end{task}
-\end{frame}
-
-\begin{frame}
-	\begin{alertblock}{Question}
-	How can we share configuration settings?
-	\end{alertblock}
-
-	\pause
-	\begin{exampleblock}{Answer}
-	\begin{itemize}
-	\item Implement support directly in application.
-	\item Override/fallback links in specification.
-	\item Calculate/transform values in specification.
-	\end{itemize}
-	\end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Definition Configuration File}
-
-	\pause
-
-	A \intro{configuration file} is a file containing configuration settings.
-
-	A Web server configuration file:
-
-	\begin{lstlisting}[gobble=4]
-	port=80 ; comment
-	address=127.0.0.1\end{lstlisting}
-
-	\only<2-2>{
-	\begin{quest}
-	What are keys? What are configuration values? What is metadata?
-	\end{quest}
-	}
-	\pause
-
-	The configuration values are ^80^ and ^127.0.0.1^, respectively.
-	Other information in the configuration file is metadata for the configuration settings (such as the comment).
-\end{frame}
-
-\begin{frame}
-	\frametitle{Configuration File Formats}
-
-	\begin{task}
-	What are the trends?
-	\only<1-1>{
-	How can we deal with the many formats?
-	}
-	\end{task}
-
-	\pause
-	\begin{itemize}
-	\item away from CSV
-	\item towards general-purpose serialization formats (INI, JSON)
-	\item human-read/writable (YAML, TOML)
-	\item programming language as configuration file
-	\end{itemize}
-
-	\only<2-2>{
-	\begin{task}
-	How can we deal with the many formats?
-	\end{task}
-	}
-
-	\begin{itemize}
-	\item Key-value
-	\item Mounting
-	\item Plugins
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\frametitle{Discussion}
-	\begin{task}
-	What is your favourite configuration file format?
-	\end{task}
-
-	\begin{task}
-	Did you implement a configuration file parser and/or invented a new configuration file format?
-	\end{task}
-\end{assignment}
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	\frametitle{Semantics of Command-line Arguments}
-
-	\pause
-	\begin{itemize}
-	\item passed by main for a new process via \\ (\texttt{int argc, char ** argv})
-	\item visible for anyone: \texttt{/proc/self/cmdline}, e.g., via \texttt{ps aux}
-	\item could be passed along to subprocesses but hardly done
-	\item need to be parsed by process
-	\item portability: differences in parsing
-	\item cannot be changed from outside (requires restart, no IPC)
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Semantics of Environment Variables}
-
-	\pause
-	\begin{itemize}
-	\item are per-process
-	\item only static view by owner in \texttt{/proc/self/environ}
-	\item are not visible from other processes
-	\item subprocesses inherit by default
-	\item need to be parsed by process (\texttt{[extern] char **environ}) but API is provided (\texttt{getenv})
-	\item cannot be changed from outside (requires restart or an additional IPC mechanism)
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	What are the differences between mounting and cascading?
-	\end{task}
-\end{assignment}
-
-\subsection{Assignments}
-
-\begin{frame}
-	\frametitle{0.9.5 Release}
-
-	\begin{itemize}[<+-| alert@+>]
-	\item upgrade your installation to 0.9.5
-	\item read release notes \url{https://www.libelektra.org/news/0.9.5-release}
-	\item rebase PRs
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\frametitle{T1 Extra}
-
-	\begin{task}
-	Calculate complexity of your teamwork and add to PR.
-	\end{task}
-
-	See scripts/complexity.rb
-\end{assignment}
-
-
-\subsection{Preview}
-
-\begin{frame}
-	\frametitle{Feedback}
-	\hfill \includegraphics[width=2cm]{pics/feedback.png}
-	\vspace{-1cm}
-	\begin{itemize}
-		\item Slides added
-		\item Did TUWEL grading improve?
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Outlook}
-
-	Will be online within this week:
-	\begin{itemize}[<+-| alert@+>]
-	\item History of Configuration Management
-	\item CM Languages
-	\item CM Tools
-	\end{itemize}
-\end{frame}
+%\subsection{Recapitulation}
+%
+%\begin{frame}
+%	\begin{task}
+%	Do you have any questions?
+%	\end{task}
+%\end{frame}
+%
+%\begin{frame}
+%	\begin{alertblock}{Question}
+%	How can we share configuration settings?
+%	\end{alertblock}
+%
+%	\pause
+%	\begin{exampleblock}{Answer}
+%	\begin{itemize}
+%	\item Implement support directly in application.
+%	\item Override/fallback links in specification.
+%	\item Calculate/transform values in specification.
+%	\end{itemize}
+%	\end{exampleblock}
+%\end{frame}
+%
+%\begin{frame}[fragile]
+%	\frametitle{Definition Configuration File}
+%
+%	\pause
+%
+%	A \intro{configuration file} is a file containing configuration settings.
+%
+%	A Web server configuration file:
+%
+%	\begin{lstlisting}[gobble=4]
+%	port=80 ; comment
+%	address=127.0.0.1\end{lstlisting}
+%
+%	\only<2-2>{
+%	\begin{quest}
+%	What are keys? What are configuration values? What is metadata?
+%	\end{quest}
+%	}
+%	\pause
+%
+%	The configuration values are ^80^ and ^127.0.0.1^, respectively.
+%	Other information in the configuration file is metadata for the configuration settings (such as the comment).
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Configuration File Formats}
+%
+%	\begin{task}
+%	What are the trends?
+%	\only<1-1>{
+%	How can we deal with the many formats?
+%	}
+%	\end{task}
+%
+%	\pause
+%	\begin{itemize}
+%	\item away from CSV
+%	\item towards general-purpose serialization formats (INI, JSON)
+%	\item human-read/writable (YAML, TOML)
+%	\item programming language as configuration file
+%	\end{itemize}
+%
+%	\only<2-2>{
+%	\begin{task}
+%	How can we deal with the many formats?
+%	\end{task}
+%	}
+%
+%	\begin{itemize}
+%	\item Key-value
+%	\item Mounting
+%	\item Plugins
+%	\end{itemize}
+%\end{frame}
+%
+%\begin{assignment}
+%	\frametitle{Discussion}
+%	\begin{task}
+%	What is your favourite configuration file format?
+%	\end{task}
+%
+%	\begin{task}
+%	Did you implement a configuration file parser and/or invented a new configuration file format?
+%	\end{task}
+%\end{assignment}
+%
+%\begin{assignment}
+%	\begin{task}
+%	Break.
+%	\end{task}
+%\end{assignment}
+%
+%\begin{frame}
+%	\frametitle{Semantics of Command-line Arguments}
+%
+%	\pause
+%	\begin{itemize}
+%	\item passed by main for a new process via \\ (\texttt{int argc, char ** argv})
+%	\item visible for anyone: \texttt{/proc/self/cmdline}, e.g., via \texttt{ps aux}
+%	\item could be passed along to subprocesses but hardly done
+%	\item need to be parsed by process
+%	\item portability: differences in parsing
+%	\item cannot be changed from outside (requires restart, no IPC)
+%	\end{itemize}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Semantics of Environment Variables}
+%
+%	\pause
+%	\begin{itemize}
+%	\item are per-process
+%	\item only static view by owner in \texttt{/proc/self/environ}
+%	\item are not visible from other processes
+%	\item subprocesses inherit by default
+%	\item need to be parsed by process (\texttt{[extern] char **environ}) but API is provided (\texttt{getenv})
+%	\item cannot be changed from outside (requires restart or an additional IPC mechanism)
+%	\end{itemize}
+%\end{frame}
+%
+%\begin{assignment}
+%	\begin{task}
+%	What are the differences between mounting and cascading?
+%	\end{task}
+%\end{assignment}
+%
+%\subsection{Assignments}
+%
+%\begin{frame}
+%	\frametitle{0.9.5 Release}
+%
+%	\begin{itemize}[<+-| alert@+>]
+%	\item upgrade your installation to 0.9.5
+%	\item read release notes \url{https://www.libelektra.org/news/0.9.5-release}
+%	\item rebase PRs
+%	\end{itemize}
+%\end{frame}
+%
+%\begin{assignment}
+%	\frametitle{T1 Extra}
+%
+%	\begin{task}
+%	Calculate complexity of your teamwork and add to PR.
+%	\end{task}
+%
+%	See scripts/complexity.rb
+%\end{assignment}
+%
+%
+%\subsection{Preview}
+%
+%\begin{frame}
+%	\frametitle{Feedback}
+%	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+%	\vspace{-1cm}
+%	\begin{itemize}
+%		\item Slides added
+%		\item Did TUWEL grading improve?
+%	\end{itemize}
+%\end{frame}
+%
+%
+%\begin{frame}
+%	\frametitle{Outlook}
+%
+%	Will be online during eastern:
+%	\begin{itemize}[<+-| alert@+>]
+%	\item History of Configuration Management
+%	\item CM Languages
+%	\item CM Tools
+%	\end{itemize}
+%\end{frame}
 
 
 
