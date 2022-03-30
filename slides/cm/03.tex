@@ -11,22 +11,21 @@
 \section{Configuration Libraries}
 
 
-\begin{frame}
+\begin{frame}<1>[label=learning outcomes]
 	\frametitle{Learning Outcomes}
 	Students will be able to
 	\begin{itemize}
 	\item remember strategies for configuration integration.
 	\end{itemize}
 \end{frame}
-%TODO: add learning outcome
 
 \begin{frame}
 	\frametitle{Configuration Access APIs}
 
 	\Large
-	\ExecuteMetaData[../book/background.tex]{definition-api}
+	\ExecuteMetaData[../../book/background.tex]{definition-api}
 
-	\ExecuteMetaData[../book/background.tex]{definition-configuration-access}
+	\ExecuteMetaData[../../book/background.tex]{definition-configuration-access}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -43,7 +42,7 @@
 
 \begin{frame}[fragile]
 	\frametitle{Configuration Access Points}
-	\ExecuteMetaData[../book/background.tex]{definition-configuration-access-points}
+	\ExecuteMetaData[../../book/background.tex]{definition-configuration-access-points}
 
 	\begin{code}[language=Cpp,gobble=4,showspaces=no]
 	int main()
@@ -55,7 +54,7 @@
 
 \begin{frame}[fragile]
 	\frametitle{Configuration Libraries}
-	\ExecuteMetaData[../book/background.tex]{definition-configuration-library}
+	\ExecuteMetaData[../../book/background.tex]{definition-configuration-library}
 
 	Trends:
 	\begin{itemize}[<+-| alert@+>]
@@ -199,11 +198,7 @@
 
 \subsection{Recapitulation}
 
-\begin{frame}
-	\begin{task}
-	Do you have any questions?
-	\end{task}
-\end{frame}
+\againframe<99>{learning outcomes}
 
 \begin{frame}
 	\begin{task}
@@ -214,109 +209,70 @@
 
 \begin{frame}
 	\begin{alertblock}{Question}
-	How can we make applications to honor the configuration specification?
-	\end{alertblock}
-
-	\pause
-	\begin{exampleblock}{Answer}
-	Elektrify: Make the application use a configuration library that has support for configuration specifications.
-	\end{exampleblock}
-\end{frame}
-
-\begin{frame}
-	\begin{alertblock}{Question}
 	Which forms of configuration integration exist?
 	\end{alertblock}
 
-	\pause
 	\begin{exampleblock}{Answer}
 	\begin{itemize}
-	\item Lightweight Integration: Mount existing configuration files for configuration management tools
-	\item Medium Integration: Specify how to access via existing APIs
-	\item Strong Integration: Modify the application.
+	\item Lightweight Integration: Mount \only<2->{existing configuration files for CM tools}
+	\item Medium Integration: Specify \only<3->{how to access via existing APIs}
+	\item Strong Integration: Modify \only<4->{the application to use a configuration library that has support for configuration specifications.}
 	\end{itemize}
 	\end{exampleblock}
 \end{frame}
 
 \begin{frame}
 	\begin{alertblock}{Question}
-	%TODO: question not so good, improved in 05.tex
-	After we integrated some application, how can we share configuration settings?
+	Given a strong integration,
+	how can we reuse the same configuration setting for different applications?
 	\end{alertblock}
 
 	\pause
 	\begin{exampleblock}{Answer}
 	\begin{itemize}
-	\item Override/fallback links.
-	\item Calculate/transform values.
-	\item Mount context/hardware/system information.
+	\item Implement support directly in application to fetch setting from central location.
+	\item Override/fallback links in specification.
+	\item Calculate/transform values in specification.
+	\item Use CM code to copy the settings to all places as needed.
 	\end{itemize}
 	\end{exampleblock}
-\end{frame}
-
-
-\begin{frame}
-	\begin{task}
-	Explain mounting.
-	\end{task}
 \end{frame}
 
 \subsection{Assignments}
 
 \begin{frame}
+	\frametitle{H1}
+
+	\begin{task}
+	What do you want to do as homework?
+	\end{task}
+\end{frame}
+
+\begin{frame}
+	\frametitle{P0}
+
+	\begin{task}
+	Do you already have a suitable project?
+	\end{task}
+\end{frame}
+
+\begin{frame}
+	\frametitle{T0 Issues}
+
+	\begin{task}
+	Did you already find enough suitable issues?
+	\end{task}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Develop with Elektra}
 
 	\begin{task}
-	Can you already compile software using Elektra?
+	Can you already compile Elektra and software using Elektra?
 	\end{task}
 \end{frame}
-
-\begin{frame}
-	\frametitle{Teams}
-
-	\begin{task}
-	All teams formed?
-	\end{task}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Issues}
-
-	\begin{task}
-	Did you find suitable issues?
-	\end{task}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Reformatting}
-
-	\begin{task}
-	Can you reformat the code?
-	\end{task}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Running Tests}
-
-	\begin{task}
-	Can you run all the tests?
-	\end{task}
-\end{frame}
-
 
 \subsection{Preview}
-
-\begin{frame}
-	\frametitle{Feedback}
-	\hfill \includegraphics[width=2cm]{pics/feedback.png}
-	\vspace{-1cm}
-	\begin{itemize}
-		\item Videos?
-		\item More or less materials?
-		\item Do you use semester schedule?
-		\item Any suggestions for improvements?
-	\end{itemize}
-\end{frame}
 
 \begin{frame}
 	\frametitle{L04: Sources of Configuration}
@@ -325,6 +281,8 @@
 	\item Configuration file formats
 	\item Environment variables
 	\item Command-line arguments
+	\item Abstractions
+	\item Complexity
 	\end{itemize}
 \end{frame}
 
