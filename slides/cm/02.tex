@@ -3,6 +3,8 @@
 \title{L02 Configuration Specification Languages}
 %\date{17.03.2021}
 
+%TODO: Fix learning outcome
+
 \begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -339,8 +341,8 @@
 	\end{code}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Artefacts}
+\begin{frame}<1>[label=artifacts]
+	\frametitle{Artifacts}
 	\begin{itemize}
 	\item plugins in configuration framework (e.g. validate settings)
 	\item tooling (GUI, Web UI)
@@ -353,115 +355,135 @@
 
 
 \section{Meeting}
-%\subsection{Recapitulation}
-%
-%\begin{frame}
-%	\frametitle{Metalevels (Recapitulation)}
-%	\begin{alertblock}{Question}
-%	Describe the three Metalevels in Elektra.
-%	\end{alertblock}
-%
-%	\pause
-%	\includegraphics{metalevels}
-%\end{frame}
-%
-%\begin{assignment}
-%	\begin{task}
-%	Is meta-data separated from or included in the data structure KeySet?
-%	\end{task}
-%\end{assignment}
-%
-%\begin{assignment}
-%	\begin{task}
-%	Break.
-%	\end{task}
-%\end{assignment}
-%
-%\begin{assignment}
-%	\begin{task}
-%	What do we mean with a configuration specification?
-%	\end{task}
-%
-%	\begin{task}
-%	Which requirements do we have for a configuration specification?
-%	\end{task}
-%
-%	\pause
-%
-%	\begin{itemize}
-%	\item should be extensible
-%	\item should be external to application
-%	\item open for introspection (for tooling)
-%	\item should talk to users
-%	\item should allow generation of artefacts
-%	\end{itemize}
-%\end{assignment}
-%
-%\begin{assignment}
-%	\begin{task}
-%	What can be part of a configuration specification?
-%	What can they be used for?
-%	\end{task}
-%\end{assignment}
-%
-%\begin{assignment}
-%	\begin{task}
-%	Break.
-%	\end{task}
-%\end{assignment}
-%
-%\begin{assignment}
-%	\begin{task}
-%	Now, how do we implement such a specification?
-%	Which artefacts can we generate?
-%	\end{task}
-%\end{assignment}
-%
-%\subsection{Assignments}
-%
-%\begin{frame}
-%	\frametitle{Develop with Elektra}
-%
-%	\begin{task}
-%	Can you already compile software using Elektra?
-%	\end{task}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Teams}
-%
-%	\begin{task}
-%	All Teams formed?
-%	\end{task}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Reformatting}
-%
-%	\begin{task}
-%	Can you reformat the code?
-%	\end{task}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Running Tests}
-%
-%	\begin{task}
-%	Can you run all the tests?
-%	\end{task}
-%\end{frame}
-%
-%\subsection{L03: Configuration Integration}
-%
-%\begin{frame}
-%	\frametitle{Preview Next Week}
-%
-%	\begin{itemize}
-%	\item Configuration Libraries
-%	\item Lightweight to Strong Integration
-%	\item Sharing Configuration
-%	\end{itemize}
-%\end{frame}
+\subsection{Recapitulation}
+
+\begin{frame}
+	\frametitle{Metalevels (Recapitulation)}
+	\begin{alertblock}{Question}
+	Draw and describe the three Metalevels in Elektra.
+	\end{alertblock}
+
+	\pause
+	\includegraphics{metalevels}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Why do we need a data structure? \\
+	(E.g.\ why not directly manipulating key/values?)
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\begin{task}
+	What do we mean with a configuration specification? \\
+	Which requirements do we have for a configuration specification?
+	\end{task}
+
+	\pause
+
+	\begin{itemize}
+	\item should be extensible
+	\item should be external to application
+	\item open for introspection (for tooling)
+	\item should talk to users
+	\item should allow generation of artefacts
+	\end{itemize}
+\end{assignment}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\begin{task}
+	What can be part of a configuration specification?
+	What can they be used for?
+	\end{task}
+
+	(METADATA.ini in shared notes)
+\end{assignment}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\begin{task}
+	Now, how do we implement such a specification?
+	Which artifacts can we generate?
+	\end{task}
+\end{assignment}
+
+\againframe<99>{artifacts}
+
+\subsection{Assignments}
+
+\begin{frame}
+	\frametitle{Teams}
+
+	\begin{task}
+	All Teams formed?
+	\end{task}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Possible Tasks for P*}
+
+	\begin{itemize}
+	\item Elektra support for some configuration management tool
+	\item Integrate kdb tool in Latex or similar environments
+	\item Improve error messages in validations plugin (also T2)
+	\item Rewrite plugins to new comments style (also T2)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Working on H* together}
+
+	\begin{itemize}
+	\item working on the same application allowed!
+	\item simply use different configuration options
+	\end{itemize}
+
+	\begin{task}
+	Any applications already found?
+	\end{task}
+
+	Examples: gtimelog (Python), LanguageTool (Java), ...
+\end{frame}
+
+\begin{frame}
+	\frametitle{Develop with Elektra}
+
+	\begin{task}
+	Can you already compile software using Elektra?
+	\end{task}
+
+	\begin{task}
+	Can you reformat the code?
+	\end{task}
+
+	\begin{task}
+	Can you run all the tests?
+	\end{task}
+\end{frame}
+
+\subsection{L03: Configuration Integration}
+
+\begin{frame}
+	\frametitle{Preview Next Week}
+
+	\begin{itemize}
+	\item Configuration Libraries
+	\item Lightweight to Strong Integration
+	\item Sharing Configuration
+	\end{itemize}
+\end{frame}
 
 
 
