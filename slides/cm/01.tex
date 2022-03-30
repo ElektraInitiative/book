@@ -48,7 +48,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Definitions}
 
-\begin{frame}
+\begin{frame}<1>[label=learning outcomes]
 	\frametitle{Learning Outcomes}
 	Students will be able to
 	\begin{itemize}
@@ -78,6 +78,14 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Metalevels}
+
+\begin{frame}<1>[label=learning outcomes metalevels]
+	\frametitle{Learning Outcomes}
+	Students will be able to
+	\begin{itemize}
+	\item describe three metalevels of configuration
+	\end{itemize}
+\end{frame}
 
 \begin{frame}
 	\frametitle{Metalevels}
@@ -269,160 +277,239 @@
 \end{frame}
 
 \section{Meeting}
-%\subsection{Recapitulation}
-%{
-%\shadowcolor{black}
-%\shadowoffset{0.5pt}
-%\usebackgroundtemplate{\includegraphics[width=\paperwidth]{pics/clouds.jpg}}%
-%\begin{frame}
-%	\frametitle{\shadowtext{Misconfiguration (Recapitulation)}}
-%
-%	\pause
-%
-%	\begin{itemize}
-%		\item   \textcolor{white}{\shadowtext{\empha[misconfiguration]{misconfigurations}~\cite{yin2011empirical,su2007autobash,attariyan2010automating,xu2015systems} are a major cause}}\\
-%			\textcolor{white}{\shadowtext{of system failures~\cite{wool2004quantitative,oppenheimer2003internet,pertet2005causes}}}
-%		\item   \textcolor{white}{\shadowtext{much time is needed to fix misconfigurations~\cite{rabkin2011static,oppenheimer2003internet,yin2011empirical,mahajan2002bgp}}}
-%	\end{itemize}
-%\end{frame}
-%}
-%
-%\begin{frame}
-%	\frametitle{Configuration Setting (Recapitulation)}
-%
-%	\pause
-%
-%	\input{../shared/def/configurationsetting.tex}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Metalevels (Recapitulation)}
-%	\begin{alertblock}{Question}
-%	Describe the three Metalevels in Elektra.
-%	\end{alertblock}
-%
-%	\pause
-%	\includegraphics{metalevels}
-%\end{frame}
-%
-%\begin{assignment}
-%	\begin{task}
-%	Break.
-%	\end{task}
-%\end{assignment}
-%
-%
-%\begin{assignment}
-%	\begin{task}
-%	Is meta-data separated from or included in the data structure KeySet?
-%	\end{task}
-%\end{assignment}
-%
-%
-%\begin{frame}
-%	\frametitle{KeySet (Recapitulation)}
-%
-%	\begin{alertblock}{Question}
-%	Describe the common data structure in Elektra.
-%	\end{alertblock}
-%
-%	\vspace{1cm}
-%	\pause
-%
-%	\includegraphics{keyset}
-%\end{frame}
-%
-%\subsection{Assignments}
-%
-%\begin{frame}
-%	\frametitle{Pull Requests}
-%
-%	\begin{task}
-%	H0: public pull request
-%	\end{task}
-%
-%	\begin{itemize}
-%	\item build server and reviews take time
-%	\item make sure to modify \texttt{doc/news/\_preparation\_next\_release.md} according to instructions
-%	\item we use automatic formatter of code
-%	\end{itemize}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Install Elektra}
-%
-%	\begin{task}
-%	Did you already install Elektra?
-%	How did you do it?
-%	\end{task}
-%
-%	For example via Docker image:
-%	\begin{itemize}
-%	\item Debian Buster
-%	\item Alpine: \texttt{docker run -it elektra/elektra}
-%	\end{itemize}
-%\end{frame}
-%
-%\begin{assignment}
-%	\begin{task}
-%	Break.
-%	\end{task}
-%\end{assignment}
-%
-%\begin{frame}
-%	\frametitle{First Steps with Elektra}
-%
-%	\begin{task}
-%	How have your first steps been?
-%	\end{task}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Variant}
-%
-%	\begin{task}
-%	T1: choose variant
-%	\end{task}
-%
-%	\begin{itemize}
-%	\item Change in T1: required -> require
-%	\item Do you already have ideas for FLOSS?
-%	\end{itemize}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Homework}
-%
-%	\begin{task}
-%	H1: Homework Topic?
-%	\end{task}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Feedback}
-%	\hfill \includegraphics[width=2cm]{pics/feedback.png}
-%	\vspace{-1cm}
-%	\begin{itemize}
-%		\item Please fill out in TUWEL
-%		\item Reverse Classroom?
-%		\item Materials?
-%		\item Any suggestions for improvements?
-%	\end{itemize}
-%\end{frame}
-%
-%\subsection{L02: Configuration Specification Languages}
-%
-%\begin{frame}
-%	\frametitle{Preview Next Week}
-%
-%	L02: Configuration Specification Languages
-%
-%	\begin{itemize}
-%	\item to avoid misconfiguration
-%	\item to allow systematic introspection
-%	\item see TUWEL
-%	\end{itemize}
-%\end{frame}
+
+\begin{assignment}
+	\frametitle{Language of the Talk?}
+	\begin{task}
+	\begin{description}
+	\item[A] English
+	\item[B] Slightly Prefer English
+	\item[C] Both are fine
+	\item[D] Slightly Prefer German
+	\item[E] German
+	\item[F] Don't care
+	\end{description}
+	\end{task}
+
+	\begin{task}
+	Which language do you prefer?
+
+	You can speak in either English or German in any case.
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\frametitle{Video}
+	I am keeping meetings short with many breaks. \\
+	You are allowed to:
+	\begin{itemize}
+		\item stretch
+		\item move
+		\item eat
+		\item look somewhere else
+		\item leave your place
+	\end{itemize}
+	\begin{task}
+	But please turn video on.
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	\frametitle{Interesting Topics}
+
+	\begin{itemize}
+	\item CM-Tools: Ansible, Puppet IIIII
+	\item configuration versioning II
+	\item Validation II
+	\item Spring Initializr (https://start.spring.io/) I
+	\item Infrastructure CM I
+	\item Specification and Integration I
+	\item Integration (Common view on different configuration sources) I
+	\item Kubernetes CM I
+	\item Docker Compose YAML I
+	\end{itemize}
+
+	\begin{alertblock}{Question}
+	Did other topics come up?
+	\end{alertblock}
+\end{frame}
+
+\againframe<99>{learning outcomes}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
+\subsection{Recapitulation}
+{
+\shadowcolor{black}
+\shadowoffset{0.5pt}
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{pics/clouds.jpg}}%
+\begin{frame}
+	\frametitle{\shadowtext{Misconfiguration}}
+	\begin{alertblock}{Question}
+	What are misconfigurations?
+	\end{alertblock}
+
+	\pause
+
+	\begin{itemize}
+		\item   \textcolor{white}{\shadowtext{\empha[misconfiguration]{misconfigurations}~\cite{yin2011empirical,su2007autobash,attariyan2010automating,xu2015systems} are a major cause}}\\
+			\textcolor{white}{\shadowtext{of system failures~\cite{wool2004quantitative,oppenheimer2003internet,pertet2005causes}}}
+		\item   \textcolor{white}{\shadowtext{much time is needed to fix misconfigurations~\cite{rabkin2011static,oppenheimer2003internet,yin2011empirical,mahajan2002bgp}}}
+	\end{itemize}
+\end{frame}
+}
+
+\begin{frame}
+	\frametitle{Configuration Setting}
+	\begin{alertblock}{Question}
+	Define Configuration Settings.
+	\end{alertblock}
+
+	\pause
+
+	\input{../shared/def/configurationsetting.tex}
+\end{frame}
+
+\againframe<99>{learning outcomes metalevels}
+
+\begin{frame}
+	\frametitle{Metalevels}
+	\begin{alertblock}{Question}
+	Describe the three Metalevels in Elektra.
+	\end{alertblock}
+
+	\pause
+	\includegraphics{metalevels}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
+
+
+\begin{frame}
+	\frametitle{KeySet}
+
+	\begin{alertblock}{Question}
+	Describe the common data structure in Elektra.
+	\end{alertblock}
+
+	\vspace{1cm}
+	\pause
+
+	\includegraphics{keyset}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Is meta-data separated from or included in the data structure KeySet?
+	\end{task}
+\end{assignment}
+
+\subsection{Assignments}
+
+\begin{frame}
+	\frametitle{Install Elektra}
+
+	\begin{task}
+	Did you already install Elektra?
+	How did you do it?
+	\end{task}
+
+	For example via Docker image:
+	\begin{itemize}
+	\item Debian Buster
+	\item Alpine: \texttt{docker run -it elektra/elektra}
+	\end{itemize}
+
+	\begin{task}
+	Demo afterwards.
+	\end{task}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pull Requests}
+
+	\begin{task}
+	H0: public pull request
+	\end{task}
+
+	\begin{itemize}
+	\item build server and reviews take time
+	\item make sure to modify \texttt{doc/news/\_preparation\_next\_release.md} according to instructions
+	\item we use automatic formatter of code (can also be done via Docker)
+	\end{itemize}
+\end{frame}
+
+\begin{assignment}
+	\begin{task}
+	Break.
+	\end{task}
+\end{assignment}
+
+\begin{frame}
+	\frametitle{First Steps with Elektra}
+
+	\begin{task}
+	How have your first steps been?
+	\end{task}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Variant}
+
+	\begin{task}
+	H1: choose variant
+	\end{task}
+
+	\begin{itemize}
+	\item Do you already have ideas for FLOSS?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Teamwork/Project}
+
+	\begin{task}
+	T0/P0: Topics?
+	\end{task}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Feedback}
+	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+	\vspace{-1cm}
+	\begin{itemize}
+		\item Materials?
+		\item Accessibility?
+		\item Any suggestions for improvements?
+	\end{itemize}
+\end{frame}
+
+\subsection{L02: Configuration Specification Languages}
+
+\begin{frame}
+	\frametitle{Preview Next Week}
+
+	L02: Configuration Specification Languages
+
+	\begin{itemize}
+	\item to avoid misconfiguration
+	\item to allow systematic introspection
+	\item see TUWEL
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{D0: Install Elektra}
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
