@@ -1,29 +1,22 @@
 \input{setup}
 
-% TODO: make much shorter, remove most of history
-% TODO: make CM Lang optional, move away?
-% TODO: add important properties (from L07) needed for T3:
-%    idempotence
-%    only partial changes
-%    self-description
-%    round-tripping
-%    error handling
-
 \title{L05 Configuration Management}
-\date{21.04.2021}
 
 \begin{document}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{History of CM}
+\section{CM Tools}
 
 \begin{frame}
 	\frametitle{Learning Outcomes}
 	Students will be able to
 	\begin{itemize}
-	\item write simple configuration management scripts.
-	\item (remember differences between CM languages and historical approaches.)
+	% directly from TISS:
+	\item describe systematic approaches for configuration management \\ and exemplary configuration management tools.
+
+	% earlier:
+	%\item write simple configuration management scripts.
+	%\item (remember differences between CM languages and historical approaches.)
 	%\item connect needs of CM tools with configuration specifications.
 	%\item remember the history of configuration management.
 	%\item contextualize CM languages with the view point of administrators.
@@ -33,101 +26,71 @@
 \begin{frame}
 	\frametitle{Definition}
 
-	\intro[configuration management]{Configuration Management}:
+	\intro[configuration management]{Configuration Management}
 
-	\begin{itemize}
-	\item is a discipline in which configuration (in the broader sense) is administered.
-	\item makes sure computers are assembled from desired parts and the correct applications are installed.
-	\item ensures that the execution environment of installed applications is as required.
+	\vspace{1cm}
+	system administrator:
+	\pause
+
+	\begin{itemize}[<+-| alert@+>]
+	\item ensures computers are assembled from desired parts (inventory list)
+	\item ensures correct applications are installed
+	\item maintains files/databases
+	\item monitors infrastructure
+	\item \intro{manipulates configuration settings}
 	\end{itemize}
 \end{frame}
-
 
 \begin{frame}
 	\frametitle{Definition}
 
 	\intro[configuration management tool]{Configuration Management Tools}:
 
-	\pause
-
-	\begin{itemize}
-	\item help people involved in configuration management.
-	\item have means to describe the desired configuration of the whole managed system.
-	\item try to converge the actual configuration to the desired one~\cite{burgess1995cfengine}.
+	\begin{itemize}[<+-| alert@+>]
+	\item help system administrators in configuration management
+	\item describe the desired configuration of the whole managed system
+	\item converge the actual configuration to the desired one~\cite{burgess1995cfengine}
 	\end{itemize}
 \end{frame}
-
-
-\begin{frame}
-	\frametitle{}
-
-	Challenging tasks in configuration management:
-
-	\pause
-
-	\begin{itemize}
-	\item inventory list
-	\item installing packages
-	\item monitoring
-	\item add/replace machines
-	\item maintaining files/databases
-	\item \intro{configuration file manipulation}
-	\end{itemize}
-\end{frame}
-
-%TODO: add more examples!
-
 
 \begin{frame}
 	\frametitle{Cloning}
 
 	It all started with:
 
-	\begin{itemize}
-	\item clone all files with dd, rdist, rsync or unison (``golden image'')
+	\begin{itemize}[<+-| alert@+>]
+	\item clone all files with rdist, NFS, rsync or unison (``golden image'')
 	\item then do necessary modifications with scripts or profiles
 	\end{itemize}
 
-	\pause
+	\vspace{1cm}
+	\pause[\thebeamerpauses]
 
 	\setbeamersize{description width=1cm}
-	\begin{description}
+	\begin{description}[<+-| alert@+>]
 	\item[$+$] works good for many identical stateless machines
 	\item[$-$] fails if differences between machines are too big
 	\end{description}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Scripts}
-
-	First improvement: have a script to create the ``golden image''.
-	Possible benefits:
-
-	\begin{itemize}[<+-| alert@+>]
-	\item Documentation
-	\item Customization (using configuration settings)
-	\item \textbf{Reproducability}: Reproduce creation using different operating system versions
-	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{Profiles}
 
 	\intro[profile]{Profiles} are groups of configuration settings between which the user can easily switch.
-
 	\begin{itemize}
-	\item by hostname, information EEPROM, manual selection, \dots
+	\item by hostname, EEPROM, \dots
 	\item can be activated via the ^profile^ plugin:
 	\end{itemize}
 
 	\begin{code}[morekeywords={long},gobble=4]]
 	[application/profile]
-	  type:=string
-	  opt:=p
-	  opt/long:=profile
-	  default:=current
+	type:=string
+	opt:=p
+	opt/long:=profile
+	default:=current
 	\end{code}
 
+	\pause
 	with a config like:
 	\begin{code}[gobble=4,language=CfgElektra]
 	application/current/key = "current"
@@ -136,80 +99,105 @@
 	\end{code}
 \end{frame}
 
-
 \begin{frame}
-	\frametitle{First four configuration management tools}
-	Cloning, and then NIS/NFS, was state of the art for a long time, until in 1994 when \enquote{the community nearly exploded with four new configuration systems}~\cite{evard1997analysis}:
+	\frametitle{Scripts}
 
-	\ExecuteMetaData[../book/background.tex]{configuration-management-first-four}
+	Next improvement: have a script to create the ``golden image''.
+	Possible benefits:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Documentation
+	\item Customization (using configuration settings)
+	\item \textbf{Reproducability}: Reproduce creation using different operating system versions
+	\end{itemize}
+
+	\pause[\thebeamerpauses]
+	\vspace{1cm}
+	Possible problems:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item imperative style
+	\item configuration drift
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Possible Benefits}
+	\frametitle{Possible Benefits of CM tools}
 
 	\begin{itemize}[<+-| alert@+>]
 	\item All advantages scripts have: \\
 		Documentation, Customization, Reproducability
 	\item Declarative description of the system \\
 		(Infrastructure as Code~\cite{waldemar2013testing})
-	\item Less configuration drift
 	\item Error handling
-	\item Pull/Push
 	\item Reusability
-	\item (Resource) Abstractions
+	\item Abstractions
 	\end{itemize}
 \end{frame}
-
-%TODO: move CM Languages
-% add instead:
-%  precise editing
-%  pull vs. push
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{CM Languages}
-
-\begin{frame}
-	\frametitle{See Reading Text}
-
-	See accompanied reading text for this section.
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{CM Tools}
 
 \begin{frame}
 	\frametitle{List of CM tools}
 
 	\begin{itemize}[<+-| alert@+>]
 	\item CFengine (1993)
-	\item LCFG (1994)
-	\item Quattor (2005)
-	\item Puppet (2005), Bolt (2018)
+	\item Puppet (2005)
 	\item Chef (2009)
+	\item cdist (2010) % https://www.cdi.st/cdist-why.html
 	\item Salt (2011)
 	\item Ansible (2012)
 	\item Itamae (2014)
-	\item Puppet 
-	\item OpsMops (2019)
-	% TODO: something new?
+	\item Bolt (2018) % https://puppet.com/docs/bolt/latest/bolt.html
+%	\item Uyuni (2018) % https://www.uyuni-project.org/
+	\item Transilience (2020, no release yet) % https://github.com/spanezz/transilience/
+	% TODO: always check for something new
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Key-value Access}
+
+\begin{frame}
+	\frametitle{Layers of Abstractions}
+
+	Recursively define useful abstractions (meta-levels):
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Bits in (configuration) files and memory
+	\item \emph{Key/value view of configuration settings}
+	\vspace{1em}
+	\item CM code to instantiate settings in the whole network
+	\item Global optimization: allocation of nodes and decision regarding topology
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Precise Editing}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Precise editing is natural for humans.
+	\item Preserves (security-relevant!) defaults.
+	\end{itemize}
+
+	\vspace{1cm}
+	\pause[\thebeamerpauses]
+	In CM following methods are used:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item replace full content of configuration files (with templates)
+	\item line based manipulation (e.g., file\_line): match line and replace it
+	\item Augeas/XML: match a key with XPath and replace it
+	\item Elektra: key/value access
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
 	Key/value access in puppet-libelektra~\cite{raab2020unified}:
-	\vspace{0.5cm}
+	\vspace{1cm}
 
 	\begin{code}[morekeywords={kdbkey,kdbmount,ensure,value},gobble=4]
-	kdbkey {'/slapd/threads/listener':
+	kdbkey {'system:/slapd/threads/listener':
 		ensure => 'present',
 		value => '4'
-		check => {
-			'type' => 'short',
-			'range' => '1,2,4,8,16',
-			'default' => '1'
-		}
 	}
 	\end{code}
 \end{frame}
@@ -239,12 +227,11 @@
 
 \begin{frame}[fragile]
 	Key/value specifications in puppet-libelektra:
-	%TODO: make more clear that this is an error
 
 	\begin{code}[morekeywords={kdbkey,ensure,value},gobble=4]
 	kdbkey {'system:/sw/samba/global/log level':
 		ensure => 'present',
-		value => 'MY_WORKGROUP',
+		value => 'MY_WORKGROUP', # not an int
 		check => {
 			'type' => 'short',
 			'range' => '0-10',
@@ -264,8 +251,6 @@
 	kdbkey {'spec:/xfce/pointers/Mouse/RightHanded':
 		ensure => 'present',
 		check => {
-			'namespaces/#0' => 'user',
-			'namespaces/#1' => 'system',
 			'visibility' => 'important',
 			'default' => 'false',
 			'check/type' => 'boolean'
@@ -291,7 +276,7 @@
 	\vspace{0.5cm}
 
 	\begin{code}[morekeywords={kdbset,do,action,value,end},gobble=4]
-	kdbset '/slapd/threads/listener' do
+	kdbset 'system:/slapd/threads/listener' do
 		value '4'
 		action :create
 	end
@@ -314,42 +299,23 @@
 	  tasks:
 	  - name: set listening threads
 	    elektra:
-	      mountpoint: /slapd
+	      mountpoint: system:/slapd
 	      keys:
 	        threads:
 	          listener: 4
 	\end{code}
 \end{frame}
 
-
-\begin{frame}[fragile]
-	Key/value access in Ansible:
-
-	\begin{code}[morekeywords={name,connection,key,value,elektra,mountpoint,file,plugins,hosts,tasks},gobble=4]
-	- name: setup samba
-	  connection: local
-	  hosts: localhost
-	  tasks:
-	  - name: set workgroup
-	    elektra:
-	      mountpoint: system:/sw/samba
-	      keys:
-	        global:
-	          workgroup: MY_WORKGROUP
-	\end{code}
-\end{frame}
-
 \begin{frame}
-	\frametitle{Key/Values Revisited}
+	\frametitle{Key/Values}
 
 	Decide about \textbf{changeability} per key:
 
 	\begin{itemize}[<+-| alert@+>]
-	\item Who is responsible (end user, packages, admin manual or CM).
-	\item In which namespaces apps search the key (cascading lookup).
-	\item Who can see it (visibility).
-	\item Who can edit it (admin, end user, both).
-	\item Which configuration values are allowed (validation).
+	\item Who is responsible (end user, packages, system administrator manual or CM)?
+	\item Who can see it (visibility)?
+	\item Who can edit it (system administrator, end user, both)?
+	\item Which configuration values are allowed (validation)?
 	\end{itemize}
 
 	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
@@ -359,59 +325,62 @@
 	\end{alertblock}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{CM Design}
+
+\begin{frame}<1>[label=idempotence]
+	\frametitle{Idempotence}
+
+	\only<1>{
+	idem + potence (same + power)
+	\vspace{2em}
+	}
+
+	\only<1,3>{
+	Yield same result with any number of applications ($n\ge1$):
+		
+	\[
+		f(f(x))=f(x)
+	\]
+	}
+\end{frame}
+
 \begin{frame}
-	\frametitle{Layers of Abstractions}
+	\citet{wadler2003xml} describe two further properties:
+	\vspace{2em}
 
-	Recursively define useful abstractions (meta-levels):
+	\begin{description}
+	\item[Self-describing]
+	means that from the configuration file alone we are able to derive the correct data structure~\cite{wadler2003xml}.
 
-	\begin{itemize}[<+-| alert@+>]
-	\item Bits in (configuration) files and memory
-	\item Key/value view of configuration settings
-	\item Goals/specifications of settings per node and instantiations of modules
-	\vspace{1em}
-	\item CM code to instantiate settings in the whole network
-	\item Global optimization: allocation of nodes and decision regarding topology in the whole network
-	\item Global goals/specifications of the whole network
-	\end{itemize}
+	\item[Round-tripping]
+	means that if a data structure is serialized and then parsed again, we end up with an identical data structure~\cite{wadler2003xml}.
+	\end{description}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Design Rules~\cite{burgess2006modeling}}
 
 	\begin{itemize}[<+-| alert@+>]
-	\item Factor processes into containers to avoid overlaps in settings.
 	\item Maintain clear separation of ownership (for every key).
+	\item Factor processes into containers to avoid overlaps in settings.
 	\item Specify replicated settings in a single source (use links and derivations).
 	\item Document all remaining overlaps (in the specification).
 	\item The manageability of settings is reduced by the number of possible configuration values.
 	\end{itemize}
 \end{frame}
 
-
-\begin{frame}
-	\frametitle{Open Topics}
-
-	\begin{itemize}[<+-| alert@+>]
-	\item global optimizations/self-healing
-	\item configuration integration
-	\item safe migrations of settings and data
-	\item collaboration
-	\item management (including knowledge)
-	\item centralized vs.\ distributed
-	\end{itemize}
-\end{frame}
-
-
 \begin{frame}
 	\frametitle{Conclusion}
 
 	\begin{itemize}[<+-| alert@+>]
-	\item have unique identifier for your configurations settings \\ $\rightarrow$ allows to get/set configurations and specifications
+	\item unique identifiers \\ $\rightarrow$ allows to get/set configurations and specifications
 	\item solving CM is solving constraints \\ $\rightarrow$ be aware of the specifications
 	\item do not design around tools but design tools around you
-	\item be brave and remove all configuration settings you can
+	\item change only settings you need
 	\item use all help you can get: e.g.\ build tools, preseeding, installer automation, virtualization, package managers, distributions
-	\item complexity in CM vs.\ complexity in applications' specification
+%	\item be brave and remove all configuration settings you can
+%	\item complexity in CM vs.\ complexity in applications' specification
 %	\item modularity is essential for validation and legacy support
 %	\item artifact generation improves consistency and type safety
 	\end{itemize}
@@ -422,141 +391,153 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Meeting}
 
-\subsection{Recapitulation}
-
-\begin{frame}
-	\begin{alertblock}{Question}
-	How can we reuse the same configuration setting for different applications?
-	\end{alertblock}
-
-	\pause
-	\begin{exampleblock}{Answer}
-	\begin{itemize}
-	\item Use CM code to copy the settings to all places as needed.
-	\item Implement support directly in application to fetch setting from central location.
-	\item Override/fallback links in specification.
-	\item Calculate/transform values in specification.
-	\end{itemize}
-	\end{exampleblock}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Definition}
-
-	\intro[configuration management]{Configuration Management}:
-
-	\pause
-
-	\begin{itemize}
-	\item is a discipline in which configuration (in the broader sense) is administered.
-	\item makes sure computers are assembled from desired parts and the correct applications are installed.
-	\item ensures that the execution environment of installed applications is as required.
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Definition}
-
-	\intro[configuration management tool]{Configuration Management Tools}:
-
-	\pause
-
-	\begin{itemize}
-	\item help people involved in configuration management.
-	\item have means to describe the desired configuration of the whole managed system.
-	\item try to converge the actual configuration to the desired one~\cite{burgess1995cfengine}.
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	\frametitle{Possible Benefits of CM}
-
-	\pause
-
-	\begin{itemize} % [<+-| alert@+>]
-	\item All advantages scripts have: \\
-		Documentation, Customization, Reproducability
-	\item Declarative description of the system \\
-		(Infrastructure as Code~\cite{waldemar2013testing})
-	\item Less configuration drift
-	\item Error handling
-	\item Pull/Push
-	\item Reusability
-	\item (Resource) Abstractions
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Design Rules of CM~\cite{burgess2006modeling}}
-
-	\pause
-
-	\begin{itemize} %[<+-| alert@+>]
-	\item Factor processes into containers to avoid overlaps in settings.
-	\item Maintain clear separation of ownership (for every key).
-	\item Specify replicated settings in a single source (use links and derivations).
-	\item Document all remaining overlaps (in the specification).
-	\item The manageability of settings is reduced by the number of possible configuration values.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{CM Languages}
-
-	\begin{itemize}[<+-| alert@+>]
-	\item What is the relationship to software configuration management (Proteus/PCL)?
-	\item[] Build systems may provide configuration management features.
-	\item How is it possible to provide referential transparency both for the configuration specification language and for the system itself (NIX, GNU Guix)?
-	\item[] By functional languages and file system (layouts).
-	\item Which notations for CM exist?
-	\item[] Text,  Graphical (UML), Semi-structured, Key-value, Structured
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
-\subsection{Assignments}
-
-\begin{assignment}
-	Today: T1/H1 corrections
-\end{assignment}
-
-\begin{assignment}
-	Please add slides for talk in private git repo at least one week in advance.
-\end{assignment}
-
-\begin{assignment}
-	Task for H3?
-\end{assignment}
-
-\begin{assignment}
-	Which CM language do you want to use for T3?
-\end{assignment}
-
-\subsection{Preview}
-
-\begin{frame}
-	\frametitle{Outlook}
-
-	Will be online soon:
-	\begin{itemize}[<+-| alert@+>]
-	\item validation techniques
-	\item writing plugins
-	\end{itemize}
-\end{frame}
-
-
+%\subsection{Recapitulation}
+%
+%\begin{frame}
+%	\begin{alertblock}{Question}
+%	How can we reuse the same configuration setting for different applications?
+%	\end{alertblock}
+%
+%	\pause
+%	\begin{exampleblock}{Answer}
+%	\begin{itemize}
+%	\item Use CM code to copy the settings to all places as needed.
+%	\item Implement support directly in application to fetch setting from central location.
+%	\item Override/fallback links in specification.
+%	\item Calculate/transform values in specification.
+%	\end{itemize}
+%	\end{exampleblock}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Definition}
+%
+%	\intro[configuration management]{Configuration Management}:
+%
+%	\pause
+%
+%	\begin{itemize}
+%	\item is a discipline in which configuration (in the broader sense) is administered.
+%	\item makes sure computers are assembled from desired parts and the correct applications are installed.
+%	\item ensures that the execution environment of installed applications is as required.
+%	\end{itemize}
+%\end{frame}
+%
+%
+%\begin{frame}
+%	\frametitle{Definition}
+%
+%	\intro[configuration management tool]{Configuration Management Tools}:
+%
+%	\pause
+%
+%	\begin{itemize}
+%	\item help people involved in configuration management.
+%	\item have means to describe the desired configuration of the whole managed system.
+%	\item try to converge the actual configuration to the desired one~\cite{burgess1995cfengine}.
+%	\end{itemize}
+%\end{frame}
+%
+%\begin{assignment}
+%	\begin{task}
+%	Break.
+%	\end{task}
+%\end{assignment}
+%
+%\begin{frame}
+%	\frametitle{Possible Benefits of CM}
+%
+%	\pause
+%
+%	\begin{itemize} % [<+-| alert@+>]
+%	\item All advantages scripts have: \\
+%		Documentation, Customization, Reproducability
+%	\item Declarative description of the system \\
+%		(Infrastructure as Code~\cite{waldemar2013testing})
+%	\item Less configuration drift
+%	\item Error handling
+%	\item Pull/Push
+%	\item Reusability
+%	\item (Resource) Abstractions
+%	\end{itemize}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Design Rules of CM~\cite{burgess2006modeling}}
+%
+%	\pause
+%
+%	\begin{itemize} %[<+-| alert@+>]
+%	\item Factor processes into containers to avoid overlaps in settings.
+%	\item Maintain clear separation of ownership (for every key).
+%	\item Specify replicated settings in a single source (use links and derivations).
+%	\item Document all remaining overlaps (in the specification).
+%	\item The manageability of settings is reduced by the number of possible configuration values.
+%	\end{itemize}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{CM Languages}
+%
+%	\begin{itemize}[<+-| alert@+>]
+%	\item What is the relationship to software configuration management (Proteus/PCL)?
+%	\item[] Build systems may provide configuration management features.
+%	\item How is it possible to provide referential transparency both for the configuration specification language and for the system itself (NIX, GNU Guix)?
+%	\item[] By functional languages and file system (layouts).
+%	\item Which notations for CM exist?
+%	\item[] Text,  Graphical (UML), Semi-structured, Key-value, Structured
+%	\end{itemize}
+%\end{frame}
+%
+%\begin{assignment}
+%	\begin{task}
+%	Break.
+%	\end{task}
+%\end{assignment}
+%
+%\subsection{Assignments}
+%
+%\begin{assignment}
+%	Today: T1/H1 corrections
+%\end{assignment}
+%
+%\begin{assignment}
+%	Please add slides for talk in private git repo at least one week in advance.
+%\end{assignment}
+%
+%\begin{assignment}
+%	Task for H3?
+%\end{assignment}
+%
+%\begin{assignment}
+%	Which CM language do you want to use for T3?
+%\end{assignment}
+%
+%\begin{frame}
+%	\frametitle{Feedback}
+%	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+%	\vspace{-1cm}
+%	\begin{itemize}
+%		\item Videos?
+%		\item More or less materials?
+%		\item Do you use semester schedule?
+%		\item Any suggestions for improvements?
+%	\end{itemize}
+%\end{frame}
+%
+%\subsection{Preview}
+%
+%\begin{frame}
+%	\frametitle{Outlook}
+%
+%	Will be online soon:
+%	\begin{itemize}[<+-| alert@+>]
+%	\item validation techniques
+%	\item writing plugins
+%	\end{itemize}
+%\end{frame}
+%
+%
 
 \appendix
 
