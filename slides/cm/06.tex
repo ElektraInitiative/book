@@ -1,7 +1,7 @@
 \input{setup}
 
 \title{L06 Strategies for Validation and Modularization}
-\date{28.04.2021}
+%\date{28.04.2021}
 
 \begin{document}
 
@@ -173,7 +173,7 @@ Configfile: /etc/testfile.conf
 \begin{frame}
 	\frametitle{Types of Modularity}
 	\Large
-	\ExecuteMetaData[../book/backend.tex]{definition-modularity}
+	\ExecuteMetaData[../../book/backend.tex]{definition-modularity}
 \end{frame}
 
 \subsection{Vertical}
@@ -321,7 +321,7 @@ Configfile: /etc/testfile.conf
 
 \begin{frame}
 	\Large
-	\ExecuteMetaData[../book/approach.tex]{definition-plugins}
+	\ExecuteMetaData[../../book/approach.tex]{definition-plugins}
 \end{frame}
 
 \begin{frame}
@@ -394,144 +394,144 @@ Configfile: /etc/testfile.conf
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Meeting}
 
-\subsection{Recapitulation}
-
-\begin{frame}
-	\frametitle{Definition}
-
-	\intro[configuration management tool]{Configuration Management Tools}:
-
-	\pause
-
-	\begin{itemize}
-	\item help people involved in configuration management.
-	\item have means to describe the desired configuration of the whole managed system.
-	\item try to converge the actual configuration to the desired one~\cite{burgess1995cfengine}.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Possible Benefits of CM}
-
-	\pause
-
-	\begin{itemize} % [<+-| alert@+>]
-	\item All advantages scripts have: \\
-		Documentation, Customization, Reproducability
-	\item Declarative description of the system \\
-		(Infrastructure as Code~\cite{waldemar2013testing})
-	\item Less configuration drift
-	\item Error handling
-	\item Pull/Push
-	\item Reusability
-	\item (Resource) Abstractions
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{CM Languages}
-
-	\begin{itemize}[<+-| alert@+>]
-	\item What is the relationship to software configuration management (Proteus/PCL)?
-	\item[] Build systems may provide configuration management features.
-	\item How is it possible to provide referential transparency both for the configuration specification language and for the system itself (NIX, GNU Guix)?
-	\item[] By functional languages and file system (layouts).
-	\item Which notations for CM exist?
-	\item[] Text,  Graphical (UML), Semi-structured, Key-value, Structured
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	\frametitle{Checking Configurations vs. Specifications}
-
-	\pause
-
-	E.g. following properties of configuration settings can be checked:
-
-	\begin{itemize}
-	\item values (data types)
-	\item structure
-	\item constraints
-	\item semantic checks (e.g., IP, folder)
-	\item domain-specific checks (e.g., databases)
-	\end{itemize}
-
-	\vspace{1em}
-	E.g. following properties of configuration specifications can be checked:
-
-	\begin{itemize}
-	\item Types of default values must be compatible with the types of the keys.
-	\item Defaults must be present for safe lookups.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Error Messages}
-
-	Problems:
-	\begin{itemize} %[<+-| alert@+>]
-	\item Generic vs.\ specific plugins
-	\item General principles of good error messages~\cite{lee2011personifying}
-	\item Give context
-	\item Precisely locate the cause
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Types of Modularity}
-	\Large
-	\ExecuteMetaData[../book/backend.tex]{definition-modularity}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Metadata}
-
-	\includegraphics{metadata}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
-\subsection{Assignments}
-
-\begin{assignment}
-	Please add slides for talk in TUWEL \textbf{and} private git repo, dates:
-
-	\begin{itemize}[<+-| alert@+>]
-	\item 12 May: submission slides
-	\item 26 May: peer review 
-	\end{itemize}
-\end{assignment}
-
-\begin{assignment}
-	Task for H3?
-\end{assignment}
-
-\begin{assignment}
-	Updated Ansible Link: \url{https://galaxy.ansible.com/elektra_initiative/libelektra}
-\end{assignment}
-
-\subsection{Preview}
-
-\begin{frame}
-	\frametitle{Outlook}
-
-	\begin{itemize} %[<+-| alert@+>]
-	\item Terms and Properties
-	\item Pitfalls
-	\item Unused Settings
-	\end{itemize}
-\end{frame}
-
+%\subsection{Recapitulation}
+%
+%\begin{frame}
+%	\frametitle{Definition}
+%
+%	\intro[configuration management tool]{Configuration Management Tools}:
+%
+%	\pause
+%
+%	\begin{itemize}
+%	\item help people involved in configuration management.
+%	\item have means to describe the desired configuration of the whole managed system.
+%	\item try to converge the actual configuration to the desired one~\cite{burgess1995cfengine}.
+%	\end{itemize}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Possible Benefits of CM}
+%
+%	\pause
+%
+%	\begin{itemize} % [<+-| alert@+>]
+%	\item All advantages scripts have: \\
+%		Documentation, Customization, Reproducability
+%	\item Declarative description of the system \\
+%		(Infrastructure as Code~\cite{waldemar2013testing})
+%	\item Less configuration drift
+%	\item Error handling
+%	\item Pull/Push
+%	\item Reusability
+%	\item (Resource) Abstractions
+%	\end{itemize}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{CM Languages}
+%
+%	\begin{itemize}[<+-| alert@+>]
+%	\item What is the relationship to software configuration management (Proteus/PCL)?
+%	\item[] Build systems may provide configuration management features.
+%	\item How is it possible to provide referential transparency both for the configuration specification language and for the system itself (NIX, GNU Guix)?
+%	\item[] By functional languages and file system (layouts).
+%	\item Which notations for CM exist?
+%	\item[] Text,  Graphical (UML), Semi-structured, Key-value, Structured
+%	\end{itemize}
+%\end{frame}
+%
+%\begin{assignment}
+%	\begin{task}
+%	Break.
+%	\end{task}
+%\end{assignment}
+%
+%\begin{frame}
+%	\frametitle{Checking Configurations vs. Specifications}
+%
+%	\pause
+%
+%	E.g. following properties of configuration settings can be checked:
+%
+%	\begin{itemize}
+%	\item values (data types)
+%	\item structure
+%	\item constraints
+%	\item semantic checks (e.g., IP, folder)
+%	\item domain-specific checks (e.g., databases)
+%	\end{itemize}
+%
+%	\vspace{1em}
+%	E.g. following properties of configuration specifications can be checked:
+%
+%	\begin{itemize}
+%	\item Types of default values must be compatible with the types of the keys.
+%	\item Defaults must be present for safe lookups.
+%	\end{itemize}
+%\end{frame}
+%
+%\begin{frame}[fragile]
+%	\frametitle{Error Messages}
+%
+%	Problems:
+%	\begin{itemize} %[<+-| alert@+>]
+%	\item Generic vs.\ specific plugins
+%	\item General principles of good error messages~\cite{lee2011personifying}
+%	\item Give context
+%	\item Precisely locate the cause
+%	\end{itemize}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Types of Modularity}
+%	\Large
+%	\ExecuteMetaData[../../book/backend.tex]{definition-modularity}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Metadata}
+%
+%	\includegraphics{metadata}
+%\end{frame}
+%
+%\begin{assignment}
+%	\begin{task}
+%	Break.
+%	\end{task}
+%\end{assignment}
+%
+%\subsection{Assignments}
+%
+%\begin{assignment}
+%	Please add slides for talk in TUWEL \textbf{and} private git repo, dates:
+%
+%	\begin{itemize}[<+-| alert@+>]
+%	\item 12 May: submission slides
+%	\item 26 May: peer review 
+%	\end{itemize}
+%\end{assignment}
+%
+%\begin{assignment}
+%	Task for H3?
+%\end{assignment}
+%
+%\begin{assignment}
+%	Updated Ansible Link: \url{https://galaxy.ansible.com/elektra_initiative/libelektra}
+%\end{assignment}
+%
+%\subsection{Preview}
+%
+%\begin{frame}
+%	\frametitle{Outlook}
+%
+%	\begin{itemize} %[<+-| alert@+>]
+%	\item Terms and Properties
+%	\item Pitfalls
+%	\item Unused Settings
+%	\end{itemize}
+%\end{frame}
+%
 
 
 \appendix
