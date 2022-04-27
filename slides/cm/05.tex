@@ -7,7 +7,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{CM Tools}
 
-\begin{frame}
+\begin{frame}<1>[label=learning outcomes]
 	\frametitle{Learning Outcomes}
 	Students will be able to
 	\begin{itemize}
@@ -23,7 +23,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<2-6>[label=configuration management]
 	\frametitle{Definition}
 
 	\intro[configuration management]{Configuration Management}
@@ -35,16 +35,18 @@
 	\begin{itemize}[<+-| alert@+>]
 	\item ensures computers are assembled from desired parts (inventory list)
 	\item ensures correct applications are installed
-	\item maintains files/databases
+	\item maintains files/databases (backup, etc.)
 	\item monitors infrastructure
 	\item \intro{manipulates configuration settings}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<2-4>[label=configuration management tools]
 	\frametitle{Definition}
 
 	\intro[configuration management tool]{Configuration Management Tools}:
+
+	\pause
 
 	\begin{itemize}[<+-| alert@+>]
 	\item help system administrators in configuration management
@@ -121,8 +123,10 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<2-6>[label=possible benefits]
 	\frametitle{Possible Benefits of CM tools}
+
+	\pause
 
 	\begin{itemize}[<+-| alert@+>]
 	\item All advantages scripts have: \\
@@ -170,8 +174,10 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<2-7>[label=precise editing]
 	\frametitle{Precise Editing}
+
+	\pause
 
 	\begin{itemize}[<+-| alert@+>]
 	\item Precise editing is natural for humans.
@@ -358,8 +364,10 @@
 	\end{description}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<2-6>[label=design rules]
 	\frametitle{Design Rules~\cite{burgess2006modeling}}
+
+	\pause
 
 	\begin{itemize}[<+-| alert@+>]
 	\item Maintain clear separation of ownership (for every key).
@@ -391,153 +399,108 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Meeting}
 
-%\subsection{Recapitulation}
-%
-%\begin{frame}
-%	\begin{alertblock}{Question}
-%	How can we reuse the same configuration setting for different applications?
-%	\end{alertblock}
-%
-%	\pause
-%	\begin{exampleblock}{Answer}
-%	\begin{itemize}
-%	\item Use CM code to copy the settings to all places as needed.
-%	\item Implement support directly in application to fetch setting from central location.
-%	\item Override/fallback links in specification.
-%	\item Calculate/transform values in specification.
-%	\end{itemize}
-%	\end{exampleblock}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Definition}
-%
-%	\intro[configuration management]{Configuration Management}:
-%
-%	\pause
-%
-%	\begin{itemize}
-%	\item is a discipline in which configuration (in the broader sense) is administered.
-%	\item makes sure computers are assembled from desired parts and the correct applications are installed.
-%	\item ensures that the execution environment of installed applications is as required.
-%	\end{itemize}
-%\end{frame}
-%
-%
-%\begin{frame}
-%	\frametitle{Definition}
-%
-%	\intro[configuration management tool]{Configuration Management Tools}:
-%
-%	\pause
-%
-%	\begin{itemize}
-%	\item help people involved in configuration management.
-%	\item have means to describe the desired configuration of the whole managed system.
-%	\item try to converge the actual configuration to the desired one~\cite{burgess1995cfengine}.
-%	\end{itemize}
-%\end{frame}
-%
-%\begin{assignment}
-%	\begin{task}
-%	Break.
-%	\end{task}
-%\end{assignment}
-%
-%\begin{frame}
-%	\frametitle{Possible Benefits of CM}
-%
-%	\pause
-%
-%	\begin{itemize} % [<+-| alert@+>]
-%	\item All advantages scripts have: \\
-%		Documentation, Customization, Reproducability
-%	\item Declarative description of the system \\
-%		(Infrastructure as Code~\cite{waldemar2013testing})
-%	\item Less configuration drift
-%	\item Error handling
-%	\item Pull/Push
-%	\item Reusability
-%	\item (Resource) Abstractions
-%	\end{itemize}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Design Rules of CM~\cite{burgess2006modeling}}
-%
-%	\pause
-%
-%	\begin{itemize} %[<+-| alert@+>]
-%	\item Factor processes into containers to avoid overlaps in settings.
-%	\item Maintain clear separation of ownership (for every key).
-%	\item Specify replicated settings in a single source (use links and derivations).
-%	\item Document all remaining overlaps (in the specification).
-%	\item The manageability of settings is reduced by the number of possible configuration values.
-%	\end{itemize}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{CM Languages}
-%
-%	\begin{itemize}[<+-| alert@+>]
-%	\item What is the relationship to software configuration management (Proteus/PCL)?
-%	\item[] Build systems may provide configuration management features.
-%	\item How is it possible to provide referential transparency both for the configuration specification language and for the system itself (NIX, GNU Guix)?
-%	\item[] By functional languages and file system (layouts).
-%	\item Which notations for CM exist?
-%	\item[] Text,  Graphical (UML), Semi-structured, Key-value, Structured
-%	\end{itemize}
-%\end{frame}
-%
-%\begin{assignment}
-%	\begin{task}
-%	Break.
-%	\end{task}
-%\end{assignment}
-%
-%\subsection{Assignments}
-%
-%\begin{assignment}
-%	Today: T1/H1 corrections
-%\end{assignment}
-%
-%\begin{assignment}
-%	Please add slides for talk in private git repo at least one week in advance.
-%\end{assignment}
-%
-%\begin{assignment}
-%	Task for H3?
-%\end{assignment}
-%
-%\begin{assignment}
-%	Which CM language do you want to use for T3?
-%\end{assignment}
-%
-%\begin{frame}
-%	\frametitle{Feedback}
-%	\hfill \includegraphics[width=2cm]{pics/feedback.png}
-%	\vspace{-1cm}
-%	\begin{itemize}
-%		\item Videos?
-%		\item More or less materials?
-%		\item Do you use semester schedule?
-%		\item Any suggestions for improvements?
-%	\end{itemize}
-%\end{frame}
-%
-%\subsection{Preview}
-%
-%\begin{frame}
-%	\frametitle{Outlook}
-%
-%	Will be online soon:
-%	\begin{itemize}[<+-| alert@+>]
-%	\item validation techniques
-%	\item writing plugins
-%	\end{itemize}
-%\end{frame}
-%
-%
+\subsection{Recapitulation}
+
+\againframe<99>{learning outcomes}
+
+\begin{frame}
+	\begin{alertblock}{Question}
+	How can we reuse the same configuration setting for different applications?
+	\end{alertblock}
+
+	\pause
+	\begin{exampleblock}{Answer}
+	\begin{itemize}
+	\item Use CM code to copy the settings to all places as needed.
+	\item Implement support directly in application to fetch setting from central location.
+	\item Override/fallback links in specification.
+	\item Calculate/transform values in specification.
+	\end{itemize}
+	\end{exampleblock}
+\end{frame}
+
+\againframe<1,99>{configuration management}
+
+\begin{frame}
+	\begin{alertblock}{Question}
+	Which tasks did you already do as system administrator?
+	\end{alertblock}
+\end{frame}
+
+\againframe<1,99>{configuration management tools}
+
+%%%%%%%%%%%
+\breakframe
+
+\againframe<1,99>{possible benefits}
+
+\againframe<1,99>{design rules}
+
+\againframe<1,99>{precise editing}
+
+\begin{frame}
+	\frametitle{Ansible Presentation}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Discussion: CM Languages}
+
+	\begin{itemize}
+	\item NIX, GNU Guix
+	\item Dockerfiles
+	\item Ansible
+	\item Chef
+	\item Puppet
+	\item
+	\item
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%
+\breakframe
+
+\subsection{Assignments}
+
+\begin{assignment}
+	T1 corrections
+\end{assignment}
+
+\begin{assignment}
+	H2 Implement Specifications
+\end{assignment}
+
+\begin{assignment}
+	Enough Tasks?
+\end{assignment}
+
+\begin{assignment}
+	Which CM language do you want to use for H3?
+\end{assignment}
+
+\begin{frame}
+	\frametitle{Feedback}
+	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+	\vspace{-1cm}
+	\begin{itemize}
+		\item Videos?
+		\item Response time and helpfulness?
+		\item More or less materials?
+		\item Any other suggestions for improvements?
+	\end{itemize}
+\end{frame}
+
+\subsection{Preview}
+
+\begin{frame}
+	\frametitle{Outlook}
+
+	\begin{itemize}
+	\item validation techniques
+	\item writing plugins
+	\end{itemize}
+\end{frame}
+
+
 
 \appendix
 
