@@ -1,7 +1,6 @@
 \input{setup}
 
 \title{L07 Strategies for Reduction of Misconfiguration}
-\date{05.05.2021}
 
 \begin{document}
 
@@ -374,137 +373,141 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Meeting}
 
-\subsection{Recapitulation}
-
-\againframe<1,2>{iac}
-
-%TODO: deduplicate
-\begin{frame}
-	\frametitle{Configuration Drift}
-
-	\pause
-
-	is a derivation of the ``Single Source of Truth'' (the CM code).
-
-	\vspace{1em}
-	It is caused by:
-
-	\begin{itemize} %[<+-| alert@+>]
-	\item manual configuration changes by administrators
-	\item manual configuration changes by end users
-	\item differences in updates (e.g., skipped or failed updates)
-	\item failed attempts to change configuration
-	\item applying different versions of CM code
-	\item non-idempotent CM Code
-	\item \dots
-	\end{itemize}
-\end{frame}
-
-%\againframe<2,3>{idempotence}
-
-\begin{frame}
-	\frametitle{Properties (Recapitulation)}
-
-	\begin{task}
-	What is idempotent, self-describing, round-tripping configuration?
-	\end{task}
-
-	\pause
-
-
-	\begin{description}
-	\item[Idempotent]
-	yield the same configuration with any number of applications from CM code ($n\ge1$)~\cite{waldemar2013testing}:
-	\[
-		f(f(x))=f(x)
-	\]
-	needed to guarantee repeatability
-
-	\item[Self-describing]
-	means that from the configuration file alone we are able to derive the correct data structure~\cite{wadler2003xml}.
-
-	\item[Round-tripping]
-	means that if a data structure is serialized and then parsed again, we end up with an identical data structure~\cite{wadler2003xml}.
-	\end{description}
-
-	The data structure could be a KeySet.
-\end{frame}
-
-\begin{frame}
-	\frametitle{Pitfalls of CM}
-
-	\pause
-
-	\begin{itemize}
-	\item too many (unused) settings
-	\item no external specification
-	\item too complicated configuration design
-	\item harmful defaults
-	\item no configuration-aware tests
-	\item settings and specs not synchronized
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Reduction of Configuration Settings}
-
-	\pause
-
-	\begin{itemize}
-	\item Zero-Configuration (auto detection)
-	\item Visiblity
-	\item Find unused settings (code generator needed)
-	\end{itemize}
-\end{frame}
-
-
-\subsection{Assignments}
-
-\begin{assignment}
-	Slides for talk in TUWEL \textbf{and} private git repo:
-
-	\begin{itemize}
-	\item 12 May: submission
-	\item 26 May: peer review
-	\end{itemize}
-\end{assignment}
-
-\begin{assignment}
-	Today: Correction H2
-
-	Upcoming: H3, T3
-\end{assignment}
-
-
-\subsection{TW}
-
-\begin{frame}
-	\frametitle{Today}
-
-	\begin{enumerate}
-	\item Give yourselves roles (admin, dev, user)
-	\item Split the goals and tasks among them.
-	\end{enumerate}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Preparation}
-
-	\begin{enumerate}
-	\item Do homework as described in L08 materials.
-	\end{enumerate}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Outlook}
-
-	In the next lecture (LTW):
-
-	\begin{enumerate}
-	\item Create together an architecture that fulfils the goals.
-	\item Present that architecture, explain the concepts, show which technologies you found.
-	\end{enumerate}
-\end{frame}
+%\subsection{Recapitulation}
+%
+%\againframe<1,2>{iac}
+%
+%\begin{assignment}
+%	\frametitle{Brainstorming: Strategies for Reducing Misconfiguration}
+%\end{frame}
+%
+%%TODO: deduplicate
+%\begin{frame}
+%	\frametitle{Configuration Drift}
+%
+%	\pause
+%
+%	is a derivation of the ``Single Source of Truth'' (the CM code).
+%
+%	\vspace{1em}
+%	It is caused by:
+%
+%	\begin{itemize} %[<+-| alert@+>]
+%	\item manual configuration changes by administrators
+%	\item manual configuration changes by end users
+%	\item differences in updates (e.g., skipped or failed updates)
+%	\item failed attempts to change configuration
+%	\item applying different versions of CM code
+%	\item non-idempotent CM Code
+%	\item \dots
+%	\end{itemize}
+%\end{frame}
+%
+%%\againframe<2,3>{idempotence}
+%
+%\begin{frame}
+%	\frametitle{Properties (Recapitulation)}
+%
+%	\begin{task}
+%	What is idempotent, self-describing, round-tripping configuration?
+%	\end{task}
+%
+%	\pause
+%
+%
+%	\begin{description}
+%	\item[Idempotent]
+%	yield the same configuration with any number of applications from CM code ($n\ge1$)~\cite{waldemar2013testing}:
+%	\[
+%		f(f(x))=f(x)
+%	\]
+%	needed to guarantee repeatability
+%
+%	\item[Self-describing]
+%	means that from the configuration file alone we are able to derive the correct data structure~\cite{wadler2003xml}.
+%
+%	\item[Round-tripping]
+%	means that if a data structure is serialized and then parsed again, we end up with an identical data structure~\cite{wadler2003xml}.
+%	\end{description}
+%
+%	The data structure could be a KeySet.
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Pitfalls of CM}
+%
+%	\pause
+%
+%	\begin{itemize}
+%	\item too many (unused) settings
+%	\item no external specification
+%	\item too complicated configuration design
+%	\item harmful defaults
+%	\item no configuration-aware tests
+%	\item settings and specs not synchronized
+%	\end{itemize}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Reduction of Configuration Settings}
+%
+%	\pause
+%
+%	\begin{itemize}
+%	\item Zero-Configuration (auto detection)
+%	\item Visiblity
+%	\item Find unused settings (code generator needed)
+%	\end{itemize}
+%\end{frame}
+%
+%
+%\subsection{Assignments}
+%
+%\begin{assignment}
+%	Slides for talk in TUWEL \textbf{and} private git repo:
+%
+%	\begin{itemize}
+%	\item 12 May: submission
+%	\item 26 May: peer review
+%	\end{itemize}
+%\end{assignment}
+%
+%\begin{assignment}
+%	Today: Correction H2
+%
+%	Upcoming: H3, T3
+%\end{assignment}
+%
+%
+%\subsection{TW}
+%
+%\begin{frame}
+%	\frametitle{Today}
+%
+%	\begin{enumerate}
+%	\item Give yourselves roles (admin, dev, user)
+%	\item Split the goals and tasks among them.
+%	\end{enumerate}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Preparation}
+%
+%	\begin{enumerate}
+%	\item Do homework as described in L08 materials.
+%	\end{enumerate}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Outlook}
+%
+%	In the next lecture (LTW):
+%
+%	\begin{enumerate}
+%	\item Create together an architecture that fulfils the goals.
+%	\item Present that architecture, explain the concepts, show which technologies you found.
+%	\end{enumerate}
+%\end{frame}
 
 
 
