@@ -1,7 +1,7 @@
-all:tw.pdf cmlang.pdf
+all:ws.pdf cmlang.pdf
 
-tw.pdf:tw.tex
-	latexmk tw
+ws.pdf:ws.tex
+	latexmk ws
 
 cmlang.pdf:cmlang.tex
 	latexmk cmlang
