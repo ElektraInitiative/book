@@ -8,7 +8,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Terms and Properties}
 
-\begin{frame}
+\begin{frame}<1>[label=learning outcomes]
 	\frametitle{Learning Outcomes}
 	Students will be able to
 	\begin{itemize}
@@ -18,10 +18,16 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}<2>[label=iac]
+\begin{frame}<1>[label=iac]
 	\frametitle{Infrastructure as Code}
+	
+	\only<99,100>{
+	\begin{alertblock}{Question}
+	What is CM code? What is auditability? What is the goal of CM?
+	\end{alertblock}
+	}
 
-	\only<2>{
+	\only<1,100>{
 	Configuration settings are an instantiation of the configuration specifications.
 	\vspace{1em}
 
@@ -38,8 +44,10 @@
 	}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<2-9>[label=configuration drift]
 	\frametitle{Configuration Drift}
+
+	\pause
 
 	is a derivation of the ``Single Source of Truth'' (the CM code).
 
@@ -373,141 +381,127 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Meeting}
 
-%\subsection{Recapitulation}
-%
-%\againframe<1,2>{iac}
-%
-%\begin{assignment}
-%	\frametitle{Brainstorming: Strategies for Reducing Misconfiguration}
-%\end{frame}
-%
-%%TODO: deduplicate
-%\begin{frame}
-%	\frametitle{Configuration Drift}
-%
-%	\pause
-%
-%	is a derivation of the ``Single Source of Truth'' (the CM code).
-%
-%	\vspace{1em}
-%	It is caused by:
-%
-%	\begin{itemize} %[<+-| alert@+>]
-%	\item manual configuration changes by administrators
-%	\item manual configuration changes by end users
-%	\item differences in updates (e.g., skipped or failed updates)
-%	\item failed attempts to change configuration
-%	\item applying different versions of CM code
-%	\item non-idempotent CM Code
-%	\item \dots
-%	\end{itemize}
-%\end{frame}
-%
-%%\againframe<2,3>{idempotence}
-%
-%\begin{frame}
-%	\frametitle{Properties (Recapitulation)}
-%
-%	\begin{task}
-%	What is idempotent, self-describing, round-tripping configuration?
-%	\end{task}
-%
-%	\pause
-%
-%
-%	\begin{description}
-%	\item[Idempotent]
-%	yield the same configuration with any number of applications from CM code ($n\ge1$)~\cite{waldemar2013testing}:
-%	\[
-%		f(f(x))=f(x)
-%	\]
-%	needed to guarantee repeatability
-%
-%	\item[Self-describing]
-%	means that from the configuration file alone we are able to derive the correct data structure~\cite{wadler2003xml}.
-%
-%	\item[Round-tripping]
-%	means that if a data structure is serialized and then parsed again, we end up with an identical data structure~\cite{wadler2003xml}.
-%	\end{description}
-%
-%	The data structure could be a KeySet.
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Pitfalls of CM}
-%
-%	\pause
-%
-%	\begin{itemize}
-%	\item too many (unused) settings
-%	\item no external specification
-%	\item too complicated configuration design
-%	\item harmful defaults
-%	\item no configuration-aware tests
-%	\item settings and specs not synchronized
-%	\end{itemize}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Reduction of Configuration Settings}
-%
-%	\pause
-%
-%	\begin{itemize}
-%	\item Zero-Configuration (auto detection)
-%	\item Visiblity
-%	\item Find unused settings (code generator needed)
-%	\end{itemize}
-%\end{frame}
-%
-%
-%\subsection{Assignments}
-%
-%\begin{assignment}
-%	Slides for talk in TUWEL \textbf{and} private git repo:
-%
-%	\begin{itemize}
-%	\item 12 May: submission
-%	\item 26 May: peer review
-%	\end{itemize}
-%\end{assignment}
-%
-%\begin{assignment}
-%	Today: Correction H2
-%
-%	Upcoming: H3, T3
-%\end{assignment}
-%
-%
-%\subsection{TW}
-%
-%\begin{frame}
-%	\frametitle{Today}
-%
-%	\begin{enumerate}
-%	\item Give yourselves roles (admin, dev, user)
-%	\item Split the goals and tasks among them.
-%	\end{enumerate}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Preparation}
-%
-%	\begin{enumerate}
-%	\item Do homework as described in L08 materials.
-%	\end{enumerate}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Outlook}
-%
-%	In the next lecture (LTW):
-%
-%	\begin{enumerate}
-%	\item Create together an architecture that fulfils the goals.
-%	\item Present that architecture, explain the concepts, show which technologies you found.
-%	\end{enumerate}
-%\end{frame}
+\subsection{Recapitulation}
+
+\againframe<99>{learning outcomes}
+
+\againframe<99,100>{iac}
+
+\begin{assignment}
+	\frametitle{Brainstorming: Strategies for Reducing Misconfiguration}
+\end{assignment}
+
+\againframe<1,99>{configuration drift}
+
+%\againframe<2,3>{idempotence}
+
+\begin{frame}
+	\frametitle{Properties (Recapitulation)}
+
+	\begin{task}
+	What is idempotent, self-describing, round-tripping configuration?
+	\end{task}
+
+	\pause
+
+
+	\begin{description}
+	\item[Idempotent]
+	yield the same configuration with any number of applications from CM code ($n\ge1$)~\cite{waldemar2013testing}:
+	\[
+		f(f(x))=f(x)
+	\]
+	needed to guarantee repeatability
+
+	\item[Self-describing]
+	means that from the configuration file alone we are able to derive the correct data structure~\cite{wadler2003xml}.
+
+	\item[Round-tripping]
+	means that if a data structure is serialized and then parsed again, we end up with an identical data structure~\cite{wadler2003xml}.
+	\end{description}
+
+	The data structure could be a KeySet.
+\end{frame}
+
+\begin{frame}
+	\frametitle{Pitfalls of CM}
+
+	\pause
+
+	\begin{itemize}
+	\item too many (unused) settings
+	\item no external specification
+	\item too complicated configuration design
+	\item harmful defaults
+	\item no configuration-aware tests
+	\item settings and specs not synchronized
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Reduction of Configuration Settings}
+
+	\pause
+
+	\begin{itemize}
+	\item Zero-Configuration (auto detection)
+	\item Visiblity
+	\item Find unused settings (code generator needed)
+	\end{itemize}
+\end{frame}
+
+
+\subsection{Assignments}
+
+\begin{assignment}
+	\frametitle{T2 Plugin}
+
+	Any open questions?
+
+	Today 13:00 office hour with tutor.
+\end{assignment}
+
+\begin{assignment}
+	\frametitle{H3 Configuration Management Tools}
+
+	\begin{itemize}
+	\item Install with given installation scripts
+	\item Configure with your own CM code and your own configuration settings
+	\end{itemize}
+\end{assignment}
+
+
+\subsection{Outlook}
+
+\begin{frame}
+	\frametitle{Steps}
+
+	\begin{enumerate}
+		\item In the meeting before the LWS meeting: \\
+			Give yourselves roles (leader, admin, dev, user, \dots).
+		\item Before the LWS meeting: do the preparation as described the LWS document (TUWEL).
+		\item In the LWS meeting: Create together an architecture that fulfils the goals and present some part of that architecture.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Today}
+
+	\begin{enumerate}
+	\item Give yourselves roles (admin, dev, user)
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Outlook}
+
+	In the next lecture (LWS):
+
+	\begin{enumerate}
+	\item Create together an architecture that fulfils the goals.
+	\item Present that architecture, explain the concepts, show which technologies you found.
+	\end{enumerate}
+\end{frame}
 
 
 
