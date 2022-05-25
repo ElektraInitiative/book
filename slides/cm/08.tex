@@ -1,7 +1,5 @@
 \input{setup}
 
-%TODO: clear separation of "application" early and CM "early"
-
 \title{L08 Early Detection of Misconfiguration}
 %\date{19.05.2021}
 
@@ -10,7 +8,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Points in Time}
 
-\begin{frame}
+\begin{frame}<1>[label=learning outcomes]
 	\frametitle{Learning Outcomes}
 	Students will be able to
 	\begin{itemize}
@@ -20,10 +18,12 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{When are settings used?}
+\begin{frame}<2-6>[label=application]
+	\frametitle{When are settings used?}
 	From the application's perspective:
 	\vspace{1em}
+
+	\pause
 
 	\setbeamersize{description width=3.5cm}
 	\begin{description}[<+-| alert@+>]
@@ -45,14 +45,18 @@
 	\end{description}
 \end{frame}
 
-\begin{frame}
+\begin{frame}<2-7>[label=CM tool]
 	\frametitle{Detection of Misconfiguration}
 
 	\begin{alertblock}{Viewpoint}
 	Different viewpoint: now from configuration management perspective.
 	\end{alertblock}
 
+	\pause
+
 	Phases when we can detect misconfigurations:
+
+	\pause
 	\begin{itemize}[<+-| alert@+>]
 	\item Compilation stage in configuration management tool
 	\item Writing configuration settings on nodes
@@ -71,8 +75,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Push vs.\ Pull}
 
-\begin{frame}
+\begin{frame}<2-7>[label=push vs. pull]
 	\frametitle{Push vs.\ Pull}
+
+	\pause
 
 	\begin{itemize}[<+-| alert@+>]
 	\item Push is more interactive.
@@ -152,131 +158,87 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Meeting}
 
-%\subsection{Recapitulation}
-%
-%\begin{frame}
-%\frametitle{When are settings used?}
-%	From the application's perspective:
-%	\vspace{1em}
-%
-%	\pause
-%
-%	\setbeamersize{description width=3.5cm}
-%	\begin{description} %[<+-| alert@+>]
-%	\item[Implementation-time:] Configuration accesses \index{implementation-time}
-%	are hard-coded in the sou\-rce code.
-%	For example, architectural decisions~\cite{zdun2007patterns} lead to impl\-ementation-time settings.
-%
-%	\item[Compile-time:] Configuration accesses \index{compile-time}
-%	are resolved by the build system while compiling.
-%
-%	\item[Deployment-time:] Configuration accesses \index{deployment-time}
-%	are while the software is installed.
-%
-%	\item[Load-time:] Configuration accesses \index{load-time}
-%	are during the start of applications.
-%
-%	\item[Run-time:] Configuration accesses \index{run-time}
-%	are during execution after the startup procedure.
-%	\end{description}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Application vs. CM tool perspective?}
-%
-%	\pause
-%
-%	Phases when we can detect misconfigurations:
-%	\begin{itemize} %[<+-| alert@+>]
-%	\item Compilation stage in configuration management tool
-%	\item Writing configuration settings on nodes
-%	\item Starting applications (load-time)
-%	\item When configuration setting is actually used (run-time) \\
-%		$\rightarrow$ Latent Misconfiguration
-%	\end{itemize}
-%\end{frame}
-%
-%\begin{assignment}
-%	\begin{task}
-%	Break.
-%	\end{task}
-%\end{assignment}
-%
-%\begin{frame}
-%	\frametitle{Push vs.\ Pull}
-%
-%	\pause
-%
-%	\begin{itemize} %[<+-| alert@+>]
-%	\item Push is more interactive.
-%	\item Push cannot do its job if nodes are not reachable.
-%	\item Push needs additional techniques to scale with many nodes.
-%	\item Push demands access to servers from a single server.
-%	\item Pull needs additional monitoring to know when a patch has been applied.
-%	\item Pull needs resources even if nothing is to do.
-%	\end{itemize}
-%
-%	\pause[\thebeamerpauses]
-%
-%	\begin{task}
-%	Do you prefer push or pull?
-%	What does your CM tool of choice use?
-%	\end{task}
-%\end{frame}
-%
-%\begin{assignment}
-%	\begin{task}
-%	Break.
-%	\end{task}
-%\end{assignment}
-%
-%\subsection{Talks}
-%
-%\begin{frame}[fragile]
-%	\frametitle{Talks}
-%
-%	\begin{code}[language=xml]
-%  <talk>
-%    <date>19.05.2021</date>
-%    <name>@aaronabebe</name>
-%    <topic>externalized configuration in distributed systems</topic>
-%  </talk>
-%
-%  <talk>
-%    <date>19.05.2021</date>
-%    <name>@philippoppel</name>
-%    <topic>Configuration Integration based on T2</topic>
-%  </talk>
-%	\end{code}
-%\end{frame}
-%
-%\subsection{Assignments}
-%
-%\begin{assignment}
-%	Please add slides for talk in TUWEL \textbf{and} private git repo, dates:
-%
-%	\begin{itemize}[<+-| alert@+>]
-%	\item 26 May: peer review 
-%	\end{itemize}
-%\end{assignment}
-%
-%\begin{assignment}
-%	T3 deadline today:
-%
-%	What means ``only partial changes''?
-%\end{assignment}
-%
-%\begin{frame}
-%	\frametitle{Feedback}
-%	\hfill \includegraphics[width=2cm]{pics/feedback.png}
-%	\vspace{-1cm}
-%	\begin{itemize}
-%		\item ECTS breakdown realistic?
-%		\item Feedback Talk
-%	\end{itemize}
-%\end{frame}
-%
-%\subsection{Preview}
+\subsection{Recapitulation}
+
+\againframe<1,99>{application}
+
+\againframe<1,99>{CM tool}
+
+\breakframe
+
+\againframe<1,99>{push vs. pull}
+
+\begin{assignment}
+	\frametitle{Brainstorming}
+
+	\begin{alertblock}{Question}
+	How to improve your apps to avoid latent misconfiguration?
+	\end{alertblock}
+\end{assignment}
+
+\againframe<99>{learning outcomes}
+
+\breakframe
+
+\subsection{Assignments}
+
+\begin{assignment}
+	\frametitle{Release Notes}
+
+	\begin{description}
+	\item[For your best work,] you can write a ``Highlight'' section.
+	\item[For other work,] changes should be completely listed.
+	\end{description}
+\end{assignment}
+
+\begin{assignment}
+	\frametitle{H3 Corrections}
+
+	\begin{itemize}
+	\item Install with given installation scripts
+	\item Configure with your own CM code and your own configuration settings
+	\end{itemize}
+\end{assignment}
+
+\begin{assignment}
+	\frametitle{T3 Fix Issues}
+
+	\begin{itemize}
+	\item Always show that bug is fixed with test case.
+	\item Enough issues?
+	\end{itemize}
+\end{assignment}
+
+\breakframe
+
+\begin{assignment}
+	\frametitle{Feedback}
+	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+	\vspace{-1cm}
+	\begin{itemize}
+		\item TISS feedback starting from 16.6.2022
+		\item ECTS breakdown realistic?
+		\item Topics for T3?
+		\item Videos?
+		\item Any other suggestions for improvements?
+	\end{itemize}
+\end{assignment}
+
+\subsection{Preview}
+
+\begin{frame}
+	\frametitle{Outlook}
+	Office hour today 13:00, next week 16:00.
+
+	Next week last time without presentation.
+
+	L09 Configuration as a User Interface:
+	\begin{itemize}
+		\item Three-way merge
+		\item Error messages
+		\item System Administrator Research
+	\end{itemize}
+\end{frame}
 
 
 
