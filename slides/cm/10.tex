@@ -622,187 +622,172 @@
 \section{Meeting}
 
 
-%TODO: add
-%\begin{frame}[fragile]
-%	\frametitle{in Configuration Specification}
-%	\begin{code}[gobble=4]
-%	[slapd/threads/listener]
-%	description:=adjust to use more threads
-%	rationale:=needed for many-core systems
-%	requirement:=1234
-%	visibility:=developer
-%	\end{code}
-%\end{frame}
-%
-%
-%
-%\subsection{Recapitulation}
-%
-%\begin{frame}
-%	\frametitle{Learning Outcomes}
-%	Students will be able to
-%
-%	\begin{itemize}
-%	\item design and document configuration settings and specifications
-%	\item evaluate a configuration system and decide about use of
-%	\begin{itemize}
-%	\item code generation
-%	\item introspection
-%	\item context-awareness
-%	\end{itemize}
-%	\item remember connections between the many different topics within CM
-%	\end{itemize}
-%
-%	\vspace{2cm}
-%
-%	Draw a big red, yellow or green (+) dot how you\only<1>{
-%	liked the topic.
-%	}\only<2->{
-%	have the feeling you understood it.
-%	}
-%\end{frame}
-%
-%\begin{frame}
-%	\begin{alertblock}{Question}
-%	How to avoid duplication between description text and other parts?
-%	\end{alertblock}
-%
-%	\pause
-%
-%	\begin{itemize}
-%	\item Render type and defaults into the documentation
-%	\item Render any other semantics into the documentation
-%	\item Render requirements and rationale into the documentation
-%	\end{itemize}
-%\end{frame}
-%
-%\begin{frame}[fragile]
-%	\frametitle{Example}
-%
-%	\begin{code}[gobble=4]
-%	[slapd/threads/listener]
-%	  check/range:=1,2,4,8,16
-%	  default:=1
-%	  description:=adjust to use more threads
-%	  rationale:=needed for many-core systems
-%	  requirement:=1234
-%	\end{code}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Reevaluate specifications}
-%
-%	In which situations should you reevaluate if a configuration setting (specification) is needed?
-%
-%	\pause
-%
-%	\ExecuteMetaData[../book/implications.tex]{reasons-adding}
-%\end{frame}
-%
-%
-%\begin{assignment}
-%	\begin{task}
-%	Break.
-%	\end{task}
-%\end{assignment}
-%
-%\begin{frame}
-%	\frametitle{Introspection}
-%	\begin{alertblock}{Question}
-%	What can introspection offer?
-%	\end{alertblock}
-%
-%	\pause
-%
-%	\begin{itemize}
-%	\item unified get/set access to (meta*)-key/values
-%	\item GUI, web-UI can semantically interpret metadata
-%	\item access via applications, CLI, GUI, web-UI, ...
-%	\item access via any programming language (similar to file systems)
-%	\item access via any configuration management system
-%	\end{itemize}
-%\end{frame}
-%
-%\begin{frame}
-%	Which guarantees are possible with code generation?
-%
-%	\pause
-%
-%	\begin{itemize}
-%	\item Every configuration setting is specified (essential for refactoring).
-%	\item (Data) type of source code and configuration settings match.
-%	\item Configuration access with defaults is always successful.
-%	Reason: We use defaults if everything else fails.
-%	\end{itemize}
-%	\vspace{3em}
-%
-%	\begin{alertblock}{Finding}
-%	Guarantees for both CM and application code.
-%	\end{alertblock}
-%\end{frame}
-%
-%\begin{assignment}
-%	\begin{task}
-%	Break.
-%	\end{task}
-%\end{assignment}
-%
-%\begin{frame}
-%	\frametitle{Introspection vs. Code Generation}
-%
-%	Advantages of introspection:
-%
-%	\pause
-%
-%	\setbeamersize{description width=1cm}
-%	\begin{description}
-%	\item[$+$] specification can be updated live on the system without recompilation
-%	\item[$+$] tooling has generic access to all specifications
-% 	\item[$+$] new features the key database (e.g., better validation) are immediately available consistently
-%	\item[$-$] more techniques for performance improvements with code generation
-%	\item[$-$] code generation needed if context differs within same thread
-%	\end{description}
-%
-%	\vspace{0.5em}
-%
-%	\begin{alertblock}{Implication}
-%	We generally prefer introspection, except for a very thin configuration access API.
-%	\end{alertblock}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Cascading}
-%	\includegraphics{cascading}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Types of Specifications}
-%	\includegraphics[scale=0.8]{specifications}
-%\end{frame}
-%
-%\subsection{Assignments}
-%
-%\begin{frame}
-%	\frametitle{Feedback}
-%	Exercises finished for this term.
-%
-%	\hfill \includegraphics[width=2cm]{pics/feedback.png}
-%	\vspace{-1cm}
-%	\begin{itemize}
-%		\item ECTS breakdown realistic?
-%		\item Feedback Talk
-%		\item TISS Feedback from 16.06.2021 00:00 to 14.07.2021 23:59
-%	\end{itemize}
-%\end{frame}
-%
-%\subsection{Preview}
-%
-%\begin{frame}
-%	\frametitle{Recapitulation}
-%
-%	How ``everything'' in CM connects.
-%	(Slides will not be shared.)
-%\end{frame}
+
+\subsection{Recapitulation}
+
+\begin{frame}[fragile]
+	\frametitle{Configuration Specification}
+	\begin{alertblock}{Question}
+	Explain following configuration specification:
+	\end{alertblock}
+
+
+	\begin{code}[gobble=4]
+	[slapd/threads/listener]
+	  check/range:=1,2,4,8,16
+	  default:=1
+	  description:=adjust to use more threads
+	  rationale:=needed for many-core systems
+	  requirement:=1234
+	  visibility:=developer
+	\end{code}
+\end{frame}
+
+\begin{frame}
+	\begin{alertblock}{Question}
+	How to avoid duplication between description text and other parts?
+	\end{alertblock}
+
+	\pause
+
+	\begin{itemize}
+	\item Render type and defaults into the documentation
+	\item Render any other semantics into the documentation
+	\item Render requirements and rationale into the documentation
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Reevaluate specifications}
+
+	In which situations should you reevaluate if a configuration setting (specification) is needed?
+
+	\pause
+
+	\ExecuteMetaData[../../book/implications.tex]{reasons-adding}
+\end{frame}
+
+
+\breakframe
+
+\begin{frame}
+	\frametitle{Introspection}
+	\begin{alertblock}{Question}
+	What can introspection offer?
+	\end{alertblock}
+
+	\pause
+
+	\begin{itemize}
+	\item unified get/set access to (meta*)-key/values
+	\item GUI, web-UI can semantically interpret metadata
+	\item access via applications, CLI, GUI, web-UI, ...
+	\item access via any programming language (similar to file systems)
+	\item access via any configuration management system
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Which guarantees are possible with code generation?
+
+	\pause
+
+	\begin{itemize}
+	\item Every configuration setting is specified (essential for refactoring).
+	\item (Data) type of source code and configuration settings match.
+	\item Configuration access with defaults is always successful. \\
+	Reason: We use defaults if everything else fails.
+	\end{itemize}
+	\vspace{3em}
+
+	\begin{alertblock}{Finding}
+	Guarantees for both CM and application code.
+	\end{alertblock}
+\end{frame}
+
+\breakframe
+
+\begin{frame}
+	\frametitle{Introspection vs. Code Generation}
+
+	Advantages/disadvantages of introspection:
+
+	\pause
+
+	\setbeamersize{description width=1cm}
+	\begin{description}
+	\item[$+$] specification can be updated live on the system without recompilation
+	\item[$+$] tooling has generic access to all specifications
+ 	\item[$+$] new features the key database (e.g., better validation) are immediately available consistently
+	\item[$-$] more techniques for performance improvements with code generation
+	\item[$-$] code generation needed if context differs within same thread
+	\end{description}
+
+	\vspace{0.5em}
+
+	\begin{alertblock}{Implication}
+	We generally prefer introspection, except for a very thin configuration access API.
+	\end{alertblock}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Types of Specifications}
+	\includegraphics[scale=0.8]{specifications}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Learning Outcomes}
+	Students will be able to
+
+	\begin{itemize}
+	\item design and document configuration settings and specifications
+	\item evaluate a configuration system and decide about use of
+	\begin{itemize}
+	\item code generation
+	\item introspection
+	\item context-awareness
+	\end{itemize}
+	\item remember connections between the many different topics within CM
+	\end{itemize}
+
+	\vspace{2cm}
+
+	\begin{task}
+	Draw a big red, yellow or green (+) dot how you liked the topic.
+	\end{task}
+\end{frame}
+
+\subsection{Assignments}
+
+\begin{assignment}
+	\frametitle{P3 Presentation}
+
+	\begin{itemize}
+	\item be creative
+	\item try something new
+	\end{itemize}
+\end{assignment}
+
+\begin{assignment}
+	Finalize PRs:
+
+	\begin{itemize} %[<+-| alert@+>]
+	\item Rebase PRs (+1P).
+	\item Make CI happy.
+	\end{itemize}
+
+	\begin{alertblock}{Implication}
+	You must be positive on every part (project, presentation) to be positive in the overall lecture!
+	\end{alertblock}
+\end{assignment}
+
+\subsection{Preview}
+
+\begin{frame}
+	\frametitle{LRE Recapitulation}
+
+	How ``everything'' in CM connects.
+\end{frame}
 
 
 
