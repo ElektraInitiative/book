@@ -1,0 +1,834 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[austrian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{eso-pic}
+\usepackage{sectsty}
+\usepackage[type={CC},modifier={by-sa},version={4.0}]{doclicense}
+\usepackage{hyperref} %last
+
+\def\mytitle{Free/Libre and Open Source Software}
+\def\mynr{194.114}
+\def\myterm{2022W}
+
+\definecolor{complang}{RGB}{0,102,153}
+\definecolor{aktiv}{RGB}{237,28,38}
+
+\hypersetup{
+    bookmarks=true,
+    unicode=true,
+    pdftitle={Assignments FLOSS \mynr{} \myterm},
+    pdfauthor={Markus Raab},
+    pdfkeywords={Assignments} {Aufgaben} {Homework} {Teamwork} {Project},
+    pdfnewwindow=true,
+    linkbordercolor=complang, % color of internal links
+    citebordercolor=complang, % color of links to bibliography
+    filebordercolor=complang, % color of file links
+    urlbordercolor=complang % color of external links
+}
+
+\oddsidemargin0in
+\evensidemargin0in
+\topmargin-0.5in
+\textheight9.5in
+\textwidth4.8in
+%\textwidth6.3in
+\setlength{\marginparsep}{8mm}
+\setlength{\marginparwidth}{1.4in}
+
+\allsectionsfont{\sffamily\color{complang}}
+
+\newcommand{\side}[1]{\marginpar{\sffamily\footnotesize\raggedright\color{complang}{#1}}}
+\newcommand{\anm}[1]{\marginpar{\sffamily\footnotesize\raggedright\color{aktiv}{#1}}}
+\newcommand{\languages}[1]{C, C++, Java, Python, Rust (Kotlin, Lua, Ruby, Go)}
+
+\usepackage{xstring}
+\usepackage{pgfkeys}
+\usepackage{fp} %to calculate effort
+
+% summary initially empty
+\def\currkey{}
+\def\timekey{time}
+\makeatletter
+\newread\icsread
+\openin\icsread=../FLOSS2022W.ics
+% don't add end of line character
+\begingroup\endlinechar=-1
+% read line by line
+\@whilesw\unless\ifeof\icsread\fi{%
+% to support percent-signs in the ics-file
+\catcode`\%=12
+\read\icsread to \dataline
+\catcode`\%=14 % now comments with % are allowed again
+% check if this is a summary line
+\IfBeginWith{\dataline}{SUMMARY}{%
+% store summary value in \currkey
+\StrBehind{\dataline}{:}[\currkey]%
+% replace '\,' with ',' (needed to support commas in event summaries)
+\StrSubstitute{\currkey}{\,}{,}[\currkey]%
+}{}%
+
+% check if this is a dtstart line
+\IfBeginWith{\dataline}{DTSTART}{%
+% if a summary has been found previously
+\IfStrEq{\currkey}{}{}{%
+% extract the full date string
+\StrBehind{\dataline}{:}[\currdate]%
+% extract year, month, day values
+\StrLeft{\currdate}{4}[\curryear]%
+\StrMid{\currdate}{5}{6}[\currmonth]%
+\StrMid{\currdate}{7}{8}[\currday]%
+% extract start time
+\StrMid{\currdate}{10}{11}[\currhour]%
+\StrMid{\currdate}{12}{13}[\currminute]%
+% generate formatted date
+\xdef\fulldate{\currday.\currmonth.\curryear}%
+\xdef\fulldatetime{\fulldate,\,\currhour:\currminute}%
+% store summary value/formatted date and time as pgfkey
+{\globaldefs=1\relax%
+\pgfkeyslet{/\currkey}{\fulldate}%
+\pgfkeyslet{/\currkey\timekey}{\fulldatetime}%
+}
+}}{}%
+
+\IfBeginWith{\dataline}{DESCRIPTION;}{%
+% if a summary has been found previously
+\IfStrEq{\currkey}{}{}{%
+% extract the description containing the effort for the current event
+\StrBehind[2]{\dataline}{:}[\curreffort]%
+\StrSubstitute{\curreffort}{\,}{.}[\curreffort]
+% use substring up to first space characters to identify the task
+\StrBefore {\currkey}{ }[\taskkey]
+% store effort as pgfkey
+{\globaldefs=1\relax%
+\pgfkeysifdefined{/\taskkey}
+% key defined (if-branch)
+{\pgfkeysgetvalue{/\taskkey}{\lasteffort}
+\FPadd\sumeff\lasteffort\curreffort
+\FPclip\sumeff\sumeff
+\pgfkeyslet{/\taskkey}{\sumeff}
+}
+% key not defined (else-branch)
+{\pgfkeyslet{/\taskkey}{\curreffort}
+}}}}{}%
+}%
+\endgroup
+\closein\icsread
+\makeatother
+
+\newcommand{\geticsval}[1]{%
+% if key is defined then print the value
+\pgfkeysifdefined{#1}{\pgfkeysvalueof{#1}}{%
+% else generate an error
+\GenericError{[ICS dates and efforts] }{[ICS dates and efforts] Key not found}{The key #1 is not defined}{Choose a different key}}%
+}
+
+
+\begin{document}
+
+\section*{\huge Assignments
+\side{
+  \textbf{\mytitle{} (FLOSS)} \\[1ex]
+  \mynr \\
+  \href{https://tiss.tuwien.ac.at/course/courseDetails.xhtml?courseNr=194114}{TISS} \\
+  \myterm \\
+  TU Wien \\[4ex]
+  \textbf{Issued:} \\[1ex]
+  \today \\[4ex]
+}}
+
+
+\rule{0ex}{1ex}
+
+This document specifies the homework (H\textit{X}), teamwork (T\textit{X}) and project (P\textit{X}) of the course \mytitle{} (FLOSS).
+References to meetings are done via M\textit{XX}.
+All deadlines are summarized in a \href{https://tuwel.tuwien.ac.at/mod/resource/view.php?id=1661089}{separate document called ``schedule.pdf'', available in TUWEL}.
+
+\section{General Hints}
+
+\begin{itemize}
+\item This document contains all assignments of the course \mynr.
+	While it might look much at first sight, students appreciate that they know everything they need to do for the whole course in advance.
+\item Please always feel free to ask questions.
+	Start asking questions early, long before the deadline.
+	At following places we will give answers:
+	\begin{description}
+	\item[\href{https://tuwel.tuwien.ac.at/mod/moodleoverflow/view.php?id=1661080}{TUWEL forum}:] for any questions related to the course
+	\item[\href{https://issues.libelektra.org}{issue tracker}:] for any questions related to Elektra.
+		The lecturer's account is \texttt{@markus2330}, the tutor's account is \texttt{@flo91}.
+		\\ \url{https://issues.libelektra.org}
+	\item[email:] lecturer \href{mailto:markus.raab@complang.tuwien.ac.at?subject=FLOSS \myterm}{markus.raab@complang.tuwien.ac.at} and \\
+		tutor: \href{mailto:florian.lindner@student.tuwien.ac.at?subject=FLOSS \myterm}{florian.lindner@student.tuwien.ac.at}
+	\end{description}
+\item Pull-requests (PRs) for home- and teamwork are created in the public Elektra repository \url{https://git.libelektra.org}.
+\item As usual in FLOSS, and also in Elektra, some parts are already mature, others are experimental.
+	It can happen, that you find a problem that hinders you in your originally planned task.
+	If this happens, please report the problem and work on this hindering problem instead.
+	You will not have any disadvantage because of this.
+	Instead it is assumed that you worked carefully and get extra points\anm{Up to 3 extra points.} for reporting previously unknown issues.
+\item Following programming languages can be used for home- or teamwork:
+	\languages{}. \\
+	\textit{Note:} For the languages given in brackets we cannot give as much help, we assume that you are proficient in the language yourself.
+\item The title of every issue and PR must start with ``[FLOSS \textit{XY}]'', where \textit{X} is the initial letter and \textit{Y} is the number of the project, team- or homework.
+\item To be fully exposed to the FLOSS world, please install some FLOSS operating system like GNU/Linux directly on your computer.
+	This can be done in parallel to another operating system and only requires some disk space.
+	If you have troubles installing GNU/Linux, immediately ask for help in the TUWEL forum.
+\item Make sure that you get yourself a comfortable way to develop with Elektra early.
+	If you have troubles installing Elektra, immediately ask for help on \url{https://issues.libelektra.org}.
+\item Please always describe who in your team did what in the PR description or submission.
+\item Recommended team size is two, three is allowed if not possible otherwise.
+	The teamwork must be done in a team.
+	The project can be done alone or in a team.
+	The team for teamwork and project does not have to be the same.
+\item Quality is preferred over quantity.
+	You can get full points even if the assignment is only partially, e.g., missing features, but properly fulfilled.
+	I.e., always complete PRs fully according to Definition of Done below, so that they can be merged and no work gets lost.
+\item There are up to three deadlines:
+	\begin{description}
+	\item[The main deadline] for your submission --- PRs must fulfill the Definition of Done below --- then
+	\item[a review deadline] for reviewing the submissions of others, and
+	\item[a correction deadline] for correction of your submission based on the reviews you received.
+		Here again Definition of Done must be fulfilled, e.g., the continuous integration must pass.
+	\end{description}
+\end{itemize}
+
+
+\renewcommand{\thesection}{}
+\section{Definition of Done}
+
+The PR template of the libelektra repository defines what needs to be done for every PR in the public repository, and as such for most of the assignments.
+The template will be automatically shown when you create a PR.
+As reference the text is repeated below:
+
+\begin{itemize}
+\item Short descriptions of your changes are in the release notes
+      (added as entry in \href{https://master.libelektra.org/doc/news/_preparation_next_release.md}{\texttt{doc/news/\_preparation\_next\_release.md}} which
+      contains \verb+_(my name)_+).
+\item Details of what you changed are in commit messages
+      (first line should have \verb+module: short statement+ syntax).
+\item References to issues, e.g. \verb+close #X+ are in the commit messages.
+\item The PR is rebased with current master.
+\item The continuous integration passes the build. If not, fix in this order:
+\begin{itemize}
+  \item add a line in \href{https://master.libelektra.org/doc/news/_preparation_next_release.md}{\texttt{doc/news/\_preparation\_next\_release.md}}
+  \item reformat the code with \href{https://master.libelektra.org/scripts/dev/reformat-all}{\texttt{scripts/dev/reformat-all}}
+  \item make all unit tests pass
+  \item fix all memleaks
+\end{itemize}
+\end{itemize}
+
+If you have any troubles fulfilling these criteria, please write
+about the troubles as comment in the PR. We will help you.
+
+Furthermore sometimes following points need to be fulfilled:
+
+\begin{itemize}
+\item You added unit tests for your code.
+\item You fully described what your PR does in the documentation
+	(and not in the PR description).
+\item You fixed all affected documentation.
+\item Code is conforming to \href{https://master.libelektra.org/doc/CODING.md}{our Coding Guidelines}.
+	E.g., you added code comments, logging, and assertions as appropriate.
+\item You updated all meta data, e.g. README.md of plugins.
+\item You mentioned every code not directly written by you in \href{https://reuse.software}{reuse}.
+
+\item Documentation is introductory, concise, good to read and describes everything what the PR does.
+\item Examples are well chosen and understandable.
+
+\item You added the ``work in progress'' label if you do not want the PR to be reviewed yet.
+\item You added the ``ready to merge'' label if the Definition of Done is fulfilled and no further pushes are planned by you.
+\end{itemize}
+
+
+
+
+\section{Project Variants}
+
+For the project, you can choose one of the following variants:
+
+\begin{description}
+\item[New Initiative:] Create a new FLOSS initiative.
+	Please only take the option if you have an innovative new idea which can be realized within one term.
+	Otherwise prefer joining an existing initiative.
+	You will be fully responsible for where the issues, the source code etc.\ live.
+	This is probably the most time-consuming variant.
+\item[Existing Initiative:]
+	Continue or start maintaining an initiative or a module of some initiative.
+	It is fine, if the FLOSS (module) is already written or maintained by you.
+	You are encouraged to improve badly maintained software, e.g., fix something which is not working for you.
+	It depends on the initiative in which ways you can help.
+
+	The only requirements are that the FLOSS must:
+	\begin{itemize}
+	\item be publicly available, and
+	\item be fully licensed using \href{https://www.gnu.org/licenses/license-list}{FLOSS licenses}.
+	\end{itemize}
+
+	For example, following initiatives have many plugins suitable to be worked on as your project:
+	\begin{itemize}
+	\item \url{https://www.jenkins.io} in Java.
+	\item \url{https://www.nextcloud.com} in PHP.
+	\end{itemize}
+	More (specific) examples will be given in meetings and TUWEL.
+\item[Elektra:]
+	Continue working on Elektra, where you also do your home- and teamwork.
+	This is probably the easiest variant, as you do not need to acquaint yourself with several initiatives.
+	You can help Elektra by fixing an issue that is too big for home- or teamwork.
+	Examples for such issues are tagged with {\tt project\myterm}.
+\end{description}
+
+\newpage
+
+\renewcommand{\thesection}{H0 Registration}
+\section[\thesection]{
+\side{
+  \textbf{Deadline:} \\[1ex]
+  \geticsval{/H0 Registration\timekey} \\[4ex]
+  \textbf{Estimated Effort:} \\[1ex]
+  \geticsval{/H0}h \\[4ex]
+  \textbf{Points:} \\[1ex]
+  1 \\[4ex]
+  \textcolor{aktiv}{
+  \textbf{Tasks:} \\[1ex]
+  - Registration in TISS \\
+  - TUWEL Forum Entries \\
+  - Upload StudentID \\
+  - Create and Close Issue} \\[4ex]
+  \textbf{Topic:} \\[1ex]
+  M00: \geticsval{/M00 Preliminary Talk\timekey}
+}}
+
+\begin{itemize}
+\item Registration in TISS.
+\item Write a post in the TUWEL discussion forum, including:
+	\begin{itemize}
+	\item your preference of programming languages to be used: \\
+		\languages{}.
+	\item which variant of the project you consider.
+	\item your GitHub account for \url{https://issues.libelektra.org}.
+	\end{itemize}
+\item Reply to at least one other post in the TUWEL forum to find a team partner for teamwork and project.
+\item Once you found a team partner, reply to your own post stating who your team partner for both teamwork and project is. Different partners for teamwork and project are allowed.
+\item Upload the \href{https://tuwel.tuwien.ac.at/mod/assign/view.php?id=1661083}{StudentID in TUWEL}.
+\item Create a new issue in \url{https://issues.libelektra.org}.
+For example, this can be a question or a vision about how a configuration system should be.
+The title of the issue must start with \linebreak ``[FLOSS H0]''.
+\item Close the issue once you got an answer.
+\end{itemize}
+
+If you complete the above points correctly, you are successfully registered in the course and you will receive your first point in TUWEL.
+This means you will also get a certificate at the end of the term.
+
+\renewcommand{\thesection}{H1 Bug Triage}
+\section[\thesection]{
+\side{
+  \textbf{Deadline:} \\[1ex]
+  \geticsval{/H1 Bug Triage\timekey} \\[4ex]
+  \textbf{Estimated Effort:} \\[1ex]
+  \geticsval{/H1}h \\[4ex]
+  \textbf{Points:} \\[1ex]
+  6 \\[4ex]
+  \textcolor{aktiv}{
+  \textbf{Tasks:} \\[1ex]
+  - Create an issue \\
+  - Triage for 5 issues} \\[4ex]
+  \textbf{Topic:} \\[1ex]
+  M01: \geticsval{/M01 Issue Tracking\timekey}
+}}
+
+Start to install and use Elektra.
+Create a new issue in \url{https://issues.libelektra.org} about your first impression and steps with Elektra.
+Write about what you understood and what is unclear.
+Answer the question: Which information was missing for you and where did you look for it?
+This issue will be later used in T3.
+
+Then for at least five issues, do a bug triage:
+
+\begin{itemize}
+\item Assign the issue to you.
+\item Change the title so that it starts with ``[FLOSS H1]''.
+\item Reproduce the issue and write about your outcome.
+\item If the issue actually describes several problems, create new issues accordingly.
+\item Use more appropriate tags.
+\item Give more detailed instructions of how to reproduce the issue.
+\item Write in the issue where in the source code the problem is.
+\end{itemize}
+
+If anything is unclear, in particular about the last three points, please ask in the issue.
+It is very likely that someone can help you.
+
+Suitable issues are labelled as {\tt floss\myterm}.
+
+\renewcommand{\thesection}{H2 Pull Requests: Freestyle}
+\section[\thesection]{
+\side{
+  \textbf{Deadline:} \\[1ex]
+  \geticsval{/H2 Pull Requests: Freestyle\timekey} \\[4ex]
+  \textbf{Reviews until:} \\[1ex]
+  \geticsval{/H2 Reviews\timekey} \\[4ex]
+  \textbf{Corrections until:} \\[1ex]
+  \geticsval{/H2 Corrections\timekey} \\[4ex]
+  \textbf{Estimated Effort:} \\[1ex]
+  \geticsval{/H2} \\[4ex] % Flo: maybe more effort (6-7 h), esp. for getting started with Elektra-Development and the behaviour of the CI-pipeline (checks, formatting, testing, ...). markus: reduced to 3 reviews.
+  \textbf{Points:} \\[1ex]
+  10 \\[4ex]
+  \textcolor{aktiv}{
+  \textbf{Tasks:} \\[1ex]
+  - Create 5 PRs \\
+  - Review 3 PRs} \\[4ex]
+  \textbf{Topics:} \\[1ex]
+  - M02: \geticsval{/M02 Source Code Management\timekey} \\
+  - M03: \geticsval{/M03 Development Tools\timekey} \\[1ex]
+  For corrections: \\
+  - M04: \geticsval{/M04 Continuous Integration\timekey}
+}}
+
+Create five PRs using your fork with five branches, each of them with an added line in the release notes \href{https://master.libelektra.org/doc/news/_preparation_next_release.md}{\texttt{doc/news/\_preparation\_next\_release.md}}, stating what the intend of your change was.
+Like always, write ``[FLOSS H2]'' in the title of the PRs, e.g. ``[FLOSS H2] Fix typo''.\\
+For each of the PRs either:
+\begin{itemize}
+\item Fix TODO markers in the source code.
+
+\item Improve the readability of some sentence you found hard to understand.
+
+%\item Remove a seemingly working link from \\ \verb+tests/linkchecker.whitelist+
+
+\item Add code comments, assertions, log statements or inline comments, see \href{https://master.libelektra.org/doc/CODING.md}{\texttt{doc/CODING.md}}.
+
+\item Write a new example of how to use Elektra in \href{https://master.libelektra.org/examples}{\texttt{examples}} or in the appropriate bindings folder, e.g. \href{https://master.libelektra.org/src/bindings/swig/ruby/examples}{\texttt{src/bindings/swig/ruby/examples}}.
+\end{itemize}
+
+Create three reviews of other H2 pull-requests.
+In the review make sure the items of the PR template are fulfilled
+and everything you did in the review is written in the main comment of your review.
+
+To get all points,
+you need to rebase the PRs on merge conflicts,
+the continuous integration must pass and
+the reviews must be accounted for.
+
+\textit{Note:} Five PRs are needed if the PRs are small (e.g. fix only a few TODO or spellings).
+Less PRs might be enough if they solve non-trivial problems.
+Quality is preferred over quantity.
+
+\textit{Hint:}
+Start asking questions early, long before the deadline.
+Ask questions in new issues or directly in the PR if they are related to the code.
+
+\renewcommand{\thesection}{H3 Pull Requests: Fix Issues}
+\section[\thesection]{
+\side{
+  \textbf{Deadline:} \\[1ex]
+  \geticsval{/H3 Pull Requests: Fix Issues\timekey} \\[4ex]
+  \textbf{Reviews until:} \\[1ex]
+  \geticsval{/H3 Reviews\timekey} \\[4ex]
+  \textbf{Corrections until:} \\[1ex]
+  \geticsval{/H3 Corrections\timekey} \\[4ex]
+  \textbf{Estimated Effort:} \\[1ex]
+  \geticsval{/H3}h \\[4ex] % effort strongly depends on the issues you are assigned to
+  \textbf{Points:} \\[1ex]
+  13 \\[4ex]
+  \textcolor{aktiv}{
+  \textbf{Tasks:} \\[1ex]
+  - Create 5 PRs \\
+  - Review 3 PRs} \\[4ex]
+  \textbf{Topics:} \\[1ex]
+  - M01: \geticsval{/M01 Issue Tracking\timekey} \\
+  - M02: \geticsval{/M02 Source Code Management\timekey} \\
+  - M03: \geticsval{/M03 Development Tools\timekey} \\
+  - M04: \geticsval{/M04 Continuous Integration\timekey}
+}}
+
+\begin{itemize}
+\item Submit PRs to fix each issue you are assigned to.
+\item Write ``[FLOSS H3]'' in the title of the PRs.
+\end{itemize}
+
+\textit{Hint:}
+Create a PR as early as possible to get feedback.
+Create new issues and new PRs as needed.
+
+\vspace{\baselineskip}
+
+Furthermore, create at least three reviews of other's H3 PRs.
+\newcommand{\reviewcheck}[1]{%
+Everything you checked for (even if it was okay) is written in the main comment of your review.
+}
+\newcommand{\review}[1]{%
+For the reviews, make sure that:
+\begin{itemize}
+\item The review is helpful for the author of the PR.
+\item The items of the PR template are fulfilled.
+\item The PR actually solves the underlying issue.
+\item The CI executes the tests.
+\item \reviewcheck{}
+\end{itemize}
+}
+\\\review{}
+
+\vspace{\baselineskip}
+
+\textit{Hint:}
+Please always feel free to ask questions in the issue (if it is related to the issue), in the PR (if it is related to the code).
+Start asking questions early, long before the deadlines.
+
+\newpage
+
+\renewcommand{\thesection}{T1 Continuous Integration}
+\section[\thesection]{
+\side{
+  \textbf{Deadline:} \\[1ex]
+  \geticsval{/T1 Continuous Integration\timekey} \\[4ex]
+  \textbf{Reviews until:} \\[1ex]
+  \geticsval{/T1 Reviews\timekey} \\[4ex]
+  \textbf{Corrections until:} \\[1ex]
+  \geticsval{/T1 Corrections\timekey} \\[4ex]
+  \textbf{Estimated Effort:} \\[1ex]
+  \geticsval{/T1}h \\[4ex]
+  \textbf{Points:} \\[1ex]
+  10 \\[4ex]
+  \textcolor{aktiv}{
+  \textbf{Tasks:} \\[1ex]
+  - Create 2 PRs \\
+  - Review 2 PRs} \\[4ex]
+  \textbf{Topic:} \\[1ex]
+  M04: \geticsval{/M04 Continuous Integration\timekey}
+}}
+
+Create at least two PRs in which your team:
+
+\begin{enumerate}
+\item Writes new tests, e.g., in \href{https://master.libelektra.org/tests/ctest}{\texttt{tests/ctest}} or in the appropriate bindings folder,
+	which demonstrate that an, ideally new, bug is now fixed.
+	To find new bugs, you can either:
+
+	\begin{itemize}
+	\item Check documentation and tests for consistency.
+	\item Run fuzzy tester, e.g., AFL.
+	\item Look at output of sanitizers, e.g., ASAN.
+	\item Test code that had no coverage before, see \\
+		{\scriptsize \url{https://doc.libelektra.org/coverage/master/debian-bullseye-full/}}.
+	\end{itemize}
+\item Fixes and includes disabled tests, either as reported in issues, marked as \verb+DISABLED_+ or as documented in \href{https://master.libelektra.org/doc/todo/TESTING}{\texttt{doc/todo/TESTING}}.
+\end{enumerate}
+
+Write ``[FLOSS T1]'' in the title of the PRs.
+
+Document in the PR description:
+
+\begin{itemize}
+\item How you found the bugs.
+\item On which CI systems the tests run now.
+\item Who did which parts of this task.
+\end{itemize}
+
+Furthermore, create at least two reviews of T1 PRs.
+\\\review{}
+
+\newpage
+
+\renewcommand{\thesection}{T2 Documentation}
+\section[\thesection]{
+\side{
+  \textbf{Deadline:} \\[1ex]
+  \geticsval{/T2 Documentation\timekey} \\[4ex]
+  \textbf{Reviews until:} \\[1ex]
+  \geticsval{/T2 Reviews\timekey} \\[4ex]
+  \textbf{Corrections until:} \\[1ex]
+  \geticsval{/T2 Corrections\timekey} \\[4ex]
+  \textbf{Estimated Effort:} \\[1ex]
+  \geticsval{/T2}h \\[4ex]
+  \textbf{Points:} \\[1ex]
+  10 \\[4ex]
+  \textcolor{aktiv}{
+  \textbf{Tasks:} \\[1ex]
+  - Create 3 PRs \\
+  - Review 3 PRs} \\[4ex]
+  \textbf{Topic:} \\[1ex]
+  M05: \geticsval{/M05 Documentation\timekey}
+}}
+
+Create at least three PRs in which your team:
+
+\begin{itemize}
+\item Automatizes the validation of one tutorial.
+\item Enhances or creates a tutorial in \href{https://master.libelektra.org/doc/tutorials}{\texttt{doc/tutorials}} which uses automatized validation.
+\item Improves the generated documentation of the man pages or API \url{https://doc.libelektra.org/api}.
+\end{itemize}
+
+Write ``[FLOSS T2]'' in the title of the PRs.
+
+Document in the PR description:
+
+\begin{itemize}
+\item On which CI systems the tests run.
+\item Who did which parts of this task.
+\end{itemize}
+
+Furthermore, create at least three reviews of T2 PRs.
+\\For the reviews, make sure that:
+\begin{itemize}
+\item The documentation is clear and understandable for you.
+\item The CI executes the validation of tutorials.
+\item \reviewcheck{}
+\end{itemize}
+
+
+\renewcommand{\thesection}{T3 Remove Entry Barriers}
+\section[\thesection]{
+\side{
+  \textbf{Deadline:} \\[1ex]
+  \geticsval{/T3 Remove Entry Barriers\timekey} \\[4ex]
+  \textbf{Reviews until:} \\[1ex]
+  \geticsval{/T3 Reviews\timekey} \\[4ex]
+  \textbf{Corrections until:} \\[1ex]
+  \geticsval{/T3 Corrections\timekey} \\[4ex]
+  \textbf{Estimated Effort:} \\[1ex]
+  \geticsval{/T3}h \\[4ex]
+  \textbf{Points:} \\[1ex]
+  10 \\[4ex]
+  \textcolor{aktiv}{
+  \textbf{Tasks:} \\[1ex]
+  - Create 2 PRs \\
+  - Review 2 PRs} \\[4ex]
+  \textbf{Topic:} \\[1ex]
+  M06: \geticsval{/M06 Entry Barriers\timekey}
+}}
+
+Create at least two PRs, in which your team removes at least two entry barriers.
+These can be either an entry barrier
+
+\begin{itemize}
+\item as reported in H1,
+\item you stumbled across later, or
+\item someone else reported.
+\end{itemize}
+
+Write ``[FLOSS T3]'' in the title of the PRs.
+
+Furthermore, create at least two reviews of T3 PRs.
+\\For the reviews, make sure that:
+\begin{itemize}
+\item The PR reduces an entry barrier.
+\item \reviewcheck{}
+\end{itemize}
+
+\newpage
+
+\renewcommand{\thesection}{P0 Start}
+\section[\thesection]{
+\side{
+  \textbf{Deadline:} \\[1ex]
+  \geticsval{/P0 Proposal\timekey} \\[4ex]
+  \textbf{Reviews until:} \\[1ex]
+  \geticsval{/P0 Reviews\timekey} \\[4ex]
+  \textbf{Feedback:} \\[1ex]
+  \geticsval{/P0 Feedback\timekey} \\[4ex]
+  \textbf{Estimated Effort:} \\[1ex]
+  \geticsval{/P0}h \\[4ex]
+  \textbf{Points:} \\[1ex]
+  5 \\[4ex]
+  \textcolor{aktiv}{
+  \textbf{Tasks:} \\[1ex]
+  - Submit PR or \\
+  - TUWEL Forum Entry \\
+  - Submit Document \\
+  - Review PRs/Documents} \\[4ex]
+  \textbf{Topic:} \\[1ex]
+  M01: \geticsval{/M01 Issue Tracking\timekey}
+}}
+
+Choose a topic that you find yourself interesting.
+E.g. for Elektra:
+
+\begin{itemize}
+\item Something you are missing and you want for yourself.
+\item A missing feature reported in the issue tracker, e.g., tagged with {\tt project\myterm}.
+\item Something you find interesting in \href{https://master.libelektra.org/doc/todo}{\texttt{doc/todo}}.
+\end{itemize}
+
+Submit a short --- not more than three pages long --- \href{https://tuwel.tuwien.ac.at/mod/workshop/view.php?id=1661170}{document in the P0 workshop in TUWEL} that includes:
+
+\begin{itemize}
+\item A proposal what you plan to do as a project:
+\begin{itemize}
+\item What problem you want to solve.
+\item Sketch how you want to implement it, e.g., architecture and which language you want to use.
+\end{itemize}
+\item Which source code management tool/issue tracker you want to use.
+\item A research of similar or alternative initiatives/modules/plugins.
+\item Who will do which part of the project.
+\end{itemize}
+
+The document should be exclusively about your own project.
+
+\begin{description}
+\item[If you work on Elektra,] create a PR with user-facing documentation.
+For example, if you create a new tool, start by writing the man page of that tool.
+
+\item[If you do not work on Elektra,] announce your project in the TUWEL forum.
+Create user-facing documentation in the source code repository you use.
+\end{description}
+
+Link to the forum entry, issue and/or PR in the document.
+
+Until the feedback deadline, discussions about scope take place, either in the PR or TUWEL forum.
+
+Furthermore, create at least \href{https://tuwel.tuwien.ac.at/mod/workshop/view.php?id=1661170}{two reviews in TUWEL} and, if the reviewed person improves Elektra, the accompanied PR.
+
+\textit{Hint:}
+It makes sense to already start critical parts of the implementation.
+If you do so, please include that in the PR, even if it does not compile.
+
+
+
+\newpage
+
+\renewcommand{\thesection}{P1 Midterm}
+\section[\thesection]{
+\side{
+  \textbf{Deadline:} \\[1ex]
+  \geticsval{/P1 Midterm Report\timekey} \\[4ex]
+  \textbf{Reviews until:} \\[1ex]
+  \geticsval{/P1 Reviews\timekey} \\[4ex]
+  \textbf{Estimated Effort:} \\[1ex]
+  \geticsval{/P1}h \\[4ex]
+  \textbf{Points:} \\[1ex]
+  15 \\[4ex]
+  \textcolor{aktiv}{
+  \textbf{Tasks:} \\[1ex]
+  - Submit PR \\
+  - Submit Document \\
+  - Review PRs/Documents} \\[4ex]
+  \textbf{Topics:} \\[1ex]
+  - M05: \geticsval{/M05 Documentation\timekey} \\
+  - M06: \geticsval{/M06 Entry Barriers\timekey} \\
+  - M07: \geticsval{/M07 Maintenance\timekey}
+}}
+
+The goal of P1 is to have a working, but probably minimal, implementation of the proposal submitted in P0.
+The code should be of high quality with unit tests and documentation.
+
+Furthermore, explain in the extended document, which is not longer than five pages in total:
+
+\begin{itemize}
+\item The content as requested in P0 --- shortened and improved.
+\item How you document your project.
+\item How you keep the entry barriers low and how you attract new developers in your project.
+	Give an explanation of how new developers can join.
+	Maybe one of your reviewers gets interested.
+\item Who did which parts of the project and document.
+\item Include FLOSS literature research with at least five citations.
+\end{itemize}
+
+
+\vspace{\baselineskip}
+
+\href{https://tuwel.tuwien.ac.at/mod/workshop/view.php?id=1661173}{Submit this document and again do reviews of two other documents via the P1 workshop in TUWEL}.
+
+
+\renewcommand{\thesection}{P2 Presentation}
+\section[\thesection]{
+\side{
+  \textbf{Deadline:} \\[1ex]
+  \geticsval{/P2 Presentation\timekey} \\[4ex]
+   \textbf{Corrections until:} \\[1ex]
+  \geticsval{/P2 Corrections\timekey} \\[4ex]
+   \textbf{Presentations:} \\[1ex]
+  \geticsval{/M11 Presentations\timekey} \\[4ex]
+  \textbf{Estimated Effort:} \\[1ex]
+  \geticsval{/P2}h \\[4ex]
+  \textbf{Points:} \\[1ex]
+  0 \\[4ex]
+  \textcolor{aktiv}{
+  \textbf{Tasks:} \\[1ex]
+  - Submit Presentation \\
+  - Hold Presentation}
+}}
+
+Workflow:
+
+\begin{itemize}
+\item Submit your presentation before \geticsval{/P2 Presentation\timekey} in \href{https://tuwel.tuwien.ac.at/mod/publication/view.php?id=1661182}{TUWEL}.
+
+\item Before \geticsval{/P2 Corrections\timekey}, make sure that you correct and upload the latest slides.
+
+\item The presentation can be on any week but must be at latest on \geticsval{/M11 Presentations}.
+	If your presentation is earlier, make sure that you upload your slides earlier accordingly.
+\end{itemize}
+
+\vspace{\baselineskip}
+
+\noindent
+Content of the presentation:
+
+\begin{itemize}
+	\item The presentation can be about anything related to FLOSS, e.g.:
+	\begin{itemize}
+		\item some FLOSS tool you played around with
+		\item FLOSS development you did
+		\item about the project
+	\end{itemize}
+	\item The presentation must be about your experience.
+	\item Team presentations are allowed.
+	\item The duration must be less than 10 minutes per person.
+	\item Like done in the lecture, you can choose to produce a video of your presentation upfront.
+	\item You get extra points for creative, unconventional presentations\anm{Up to 3 extra points.}, e.g., when encouraging active participation.
+\end{itemize}
+
+\renewcommand{\thesection}{P3 Finish}
+\section[\thesection]{
+\side{
+  \textbf{Deadline:} \\[1ex]
+  \geticsval{/P3 Finish\timekey} \\[4ex]
+  \textbf{Estimated Effort:} \\[1ex]
+  \geticsval{/P3}h \\[4ex]
+  \textbf{Points:} \\[1ex]
+  20 \\[4ex]
+  \textcolor{aktiv}{
+  \textbf{Tasks:} \\[1ex]
+  - Finish Implementation \\
+  - Testing \\
+  - Finish Documentation \\
+  - Get all PRs merged \\
+  - Submit decision PR \\
+  - Submit Document} \\[4ex]
+  \textbf{Topics:} \\[1ex]
+  - M08: \geticsval{/M08 Collaboration\timekey} \\
+  - M09: \geticsval{/M09 Architecture\timekey}
+}}
+
+The main goal here is to finish the project and get all left-over PRs finalized and merged.
+The work done for unmerged PRs will be lost, which would be a pity we definitely want to avoid.
+
+Write or improve at least one architectural decision as introduced in M09 (\geticsval{/M09 Architecture\timekey}).
+If you are working on Elektra, use the template in \href{https://master.libelektra.org/doc/decisions/template.md}{\texttt{doc/decisions/template.md}} and submit an extra PR for the decision.
+
+\href{https://tuwel.tuwien.ac.at/mod/assign/view.php?id=1661179}{Finalize and submit the document} --- but it is still in total not more than five pages --- in a subsumed style:
+
+\begin{itemize}
+\item The content of P0 and P1 --- shortened and improved --- with extended details about which software architecture you actually used.
+\item Describe which tests should be done for a release. It is expected that the code passed these tests.
+\item How the maintenance or your project works (e.g., releases, packages).
+\item Describe the directory structure you use.
+\item Who did which parts of the project and document.
+\end{itemize}
+
+Link to the respective parts in the repository if (further) explanations are available there.
+E.g., if you described the directory structure in a README.md, it is enough to link to the file,
+no replication of the content is needed.
+
+You get extra points for helping\anm{Up to 10 extra points.} other people to get their PRs merged.
+These points also substitute points missing in P3.
+
+\vspace{\baselineskip}
+
+This time no review is necessary.
+
+\vspace{5em}
+
+\doclicenseThis
+
+
+\end{document}

@@ -1,0 +1,99 @@
+\documentclass[a4paper]{article}
+\usepackage[austrian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[table]{xcolor}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{fancyhdr}
+\usepackage[type={CC},modifier={by-sa},version={4.0}]{doclicense}
+%\usepackage[top=1cm,left=2cm,right=2cm]{geometry}
+
+%\oddsidemargin-.15in
+%\evensidemargin-.15in
+%\topmargin-1in
+%\textheight10.7in
+%\textwidth6.8in
+
+\def\mytitle{Free/Libre and Open Source Software 194.114 2022W}
+
+\definecolor{complang}{RGB}{0,112,175}
+\definecolor{aktiv}{RGB}{237,28,38}
+
+\hypersetup{
+    bookmarks=true,
+    unicode=true,
+    pdftitle={Schedule \mytitle},
+    pdfauthor={Markus Raab},
+    pdfkeywords={Semester} {Schedule} {Homework} {Teamwork},
+    pdfnewwindow=true,
+    linkbordercolor=complang, % color of internal links
+    citebordercolor=complang, % color of links to bibliography
+    filebordercolor=complang, % color of file links
+    urlbordercolor=complang % color of external links
+}
+
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\newcommand{\ac}{\cellcolor{green!60!yellow!40!white}}
+\newcommand{\vc}{\cellcolor{complang!25!white}}
+\newcommand{\uc}{\cellcolor{orange!40!white}}
+\newcommand{\pc}{\cellcolor{purple!40!white}}
+\newcommand{\dc}{\cellcolor{blue!40!white}}
+\newcommand{\srepc}{\cellcolor{red!60!white}}
+\newcommand{\tutc}{\cellcolor{yellow!60!white}}
+\newcommand{\chc}{\cellcolor{gray!60!white}}
+
+\newcommand{\meeting}[4]{\vc M{#1} & \vc{#2} & \vc{#3} & \vc{#4}}
+\newcommand{\team}[4]{\uc T{#1} & \uc{#2} & \uc{#3} & \uc{#4}}
+\newcommand{\home}[4]{\ac H{#1} & \ac{#2} & \ac{#3} & \ac{#4}}
+\newcommand{\project}[4]{\pc P{#1} & \pc{#2} & \pc{#3} & \pc{#4}}
+\newcommand{\demo}[4]{\dc D{#1} & \dc{#2} & \dc{#3} & \dc{#4}}
+\newcommand{\tutorial}[4]{\tutc TU{#1} & \tutc{#2} & \tutc{#3} & \tutc{#4}}
+\newcommand{\chour}[4]{\chc CH{#1} & \chc{#2} & \chc{#3} & \chc{#4}}
+
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\noindent
+\begin{tabular}{l@{\qquad\qquad}l}
+  \vc{Mxx} & Deadline preparations for Meeting no.~xx (14:00) \\
+  %\dc{Dx} & Demo nr.~x (10:30--11:00) \\
+  \ac{Hx} & Deadline for Homework no.~x (23:59) \\
+  \uc{Tx} & Deadline for Teamwork no.~x (23:59) \\
+  \pc{Px} & Deadline for Project no.~x (23:59) \\
+  \tutc{TUx} & Tutorial no.~x (16:30--18:00)\\
+  \chc{CH} & Consultation Hour (10:00--11:00)\\
+  & All times are Vienna/Austria.
+\end{tabular}}
+
+\pagestyle{fancy}
+
+\begin{document}
+
+%\sffamily
+
+\begin{center}
+  \section*{\mytitle}
+\end{center}
+\thispagestyle{fancy}
+
+% V .. Video
+% O .. Online Meeting
+% S .. alte Slide Nummern
+% 
+% insgesamt 16 Stunden Lecture
+
+\begin{longtable}{@{}ll@{~~}rlr@{}}
+\textbf{Week} & \textbf{Task} & \textbf{Date} & \textbf{Topic} \\
+\\[-2.1ex]
+\input{table.tex}
+\end{longtable}
+
+%\vspace{3ex}
+%\noindent
+
+\doclicenseThis
+
+
+\end{document}
