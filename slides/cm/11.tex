@@ -9,56 +9,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Recapitulation}
 
-\subsection{}
-
 \begin{frame}
-	\frametitle{Configuration File Formats (Recapitulation)}
-	\methodQuestion{} \question{In which way have you used or contributed to the configuration system/library/API in your previously mentioned FLOSS project(s)?}~\cite{raab2017challenges}
-	\pause
-	\begin{itemize}
-	\item \p{19} persons ($n=251$) have introduced a configuration file format.
-	\item \p{29} implemented a configuration file parser.
-	\item \p{15} introduced a configuration system/library/API.
-	\item \p{34} used external configuration access APIs.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Current Situation}
-	\includegraphics[scale=0.7]{cursituation}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Wanted Situation}
-	\includegraphics[scale=0.7]{wantsituation}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Vertical Modularity}
+	\frametitle{Metalevels}
 	\begin{alertblock}{Question}
-	Explain the content of the figure.
-	\end{alertblock}
-	\begin{columns}[c]
-	\column{7cm}
-	\includegraphics[scale=0.75]{verticalmodularity}
-	\column{4cm}<2>
-	Needed to keep applications independently.
-
-	Boxes are applications, cylinders are configuration files, F? are frontends or frontend adapters, L? are configuration libraries~\cite{raab2016improving}.
-	\end{columns}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
-
-\begin{frame}
-	\frametitle{Metalevels (Recapitulation)}
-	\begin{alertblock}{Question}
-	Describe the three Metalevels in Elektra.
+	Describe the three Metalevels in Elektra and CM.
 	\end{alertblock}
 
 	\pause
@@ -66,80 +20,24 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Introspection (Recapitulation)}
-	\begin{task}
-	What is internal and external specification?
-	What is introspection?
-	\end{task}
+	\frametitle{Integration: Current Situation}
 
 	\pause
-	\vspace{1em}
-
-	\begin{itemize}
-	\item \textit{internal}: within applications' source code
-	\item \textit{introspection}: unified get/set access to (meta*)-key/values
-	\item access via applications, CLI, GUI, web-UI, ...
-	\item access via any programming language (similar to file systems)
-	\item GUI, web-UI can semantically interpret metadata
-	\item assemble modular parts (validation, logging, \dots)
-	\item needed as communication between producers and consumers
-	\item essential for \intro[no-futz computing]{no-futz computing}~\citet{holland2001nofutz}
-	\end{itemize}
+	\includegraphics[scale=0.7]{cursituation}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Introspection vs.\ Code Generation (Recapitulation)}
-
-	\begin{task}
-	Advantages/Disadvantages of key database (vs.\ code generation)?
-	\end{task}
+	\frametitle{Integration: Wanted Situation}
 
 	\pause
-
-	\setbeamersize{description width=1cm}
-	\begin{description}
-	\item[$+$] specification can be updated live on the system without recompilation
-	\item[$+$] tooling has generic access to all specifications
- 	\item[$+$] new features the key database (e.g., better validation) are immediately available consistently
-	\item[$-$] more run-time errors due to missing no type safety
-	\item[$-$] less techniques for performance improvements
-	%\item[$-$] contextual values cannot be used if context differs within same thread
-	\end{description}
-
-	\begin{alertblock}{Implication}
-	We generally prefer introspection, except for a very thin configuration access API.
-	\end{alertblock}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
-
-\begin{frame}
-	\frametitle{Definition Configuration Management (Recapitulation)}
-
-	\begin{task}
-	What is Configuration Management?
-	\end{task}
-
-	\pause
-
-	\begin{itemize}
-	\item is a discipline in which configuration (in the broader sense) is administered.
-	\item makes sure computers are assembled from desired parts and the correct applications are installed.
-	\item has means to describe the desired configuration of the whole managed system.
-	\item ensures that the execution environment of installed applications is as required.
-	\end{itemize}
+	\includegraphics[scale=0.7]{wantsituation}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Possible Benefits of CM (Recapitulation)}
+	\frametitle{Possible Benefits of CM}
 
 	\begin{task}
-	What are the goals of Configuration Management Tools like Ansible?
+	What are the goals of CM Tools?
 	\end{task}
 
 	\pause
@@ -159,289 +57,49 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Early detection (Recapitulation)}
-	\begin{task}
-	When do we want to detect misconfiguration?
-	\end{task}
-
-	\pause
-
-	Phases when we can detect misconfigurations:
-	\begin{itemize} %[<+-| alert@+>]
-	\item Compilation stage in configuration management tool
-	\item Writing configuration settings on nodes
-	\item Starting applications (load-time)
-	\item When configuration setting is actually used (run-time)
-	\end{itemize}
-
-	\pause[\thebeamerpauses]
-
-	\begin{alertblock}{Problem}
-	Earlier versus more context.
-	\end{alertblock}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Configuration Specification (Recapitulation)}
+	\frametitle{Develop CM-aware applications}
 
 	\begin{task}
-	How can we combine configuration specifications and configuration management?
+	What needs to be considered by developers to make applications CM-aware?
 	\end{task}
-
-	\pause
-
-	\begin{itemize} %[<+-| alert@+>]
-	\item configuration settings are simply an instantiation of the configuration specifications.
-		Code describing the instantiation is \textbf{CM code}.
-	\item configuration design is explicit (like transformations and default values) and can help while writing CM code.
-	\item CM code can even be generated from the specification.
-	\item access specifications make access trivial via uniform interface.
-	\item visibility and similar techniques may help dealing with complexity.
-	\end{itemize}
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
-
-\begin{frame}
-	\frametitle{Properties (Recapitulation)}
-
-	\begin{task}
-	What is idempotent, self-describing, round-tripping configuration?
-	\end{task}
-
-	\pause
-
-
-	\begin{description}[labelsep=3cm,align=right]
-	\item[Idempotent]
-	yield the same configuration with any number of applications from CM code ($n\ge1$)~\cite{waldemar2013testing}:
-	\[
-		f(f(x))=f(x)
-	\]
-	needed to guarantee repeatability
-
-	\item[Self-describing]
-	means that from the configuration file alone we are able to derive the correct data structure~\cite{wadler2003xml}.
-
-	\item[Round-tripping]
-	means that if a data structure is serialized and then parsed again, we end up with an identical data structure~\cite{wadler2003xml}.
-	\end{description}
-
-	The data structure could be a KeySet.
-\end{frame}
-
-\begin{frame}
-	\frametitle{Popular CMs today}
-
-	\begin{itemize} %[<+-| alert@+>]
-	\item CFengine (1993)
-	\item LCFG (1994)
-	\item Quattor (2005)
-	\item Puppet (2005)
-	\item Chef (2009)
-	\item Salt (2011)
-	\item Ansible (2012)
-	\item Itamae (2014)
-	\item OpsMops (2019)
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Elektra (Recapitulation)}
-
-	\begin{task}
-	What is Elektra?
-	\end{task}
-
-	\pause
-
-	\begin{itemize}
-	\item is not only a key database but a specification language to describe a key database
-	\item plugins implement the specification (could be distributed but focus is configuration files)
-	\item is library based (no single point of failure, no distributed coordination needed)
-	\item supports transactions (persisting whole KeySets at once)
-	\item supports integration of existing configuration settings
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Error Messages (Recapitulation)}
-
-	\begin{task}
-	What needs to be considered when designing error messages?
-	\end{task}
-
-	\pause
-
-	\begin{itemize} %[<+-| alert@+>]
-	\item error messages are often the sole data source for admins
-	\item configuration design first: avoid errors if possible
-	\item error messages should not leak internals~\cite{brown1983error}
-	\item ``edit here mentality'': do not point to correct statements~\cite{marceau2011mind}
-	\item precisely locate the cause (and do not report aftereffects)
-	\item personification~\cite{lee2011personifying}
-	\item give context: providing enough information vs.\ not overwhelming the user~\cite{wrenn2017error}
-
-	%mixture from other slides:
-	\item pin-point key (which also pin-points to the specification)
-	\item let specifications, e.g.\ from validation, override messages
-	\end{itemize}
-\end{frame}
-
-
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
-
-
-\begin{frame}
-	\frametitle{Apply to CM (Recapitulation)}
-
-	What can we learn from system administration research?
-
-	\setbeamersize{description width=1cm}
-	\begin{description}[<+-| alert@+>]
-	\item[$+$] intensive review process catches errors
-	\item[$-$] collaboration ineffective
-	\item[$-$] context/situational awareness is essential
-	\item[$+$] precise editing of configuration files works well
-	\item[$+$] self-written tools are very efficient
-	\item[$-$] global optimizations difficult
-	\end{description}
 
 	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
 
-	\begin{alertblock}{Idea}
-	Replicate parts that work well, automate error-prone parts.
-	\end{alertblock}
-\end{frame}
-
-%OK
-\begin{frame}
-	\frametitle{Apply to Elektra (Recapitulation)}
-
-	Elektra's goals are:
-
-	\begin{itemize}[<+-| alert@+>]
-	\item being easy to develop new high-level tools
-	\item support precise editing:\\ only change the configuration value as specified
-	\item provide a common language for both devs and admins
-	\end{itemize}
-
-	\pause[\thebeamerpauses]  %  show after \begin{itemize}[<+->]
-
-	Admins/devs still need to:
-
-	\begin{itemize}[<+-| alert@+>]
+	\begin{itemize} %[<+-| alert@+>]
 	\item reduce the configuration complexity
 	\item intensively review and improve the specifications
-	\item test (and debug) configuration settings
+	\item test (and debug) different configuration settings
+	\item allow introspection
+	\item consider context
 	\end{itemize}
 \end{frame}
 
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	\frametitle{Semantics of Configuration Sources}
-	\begin{alertblock}{Question}
-	What are the semantics of configuration files, environment variables and command-line arguments?
-	\end{alertblock}
-
-	\pause
-	\begin{itemize}
-	\item configuration files: the only one with full IPC capabilities
-	\item commandline-arguments:
-	\begin{itemize}
-	\item passed by main for a new process via \\ (\texttt{int argc, char ** argv})
-	\item visible for anyone: \texttt{/proc/self/cmdline}, e.g., via \texttt{ps aux}
-%	\item could be passed along to subprocesses but hardly done
-	\item need to be parsed by process
-	\item portability: differences in parsing
-%	\item cannot be changed from outside (requires restart, no IPC)
-	\end{itemize}
-
-	\item Environment Variables:
-	\begin{itemize}
-	\item are per-process
-	\item only static view by owner in \texttt{/proc/self/environ}
-	\item are not visible from other processes
-	\item subprocesses inherit by default
-	\item need to be parsed by process (\texttt{[extern] char **environ}) %but API is provided (\texttt{getenv})
-%	\item cannot be changed from outside (requires restart or an additional IPC mechanism)
-	\end{itemize}
-	\end{itemize}
-\end{frame}
+%\breakframe
 
 \section{Conclusion}
 
 \begin{frame}
-	\frametitle{Popular Topics 2019S}
+	\frametitle{Popular Topics 2022S}
 	\vspace{-0.55cm}
 	\setlength{\columnsep}{-1.3cm}
 	\raggedright
 	\definecolor{amethyst}{rgb}{0.6, 0.4, 0.8}
 	\begin{multicols}{2}
 	\begin{description}
-	\item[14] {\color{amethyst} tools}
-	\item[9] {\color{amethyst} testability}
-	\item[9] {\color{amethyst} code-generation}
-	\item[7] {\color{amethyst} context-awareness}
-	\item[6] {\color{amethyst} specification}
-	\item[6] {\color{amethyst} misconfiguration}
-	\item[6] {\color{amethyst} complexity reduction}
-	\item[5] {\color{amethyst} validation}
-	\item[5] {\color{amethyst} points in time} % (early detection)
-	\item[5] {\color{amethyst} error messages}
-	\item[5] {\color{amethyst} auto-detection}
-	\item[4] {\color{amethyst} user interface}
-	\item[4] {\color{amethyst} introspection}
-	\item[4] {\color{amethyst} design}
-	\item[4] {\color{amethyst} cascading}
-	\item[4] {\color{amethyst} architecture of access}
-	\item[3] {\color{amethyst} configuration sources}
-	\item[3] {\color{gray} config-less systems}
-	\item[2] {\color{gray} secure conf} %not done
-	\item[2] {\color{gray} architectural decisions}
-	\item[1] {\color{amethyst} push vs.\ pull}
-	\item[1] {\color{amethyst} infrastructure as code}
-	\item[1] {\color{amethyst} full vs.\ partial}
-	\item[1] {\color{gray} convention over conf} %iguration % not done
-	\item[1] {\color{gray} CI/CD} %only uebung
-	\item[0] {\color{amethyst} documentation}
+	\item[6] {\color{amethyst} CM-Tools: Ansible}
+	\item[4] {\color{amethyst} Context Awareness} % Collected in L10
+	\item[3] {\color{amethyst} Design Configuration} % Collected in L10
+	\item[3] {\color{amethyst} Validation}
+	\item[3] {\color{amethyst} configuration versioning}
+	\item[2] {\color{gray} Spring Initializr (https://start.spring.io/)}
+	\item[2] {\color{amethyst} Specification and Integration}
+	\item[2] {\color{red} Kubernetes CM}
+	\item[2] {\color{amethyst} Integration (Common view on different configuration sources)}
+	\item[2] {\color{amethyst} Infrastructure CM}
+	\item[1] {\color{gray} Docker Compose YAML}
 	\end{description}
 	\end{multicols}
 \end{frame}
-
-\begin{frame}
-	\frametitle{Wished-For-Topics 2021S}
-	\begin{itemize}
-	\item Design of Configuration 
-	\item Configuration Integration
-	\begin{itemize}
-	\item Distributed Systems
-	\item How to share Configuration between Applications
-	\end{itemize}
-	\item Configuration Management Tools
-	\item Schemata
-	\end{itemize}
-\end{frame}
-
-
 
 \begin{frame}
 	\frametitle{Learning Outcomes (TISS)}
@@ -461,7 +119,7 @@
 \end{frame}
 
 \begin{frame}
-	\footnotesize
+	\tiny
 	\frametitle{Learning Outcomes}
 	Students will be able to
 
@@ -491,7 +149,7 @@
 	($=$ TISS 2)
 
 	% L06
-	\item {\color{gray} write simple checker plugins.}
+	\item write simple checker plugins.
 	($\rightarrow$ TISS 4)
 
 	% L07
@@ -524,7 +182,7 @@
 	\tiny
 	\item code generation.
 	\item introspection.
-	% \item context-awareness.
+	\item context-awareness.
 	\end{itemize}
 
 	% L11
@@ -539,31 +197,27 @@
 	\includegraphics[width=8cm]{pics/map.pdf}
 \end{frame}
 
-\begin{assignment}
-	\frametitle{Cheat Sheet}
-	\begin{task}
-	Write your own cheat sheet, maybe similar to map, to be used during exam.
-	\end{task}
-\end{assignment}
+\section{Preview}
+
 
 \begin{frame}
 	\frametitle{Feedback}
 	\hfill \includegraphics[width=2cm]{pics/feedback.png}
 	\vspace{-1cm}
 	\begin{itemize}
-		\item TUWEL Feedback \linebreak
-		{\scriptsize \url{https://tuwel.tuwien.ac.at/mod/feedback/view.php?id=1259052}}
+		\item TUWEL Feedback %\linebreak
+		%{\scriptsize \url{https://tuwel.tuwien.ac.at/mod/feedback/view.php?id=1259052}}
 		\vspace{0.2cm}
 		\item TISS Feedback \linebreak
-		{\small from 16.06.2021 00:00 to 14.07.2021 23:59
-		\scriptsize \url{https://tiss.tuwien.ac.at/survey/surveyForm.xhtml?courseNumber=194030&semesterCode=2021S}}
+		{\small from 16.06.2022 00:00 until 14.07.2022 23:59
+		\scriptsize \url{https://tiss.tuwien.ac.at/survey/surveyForm.xhtml?courseNumber=194030&semesterCode=2022S}}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Conclusion}
 
-	Doing CM is easy if the applications support it.
+	Doing CM is easier if the applications support it.
 	\vspace{1cm}
 
 	I hope the lecture helped you to know how to write such applications.
