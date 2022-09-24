@@ -3,7 +3,11 @@ status and vision of Elektra.
 
 [Read the book](https://www.libelektra.org/ftp/elektra/publications/raab2017context.pdf)
 
-[Look at slides](https://www.libelektra.org/ftp/elektra/slides/cm/)
+## Other Material
+
+- [Slides CM](slides/cm/)
+- [Slides FLOSS](slides/floss/)
+- [FLOSS Lecture Material](floss/)
 
 ## License
 
