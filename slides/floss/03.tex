@@ -1,6 +1,6 @@
 \input{setup}
 
-\title{L03 Build Tools}
+\title{L03 Development Tools}
 
 \begin{document}
 
@@ -13,19 +13,45 @@
 	students will be able to
 
 	\begin{itemize}
-	\item make small modifications in (build) scripts
-	\item remember basics of testing in FLOSS
+	\item remember how development tools help
+	\item make modifications in scripts
 	\end{itemize}
+\end{frame}
+
+\begin{frame}[label=scripts]
+	\frametitle{Scripts}
+
+	FLOSS encourages to:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item combine
+	\item modify
+	\item share
+	\end{itemize}
+
+	\pause[\thebeamerpauses]
+
+	\begin{finding}
+	Can be easily done using scripts.
+	\end{finding}
 \end{frame}
 
 \begin{frame}[fragile,label=portable shell scripts]
 	\frametitle{Portable Shell Scripts}
 
 	\begin{itemize}[<+-| alert@+>]
-	\item can use \verb+#!/bin/sh+ as shebang
-	\item use another shell as shebang if they are not portable
-	\item use a minimal subset of bash, zsh, ...
-	\item can be checked with \verb+make run_shellcheck+
+	\item defined by POSIX
+	\item supported by most shells like bash, zsh, ...
+	\item use \verb+#!/bin/sh+ as shebang
+	\end{itemize}
+
+	\pause[\thebeamerpauses]
+	development tools:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item checkbashisms (in devscripts, check\_bashisms)
+	\item shfmt (check\_posix)
+	\item shellcheck
 	\end{itemize}
 \end{frame}
 
@@ -45,18 +71,18 @@
 DEV_SCRIPTS_DIR=$(dirname "$0")
 . "${DEV_SCRIPTS_DIR}/include-common"
 
-cd "$SOURCE"
+cd "$SOURCE" || exit
 
-reformat() {
-	reformat=$1
-	shift
-	\end{lstlisting}
+\end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{Reformatting (2)}
 
-	\begin{lstlisting}[language=sh]
+	\begin{lstlisting}[language=sh,firstnumber=last]
+reformat() {
+	reformat=$1
+	shift
 	echo "starting $reformat ..."
 	"$reformat" "$@"
 	echo "finished $reformat"
@@ -64,14 +90,14 @@ reformat() {
 
 IFS='
 '
-for reformat in $(ls "$DEV_SCRIPTS_DIR"/reformat-*); do
+for reformat in "$DEV_SCRIPTS_DIR"/reformat-*; do
 	[ "$(basename "$reformat")" = "reformat-all" ] && continue
 	reformat "$reformat" "$@"
 done\end{lstlisting}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Build Scripts}
+\section{Build Tools}
 
 \begin{frame}[label=build script goals]
 	\frametitle{Goals}
@@ -80,13 +106,14 @@ done\end{lstlisting}
 
 	\begin{itemize}[<+-| alert@+>]
 	\item (cross-)compile the software
-	\item generate documentation or other files
-	\item run tests or build server scripts
-	\item create packages
+	\item generate documentation and other files
+	\item run scripts, shared with build server
+	\item run tests (e.g., ctest)
+	\item create packages (e.g., cpack)
 	\end{itemize}
 \end{frame}
 
-\begin{frame}<1>[label=generation]
+\begin{frame}<1-3>[label=generation]
 	\frametitle{Generation}
 
 	How build tools typically:
@@ -106,69 +133,45 @@ done\end{lstlisting}
 \end{frame}
 
 \begin{frame}
-	\frametitle{CMake}
+	\frametitle{Example: Elektra Plugins}
 
-	Elektra used automake and later switched to CMake.
+	README.md of plugins is used:
 
-	\vspace{1cm}
+	\vspace{1em}
+	\pause
 
-	CMake
+	\begin{description}[<+-| alert@+>]
+	\item[during configure time:] include/exclude plugins based on \texttt{infos/status}
+	\item[during build time:] README.md gets included in the plugin's code
+	\item[at run time:] mounting plugins using \texttt{infos/provides}
+	\end{description}
 
-	\begin{itemize}[<+-| alert@+>]
-	\item cross-platform
-	\item supports various programming languages
-	\item has extensive modules for finding many tools and libraries
-	\item see \texttt{scripts/cmake} of Elektra's repo
-	\item \texttt{ctest} as test runner
-	\item \texttt{cpack} for creating packages
-	\end{itemize}
+	\vspace{1em}
+	\pause[\thebeamerpauses]
+
+	Implementation see \texttt{scripts/cmake/Modules/LibAddPlugin.cmake}
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{Different Configurations}
+	\frametitle{CMake: Different Configurations}
 
 	Common variants of how to run cmake are in \texttt{scripts/dev/configure-*}
 
 	\begin{lstlisting}[language=sh]
 cmake \
-	-DPLUGINS="ALL" \
-	-DTOOLS="ALL" \
-	-DENABLE_DEBUG="OFF" \
-	-DENABLE_LOGGER="OFF" \
-	.\end{lstlisting}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Example: Elektra Plugins}
-
-	\begin{itemize}[<+-| alert@+>]
-	\item only \texttt{add_plugin}\footnote{implemented and documented in scripts/cmake/Modules/LibAddPlugin.cmake} needed in CMakeLists.txt
-	\item README.md contains instructions when to add a plugin by looking at infos/provides and also infos/status
-	\item \texttt{cmake -DPLUGINS="ALL;-EXPERIMENTAL"} excludes plugins which have EXPERIMENTAL in infos/status
-	\item README.md also gets included in the plugin's code
-	\end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Test Tools}
-
-\begin{frame}[label=test runner]
-	\frametitle{Test Runner}
-
-	using ctest:
-
-	\begin{itemize}
-	\item valgrind
-	\item ASAN
-	\item AFL (not executed by ctest)
-	\end{itemize}
+-DPLUGINS="ALL;-EXPERIMENTAL" \
+-DTOOLS="ALL" \
+-DENABLE_DEBUG="ON" \
+-DENABLE_LOGGER="ON" \
+.\end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{Environment}
 
-	Run Elektra from the build folder via \texttt{scripts/dev/run_env}.
-	Basically does:
+	\begin{enumerate}
+	\item use Docker
+	\item \lstinline{. scripts/dev/run_env} which basically does:
 
 	\begin{lstlisting}[language=sh]
 # common configure script
@@ -182,6 +185,55 @@ export MANPATH="$SOURCE/doc/man:$MANPATH"
 export CLASSPATH="$CLASSPATH:$BUILD/lib/libelektra.jar"
 
 export PS1="[DEV] $PS1"\end{lstlisting}
+	\end{enumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\section{Development Tools}
+
+\begin{frame}[label=i18n and L10n]
+	\frametitle{Use Tools or Libraries?}
+
+	Example: Internationalization (i18n) and Localization (L10n)
+
+	\begin{itemize}[<+-| alert@+>]
+	\item self-made key/value lookup
+	\item GNU gettext model, plural, context
+	\end{itemize}
+
+	\pause[\thebeamerpauses]
+
+	\begin{finding}
+	Quickly pays off to learn FLOSS tools.
+	\end{finding}
+\end{frame}
+
+\begin{frame}[label=licencing]
+	\frametitle{Licensing Check Tools}
+
+	If you copy FLOSS to Elektra's source, make sure:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item it is BSD-licensed (or less restricted)
+	\item license information is added in \texttt{.reuse/dep5}
+	\end{itemize}
+
+	\pause[\thebeamerpauses]
+
+	\url{https://reuse.software/}
+\end{frame}
+
+\begin{frame}[label=test tools]
+	\frametitle{Elektra's Test Tools}
+
+	See \texttt{doc/TESTING.md}:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item valgrind
+	\item ASAN
+	\item AFL++
+	\item Shell Recorder
+	\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -191,103 +243,86 @@ export PS1="[DEV] $PS1"\end{lstlisting}
 
 \againframe<2>{learning outcomes}
 
-\begin{frame}
-	\frametitle{Portable Shell Scripts}
-
-	What is a shebang?
-
-	Which subset is available?
-\end{frame}
-\againframe<10>{portable shell scripts}
-
-\begin{frame}
-	\frametitle{Goals}
-
-	What are the goals of build tools?
-\end{frame}
-\againframe<10>{build script goals}
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
-\againframe<10>{generation}
-
-\begin{frame}
-	\frametitle{Test Runner}
-
-	Which test runner is being used in Elektra?
-	Which different tests does it execute?
-\end{frame}
-\againframe<10>{test runner}
-
-\begin{frame}
-	\frametitle{Docker}
-
-	Reformatting\&Test execution in Docker
-
-	Did the tutorials work?
-
-	A. Yes \\
-	B. No \\
-	C. Didn't try \\
-	D. Didn't understand
-\end{frame}
-
-\begin{assignment}
-	\begin{task}
-	Break.
-	\end{task}
-\end{assignment}
-
-
-\subsection{Assignments}
-
-\begin{assignment}
-	\frametitle{Team}
-	Teamsize: 1-3
-
-	\begin{task}
-	Please keep Teams up-to-date in Wiki.
-	\end{task}
-\end{assignment}
-
-\begin{assignment}
-	\frametitle{H2}
-
-	\begin{task}
-	Problems on specific issues or PRs?
-	\end{task}
-\end{assignment}
-
-\begin{assignment}
-	\frametitle{P1}
-
-	\begin{task}
-	Reviews. Deadline extention.
-	\end{task}
-\end{assignment}
-
-\begin{frame}
-	\frametitle{Feedback}
-
-	\hfill \includegraphics[width=2cm]{pics/feedback.png}
-	\vspace{-1cm}
-	\begin{itemize}
-		\item Difficulties in H2?
-		\item ECTS breakdown realistic?
-	\end{itemize}
-\end{frame}
-
-\subsection{Preview}
-
-\begin{frame}
-	\frametitle{L04 Continuous Integration}
-
-	L03 quiz was at wrong place
-\end{frame}
+%\begin{frame}
+%	\frametitle{Portable Shell Scripts}
+%
+%	What is a shebang?
+%
+%	Which subset is available?
+%\end{frame}
+%\againframe<10>{portable shell scripts}
+%
+%\begin{frame}
+%	\frametitle{Goals}
+%
+%	What are the goals of build tools?
+%\end{frame}
+%\againframe<10>{build script goals}
+%
+%\begin{assignment}
+%	\begin{task}
+%	Break.
+%	\end{task}
+%\end{assignment}
+%
+%\againframe<10>{generation}
+%
+%%TODO: Questions about Tests
+%
+%\begin{frame}
+%	\frametitle{Docker}
+%
+%	Reformatting\&Test execution in Docker
+%
+%	Did the tutorials work?
+%
+%	A. Yes \\
+%	B. No \\
+%	C. Didn't try \\
+%	D. Didn't understand
+%\end{frame}
+%
+%\begin{assignment}
+%	\begin{task}
+%	Break.
+%	\end{task}
+%\end{assignment}
+%
+%
+%\subsection{Assignments}
+%
+%\begin{assignment}
+%	\frametitle{H2}
+%
+%	\begin{task}
+%	Problems on specific issues or PRs?
+%	\end{task}
+%\end{assignment}
+%
+%\begin{assignment}
+%	\frametitle{P1}
+%
+%	\begin{task}
+%	Reviews.
+%	\end{task}
+%\end{assignment}
+%
+%\begin{frame}
+%	\frametitle{Feedback}
+%
+%	\hfill \includegraphics[width=2cm]{pics/feedback.png}
+%	\vspace{-1cm}
+%	\begin{itemize}
+%		\item Difficulties in H2?
+%		\item ECTS breakdown realistic?
+%	\end{itemize}
+%\end{frame}
+%
+%\subsection{Preview}
+%
+%\begin{frame}
+%	\frametitle{L04 Continuous Integration}
+%\end{frame}
 
 
 \end{document}
