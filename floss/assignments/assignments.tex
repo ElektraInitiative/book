@@ -227,7 +227,7 @@ Furthermore sometimes following points need to be fulfilled:
 \item You added unit tests for your code.
 \item You fully described what your PR does in the documentation
 	(and not in the PR description).
-\item You fixed all affected documentation.
+\item You fixed all affected documentation (See \href{https://master.libelektra.org/doc/contrib/documentation.md}{our Guidelines}).
 \item Code is conforming to \href{https://master.libelektra.org/doc/CODING.md}{our Coding Guidelines}.
 	E.g., you added code comments, logging, and assertions as appropriate.
 \item You updated all meta data, e.g. README.md of plugins.
@@ -388,13 +388,15 @@ Create five PRs using your fork with five branches, each of them with an added l
 Like always, write ``[FLOSS H2]'' in the title of the PRs, e.g. ``[FLOSS H2] Fix typo''.\\
 For each of the PRs either:
 \begin{itemize}
-\item Fix TODO markers in the source code.
-
-\item Improve the readability of some sentence you found hard to understand.
-
-%\item Remove a seemingly working link from \\ \verb+tests/linkchecker.whitelist+
+\item Finish an old \href{https://pulls.libelektra.org}{existing PR}.
 
 \item Add code comments, assertions, log statements or inline comments, see \href{https://master.libelektra.org/doc/CODING.md}{\texttt{doc/CODING.md}}.
+
+\item Fix TODO markers in the source code.
+
+\item Improve the readability of a sentence you find hard to understand.
+
+%\item Remove a seemingly working link from \\ \verb+tests/linkchecker.whitelist+
 
 \item Write a new example of how to use Elektra in \href{https://master.libelektra.org/examples}{\texttt{examples}} or in the appropriate bindings folder, e.g. \href{https://master.libelektra.org/src/bindings/swig/ruby/examples}{\texttt{src/bindings/swig/ruby/examples}}.
 \end{itemize}
@@ -490,13 +492,13 @@ Start asking questions early, long before the deadlines.
   10 \\[4ex]
   \textcolor{aktiv}{
   \textbf{Tasks:} \\[1ex]
-  - Create 2 PRs \\
+  - Create 3 PRs \\
   - Review 2 PRs} \\[4ex]
   \textbf{Topic:} \\[1ex]
   M04: \geticsval{/M04 Continuous Integration\timekey}
 }}
 
-Create at least two PRs in which your team:
+Create at least three PRs in which your team:
 
 \begin{enumerate}
 \item Writes new tests, e.g., in \href{https://master.libelektra.org/tests/ctest}{\texttt{tests/ctest}} or in the appropriate bindings folder,
@@ -511,6 +513,7 @@ Create at least two PRs in which your team:
 		{\scriptsize \url{https://doc.libelektra.org/coverage/master/debian-bullseye-full/}}.
 	\end{itemize}
 \item Fixes and includes disabled tests, either as reported in issues, marked as \verb+DISABLED_+ or as documented in \href{https://master.libelektra.org/doc/todo/TESTING}{\texttt{doc/todo/TESTING}}.
+\item Improves our Jenkins continuous integration, see \href{https://issues.libelektra.org/160}{issue \#160}.
 \end{enumerate}
 
 Write ``[FLOSS T1]'' in the title of the PRs.
@@ -523,7 +526,7 @@ Document in the PR description:
 \item Who did which parts of this task.
 \end{itemize}
 
-Furthermore, create at least two reviews of T1 PRs.
+Furthermore, create at least two review of T1 PRs.
 \\\review{}
 
 \newpage
@@ -544,7 +547,7 @@ Furthermore, create at least two reviews of T1 PRs.
   \textcolor{aktiv}{
   \textbf{Tasks:} \\[1ex]
   - Create 3 PRs \\
-  - Review 3 PRs} \\[4ex]
+  - Review 2 PRs} \\[4ex]
   \textbf{Topic:} \\[1ex]
   M05: \geticsval{/M05 Documentation\timekey}
 }}
@@ -566,7 +569,7 @@ Document in the PR description:
 \item Who did which parts of this task.
 \end{itemize}
 
-Furthermore, create at least three reviews of T2 PRs.
+Furthermore, create at least two reviews of T2 PRs.
 \\For the reviews, make sure that:
 \begin{itemize}
 \item The documentation is clear and understandable for you.
@@ -709,6 +712,7 @@ If you do so, please include that in the PR, even if it does not compile.
 
 The goal of P1 is to have a working, but probably minimal, implementation of the proposal submitted in P0.
 The code should be of high quality with unit tests and documentation.
+Also submit a tutorial explaining how to use your feature.
 
 Furthermore, explain in the extended document, which is not longer than five pages in total:
 
@@ -828,7 +832,11 @@ This time no review is necessary.
 
 \vspace{5em}
 
+\renewcommand{\thesection}{License}
+\section[\thesection]{}
+
 \doclicenseThis
+The source code is available at \url{https://book.libelektra.org/tree/master/floss/assignments}.
 
 
 \end{document}
