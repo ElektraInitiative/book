@@ -9,13 +9,13 @@
 
 \begin{frame}
 	\frametitle{BigBlueButton}
-	\begin{itemize}
-		\item used for weekly virtual meetings
+	\begin{itemize}[<+-| alert@+>]
+		\item used for weekly hybrid meetings
 		\item is FLOSS
 		\item raise the hand immediately on any issues
-		\item use ``Real Name @GitHubName'' as your name
-%		\item on technical problems use the chat
-		\item you can connect several times, e.g., phone and laptop
+		\item use ``[on] @GitHubName Real Name'' as your name \\
+			([on] for on-site alone, [tw] for on-site with neighbor, [vi] for virtual)
+		\item if audio does not work, write in the chat
 		\item on technical problems, try another browser, e.g., recent Firefox or Chromium
 	\end{itemize}
 \end{frame}
@@ -45,7 +45,7 @@
 
 \begin{assignment}
 	\frametitle{Video}
-	I am trying to keep meetings short with many breaks. \\
+	I am trying to keep meetings short and with breaks. \\
 	You are allowed to:
 	\begin{itemize}
 		\item stretch
@@ -54,16 +54,97 @@
 		\item look somewhere else
 		\item leave your place
 	\end{itemize}
+
 	\begin{task}
-	But please turn video on.
+	If not on-site: please turn video on.
 	\end{task}
 \end{assignment}
+
+\begin{frame}
+	\frametitle{Inverted Classroom}
+	Meetings are most Wednesdays 14:00 c.t. - 16:00 (max.)
+
+	\begin{itemize}[<+-| alert@+>]
+		\item always read/watch the material in advance
+		\item within meetings we will do recapitulations, discussions, etc.
+		\item for today it was enough to read TISS
+		\item the more you participate, the more you learn
+		\item guest meeting on L08 Collaboration
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Programming Languages}
+	Elektra supports following programming languages:
+	\begin{itemize}
+		\item C\footnote{support on problems with the programming language by the lecturer}
+		\item C++\footnotemark[1]
+		\item Java\footnotemark[1]
+		\item Python\footnotemark[1]
+		\item Rust
+		\item Go
+		\item Lua
+		\item Ruby
+		\item Kotlin
+	\end{itemize}
+
+	\begin{question}[1]
+	Which language(s) do you need to know?
+	\end{question}
+
+	\begin{question}[2]
+	Which language can you use?
+	\end{question}
+\end{frame}
 
 \begin{assignment}
 	\begin{task}
 	Break.
 	\end{task}
 \end{assignment}
+
+\begin{frame}
+	\frametitle{Overview Assignments}
+	\begin{description}[<+-| alert@+>]
+	\item[30\,\%:] homework
+	\item[30\,\%:] teamwork
+	\item[40\,\%:] project
+	\item[0\,\%:] presentation
+	\end{description}
+
+	\pause
+
+	\begin{question}
+	How to get a positive grade?
+	\end{question}
+
+	\pause
+
+	\begin{itemize}[<+-| alert@+>]
+	\item Extrapoints can be earned in the lecture.
+	\item After you did H0, you get a grade.
+	\item To get a positive grade all parts must be positive.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Deadlines}
+
+	\begin{itemize}[<+-| alert@+>]
+	\item if you make submissions earlier, you get feedback earlier
+	\item dates are in ``assignments.pdf'', ``schedule.pdf'', ICS file and calender of TUWEL
+	\end{itemize}
+
+	\vspace{1em}
+
+	There are up to three deadlines for each homework, teamwork or project:
+
+	\begin{itemize}[<+-| alert@+>]
+	\item deadline for submission of the work
+	\item deadline for review (review the submission of others)
+	\item deadline for corrections (based on the feedback of submission)
+	\end{itemize}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \section{Motivation}
@@ -72,7 +153,7 @@
 	\frametitle{FLOSS}
 	\floss{} allows you to:
 	\vspace{1em}
-	\begin{enumerate}
+	\begin{enumerate}[<+-| alert@+>]
 		\setcounter{enumi}{-1}
 		\item Use
 		\item Share
@@ -87,18 +168,18 @@
 	\frametitle{Implications}
 
 	There are countless implications\footnote{many of which we will discuss in the course}:
-	\begin{enumerate}
-		\item none of your knowledge becomes irrelevant after changing employee
-		\item people can give you money so that you improve FLOSS for them
+	\begin{enumerate}[<+-| alert@+>]
+		\item technology knowledge doesn't becomes irrelevant after changing employee
+		\item people give you money so that you improve FLOSS for them
 		\item you can do research on FLOSS without any restriction
-		\item you can modify FLOSS as you see fit
+		\item you can modify FLOSS as you see fit for yourself or your employee
 	\end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{Sustainable FLOSS}
 
-	\begin{itemize}
+	\begin{itemize}[<+-| alert@+>]
 		\item at university, development during theses
 		\item taking FLOSS from job to job (``GitHub as CV'')
 		\item improve FLOSS on customer requests
@@ -110,11 +191,12 @@
 
 \begin{assignment}
 	\frametitle{First Assignment}
-	\begin{itemize}
+	\begin{itemize}[<+-| alert@+>]
 		\item Have you already used FLOSS?
 		\item Did you already participate in FLOSS?
 		\item Which (other) implications are relevant for you?
 	\end{itemize}
+
 	\begin{task}
 	Discuss in breakout room and tell your partner's story.
 	\end{task}
@@ -131,38 +213,15 @@
 
 \begin{frame}
 	\frametitle{Elektra}
+
+	\url{https://libelektra.org}
+
 	\hfill \includegraphics[width=2cm]{../figures/logo}
+
 	\vspace{-1cm}
-	\begin{itemize}
-		\item Elektra is one FLOSS initiative of what we \\ discuss in this lecture.
-		\item Elektra is developed at TU Wien (\url{https://libelektra.org}).
-	\end{itemize}
-\end{frame}
-
-{
-\shadowcolor{black}
-\shadowoffset{0.5pt}
-\usebackgroundtemplate{\includegraphics[width=\paperwidth]{pics/clouds.jpg}}%
-\begin{frame}
-	\frametitle{\shadowtext{Misconfiguration}}
-	\begin{itemize}[<+->]
-		\item   \textcolor{white}{\shadowtext{\empha[misconfiguration]{misconfigurations}~\cite{yin2011empirical,su2007autobash,attariyan2010automating,xu2015systems} are a major cause}}\\
-			\textcolor{white}{\shadowtext{of system failures~\cite{wool2004quantitative,oppenheimer2003internet,pertet2005causes}}}
-		\item   \textcolor{white}{\shadowtext{much time is needed to fix misconfigurations~\cite{rabkin2011static,oppenheimer2003internet,yin2011empirical,mahajan2002bgp}}}
-	\end{itemize}
-\end{frame}
-}
-
-\begin{frame}
-	\frametitle{Elektra~\cite{raab2016elektra}}
-	\begin{itemize}[<+->]
-	%	\item \citet{holland2001nofutz}~defined \empha{futzing} to denote \enquote{tinkering or fiddling experimentally}
-	%	\item With \intro[no-futz computing]{no-futz computing} \citet{holland2001nofutz} mean \enquote{that futzing should be allowed, but should never be required}
-		\item \intro{configuration specification languages} mitigate misconfigurations
-		\item \elektra{} is a framework implementing a modular \intro{configuration specification language} for configuration settings
-	%	\item In \elektra{} we use properties to specify configuration settings and configuration access
-		\item \elektra{} enables \intro[no-futz computing]{no-futz computing} \cite{holland2001nofutz},
-			i.e., error-prone \enquote{tinkering or fiddling experimentally} \enquote{should be allowed, but should never be required}
+	\begin{itemize}[<+-| alert@+>]
+		\item object of study in FLOSS
+		\item Elektra is developed at TU Wien
 	\end{itemize}
 \end{frame}
 
@@ -174,9 +233,10 @@
 
 \begin{frame}
 	\frametitle{Use Cases of Elektra}
-	\begin{itemize}[<+->]
+	\begin{itemize}[<+-| alert@+>]
 	\item Embedded systems
 	\begin{itemize}
+	\item Olimex
 	\item OpenWRT (distribution)
 	\item Broadcom (blue-ray devices)
 	\item Kapsch (cameras)
@@ -184,24 +244,23 @@
 	\end{itemize}
 	\item Server
 	\begin{itemize}
+	\item ansible-libelektra
 	\item Allianz (insurance)
 	\item TU Wien
-	\item puppet-libelektra
 	\item Other Universities
 	\end{itemize}
 	\item Desktop
 	\begin{itemize}
+	\item KDE, GNOME and XFCE
 	\item Oyranos
 	\item Redshift
 	\item LCDproc
-	\item KDE
-	\item GNOME
 	\end{itemize}
 	\end{itemize}
 \end{frame}
 
 \begin{assignment}
-	\frametitle{Goals}
+	\frametitle{Use Cases}
 	\begin{itemize}
 		\item Which use cases are specific to FLOSS?
 		\item For which use cases exists more FLOSS?
@@ -225,6 +284,13 @@
 
 \begin{frame}
 	\textit{learning outcomes:}
+
+	\begin{question}
+	What are the learning outcomes as written in TISS?
+	\end{question}
+
+	\pause
+
 	\begin{itemize}
 		\item participate in FLOSS initiatives,
 		\item found new FLOSS initiatives,
@@ -236,8 +302,6 @@
 \begin{frame}
 	\includegraphics[width=12cm]{Overview}
 \end{frame}
-
-
 
 \begin{assignment}
 	In which FLOSS topics are you interested? \\
@@ -253,132 +317,30 @@
 \end{assignment}
 
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\section{Organisation}
-
-\subsection{Preliminaries}
-\begin{frame}
-	\frametitle{Communication}
-	\begin{itemize}
-		\item TUWEL \url{https://tuwel.tuwien.ac.at/course/view.php?idnumber=194114-2021W}
-		\item TISS \url{https://tiss.tuwien.ac.at/course/courseDetails.xhtml?courseNr=194114&semester=2021W}
-		\item GitHub \url{https://git.libelektra.org}
-		\item EMail \url{markus.raab@complang.tuwien.ac.at}
-		\item before/after/during meetings
-	\end{itemize}
-\end{frame}
+\section{Outlook}
 
 \begin{frame}
-	\frametitle{Inverted Classroom}
-	Meetings are most Wednesday 09:00 c.t. - 11:00 (max.)
-
+	\frametitle{L01 Issue Tracking}
+	TUWEL already contains materials for L01
+	\begin{task}
 	\begin{itemize}
-		\item always read/watch the material in advance
-		\item TUWEL already contains materials for L01
-		\item within meetings we will do recapitulations, discussions, etc.
+		\item read assignments.pdf for H0
+		\item watch videos
 	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Previous Knowledge}
-	\begin{itemize}
-		\item Obviously \textit{no} prior knowledge about FLOSS necessary. \\
-		(If you already have experience, you can use it in your presentation and assignments.)
-		\item Understanding of software engineering and software requirements is preferable.
-		\item Programming skills is a must.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Programming Languages}
-	Elektra supports following programming languages:
-	\begin{itemize}
-		\item C\footnote{support on problems with the programming language by the lecturer}
-		\item C++\footnotemark[1]
-		\item Java\footnotemark[1]
-		\item Python\footnotemark[1]
-		\item Rust
-		\item Go
-		\item Lua
-		\item Ruby
-	\end{itemize}
-	You can use either of these languages.
-\end{frame}
-
-\subsection{Grades}
-
-\begin{frame}[fragile]
-	You will get a grade once you did the registration H0:
-	\begin{itemize}
-	\item Registration in TISS
-	\item TUWEL Forum Entries
-	\item Upload StudentID
-	\item Create Issue with \verb+[FLOSS H0]+ in the title
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	Grade is calculated from following parts:
-	\begin{description}
-	\item[30\,\%:] homework
-	\item[30\,\%:] teamwork
-	\item[30\,\%:] project
-	\item[10\,\%:] presentation
-	\end{description}
-
-	Furthermore, extrapoints can be earned in the lecture.
-
-	\vspace{1cm}
-
-	To get a positive grade:
-	\begin{itemize}
-		\item All parts must be done.
-		\item All parts must be positive.
-	\end{itemize}
-\end{frame}
-
-\subsection{Assignments}
-\begin{frame}
-	\frametitle{Presentation}
-	\begin{itemize}
-		\item About anything related to FLOSS.
-		\item It must be from your experience.
-		\item Usually about your project in the end of the term (26.\,1.\,2022).
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Deadlines}
-
-	\begin{itemize}
-	\item if you make submissions earlier, you get feedback earlier
-	\item dates are both in ``semester schedule.pdf'' and calender of TUWEL
-	\end{itemize}
-
-	\vspace{1em}
-
-	There are up to three deadlines for each homework, teamwork or project:
-
-	\begin{itemize}
-	\item deadline for submission of the work
-	\item deadline for review (review the submission of others)
-	\item deadline for corrections (based on the feedback of submission)
-	\end{itemize}
+	\end{task}
 \end{frame}
 
 \begin{assignment}
 	\frametitle{Questions?}
 	\begin{task}
-	Register for the course by doing H0 until 13.\,10.\,2021, 23:59.
+	Register for the course by doing H0
 	\end{task}
 
 	\begin{task}
 	Any questions?
 	\end{task}
 \end{assignment}
+
 
 
 
