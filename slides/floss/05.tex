@@ -11,10 +11,9 @@
 	\frametitle{Learning Outcomes}
 	After successful completion of L05 \\
 	students will be able to
-	use techniques to
 
 	\begin{itemize}
-	\item remember basics
+	\item remember basics of documentation
 	\item generate documentation
 	\item verify documentation
 	\end{itemize}
@@ -32,7 +31,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}<1>[label=make sure that]
+\begin{frame}<1->[label=make sure that]
 	\frametitle{Make Sure That}
 
 	\begin{itemize}[<+-| alert@+>]
@@ -43,15 +42,16 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}<1>[label=types of documentation]
+\begin{frame}<1->[label=types of documentation]
 	\frametitle{Different Types of Documentation}
 
 	\begin{description}[<+-| alert@+>]
-	\item[tutorials] for learning
+	\item[tutorials] in \texttt{doc/tutorials} for learning
 	\item[how-to] solving a problem
-	\item[reference] searching for details \\ e.g. man pages, API docu
-	\item[explanations] in \texttt{doc/dev} ``How?''
+	\item[goals] and/or use-cases ``What?''
 	\item[decisions] for background information ``Why?''
+	\item[explanations] in \texttt{doc/dev} and \texttt{doc/contrib} ``How?''
+	\item[reference] searching for details \\ e.g. man pages, API docu
 	\item[examples] for copy\&paste
 	\end{description}
 \end{frame}
@@ -208,75 +208,89 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %
 \section{Meeting}
 
-%\subsection{Recapitulation}
-%
-%\againframe<10>{learning outcomes}
-%
-%\begin{frame}
-%	\frametitle{Make Sure That}
-%
-%	\begin{task}
-%	What should you make sure as FLOSS maintainer in respect to documentation?
-%	\end{task}
-%\end{frame}
-%
-%\againframe<10>{make sure that}
-%
-%\begin{frame}
-%	\frametitle{Make Sure That}
-%
-%	\begin{task}
-%	Which types of documentation do you need to treat differently?
-%	\end{task}
-%\end{frame}
-%
-%\againframe<10>{types of documentation}
-%
-%\breakframe
-%
-%\begin{frame}
-%	\frametitle{Views}
-%
-%	\begin{task}
-%	Which different views can be provided by generation of documentation?
-%	\end{task}
-%\end{frame}
-%
-%\againframe<10>{views}
-%
-%\begin{frame}
-%	\frametitle{Conclusions}
-%
-%	\begin{task}
-%	When do we generate, when do we verify, and for which users?
-%	\end{task}
-%\end{frame}
-%
-%\againframe<10>{conclusions}
-%
-%
-%\subsection{Assignments}
-%
-%\begin{assignment}
-%	\frametitle{H2: Corrections}
-%
-%	\begin{task}
-%	How did you correct the review notes?
-%	\end{task}
-%\end{assignment}
-%
-%\begin{assignment}
-%	\frametitle{T1: Continuous Integration}
-%
-%	\begin{task}
-%	Do you have enough tasks?
-%	\end{task}
-%
-%	\begin{task}
-%	Fix CI pipeline.
-%	\end{task}
-%\end{assignment}
-%
+\subsection{Recapitulation}
+
+\againframe<10>{learning outcomes}
+
+\begin{frame}
+	\frametitle{Make Sure That}
+
+	\begin{task}
+	What should you make sure as FLOSS maintainer in respect to documentation?
+	\end{task}
+\end{frame}
+
+\againframe<10>{make sure that}
+
+\begin{frame}
+	\frametitle{Make Sure That}
+
+	\begin{task}
+	Which types of documentation do you need to treat differently?
+	\end{task}
+\end{frame}
+
+\againframe<10>{types of documentation}
+
+\breakframe
+
+\begin{frame}
+	\frametitle{Views}
+
+	\begin{task}
+	Which different views can be provided by generation of documentation?
+	\end{task}
+\end{frame}
+
+\againframe<10>{views}
+
+\begin{frame}
+	\frametitle{Conclusions}
+
+	\begin{task}
+	When do we generate, when do we verify, and for which users?
+	\end{task}
+\end{frame}
+
+\againframe<10>{conclusions}
+
+\breakframe
+
+
+\subsection{Assignments}
+
+\begin{assignment}
+	\frametitle{Organisation}
+
+	\begin{task}
+	\begin{itemize}[<+-| alert@+>]
+	\item Visit Consultation Hour (10:00–11:00) also for working together with tutor.
+	\item Please mark activities in TUWEL.
+	\item TUWEL no gradings visible while grading, check grades on Wednesdays.
+	\item Get a Presentation Date.
+	\item Mention\&request review from @markus2330 and @flo91.
+	\end{itemize}
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\frametitle{H3: Pull Requests: Fix Issues}
+
+	\begin{task}
+	Any questions?
+	\end{task}
+\end{assignment}
+
+\begin{assignment}
+	\frametitle{T1: Reviews}
+
+	Semicolons macros removed? (e.g. \#4710)
+
+	\begin{task}
+	Fix CI pipeline.
+	\end{task}
+\end{assignment}
+
 %\begin{frame}
 %	\frametitle{Feedback}
 %%	Exercises finished for this term.
