@@ -1,4 +1,4 @@
-FILE=04
+FILE=06
 
 $(FILE).pdf:$(FILE).tex setup.tex
 	latexmk $(FILE)
