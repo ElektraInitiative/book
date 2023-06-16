@@ -1,4 +1,4 @@
-assignments.pdf:assignments.tex ../FLOSS2022W.ics
+assignments.pdf:assignments.tex ../FLOSS2023W.ics
 	latexmk -pdf assignments
 
 view:assignments.pdf

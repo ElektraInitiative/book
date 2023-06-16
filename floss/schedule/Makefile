@@ -1,7 +1,7 @@
 schedule.pdf:table.tex schedule.tex
 	latexmk -pdf schedule
 
-table.tex:../FLOSS2022W.ics generate_tex.py
+table.tex:../FLOSS2023W.ics generate_tex.py
 	./generate_tex.py
 
 view:schedule.pdf

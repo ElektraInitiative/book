@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# to be changed every year:
+YEAR = 2023
 
 # This script generates a LaTeX-table in the file table.tex
 # based on events defined in a .ics-file.
@@ -151,7 +153,6 @@ def analyzeEvents(events: List[Event]):
 
 
 # Constant definitions
-YEAR = 2022
 DATE_FORMAT = "%d.\\,%m."
 LIMITED_EVENTS = ["H", "T", "P"] # types of events with deadlines (homework, teamwork, project)
 MAX_EVENTS = 3 # max. number of events on one day
