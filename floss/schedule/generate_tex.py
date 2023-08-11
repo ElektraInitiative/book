@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-# to be changed every year:
-YEAR = 2023
-
 # This script generates a LaTeX-table in the file table.tex
 # based on events defined in a .ics-file.
 # Additionally, some consistency checks are done
@@ -11,13 +8,30 @@ YEAR = 2023
 from dataclasses import dataclass
 from datetime import date, datetime
 from typing import List, TextIO
-import sys # for command line arguments
+from dateutil.easter import easter
+import argparse
+
+parser = argparse.ArgumentParser(
+                    prog='generate_tex',
+                    description='Generate Tex table from a given calender',
+                    epilog='')
+
+parser.add_argument('filename')
+parser.add_argument('-f', '--force', action='store_true')
+parser.add_argument('-y', '--year')
+
+
+args = parser.parse_args()
+YEAR = int(args.year)
+print(args.filename, args.force, YEAR)
+
 
 @dataclass
 class Event:
     date: datetime
     end_date: datetime
     summary: str
+    location: str
     effort: float # in hours
 
 
@@ -29,6 +43,8 @@ def parse_date(line: str):
 # Get start-date, end-date, event title (summary) and effort (description) from the .ics-file
 def read_event(file: TextIO):
     effort = 0 # default value for effort
+    location = ""
+
     for line in file:
         # Remove last character (newline) from string
         line = line[:-1]
@@ -38,14 +54,16 @@ def read_event(file: TextIO):
             end_date = parse_date(line[25:])
         elif line.startswith("SUMMARY:"):
             summary = line[8:]
-        elif line.startswith("DESCRIPTION;"): # custom description entered via Thunderbird
-            # Convert string to float, the float-number is after the last ":" character in the string
-            # Support both, "," and "." for float-numbers in the description field
-            effort = float(line.rpartition(':')[2].replace("\,", "."))
+        elif line.startswith("LOCATION:"):
+            location = line[9:]
+        #elif line.startswith("DESCRIPTION;"): # custom description entered via Thunderbird
+            # # Convert string to float, the float-number is after the last ":" character in the string
+            # # Support both, "," and "." for float-numbers in the description field
+            #effort = float(line.rpartition(':')[2].replace("\,", "."))
         elif line == "END:VEVENT":
             break
 
-    return Event(date, end_date, summary, effort)
+    return Event(date, end_date, summary, location, effort)
 
 
 # Read all events from the .ics-file
@@ -80,29 +98,50 @@ def latex_escape(s: str):
 
 # Generate LaTeX-source based on the type (event-title) of the current event
 # f-strings can contain function calls (e.g. latex_escape(str)) in this case
-def row_command(event: Event):
+def row_command(event: Event, includeLocation: bool):
     date = event.date.strftime(DATE_FORMAT)
     summary = event.summary
-
-
-    if summary == "Consultation Hour":
-        return f"\\chour{{}}{{{date}}}{{{latex_escape(summary)}}}{{}}"
-    elif summary[0] == "T" and summary[1] == "U":
-        return f"\\tutorial{{{latex_escape(summary[2:3])}}}{{{date}}}{{{latex_escape(summary[4:])}}}{{}}"
-    elif summary[0] == "M":
-        return f"\\meeting{{{latex_escape(summary[1:3])}}}{{{date}}}{{{latex_escape(summary[4:])}}}{{}}"
-    elif summary[0] == "T":
-        return f"\\team{{{latex_escape(summary[1:2])}}}{{{date}}}{{{latex_escape(summary[3:])}}}{{}}"
-    elif summary[0] == "H":
-        return f"\\home{{{latex_escape(summary[1:2])}}}{{{date}}}{{{latex_escape(summary[3:])}}}{{}}"
-    elif summary[0] == "P":
-        return f"\\project{{{latex_escape(summary[1:2])}}}{{{date}}}{{{latex_escape(summary[3:])}}}{{}}"
-    elif summary[0] == "D":
-        return f"\\demo{{{latex_escape(summary[1:2])}}}{{{date}}}{{{latex_escape(summary[3:])}}}{{}}"
-    elif summary[0] == "W":
-        return f"\\science{{}}{{{date}}}{{{latex_escape(summary)}}}{{}}"
+    spacePos = summary.find(" ")
+    
+    if includeLocation:
+        location = event.location
+        if summary == "Consultation Hour":
+            return f"\\chour{{}}{{{date}}}{{{location}}}{{{latex_escape(summary)}}}{{}}"
+        elif summary[0] == "T" and summary[1] == "U":
+            return f"\\tutorial{{{latex_escape(summary[2:spacePos])}}}{{{date}}}{{{location}}}{{{latex_escape(summary[spacePos+1:])}}}{{}}"
+        elif summary[0] == "M":
+            return f"\\meeting{{{latex_escape(summary[1:spacePos])}}}{{{date}}}{{{location}}}{{{latex_escape(summary[spacePos+1:])}}}{{}}"
+        elif summary[0] == "T":
+            return f"\\team{{{latex_escape(summary[1:spacePos])}}}{{{date}}}{{{location}}}{{{latex_escape(summary[spacePos+1:])}}}{{}}"
+        elif summary[0] == "H":
+            return f"\\home{{{latex_escape(summary[1:spacePos])}}}{{{date}}}{{{location}}}{{{latex_escape(summary[spacePos+1:])}}}{{}}"
+        elif summary[0] == "P":
+            return f"\\project{{{latex_escape(summary[1:spacePos])}}}{{{date}}}{{{location}}}{{{latex_escape(summary[spacePos+1:])}}}{{}}"
+        elif summary[0] == "D":
+            return f"\\demo{{{latex_escape(summary[1:spacePos])}}}{{{date}}}{{{location}}}{{{latex_escape(summary[spacePos+1:])}}}{{}}"
+        elif summary[0] == "W":
+            return f"\\science{{}}{{{date}}}{{{latex_escape(summary)}}}{{}}"
+        else:
+            raise Exception(f"Unknown summary: {summary}")
     else:
-        raise Exception(f"Unknown summary: {summary}")
+        if summary == "Consultation Hour":
+            return f"\\chour{{}}{{{date}}}{{{latex_escape(summary)}}}{{}}"
+        elif summary[0] == "T" and summary[1] == "U":
+            return f"\\tutorial{{{latex_escape(summary[2:spacePos])}}}{{{date}}}{{{latex_escape(summary[spacePos+1:])}}}{{}}"
+        elif summary[0] == "M":
+            return f"\\meeting{{{latex_escape(summary[1:spacePos])}}}{{{date}}}{{{latex_escape(summary[spacePos+1:])}}}{{}}"
+        elif summary[0] == "T":
+            return f"\\team{{{latex_escape(summary[1:spacePos])}}}{{{date}}}{{{latex_escape(summary[spacePos+1:])}}}{{}}"
+        elif summary[0] == "H":
+            return f"\\home{{{latex_escape(summary[1:spacePos])}}}{{{date}}}{{{latex_escape(summary[spacePos+1:])}}}{{}}"
+        elif summary[0] == "P":
+            return f"\\project{{{latex_escape(summary[1:spacePos])}}}{{{date}}}{{{latex_escape(summary[spacePos+1:])}}}{{}}"
+        elif summary[0] == "D":
+            return f"\\demo{{{latex_escape(summary[1:spacePos])}}}{{{date}}}{{{latex_escape(summary[spacePos+1:])}}}{{}}"
+        elif summary[0] == "W":
+            return f"\\science{{}}{{{date}}}{{{latex_escape(summary)}}}{{}}"
+        else:
+            raise Exception(f"Unknown summary: {summary}")
 
 # LaTeX formatting (break and horizontal line)
 def print_line(f):
@@ -127,7 +166,7 @@ def analyzeEvents(events: List[Event]):
     event_efforts= {} # Dictionary with key=date, value=overall effort for deadlines on this day
     abort_processing = False
     for event in sorted(events, key=lambda e: e.date):
-        if (get_prefix(event.summary)) in LIMITED_EVENTS: # is the current event of a type for which limits apply
+        if get_prefix(event.summary) in LIMITED_EVENTS: # is the current event of a type for which limits apply
             event_numbers[event.date.strftime("%d.%m.%y")] = event_numbers.get(event.date.strftime("%d.%m.%y"), 0) + 1
             event_efforts[event.date.strftime("%d.%m.%y")] = event_efforts.get(event.date.strftime("%d.%m.%y"), 0) + event.effort
             # Limited events should have same start- and end-date
@@ -148,7 +187,7 @@ def analyzeEvents(events: List[Event]):
             print(f" {WARNING_COLOR}TOO MUCH EFFORT ON THIS DAY (LIMIT IS {MAX_EFFORT}!){COLOR_END}",end="")
         print("") # newline
     # Parameter "-f" forces creation of the LaTeX-table despite errors with events
-    if(abort_processing == True and (len(sys.argv) < 2 or sys.argv[1] != "-f")):
+    if abort_processing and not args.force:
         raise Exception("Fatal errors with events in calendar (see printed warnings)!")
 
 
@@ -163,21 +202,65 @@ ERROR_COLOR = '\033[91m'
 COLOR_END = '\033[0m' # switch back to normal uncolored output
 
 
+def checkIfSummerTerm (file: TextIO):
+    for line in file:
+        trimmedLine = line.strip()
+        if trimmedLine.startswith("\\def\\mytitle{"):
+            if (trimmedLine[-2]) == 'S':
+                return True
+            elif (trimmedLine[-2] == 'W'):
+                return False
+            else:
+                raise Exception("The title in schedule.tex must end with 'S' (summer term) or 'W' (winter term), but it ends with " + trimmedLine[-3] + "!")
+    raise Exception ("Could not find a line with the title (= a line that starts with \"\\def\\mytitle{\")")
+
+
+def checkIfIncludeLocations (file: TextIO):
+    weekLineFond = False
+    locationColFound = False
+    for line in file:
+        trimmedLine = line.strip();
+        if trimmedLine.startswith("\\textbf{Week}"):
+            if (weekLineFond):
+                raise Exception("More than one line in schedule.tex starts with \"\\textbf{Week}\". This is not allowed!")
+            weekLineFond = True
+            if trimmedLine.find("Location") != -1:
+                locationColFound = True
+    return locationColFound
+
+
 def main():
-    with open(f"../FLOSS{YEAR}W.ics", "r") as f:
+    with open(args.filename, "r") as f:
         events = read_events(f)
 
     analyzeEvents(events)
     weeks = group_by_week(events)
     first = True # for formatting (print line)
 
+    summerTerm = False
+    includeLocation = False
+
+    with open("schedule.tex", "r") as f:
+        summerTerm = checkIfSummerTerm(f)
+        includeLocation = checkIfIncludeLocations(f)
+
+    print ("Summer term: {}".format(summerTerm))
+    print ("Location column: {}".format(includeLocation))
+
     with open("table.tex", "w") as  f:
-        for y in range(YEAR, YEAR + 2): # for current and next year (the winter term covers two years (January of next year)
+        if summerTerm:
+            endYear = YEAR + 1 # for current year
+        else:
+            endYear = YEAR + 2 # for current and next year (the winter term covers two years (January of next year)
+        for y in range(YEAR, endYear): 
             if y == YEAR: # current year
                 first_week = weeks[1]
-                # According to the ISO standard, 28th of December is  always in the last week of the year
-                last_week = date(y, 12, 28).isocalendar().week
-            else:
+                if summerTerm:
+                    last_week = weeks[2]
+                else:
+                    # According to the ISO standard, 28th of December is  always in the last week of the year
+                    last_week = date(y, 12, 28).isocalendar().week
+            else: # only for winter term
                 first_week = 1 # The next year in January starts with week number 1
                 last_week = weeks[2]
             for w in range(first_week, last_week + 1):
@@ -186,20 +269,32 @@ def main():
 
                 if w in weeks[0]: # weeks[0] is a dictionary with key=week-nubmer and value=list of events
                     week = weeks[0][w] # Get list of events for the currently processed week-number
-                    first_row = row_command(week[0]) # process first event of the currently processed week-number
-                    second_row = row_command(week[1]) if len(week) > 1 else "" # 2nd event of the week
-                    extra_rows = [f"& {row_command(w)}" for w in week[2:]] # further events in the same week
-                elif w == last_week and y == YEAR: # special case: holidays in the last week
+                    first_row = row_command(week[0],includeLocation) # process first event of the currently processed week-number
+                    second_row = row_command(week[1], includeLocation) if len(week) > 1 else "" # 2nd event of the week
+                    extra_rows = [f"& {row_command(w, includeLocation)}" for w in week[2:]] # further events in the same week
+                elif summerTerm == False and w == last_week and y == YEAR: # special case: holidays in the last week
                     print_line(f)
-                    print(
-                        f"\\textbf{{{w} + {1}}}  & \\\\*", file=f)
-                    print(
-                        f"{week_start.strftime(DATE_FORMAT)}--{datetime.fromisocalendar(y+1, 1, 5).strftime(DATE_FORMAT)} & & & (winter holidays) \\\\*", file=f)
+                    print(f"\\textbf{{{w} + {1}}}  & \\\\*", file=f)
+                    if includeLocation:
+                        print(f"{week_start.strftime(DATE_FORMAT)}--{datetime.fromisocalendar(y+1, 1, 5).strftime(DATE_FORMAT)} & & & \multicolumn{{2}}{{l}}{{(winter holidays)}} \\\\*", file=f)
+                    else:
+                        print(f"{week_start.strftime(DATE_FORMAT)}--{datetime.fromisocalendar(y+1, 1, 5).strftime(DATE_FORMAT)} & & & (winter holidays) \\\\*", file=f)
+                    continue
+                elif w == easter(y).isocalendar().week:
+                    print_line(f)
+                    print(f"\\textbf{{{w} + {1}}}  & \\\\*", file=f)
+                    if includeLocation:
+                        print(f"{week_start.strftime(DATE_FORMAT)}--{datetime.fromisocalendar(y, w+1, 5).strftime(DATE_FORMAT)} & & & \multicolumn{{2}}{{l}}{{(easter holidays)}} \\\\*", file=f)
+                    else:
+                        print(f"{week_start.strftime(DATE_FORMAT)}--{datetime.fromisocalendar(y, w+1, 5).strftime(DATE_FORMAT)} & & & (easter holidays) \\\\*", file=f)
                     continue
                 elif w == 1: # holidays in the first week of the next year
                     continue
                 else:
-                    first_row = f"& & (no meeting or deadline)"
+                    if includeLocation:
+                        first_row = "& & \multicolumn{2}{l}{(Kein Treffen oder Deadline)}"
+                    else:
+                        first_row = "& & (Kein Treffen oder Deadline)"
                     second_row = ""
                     extra_rows = []
 
